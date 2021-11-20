@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/Avatar.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.gif">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.gif">
+  <link rel="mask-icon" href="/images/favicon-32x32.gif" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jyzhang.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="第一章 排列 \[ P(n,r)&#x3D;P_{n}^{r}&#x3D;\frac{n!}{(n-r)!} \] 组合 \[ \binom{n}{r} &#x3D;C_n^r&#x3D;C(n,r)&#x3D;\frac{n!}{r!(n-r)!} \] 可重排列 \(n\) 种不同元素取 \(r\) 个可重元素排列 \[ \overline{P}(n,r) &#x3D; n^r \] 多重排列 每种元素 \(x_i\) 选择 \(r_i\) 个按次序排">
+<meta property="og:type" content="article">
+<meta property="og:title" content="组合数学提纲">
+<meta property="og:url" content="http://jyzhang.xyz/en/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/index.html">
+<meta property="og:site_name" content="Junyang Zhang&#39;s Blog">
+<meta property="og:description" content="第一章 排列 \[ P(n,r)&#x3D;P_{n}^{r}&#x3D;\frac{n!}{(n-r)!} \] 组合 \[ \binom{n}{r} &#x3D;C_n^r&#x3D;C(n,r)&#x3D;\frac{n!}{r!(n-r)!} \] 可重排列 \(n\) 种不同元素取 \(r\) 个可重元素排列 \[ \overline{P}(n,r) &#x3D; n^r \] 多重排列 每种元素 \(x_i\) 选择 \(r_i\) 个按次序排">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-10-13T01:49:30.000Z">
+<meta property="article:modified_time" content="2021-10-13T14:18:00.000Z">
+<meta property="article:author" content="Junyang Zhang">
+<meta property="article:tag" content="课程笔记">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://jyzhang.xyz/en/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>组合数学提纲 | Junyang Zhang's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Junyang Zhang's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          组合数学提纲
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-10-13 09:49:30 / Modified: 22:18:00" itemprop="dateCreated datePublished" datetime="2021-10-13T09:49:30+08:00">2021-10-13</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/en/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/en/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="第一章">第一章</h2>
+<h3 id="排列">排列</h3>
+<p><span class="math display">\[
+P(n,r)=P_{n}^{r}=\frac{n!}{(n-r)!}
+\]</span></p>
+<h3 id="组合">组合</h3>
+<p><span class="math display">\[
+\binom{n}{r} =C_n^r=C(n,r)=\frac{n!}{r!(n-r)!}
+\]</span></p>
+<h3 id="可重排列">可重排列</h3>
+<p><span class="math inline">\(n\)</span> 种不同元素取 <span class="math inline">\(r\)</span> 个可重元素排列</p>
+<p><span class="math display">\[
+\overline{P}(n,r) = n^r
+\]</span></p>
+<h3 id="多重排列">多重排列</h3>
+<p>每种元素 <span class="math inline">\(x_i\)</span> 选择 <span class="math inline">\(r_i\)</span> 个按次序排列，<span class="math inline">\(n=\sum_i r_i\)</span> <span class="math display">\[
+P(n;r_1,\cdots,r_k)=\binom{n}{r_1,r_2,\cdots,r_k}=\frac{n!}{r_1!r_2!\cdots r_k!}
+\]</span></p>
+<h3 id="多项式幂次展开系数">多项式幂次展开系数</h3>
+<p>有多项式 <span class="math display">\[
+(x_1+x_2+x_3+\cdots+x_m)^n
+\]</span> 其项 <span class="math inline">\(x_1^{n_1}x_2^{n_2}x_3^{n_3}\cdots x_m^{n_m}\)</span> 的系数为</p>
+<p><span class="math display">\[
+\binom{n}{n_1,n_2,\cdots,n_m}=\frac{n!}{n_1!n_2!\cdots n_m!}
+\]</span> 项数 <span class="math inline">\(C(n+m-1,n)\)</span>，系数和 <span class="math inline">\(m^n\)</span></p>
+<h3 id="圆周排列">圆周排列</h3>
+<p>经旋转重复认为是相同的排列 <span class="math display">\[
+Q(n,r)=P(n,r)/r
+\]</span> 项链排列：经旋转对称重复认为是相同的排列，排列数 <span class="math inline">\(Q(n,r)/2\)</span></p>
+<h3 id="可重组合">可重组合</h3>
+<p><span class="math inline">\(n\)</span> 种不同元素取 <span class="math inline">\(r\)</span> 个可重元素组合</p>
+<p><span class="math display">\[
+\overline{C}(n,r)=C(n+r-1,r)
+\]</span></p>
+<p>线性方程 <span class="math inline">\(x_1+x_2+\cdots+x_n=b\)</span> 的自然数解个数 <span class="math inline">\(C(n+b-1,b)\)</span></p>
+<h3 id="不相邻组合">不相邻组合</h3>
+<p><span class="math inline">\(n\)</span> 个不同元素 <span class="math inline">\(x_1,x_2,\cdots,x_n\)</span> 取 <span class="math inline">\(r\)</span> 个不相邻元素组合（即不存在 <span class="math inline">\(x_j,x_{j+1}\)</span> 同时选取） <span class="math display">\[
+C(n-r+1,r)
+\]</span></p>
+<h3 id="格路定理">格路定理</h3>
+<p>设 <span class="math inline">\(c&gt;a\)</span>，<span class="math inline">\(d&gt;b\)</span>，则由 <span class="math inline">\((a,b)\)</span> 到 <span class="math inline">\((c,d)\)</span> 的简单格路数 <span class="math display">\[
+|(a,b)-(c,d)|=\binom{(c-a)+(d-b)}{c-a}
+\]</span> 从 <span class="math inline">\((0,1)\)</span> 至 <span class="math inline">\((m,n)\)</span> 不接触对角线 <span class="math inline">\(y=x\)</span> 格路：采用一一对应原理</p>
+<p><span class="math display">\[
+\binom{m+n-1}{m}-\binom{m+n-1}{m-1}
+=
+\left(1-\frac{m}{n}\right)\binom{m+n-1}{m}
+\]</span></p>
+<h3 id="无根标号树与序列一一对应">无根标号树与序列一一对应</h3>
+<p>树到序列：逐个摘去编号最小的叶子，该叶子相邻节点形成的序列（长度 <span class="math inline">\(n-2\)</span>）</p>
+<p>序列到树：序列一 <span class="math inline">\(b_1,b_2,\cdots,b_{n-2}\)</span>，对应序列二 <span class="math inline">\(1,2,\cdots,n\)</span>，从序列二中找到第一个不出现在序列一中的数 <span class="math inline">\(a_1\)</span>，生成边 <span class="math inline">\((a_1,b_1)\)</span>。分别从序列一和序列二中去掉 <span class="math inline">\(a_1\)</span> 和 <span class="math inline">\(b_1\)</span>；在余下的序列中重复上述操作，直到序列一为空，序列 2 余下两点建边</p>
+<p>凯利定理：<span class="math inline">\(n\)</span> 个有标号的顶点的树的数目是 <span class="math inline">\(n^{n-2}\)</span></p>
+<h3 id="排列的生成算法">排列的生成算法</h3>
+<h4 id="序数法">序数法</h4>
+<p>排列的序数 <span class="math inline">\(m\)</span>：排列在枚举过程的出现排名 <span class="math display">\[
+m=a_n(n-1)!+a_{n-1}(n-2)!+\cdots+a_3\cdot 2!+a_2\cdot 1!
+\]</span> 序列 <span class="math inline">\((a_na_{n-1}\cdots a_2)\uparrow\)</span> 为序数 <span class="math inline">\(m\)</span> 对应的（递增进制）中介数，注意没有第一位</p>
+<p>序数求中介数：使用短除法</p>
+<p><strong>递增进位制法</strong></p>
+<p>递增进位数：<span class="math inline">\(0\le a_k &lt; k\)</span>，表示第 <span class="math inline">\(k\)</span> 位为 <span class="math inline">\(k\)</span> 进制</p>
+<p>全排列的中介数：<span class="math inline">\(a_k\)</span> 表示数字 <span class="math inline">\(k\)</span> 的右边比 <span class="math inline">\(k\)</span> 小的数字个数</p>
+<p>中介数的全排列：填空法；由大到小从中介数意义确定右侧空格个数</p>
+<p>由排列求下一个排列：检查 <span class="math inline">\(k\)</span> 从 <span class="math inline">\(1\sim n\)</span> 使其最大，若排列中存在子序列 <span class="math inline">\(k,k-1,k-2,\cdots,2,1\)</span>，则将 <span class="math inline">\(k+1\)</span> 置于 <span class="math inline">\(k\)</span> 位置，并在剩下的 <span class="math inline">\(k\)</span> 个空中，依次从左至右填入 <span class="math inline">\(1,2,\cdots,k\)</span>。若 <span class="math inline">\(k=n\)</span>，无下一个排列</p>
+<p><strong>递减进位制法</strong></p>
+<p>中介数各位是递增进位制轴对称 <span class="math inline">\((a_2a_3\cdots a_n)\downarrow \iff (a_na_{n-1}\cdots a_2)\uparrow\)</span>，意义由下标决定，权 <span class="math inline">\(m=\sum\limits_{k=2}^na_k\dfrac{n!}{k!}\)</span></p>
+<p>递减进位数：<span class="math inline">\(0\le a_k &lt; k\)</span></p>
+<p>全排列的中介数：<span class="math inline">\(a_k\)</span> 表示数字 <span class="math inline">\(k\)</span> 的右边比 <span class="math inline">\(k\)</span> 小的数字个数</p>
+<p>中介数的全排列：由大到小从中介数意义确定右侧空格个数</p>
+<p>由排列求下一个排列：若 <span class="math inline">\(n\)</span> 不在最左侧则显然，否则将最长的下降序列 <span class="math inline">\(n,n-1,n-2,\cdots,i\)</span> 删去，并将它们由小到大排在右端，将 <span class="math inline">\(i-1\)</span> 与 <span class="math inline">\(i-2\)</span> 对换，此时的排列就是下一个排列。若 <span class="math inline">\(i&lt;3\)</span> 则无下一个序列</p>
+<h4 id="字典序法">字典序法</h4>
+<p>下一个排列：</p>
+<ol type="1">
+<li>串 <span class="math inline">\(P\)</span> 从右到左找出比右边数字小的第一个数 <span class="math inline">\(P_t\)</span>（最后一个上升位），以及该位以后的后缀 <span class="math inline">\(s_{t+1}\)</span></li>
+<li><span class="math inline">\(s_{t+1}\)</span> 中找出比 <span class="math inline">\(P_t\)</span> 大的最后的数 <span class="math inline">\(P_p\)</span></li>
+<li>将 <span class="math inline">\(P_t\)</span>，<span class="math inline">\(P_p\)</span> 对换后反转后缀</li>
+</ol>
+<p>中介数：<span class="math inline">\((k_1k_2\cdots k_{n-1})\)</span>，<span class="math inline">\(k_i\)</span> 表示数字 <span class="math inline">\(P_i\)</span> 的右边比 <span class="math inline">\(P_i\)</span> 小的数字个数</p>
+<p>序数：<span class="math inline">\(m=k_1\cdot (n-1)!+k_2\cdot (n-2)!+\cdots+k_{n-1}\cdot1!\)</span></p>
+<h4 id="换位法">换位法</h4>
+<p>排列 <span class="math inline">\(P=P_1P_2\cdots P_n\)</span> 中数 <span class="math inline">\(k\)</span> 上的箭头方向（移动方向），由排列 <span class="math inline">\(P\)</span> 中 <span class="math inline">\(1\sim k-1\)</span> 所构成的子序列的奇偶性决定，当为偶时，箭头向左；当为奇时，箭头向右。数 <span class="math inline">\(1,2\)</span>上的箭头规定向左。如 <span class="math inline">\(\overset\leftarrow8\vec3\vec9\vec6\vec4\vec7\vec5\overset\leftarrow2\overset\leftarrow1\)</span></p>
+<p>加点法判断箭头方向：是否加点取决于该数右侧比它小的数数量是否为奇数，子序列 <span class="math inline">\(1\sim k-1\)</span> 点数为偶时箭头向左，否则向右</p>
+<p>中介数：<span class="math inline">\((b_2b_3\cdots b_n)\downarrow\)</span>，<span class="math inline">\(b_i\)</span> 表示 <span class="math inline">\(i\)</span> 箭尾方向上比 <span class="math inline">\(i\)</span> 小的数的个数</p>
+<p>中介数到序数：<span class="math inline">\(m=\sum\limits_{k=2}^na_k\dfrac{n!}{k!}\)</span></p>
+<p>中介数到排列：仅需要确定 <span class="math inline">\(P_k\)</span> 箭头方向，设排列 <span class="math inline">\(P\)</span> 中 <span class="math inline">\(1\sim k-1\)</span> 所构成的子排列序数为 <span class="math inline">\(a_{k-1}(P)\)</span>（与逆序数同奇偶性），短除时判断即可</p>
+<p>下一个排列：设 <span class="math inline">\(P_j=n\)</span>，当 <span class="math inline">\(P_j\)</span> 不在顶时 <span class="math inline">\(P_j\)</span> 与箭头方向元素交换，否则对长度 <span class="math inline">\(n-1\)</span> 的子排列使用上述做法，下一个排列中所有比 <span class="math inline">\(P_j\)</span> 大的数改变箭头方向</p>
+<h3 id="组合的生成算法">组合的生成算法</h3>
+<p>给组合元素排序并以字典序生成</p>
+<p>序号：按字典序思想</p>
+<h2 id="第二章">第二章</h2>
+<h3 id="maclaurin-公式">Maclaurin 公式</h3>
+<p><span class="math display">\[
+\frac{1}{1-x}=1+x+x^2+x^3+\cdots+x^n+\cdots
+\]</span></p>
+<p><span class="math display">\[
+\mathrm e^{x}=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\cdots+\frac{x^n}{n!}+\cdots
+\]</span></p>
+<p><span class="math display">\[
+\sin x=x-\frac{x^3}{3!}+\frac{x^5}{5!}-\frac{x^7}{7!}+\cdots
+\]</span></p>
+<p><span class="math display">\[
+\cos x=x-\frac{x^2}{2!}+\frac{x^4}{4!}-\frac{x^6}{6!}+\cdots
+\]</span></p>
+<p><span class="math display">\[
+\ln (1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}-\frac{x^4}{4}+\cdots
+\]</span></p>
+<h3 id="行列式按行展开">行列式按行展开</h3>
+<p><span class="math display">\[
+D=\sum a_{ij}(-1)^{i+j}M_{ij}
+\]</span></p>
+<h3 id="线性常系数齐次递推关系">线性常系数齐次递推关系</h3>
+<p><span class="math inline">\(k\)</span> 阶线性常系数齐次递推关系 <span class="math display">\[
+a_n+C_1a_{n-1}+C_2a_{n-2}+\cdots+C_ka_{n-k}=0
+\]</span> 特征多项式 <span class="math display">\[
+C(x)=x^k+C_1x^{k-1}+\cdots+C_{k-1}x+C_k
+\]</span> 有 <span class="math display">\[
+\begin{align}
+x^kC\left(\frac{1}{x}\right)G(x)=P(x)=\sum_{j=0}^{k-1}C_jx^j\sum_{i=0}^{k-1-j}a_ix^i
+\nonumber\\
+\Rightarrow
+G(x)=\frac{P(x)}{1+C_1x+\cdots+C_{k-1}x^{k-1}+C_kx^k}\nonumber
+\end{align}
+\]</span> 由于 <span class="math inline">\(P(x)\)</span> 次数低于 <span class="math inline">\(k\)</span>，则 <span class="math inline">\(G(x)\)</span> 有分子为常数、分母为特征根表达式的分项表示</p>
+<p>设特征多项式有 <span class="math inline">\(k\)</span> 个根 <span class="math inline">\(q_1,q_2,\cdots,q_k\)</span>，则通解中有 <span class="math inline">\(k\)</span> 个分项（<span class="math inline">\(A_i\)</span> 为待定系数）：</p>
+<ul>
+<li>若 <span class="math inline">\(q_i\)</span> 为单根，则项 <span class="math inline">\(A_iq_i^n\)</span> 在通解中</li>
+<li>若 <span class="math inline">\(q_i\)</span> 为 <span class="math inline">\(m\)</span> 重根，则项 <span class="math inline">\(\left(A_{i0}+A_{i1}n+A_{i2}n^2+\cdots+A_{i(m-1)}n^m\right)q^n\)</span> 在通解中</li>
+<li>若 <span class="math inline">\(q_{i1},q_{i2}\)</span> 是一对共轭复根 <span class="math inline">\(\rho \mathrm e^{\pm \theta\mathrm i}\)</span>，则项 <span class="math inline">\(A_{i1}\rho^n\cos(n\theta)+A_{i2}\rho^n\sin(n\theta)\)</span> 在通解中</li>
+</ul>
+<h3 id="线性常系数非齐次递推关系">线性常系数非齐次递推关系</h3>
+<p><span class="math inline">\(k\)</span> 阶线性常系数非齐次递推关系 <span class="math display">\[
+a_n+C_1a_{n-1}+C_2a_{n-2}+\cdots+C_ka_{n-k}=f(n)
+\]</span> 先求齐次通解，非齐次特解求解如下：</p>
+<p>当 <span class="math inline">\(f(n)=r^ng(n)\)</span>，其中 <span class="math inline">\(g(n)\)</span> 是 <span class="math inline">\(n\)</span> 的 <span class="math inline">\(p\)</span> 次多项式，<span class="math inline">\(r\)</span> 是 <span class="math inline">\(C(x)=0\)</span> 的 <span class="math inline">\(m\ge 0\)</span> 重根，特解形式 <span class="math inline">\(r^n\left(k_0n^m+k_1n^{m+1}+\cdots+k_pn^{m+p}\right)\)</span></p>
+<h3 id="ferrers-图像">Ferrers 图像</h3>
+<p>自上而下的 <span class="math inline">\(n\)</span> 层格子，第 <span class="math inline">\(i\)</span> 层格子数为 <span class="math inline">\(m_i\)</span>，则 <span class="math inline">\(m_i\ge m_{i+1}\)</span> 的图像称为 Ferrers 图像</p>
+<p>等价于一个拆分成 <span class="math inline">\(n\)</span> 个整数的整数拆分</p>
+<p>结论：</p>
+<ul>
+<li>整数 <span class="math inline">\(n\)</span> 拆分成 <span class="math inline">\(k\)</span> 个数的和的拆分数，和数 <span class="math inline">\(n\)</span> 拆分成最大数为 <span class="math inline">\(k\)</span> 的数的和的拆分数相等</li>
+<li>整数 <span class="math inline">\(n\)</span> 拆分成最多不超过 <span class="math inline">\(m\)</span> 个数的和的拆分数，和 <span class="math inline">\(n\)</span> 拆分成最大不超过 <span class="math inline">\(m\)</span> 的拆分数相等</li>
+<li>整数 <span class="math inline">\(n\)</span> 拆分成互不相同的若干奇数的和的的拆分数，和 <span class="math inline">\(n\)</span> 拆分成自共轭的 Ferrers 图像的拆分数相等</li>
+</ul>
+<h3 id="指数型母函数">指数型母函数</h3>
+<p><span class="math display">\[
+G_e(x)=a_0+\frac{a_1}{1!}x+\frac{a_2}{2!}x^2+\frac{a_3}{3!}x^3+\cdots+\frac{a_n}{n!}x^n+\cdots
+\]</span></p>
+<p>若元素 <span class="math inline">\(x_1\)</span>有 <span class="math inline">\(n_1\)</span> 个，元素 <span class="math inline">\(x_2\)</span> 有 <span class="math inline">\(n_2\)</span> 个，元素 <span class="math inline">\(x_k\)</span> 有 <span class="math inline">\(n_k\)</span> 个；组成的 <span class="math inline">\(n=\sum n_k\)</span> 个元素中取 <span class="math inline">\(r\)</span> 个排列，设其不同的排列数为 <span class="math inline">\(p_r\)</span>。则序列 <span class="math inline">\(p_0,p_1,p_2,\cdots,p_n\)</span> 的指数型母函数为 <span class="math display">\[
+G_e(x)=
+(1+\frac{x}{1!}+\frac{x^2}{2!}+\cdots+\frac{x^n_1}{n_1!})
+(1+\frac{x}{1!}+\frac{x^2}{2!}+\cdots+\frac{x^n_2}{n_2!})
+\cdots
+(1+\frac{x}{1!}+\frac{x^2}{2!}+\cdots+\frac{x^n_k}{n_k!})
+\]</span></p>
+<h3 id="错排">错排</h3>
+<p>递推关系 <span class="math inline">\(D_n=(n-1)(D_{n-1}+D_{n-2})\)</span>，<span class="math inline">\(D_1=0\)</span>，<span class="math inline">\(D_2=1\)</span></p>
+<p>通项 <span class="math inline">\(D_n=\left[1-1+\frac{1}{2!}-\frac{1}{3!}+\cdots+(-1)^n\frac{1}{n!}\right]n!\)</span></p>
+<h3 id="stirling-数">Stirling 数</h3>
+<p>第一类 <span class="math display">\[
+x(x-1)(x-2)\cdots(x-n+1)=s(n,0)+s(n,1)x+s(n,2)x^2+\cdots+s(n,n)x^n
+\]</span> 递推 <span class="math inline">\(s(n+1,k)=s(n,k-1)-ns(n,k)\)</span></p>
+<p>第二类 <span class="math display">\[
+S(n,m)=mS(n-1,m)+S(n-1,m-1)
+\]</span></p>
+<h3 id="球与盒子">球与盒子</h3>
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 39%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>球有无区别</th>
+<th>盒有无区别</th>
+<th>允许空盒</th>
+<th>不允许空盒</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>有</td>
+<td>有</td>
+<td><span class="math inline">\(m^n\)</span></td>
+<td><span class="math inline">\(m!S(n,m)\)</span></td>
+</tr>
+<tr class="even">
+<td>有</td>
+<td>无</td>
+<td><span class="math inline">\(\sum_{i=1}^{\min(n,m)} S(n,i)\)</span></td>
+<td><span class="math inline">\(S(n,m)\)</span></td>
+</tr>
+<tr class="odd">
+<td>无</td>
+<td>有</td>
+<td><span class="math inline">\(C(n+m-1,n)\)</span></td>
+<td><span class="math inline">\(C(n-1,m-1)\)</span></td>
+</tr>
+<tr class="even">
+<td>无</td>
+<td>无</td>
+<td><span class="math inline">\(G(x)=\frac{1}{(1-x)(1-x^2)\cdots(1-x^m)}\)</span></td>
+<td><span class="math inline">\(G(x)=\frac{x^m}{(1-x)(1-x^2)\cdots(1-x^m)}\)</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="catalan-数">Catalan 数</h3>
+<p>凸 <span class="math inline">\(n\)</span> 边形由不相交对角线拆分三角形的方案数</p>
+<p><span class="math inline">\(n\)</span> 个元素确定进栈序列的出栈序列方案数</p>
+<p><span class="math inline">\(n\)</span> 个矩阵连乘的结合方案数 <span class="math display">\[
+h_{n+1}=h_2h_n+h_3h_{n-1}+\cdots+h_nh_2 = \frac{1}{n}\binom{2n-2}{n-1}
+\]</span></p>
+<h2 id="第三章">第三章</h2>
+<h3 id="容斥原理">容斥原理</h3>
+<p><span class="math display">\[
+\left|\bigcup_{A\in C}A\right|
+=\sum_{s=1}^n (-1)^{s-1}\sum_{|S|=s\wedge S\subset C}\left|\bigcap_{A\in S} A\right|
+\]</span></p>
+<h3 id="棋盘多项式">棋盘多项式</h3>
+<p><span class="math inline">\(r_k(C)\)</span> 表示 <span class="math inline">\(k\)</span> 个棋子布置到棋盘 <span class="math inline">\(C\)</span> 上的方案数，棋盘 <span class="math inline">\(C\)</span> 由形状表示，<span class="math inline">\(r_0(C)=1\)</span>，<span class="math inline">\(r_0(\emptyset)=1\)</span>；讨论一个格子有无放子，则 <span class="math inline">\(r_k(C)=r_{k-1}(C_i)+r_k(C_e)\)</span>，其中 <span class="math inline">\(C_i\)</span> 表示去掉该行该列，<span class="math inline">\(C_e\)</span> 表示去掉该格；不冲突的部分乘法原则</p>
+<p>棋盘多项式 <span class="math display">\[
+R(C)=\sum_k r_k(C)x^k
+\]</span> 有禁区的排列数 <span class="math display">\[
+r_0n!-r_1(n-1)!+r_2(n-2)!-\cdots+(-1)^nr_n
+\]</span> 其中 <span class="math inline">\(r_k\)</span> 表示 <span class="math inline">\(k\)</span> 个棋子布置在禁区的方案数</p>
+<h3 id="广义容斥原理">广义容斥原理</h3>
+<p><span class="math display">\[
+\beta(m)=\sum_{k=m}^n(-1)^{k-m}\binom{k}{m}\alpha(k)
+\]</span></p>
+<p><span class="math inline">\(A_i\)</span> 为有第 <span class="math inline">\(i\)</span> 种性质的元素集合；<span class="math inline">\(\alpha(m)=\sum_{|S|=m}\left|\bigcap_{A\in S} A\right|\)</span> 为至少有 <span class="math inline">\(m\)</span> 种性质的元素集合；<span class="math inline">\(\beta(m)\)</span> 为恰有 <span class="math inline">\(m\)</span> 种性质的元素的集合</p>
+<h3 id="欧拉函数">欧拉函数</h3>
+<p><span class="math inline">\(\varphi(n)\)</span> 小于 <span class="math inline">\(n\)</span> 且与 <span class="math inline">\(n\)</span> 互素的数的个数，设 <span class="math inline">\(n=p_1^{a_1}p_2^{a_2}\cdots p_k^{a_k}\)</span></p>
+<p><span class="math display">\[
+\varphi(n)=n\left(1-\frac{1}{p_1}\right)\left(1-\frac{1}{p_2}\right)\cdots\left(1-\frac{1}{p_k}\right)
+\]</span></p>
+<h3 id="莫比乌斯反演">莫比乌斯反演</h3>
+<p>莫比乌斯函数</p>
+<p><span class="math display">\[
+\mu(d)=\begin{cases}
+1 &amp;,\ d=1;\\
+(-1)^k &amp;,\ d=\prod_{i=1}^k p_i\\
+0 &amp;,\ \exists p^2 | d
+\end{cases}
+\]</span> 莫比乌斯反演定理：<span class="math inline">\(F(n)\)</span> 和 <span class="math inline">\(f(n)\)</span> 是定义在非负整数集合上的两个函数，并且满足 <span class="math display">\[
+F(n)=\sum_{d|n}f(d)
+\]</span> 那么存在一个结论 <span class="math display">\[
+f(n)=\sum_{d|n}\mu(d)F\left(\frac{n}{d}\right)
+\]</span> 性质</p>
+<p><span class="math display">\[
+\varphi(n)=\sum_{d|n}\mu(d)\frac{n}{d}
+\]</span> 应用于圆排列问题，设集合 <span class="math inline">\(|A|=m\)</span> 中取 <span class="math inline">\(d\)</span> 个元素，作周期是 <span class="math inline">\(d\)</span> 的圆排列个数为 <span class="math inline">\(M(d)\)</span>，则为线排列计数</p>
+<p><span class="math display">\[
+\sum_{d|n}dM(d)=m^n
+\]</span> 得 <span class="math display">\[
+nM(n)=\sum_{d|n}\mu(d)m^{\frac{n}{d}}
+\]</span> 则长度为 <span class="math inline">\(n\)</span> 的圆排列个数 <span class="math display">\[
+T(n)=\sum_{d|n}M(d)=\sum_{d|n}\frac{1}{d}\sum_{d_1|d}\mu(d)m^\frac{d}{d_1}
+\]</span></p>
+<h3 id="鸽巢原理">鸽巢原理</h3>
+<p>应用：<span class="math inline">\(m,n\)</span> 是正整数，则长度为 <span class="math inline">\(mn+1\)</span> 的无重序列 <span class="math inline">\(S\)</span> 有一长度为 <span class="math inline">\(m+1\)</span> 的严格增子序列或长度为 <span class="math inline">\(n+1\)</span> 的严格减子序列</p>
+<p>推广鸽巢原理</p>
+<p><span class="math inline">\(m_1,m_2,\cdots,m_n\)</span> 都是正整数，并有 <span class="math inline">\(m_1 + m_2 +\cdots +m_n-n + 1\)</span> 个鸽子住进 <span class="math inline">\(n\)</span> 个鸽巢，则至少对某个 <span class="math inline">\(i\)</span> 有第 <span class="math inline">\(i\)</span> 个巢中至少有 <span class="math inline">\(m_i\)</span> 个鸽子，<span class="math inline">\(i = 1 , 2 ,\cdots, n\)</span></p>
+<p>推论：若 <span class="math inline">\(\overline m\ge r\)</span>，则至少一个 <span class="math inline">\(\ge r\)</span></p>
+<h3 id="ramsey-问题">Ramsey 问题</h3>
+<p>给定一对正整数 <span class="math inline">\(a,b\)</span>，存在一个最小的正整数 <span class="math inline">\(r\)</span>，对 <span class="math inline">\(r\)</span> 个顶点的完全图的边任意红、蓝２着色，存在 <span class="math inline">\(a\)</span> 个顶点的红边完全图或 <span class="math inline">\(b\)</span> 个顶点的蓝边完全图，记为 r ( a , b )</p>
+<p>判定树</p>
+<h2 id="第四章">第四章</h2>
+<h3 id="群">群</h3>
+<p>定义：满足封闭性、结合律、有幺元、有逆元</p>
+<p>性质：设 <span class="math inline">\(a\in G\)</span>，则存在最小乘数 <span class="math inline">\(r(a)\)</span>，使 <span class="math inline">\(a^{r(a)}=e\)</span>，且 <span class="math inline">\(a^{-1}=a^{r(a)-1}\)</span>（可得费马小定理），<span class="math inline">\(r(a)\)</span> 称为元素 <span class="math inline">\(a\)</span> 的阶</p>
+<h3 id="置换">置换</h3>
+<p><span class="math display">\[
+P=\begin{pmatrix}
+1 &amp; 2 &amp; \cdots &amp; n\\
+a_1 &amp; a_2 &amp;\cdots &amp; a_n
+\end{pmatrix}
+\]</span></p>
+<p>任何一个 <span class="math inline">\(n\)</span> 阶有限群都同构一个 <span class="math inline">\(n\)</span> 个文字的置换群 <span class="math inline">\(S_n\)</span></p>
+<p>循环表示</p>
+<p><span class="math display">\[
+\begin{pmatrix}
+a_1 &amp; a_2 &amp;\cdots &amp; a_n
+\end{pmatrix}
+=
+\begin{pmatrix}
+a_1 &amp; a_2 &amp;\cdots &amp; a_n\\
+a_2 &amp; a_3 &amp;\cdots &amp; a_1
+\end{pmatrix}
+\]</span> 对换：二阶循环</p>
+<p>奇置换，偶置换：逆序数、对换个数</p>
+<p>偶置换构成 <span class="math inline">\(\frac{n!}{2}\)</span> 的子群（交代群）</p>
+<p>共轭类：循环分解中同阶循环的数量一致的置换</p>
+<p>共轭类 <span class="math inline">\((1)^{n_1}(2)^{n_2}\cdots(m)^{n_m}\)</span> 的元的个数</p>
+<p><span class="math display">\[
+\frac{n!}{\left(\prod n_i!\right)\left(\prod i^{n_i}\right)}
+\]</span> <span class="math inline">\(k\)</span> 不动置换类 <span class="math inline">\(Z_k\)</span>，其为一个子群</p>
+<p>等价类：元素的等价关系指 <span class="math inline">\(G\)</span> 中存在置换能使两元素互换；含 <span class="math inline">\(k\)</span> 的等价类称为 含 <span class="math inline">\(k\)</span> 的轨道 <span class="math inline">\(E_k\)</span></p>
+<p>Lagrange 定理：<span class="math inline">\(|E_k||Z_k|=G\)</span></p>
+<h3 id="burnside-引理">Burnside 引理</h3>
+<p>置换群 <span class="math inline">\(G\)</span> 将 <span class="math inline">\([1,n]\)</span> 划分为不同等价类的个数为</p>
+<p><span class="math display">\[
+\frac{1}{|G|}[c_1(P_1)+c_2(P_2)+\cdots+c_1(P_g)]
+\]</span> 其中 <span class="math inline">\(c_1(P_i)\)</span> 为 <span class="math inline">\(P_i\)</span> 作用下，不动点（长度为 1 的循环）的个数</p>
+<h3 id="polya-定理">Polya 定理</h3>
+<p>将置换群 <span class="math inline">\(\overline G\)</span> 下的 <span class="math inline">\([1,n]\)</span> 用 <span class="math inline">\(m\)</span> 种颜色涂色，方案数为</p>
+<p><span class="math display">\[
+\frac{1}{\left|\overline G\right|}\left[m^{c(\overline P_1)}+m^{c(\overline P_2)}+\cdots+m^{c(\overline P_\overline g)}\right]
+\]</span> 其中 <span class="math inline">\(c\left(\overline P_i\right)\)</span> 是置换的循环节数</p>
+<h3 id="母函数形式的-polya-定理">母函数形式的 Polya 定理</h3>
+<p>设同一种颜色使用 <span class="math inline">\(k\)</span> 次，有 <span class="math display">\[
+P(G)=\frac{1}{|G|}\sum_{i=1}^g\prod_{k=1}^n\left(
+x_1^k+x_2^k+\cdots+x_m^k
+\right)^{c_k(\overline P_i)}
+\]</span></p>
+<h2 id="第五章">第五章</h2>
+<h3 id="拉丁方">拉丁方</h3>
+<p><span class="math inline">\(1\sim n\)</span> 构成的 <span class="math inline">\(n\)</span> 阶方阵中，每行（每列）中 <span class="math inline">\(n\)</span> 个元素都只能出现一次</p>
+<p>正交拉丁方：设 <span class="math inline">\(A_{n\times n}\)</span>，<span class="math inline">\(B_{n\times n}\)</span>，是两个 <span class="math inline">\(n\)</span> 阶拉丁方，<span class="math inline">\(C_{ij}=(A_{ij}, B_{ij})\)</span> 若 <span class="math inline">\(C\)</span> 中的所有数偶互不相同，则 <span class="math inline">\(A\)</span> 与 <span class="math inline">\(B\)</span> 正交</p>
+<p>若存在 <span class="math inline">\(r\)</span> 个 <span class="math inline">\(n\)</span> 阶正交拉丁方，则 <span class="math inline">\(r&lt; n\)</span></p>
+<h3 id="galois-域">Galois 域</h3>
+<p>域：加法交换群，除去加法幺元成乘法交换群，有分配律</p>
+<p>若 <span class="math inline">\(p\)</span> 是素数，<span class="math inline">\(\{0,1,2,\cdots,p-1\}\)</span> 在 <span class="math inline">\(\mod p\)</span> 意义下 <span class="math inline">\(+\)</span>，<span class="math inline">\(\times\)</span> 成伽罗瓦域 <span class="math inline">\(GF(p)\)</span></p>
+<p><span class="math inline">\(GF(p)\)</span> 上的多项式 <span class="math inline">\(GF[p,x]\)</span></p>
+<p>若 <span class="math inline">\(p(x)\in GF[p,x]\)</span> 不可表示为两个多项式的积，则称其不可化约</p>
+<p>设 <span class="math inline">\(m(x)\)</span> 是 <span class="math inline">\(GF[p,x]\)</span> 上不可约 <span class="math inline">\(n\)</span> 次多项式，则可将 <span class="math inline">\(GF[p,x]\)</span> 划分为模 <span class="math inline">\(m(x)\)</span> 同余类 <span class="math inline">\(GF[p,m(x)]\)</span>，其元素构成域 <span class="math inline">\(GF(p^n)\)</span></p>
+<h3 id="正交拉丁方构造">正交拉丁方构造</h3>
+<p>若 <span class="math inline">\(n=p^m\)</span>，则存在 <span class="math inline">\(n-1\)</span> 个正交拉丁方：</p>
+<blockquote>
+<p>设 <span class="math inline">\(\alpha_1,\alpha_2,\cdots,\alpha_n\)</span> 是 <span class="math inline">\(GF(p^m)\)</span> 的 <span class="math inline">\(n\)</span> 个不同元素，其中 <span class="math inline">\(\alpha_n=0\)</span></p>
+<p>构造方阵序列 <span class="math inline">\(A_{n\times n}^{(k)}\)</span>，其中 <span class="math inline">\(a_{ij}^{(k)}=\alpha_k\cdot \alpha_i+\alpha_j\)</span></p>
+</blockquote>
+<p>若 <span class="math inline">\(n=p_1^{m_1}p_2^{m_2}\cdots p_k^{m_k}\)</span>，则存在 <span class="math inline">\(\min\{p_1^{m_1},p_2^{m_2},\cdots ,p_k^{m_k}\}-1\)</span> 个正交拉丁方</p>
+<h3 id="均衡不完全区组设计">均衡不完全区组设计</h3>
+<p><span class="math inline">\(BIBD(b,v,r,k,\lambda)\)</span></p>
+<p><span class="math inline">\(X=\{x_1,x_2,\cdots,x_v\}\)</span>，<span class="math inline">\(B=\{B_1,B_2,\cdots,B_b\}\)</span>，<span class="math inline">\(B_i\subset X\)</span>，<span class="math inline">\(|B_i|=k\)</span></p>
+<p><span class="math inline">\(X\)</span> 的任一元素正好在 <span class="math inline">\(r\)</span> 个子集中出现</p>
+<p><span class="math inline">\(X\)</span> 的任意一对元素正好在 <span class="math inline">\(\lambda\)</span> 个子集出现</p>
+<p>与某元同组的总元次 <span class="math inline">\(r(k-1)=\lambda(v-1)\)</span></p>
+<p>所有元素总元次 <span class="math inline">\(vr=bk\)</span></p>
+<p>有 <span class="math inline">\(b\ge v\)</span></p>
+<p>区组矩阵： <span class="math display">\[
+a_{ij}=\begin{cases}
+1 &amp;,\ x_i\in B_j\\
+0 &amp;,\ x_i \notin B_j
+\end{cases}
+\]</span> 对于 BIBD 设计，<span class="math inline">\(AA^{\mathrm T}=(r-\lambda)I+\lambda J\)</span>，其中 <span class="math inline">\(J\)</span> 是全 1 矩阵</p>
+<h3 id="对称均衡不完全区组设计">对称均衡不完全区组设计</h3>
+<p><span class="math inline">\(b=v\)</span></p>
+<p><span class="math inline">\(k=r\)</span></p>
+<p>任意两组均有 <span class="math inline">\(\lambda\)</span> 个共同元素</p>
+<h3 id="三连系">三连系</h3>
+<p><span class="math inline">\(k=3\)</span> 的 BIBD 称为三连系</p>
+<p><span class="math inline">\(\lambda = 1\)</span> 的三连系称为 Steiner 三连系，存在的充要条件 <span class="math inline">\(v\equiv 1\mod 6 \vee v\equiv 3\mod 6\)</span></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag"># 课程笔记</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/12/en/Moving-My-Blog-To-a-Static-Website/" rel="prev" title="Moving My Blog To a Static Website">
+      <i class="fa fa-chevron-left"></i> Moving My Blog To a Static Website
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E4%B8%8E%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/" rel="next" title="概率统计与随机过程复习整理">
+      概率统计与随机过程复习整理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0"><span class="nav-number">1.</span> <span class="nav-text">第一章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%88%97"><span class="nav-number">1.1.</span> <span class="nav-text">排列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E5%90%88"><span class="nav-number">1.2.</span> <span class="nav-text">组合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%87%8D%E6%8E%92%E5%88%97"><span class="nav-number">1.3.</span> <span class="nav-text">可重排列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E9%87%8D%E6%8E%92%E5%88%97"><span class="nav-number">1.4.</span> <span class="nav-text">多重排列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E9%A1%B9%E5%BC%8F%E5%B9%82%E6%AC%A1%E5%B1%95%E5%BC%80%E7%B3%BB%E6%95%B0"><span class="nav-number">1.5.</span> <span class="nav-text">多项式幂次展开系数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%86%E5%91%A8%E6%8E%92%E5%88%97"><span class="nav-number">1.6.</span> <span class="nav-text">圆周排列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%87%8D%E7%BB%84%E5%90%88"><span class="nav-number">1.7.</span> <span class="nav-text">可重组合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E7%9B%B8%E9%82%BB%E7%BB%84%E5%90%88"><span class="nav-number">1.8.</span> <span class="nav-text">不相邻组合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%BC%E8%B7%AF%E5%AE%9A%E7%90%86"><span class="nav-number">1.9.</span> <span class="nav-text">格路定理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E6%A0%B9%E6%A0%87%E5%8F%B7%E6%A0%91%E4%B8%8E%E5%BA%8F%E5%88%97%E4%B8%80%E4%B8%80%E5%AF%B9%E5%BA%94"><span class="nav-number">1.10.</span> <span class="nav-text">无根标号树与序列一一对应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%88%97%E7%9A%84%E7%94%9F%E6%88%90%E7%AE%97%E6%B3%95"><span class="nav-number">1.11.</span> <span class="nav-text">排列的生成算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BA%8F%E6%95%B0%E6%B3%95"><span class="nav-number">1.11.1.</span> <span class="nav-text">序数法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E5%85%B8%E5%BA%8F%E6%B3%95"><span class="nav-number">1.11.2.</span> <span class="nav-text">字典序法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8D%A2%E4%BD%8D%E6%B3%95"><span class="nav-number">1.11.3.</span> <span class="nav-text">换位法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E7%9A%84%E7%94%9F%E6%88%90%E7%AE%97%E6%B3%95"><span class="nav-number">1.12.</span> <span class="nav-text">组合的生成算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0"><span class="nav-number">2.</span> <span class="nav-text">第二章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#maclaurin-%E5%85%AC%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">Maclaurin 公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E5%88%97%E5%BC%8F%E6%8C%89%E8%A1%8C%E5%B1%95%E5%BC%80"><span class="nav-number">2.2.</span> <span class="nav-text">行列式按行展开</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E5%B8%B8%E7%B3%BB%E6%95%B0%E9%BD%90%E6%AC%A1%E9%80%92%E6%8E%A8%E5%85%B3%E7%B3%BB"><span class="nav-number">2.3.</span> <span class="nav-text">线性常系数齐次递推关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E5%B8%B8%E7%B3%BB%E6%95%B0%E9%9D%9E%E9%BD%90%E6%AC%A1%E9%80%92%E6%8E%A8%E5%85%B3%E7%B3%BB"><span class="nav-number">2.4.</span> <span class="nav-text">线性常系数非齐次递推关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ferrers-%E5%9B%BE%E5%83%8F"><span class="nav-number">2.5.</span> <span class="nav-text">Ferrers 图像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E6%95%B0%E5%9E%8B%E6%AF%8D%E5%87%BD%E6%95%B0"><span class="nav-number">2.6.</span> <span class="nav-text">指数型母函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E6%8E%92"><span class="nav-number">2.7.</span> <span class="nav-text">错排</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stirling-%E6%95%B0"><span class="nav-number">2.8.</span> <span class="nav-text">Stirling 数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%90%83%E4%B8%8E%E7%9B%92%E5%AD%90"><span class="nav-number">2.9.</span> <span class="nav-text">球与盒子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#catalan-%E6%95%B0"><span class="nav-number">2.10.</span> <span class="nav-text">Catalan 数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0"><span class="nav-number">3.</span> <span class="nav-text">第三章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E6%96%A5%E5%8E%9F%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">容斥原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%8B%E7%9B%98%E5%A4%9A%E9%A1%B9%E5%BC%8F"><span class="nav-number">3.2.</span> <span class="nav-text">棋盘多项式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%BF%E4%B9%89%E5%AE%B9%E6%96%A5%E5%8E%9F%E7%90%86"><span class="nav-number">3.3.</span> <span class="nav-text">广义容斥原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0"><span class="nav-number">3.4.</span> <span class="nav-text">欧拉函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94"><span class="nav-number">3.5.</span> <span class="nav-text">莫比乌斯反演</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%B8%BD%E5%B7%A2%E5%8E%9F%E7%90%86"><span class="nav-number">3.6.</span> <span class="nav-text">鸽巢原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ramsey-%E9%97%AE%E9%A2%98"><span class="nav-number">3.7.</span> <span class="nav-text">Ramsey 问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0"><span class="nav-number">4.</span> <span class="nav-text">第四章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BE%A4"><span class="nav-number">4.1.</span> <span class="nav-text">群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%AE%E6%8D%A2"><span class="nav-number">4.2.</span> <span class="nav-text">置换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#burnside-%E5%BC%95%E7%90%86"><span class="nav-number">4.3.</span> <span class="nav-text">Burnside 引理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#polya-%E5%AE%9A%E7%90%86"><span class="nav-number">4.4.</span> <span class="nav-text">Polya 定理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AF%8D%E5%87%BD%E6%95%B0%E5%BD%A2%E5%BC%8F%E7%9A%84-polya-%E5%AE%9A%E7%90%86"><span class="nav-number">4.5.</span> <span class="nav-text">母函数形式的 Polya 定理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0"><span class="nav-number">5.</span> <span class="nav-text">第五章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%89%E4%B8%81%E6%96%B9"><span class="nav-number">5.1.</span> <span class="nav-text">拉丁方</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#galois-%E5%9F%9F"><span class="nav-number">5.2.</span> <span class="nav-text">Galois 域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E4%BA%A4%E6%8B%89%E4%B8%81%E6%96%B9%E6%9E%84%E9%80%A0"><span class="nav-number">5.3.</span> <span class="nav-text">正交拉丁方构造</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9D%87%E8%A1%A1%E4%B8%8D%E5%AE%8C%E5%85%A8%E5%8C%BA%E7%BB%84%E8%AE%BE%E8%AE%A1"><span class="nav-number">5.4.</span> <span class="nav-text">均衡不完全区组设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E7%A7%B0%E5%9D%87%E8%A1%A1%E4%B8%8D%E5%AE%8C%E5%85%A8%E5%8C%BA%E7%BB%84%E8%AE%BE%E8%AE%A1"><span class="nav-number">5.5.</span> <span class="nav-text">对称均衡不完全区组设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E8%BF%9E%E7%B3%BB"><span class="nav-number">5.6.</span> <span class="nav-text">三连系</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Junyang Zhang"
+      src="/images/CasualPortraitOct2021.png">
+  <p class="site-author-name" itemprop="name">Junyang Zhang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/James-Hen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;James-Hen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:james-hen@outlook.com" title="E-Mail → mailto:james-hen@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://bytew.net/" title="https:&#x2F;&#x2F;bytew.net&#x2F;" rel="noopener" target="_blank">Nocriz</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://thelajiest.github.io/" title="https:&#x2F;&#x2F;thelajiest.github.io&#x2F;" rel="noopener" target="_blank">KON_automaton</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.mky.moe/" title="https:&#x2F;&#x2F;blog.mky.moe&#x2F;" rel="noopener" target="_blank">MonKey</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.ccandle.top/" title="https:&#x2F;&#x2F;blog.ccandle.top&#x2F;" rel="noopener" target="_blank">CCandle</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://120.79.138.174:8080/" title="http:&#x2F;&#x2F;120.79.138.174:8080&#x2F;" rel="noopener" target="_blank">siyuanluo</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://yang-d19.github.io/" title="https:&#x2F;&#x2F;yang-d19.github.io&#x2F;" rel="noopener" target="_blank">Yangd19</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="languages">
+    <label class="lang-select-label">
+      <i class="fa fa-language"></i>
+      <span>English</span>
+      <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </label>
+    <select class="lang-select" data-canonical="">
+      
+        <option value="zh-CN" data-href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/" selected="">
+          简体中文
+        </option>
+      
+        <option value="en" data-href="/en/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/" selected="">
+          English
+        </option>
+      
+    </select>
+  </div>
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Junyang Zhang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hA0Uyzupz2vdCpNOIC0MCJjT-gzGzoHsz',
+      appKey     : 'dpOcFMwzmsVPyQPECkBb9TUP',
+      placeholder: "Just comment!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

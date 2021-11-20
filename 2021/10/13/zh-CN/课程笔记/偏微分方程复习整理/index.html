@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/Avatar.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.gif">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.gif">
+  <link rel="mask-icon" href="/images/favicon-32x32.gif" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jyzhang.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="数学基础 傅里叶级数 \[ f(t)&#x3D;\frac{a_0}{2}+\sum_{n&#x3D;1}^{\infty}\left[a_n\cos(n\omega t)+b_n\sin(n\omega t)\right] \] 其中 \[ \begin{align} a_n&amp;&#x3D;\frac{2}{T}\int_{t_0}^{t_0+T}f(t)\cos(n\omega t)\mathrm d t &amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="偏微分方程复习整理">
+<meta property="og:url" content="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/index.html">
+<meta property="og:site_name" content="Junyang Zhang&#39;s Blog">
+<meta property="og:description" content="数学基础 傅里叶级数 \[ f(t)&#x3D;\frac{a_0}{2}+\sum_{n&#x3D;1}^{\infty}\left[a_n\cos(n\omega t)+b_n\sin(n\omega t)\right] \] 其中 \[ \begin{align} a_n&amp;&#x3D;\frac{2}{T}\int_{t_0}^{t_0+T}f(t)\cos(n\omega t)\mathrm d t &amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-13T01:49:30.000Z">
+<meta property="article:modified_time" content="2021-10-13T14:18:00.000Z">
+<meta property="article:author" content="Junyang Zhang">
+<meta property="article:tag" content="课程笔记">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>偏微分方程复习整理 | Junyang Zhang's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Junyang Zhang's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          偏微分方程复习整理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-10-13 09:49:30 / 修改时间：22:18:00" itemprop="dateCreated datePublished" datetime="2021-10-13T09:49:30+08:00">2021-10-13</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="数学基础">数学基础</h2>
+<h3 id="傅里叶级数">傅里叶级数</h3>
+<p><span class="math display">\[
+f(t)=\frac{a_0}{2}+\sum_{n=1}^{\infty}\left[a_n\cos(n\omega t)+b_n\sin(n\omega t)\right]
+\]</span></p>
+<p>其中</p>
+<p><span class="math display">\[
+\begin{align}
+a_n&amp;=\frac{2}{T}\int_{t_0}^{t_0+T}f(t)\cos(n\omega t)\mathrm d t &amp;,n\in \mathbb{Z}_+ \nonumber
+\\
+b_n&amp;=\frac{2}{T}\int_{t_0}^{t_0+T}f(t)\sin(n\omega t)\mathrm d t &amp;,n\in \mathbb{Z}_+ \nonumber
+\end{align}
+\]</span></p>
+<h3 id="二次型正交变化">二次型正交变化</h3>
+<p>设有二次型矩阵 <span class="math inline">\(A\)</span>，<span class="math inline">\(f(x)=\boldsymbol x^{\mathrm T}A\boldsymbol x\)</span></p>
+<p>存在正交矩阵 <span class="math inline">\(P\)</span> 使 <span class="math inline">\(\boldsymbol x=P\boldsymbol y\)</span>，<span class="math inline">\(f(x)=\boldsymbol y^{\mathrm T}P^{\mathrm T}AP\boldsymbol x=d_1y_1^2+d_2y_2^2+\cdots+d_ny_n^2\)</span></p>
+<p>步骤</p>
+<ol type="1">
+<li>求出 <span class="math inline">\(A\)</span> 的特征值 <span class="math inline">\(\lambda_1,\lambda_2,\cdots,\lambda_n\)</span>，（即求解 <span class="math inline">\(|A-\lambda I|=0\)</span>）​</li>
+<li>得出对应的特征向量 <span class="math inline">\(\xi_1,\xi_2,\cdots,\xi_n\)</span>，（即求解 <span class="math inline">\((A-\lambda_iI)x=0\)</span>）</li>
+<li>特征向量标准正交化得 <span class="math inline">\(\eta_1,\eta_2,\cdots,\eta_n\)</span></li>
+<li>得 <span class="math inline">\(P=[\eta_1\ \eta_2\ \cdots\ \eta_n]\)</span></li>
+</ol>
+<p>应用于梯度算子 <span class="math inline">\(\boldsymbol{\nabla_x}=\left(\dfrac{\partial}{\partial x_2},\dfrac{\partial}{\partial x_2}\right)\)</span> 以化简二阶线性微分方程</p>
+<h2 id="数学模型">数学模型</h2>
+<h3 id="一维弦振动方程">一维弦振动方程</h3>
+<p><span class="math display">\[
+u_{tt}=a^2u_{xx}+f(x,t)\ ,\ 0&lt;x&lt;l\ ,\ t&gt;0
+\]</span></p>
+<p>其中 <span class="math inline">\(a^2=T_0/\rho\)</span>，<span class="math inline">\(f=f_0/\rho\)</span></p>
+<h4 id="初始条件">初始条件</h4>
+<p><span class="math display">\[
+u|_{t=0} = \phi(x)\ ,\ u_t|_{t=0} = \psi(x)
+\]</span></p>
+<h4 id="边界条件">边界条件</h4>
+<ol type="1">
+<li><p>第一类边界条件：已知端点的位移随时间的变化</p></li>
+<li><p>第二类边界条件：已知端点的受力随时间的变化</p>
+<p>设受外力 <span class="math inline">\(\bar g_1(t)\)</span>、<span class="math inline">\(\bar g_2(t)\)</span></p>
+<p>左端 <span class="math inline">\(u_x(0,t)=-\frac{\bar g_1(t)}{T_0}\)</span></p>
+<p>右端 <span class="math inline">\(u_x(l,t)=\frac{\bar g_2(t)}{T_0}\)</span></p></li>
+<li><p>第三类边界条件：端点连接弹簧振子</p>
+<p>以左端为例，弹簧长度 <span class="math inline">\(l_1\)</span>，下端位置 <span class="math inline">\(Q_1(t)\)</span>，<span class="math inline">\(\sigma_1=k_1/T_0\)</span></p>
+<p>得条件 <span class="math inline">\(u_x(0,t)-\sigma_1 u(0,t)=-\sigma_1(Q_1(t)+l_1)\)</span></p>
+<p>右端 <span class="math inline">\(u_x(l,t)+\sigma_2 u(l,t)=\sigma_1(Q_1(t)+l_2)\)</span></p></li>
+</ol>
+<h3 id="热传导方程">热传导方程</h3>
+<p><span class="math display">\[
+u_t = a^2\Delta u + f
+\]</span></p>
+<p>其中 <span class="math inline">\(a^2=k/(\rho c)\)</span>，（<span class="math inline">\(c\)</span> 为比热容），<span class="math inline">\(f=f_0/c\)</span>，表示热源强度</p>
+<h4 id="初始条件-1">初始条件</h4>
+<p><span class="math display">\[
+u|_{t=0}=\varphi(x,y,z)
+\]</span></p>
+<h4 id="边界条件-1">边界条件</h4>
+<ol type="1">
+<li><p>第一类边界条件：已知边界的温度分布</p></li>
+<li><p>第二类边界条件：已知通过边界的热流量 <span class="math display">\[
+\left.k\frac{\partial u}{\partial\boldsymbol n}\right|_{\partial\Omega}=g(x,y,z,t)
+\]</span></p></li>
+<li><p>第三类边界条件：导热体置于介质之中 <span class="math display">\[
+\frac{\partial u}{\partial\boldsymbol n}+\sigma u=g(x,y,z,t)\ ,\ (x,y,z,t)\in\partial\Omega
+\]</span></p></li>
+</ol>
+<h3 id="泊松方程">泊松方程</h3>
+<p>泊松方程即稳态热传导方程</p>
+<p><span class="math display">\[
+-\Delta u=\frac{1}{a^2}f
+\]</span></p>
+<p>其中 <span class="math inline">\(f\)</span> 描述热源</p>
+<p>当 <span class="math inline">\(f\equiv 0\)</span> 时称为拉普拉斯方程</p>
+<h4 id="狄利克雷条件">狄利克雷条件</h4>
+<p><span class="math display">\[
+u|_{\partial \Omega}=\varphi
+\]</span></p>
+<h4 id="诺伊曼条件">诺伊曼条件</h4>
+<p><span class="math display">\[
+\left.\frac{\partial u}{\partial n}\right|_{\partial\Omega}=\varphi
+\]</span></p>
+<p>或</p>
+<p><span class="math display">\[
+\left.\left(\frac{\partial u}{\partial n}+\sigma u\right)\right|_{\partial\Omega}=\varphi
+\]</span></p>
+<h2 id="叠加原理">叠加原理</h2>
+<h3 id="线性算子">线性算子</h3>
+<p>以下分别为二阶偏微分算子、波算子、拉普拉斯算子和热算子</p>
+<p><span class="math display">\[
+\begin{align}
+L&amp;=a_{11}\frac{\partial^2}{\partial x^2}
++2a_{12}\frac{\partial^2}{\partial x \partial y}
++a_{22}\frac{\partial^2}{\partial y^2}
++b_1\frac{\partial}{\partial x}
++b_2\frac{\partial}{\partial y}
++c \nonumber
+\\
+\Box&amp;=\frac{\partial^2}{\partial t^2}-a^2\frac{\partial^2}{\partial x^2} \nonumber
+\\
+\Delta&amp;=\frac{\partial^2}{\partial x^2}+\frac{\partial^2}{\partial y^2} \nonumber
+\\
+H&amp;=\frac{\partial}{\partial t}-a^2\frac{\partial^2}{\partial x^2} \nonumber
+\end{align}
+\]</span></p>
+<h3 id="二阶线性偏微分方程">二阶线性偏微分方程</h3>
+<p><span class="math display">\[
+Lu=f
+\]</span></p>
+<p>以下为一个带有初始条件和边界条件的弦振动问题</p>
+<p><span class="math display">\[
+\begin{cases}
+&amp; u_{tt} -a^2u_{xx}=f &amp;&amp;,\ 0&lt;x&lt;l\ ,\ t&gt;0 \newline
+&amp; u|_{x=0} = g_1(t)  &amp;,\ u|_{x=l} = g_2(t) &amp;,\ t\geq 0 \newline
+&amp; u|_{t=0}=\varphi(x)&amp;,\ u_t|_{t=0} = \psi(x) &amp;,\ 0&lt;x&lt;l
+\end{cases}
+\]</span></p>
+<h3 id="初始条件叠加原理">初始条件叠加原理</h3>
+<h4 id="叠加原理-1">叠加原理 1</h4>
+<p>若 <span class="math inline">\(f=\sum_i \alpha_if_i\)</span>，<span class="math inline">\(\alpha_i\)</span> 为任意常数，<span class="math inline">\(u_i\)</span> 是 <span class="math inline">\(Lu=f_i\)</span> 的解，则 <span class="math inline">\(\sum_i \alpha_iu_i\)</span> 是原问题的解</p>
+<h4 id="叠加原理-23">叠加原理 2、3</h4>
+<p><em>当将方程叠加时将初始条件和非齐次项一起加在一起</em></p>
+<h3 id="边界条件齐次性">边界条件齐次性</h3>
+<p>方程边界条件 <span class="math inline">\(u|_{x=0}\ ,\ u|_{x=l}\)</span> 为零时，称为<strong>齐次边界条件</strong></p>
+<h4 id="齐次化">齐次化</h4>
+<p>采用变换 <span class="math inline">\(u(x,t)=v(x,t)+w(x,t)\)</span>，其中 <span class="math inline">\(w(x,t)\)</span> 满足 <span class="math inline">\(w(0,t)=g_1(t)\ ,\ w(l,t)=g_2(t)\)</span></p>
+<p>可以取 <span class="math inline">\(w(x,t)=g_1(t)+\frac{g_2(t)-g_1(t)}{l}x\)</span></p>
+<p>代入可得边界条件齐次化方程</p>
+<p>当存在如下边界条件时，<span class="math inline">\(w\)</span> 取以下构造</p>
+<ul>
+<li><span class="math inline">\(u_x(0,t)=g_1\ ,\ u(l,t)=g_2\)</span>：<span class="math inline">\(w=(x-l)g_1+g_2\)</span></li>
+<li><span class="math inline">\(u(0,t)=g_1\ ,\ u_x(l,t)=g_2\)</span>：<span class="math inline">\(w=xg_2+g_1\)</span></li>
+<li><span class="math inline">\(u_x(0,t)=g_1\ ,\ u_x(l,t)=g_2\)</span>：<span class="math inline">\(w=xg_1+\frac{g_2-g_1}{2l}x^2\)</span></li>
+</ul>
+<h2 id="分离变量法">分离变量法</h2>
+<h3 id="特征函数法">特征函数法</h3>
+<p>即求解非齐次方程的分离变量法，将非齐次项按特征函数系展开</p>
+<p>设有齐次边界条件弦振动问题：</p>
+<p><span class="math display">\[
+\begin{cases}
+&amp; u_{tt} -a^2u_{xx}=f &amp;&amp;,\ 0&lt;x&lt;l\ ,\ t&gt;0 \newline
+&amp; u|_{x=0} = 0  &amp;,\ u|_{x=l} = 0 &amp;,\ t\geq 0 \newline
+&amp; u|_{t=0}=\varphi(x)&amp;,\ u_t|_{t=0} = \psi(x) &amp;,\ 0&lt;x&lt;l
+\end{cases}
+\]</span></p>
+<p>求解按如下四步进行</p>
+<h4 id="假设分离变量解">假设分离变量解</h4>
+<p>设 <span class="math inline">\(u=X(x)T(t)\)</span>，代入齐次方程得</p>
+<p><span class="math display">\[
+XT&#39;&#39;=a^2X&#39;&#39;T \Rightarrow \frac{X&#39;&#39;}{X}=\frac{T&#39;&#39;}{a^2T}
+\equiv -\lambda
+\]</span></p>
+<p>有特征值问题</p>
+<p><span class="math display">\[
+\begin{cases}
+&amp; X&#39;&#39;(x) + \lambda X(x)=0 &amp;,&amp;0&lt;x&lt;l \newline
+&amp; X(0) = X(l) = 0
+\end{cases}
+\]</span></p>
+<h4 id="求特征值问题的解">求特征值问题的解</h4>
+<p>特征方程的通解为</p>
+<p><span class="math display">\[
+X(x)=c_1\cos\sqrt{\lambda}l+c_2\sin\sqrt{\lambda}l
+\]</span></p>
+<p>代入边界条件有 <span class="math inline">\(\sin\sqrt{\lambda}l=0 \Rightarrow \sqrt{\lambda}l=n\pi\)</span></p>
+<p>则特征值 <span class="math inline">\(\lambda_n=\left(\frac{n\pi}{l}\right)^2\)</span>，特征函数 <span class="math inline">\(X_n(x)=\sin\frac{n\pi}{l}x\)</span>，<span class="math inline">\(n\geq 0\)</span></p>
+<h4 id="以特征函数系展开比较">以特征函数系展开比较</h4>
+<p>将 <span class="math inline">\(\varphi\)</span>，<span class="math inline">\(\psi\)</span>，<span class="math inline">\(f\)</span> 也按特征函数系展开叠加</p>
+<p><span class="math display">\[
+\begin{align}
+\varphi(x)&amp;=\sum_{n=0}^\infty \varphi_n\sin\frac{n\pi}{l}(x) \nonumber
+\\
+\psi(x)&amp;=\sum_{n=0}^\infty \psi_n\sin\frac{n\pi}{l}(x) \nonumber
+\\
+f(x,t)&amp;=\sum_{n=0}^\infty f_n(t)\sin\frac{n\pi}{l}(x) \nonumber
+\end{align}
+\]</span></p>
+<p>代入原方程并比较各项得</p>
+<p><span class="math display">\[
+\begin{cases}
+&amp; T&#39;&#39;(t)+a^2\lambda_nT_n(t)=f_n \newline
+&amp; T_n(0) = \varphi(n) \newline
+&amp; T_n&#39;(0)= \psi(n)
+\end{cases}
+\]</span></p>
+<p>求解可得各项</p>
+<h3 id="平面上泊松方程边值问题">平面上泊松方程边值问题</h3>
+<h4 id="极坐标上拉普拉斯方程">极坐标上拉普拉斯方程</h4>
+<p><span class="math display">\[
+u_{xx}+u_{yy}=u_{\rho\rho}+\frac{1}{\rho}u_\rho+\frac{1}{\rho^2}u_{\theta\theta}=0
+\]</span></p>
+<p>设 <span class="math inline">\(u(\rho,\theta)=R(\rho)\varPhi(\theta)\)</span>，<span class="math inline">\(\varPhi(\theta + 2\pi)=\varPhi(\theta)\)</span>，有</p>
+<p><span class="math display">\[
+\frac{\varPhi&#39;&#39;(\theta)}{\varPhi(\theta)}
+=
+-\frac{R&#39;&#39;(\rho)+\frac{1}{\rho}R&#39;(\rho)}{\frac{1}{\rho^2}R(\rho)}
+=
+-\lambda
+\]</span></p>
+<p>得特征值问题</p>
+<p><span class="math display">\[
+\varPhi&#39;&#39;(\theta)+\lambda\varPhi(\theta)=0
+\]</span></p>
+<p>且有</p>
+<p><span class="math display">\[
+\rho^2R_n&#39;&#39;(\rho)+\rho R_n&#39;(\rho)-\lambda_nR_n(\rho)=0
+\]</span> 此方程为欧拉方程，作代换 <span class="math inline">\(\rho = \mathrm e^s\)</span>，有 <span class="math display">\[
+R_{ss}&#39;&#39;-\lambda_nR_n=0
+\]</span></p>
+<h2 id="贝塞尔函数">贝塞尔函数</h2>
+<h3 id="常系数二阶齐次线性微分方程">常系数二阶齐次线性微分方程</h3>
+<p><span class="math display">\[
+y&#39;&#39;+ay&#39;+by=0
+\]</span></p>
+<p>有特征方程</p>
+<p><span class="math display">\[
+\lambda^2+a\lambda + b=0
+\]</span></p>
+<p>基解组如下</p>
+<ul>
+<li><p><span class="math inline">\(\lambda\)</span> 两个不同实根 <span class="math inline">\(\rho_1\)</span>，<span class="math inline">\(\rho_2\)</span> <span class="math display">\[
+\left\{\mathrm e^{\rho_1x},\mathrm e^{\rho_2x}\right\}
+\]</span> 特别的，当 <span class="math inline">\(\rho_1=\rho=-\rho_2\)</span> <span class="math display">\[
+\left\{
+\cosh \rho x=\frac{\mathrm e^{\rho x}+\mathrm e^{-\rho x}}{2},
+\sinh \rho x=\frac{\mathrm e^{\rho x} -\mathrm e^{-\rho x}}{2}
+\right\}
+\]</span></p></li>
+<li><p><span class="math inline">\(\lambda\)</span> 两个共轭的复根 <span class="math inline">\(\rho_{1,2}=\alpha\pm \beta\mathrm{i}\)</span> <span class="math display">\[
+\left\{
+\mathrm{e}^{(\alpha+\beta\mathrm{i})x},
+\mathrm{e}^{(\alpha-\beta\mathrm{i})x}
+\right\}
+\]</span> 利用欧拉公式 <span class="math inline">\(\mathrm{e}^{(\alpha+ \beta\mathrm{i})x}=\mathrm{e}^{\alpha x}\cos \beta x+\mathrm{e}^{\alpha x}\mathrm{i}\sin \beta x\)</span> 并取实部后 <span class="math display">\[
+\left\{
+\mathrm{e}^{\alpha x}\cos \beta x,
+\mathrm{e}^{\alpha x}\sin \beta x
+\right\}
+\]</span></p></li>
+<li><p><span class="math inline">\(\lambda\)</span> 一个重根 <span class="math inline">\(\rho_1=\rho_2=\rho\)</span> <span class="math display">\[
+\left\{
+\mathrm{e}^{\rho x},
+x\mathrm{e}^{\rho x}
+\right\}
+\]</span></p></li>
+</ul>
+<h3 id="幂级数解法">幂级数解法</h3>
+<p>变系数二阶线性常微分方程 <span class="math display">\[
+y&#39;&#39;+p(x)y&#39;+q(x)y=0
+\]</span> 若 <span class="math inline">\(p(x)\)</span>、<span class="math inline">\(q(x)\)</span> 在 <span class="math inline">\(x_0\)</span> 的邻域内解析，那么有如下形式的解 <span class="math display">\[
+y(x)=\sum_{k=0}^\infty a_k(x-x_0)^k
+\]</span> 否则若 <span class="math inline">\((x-x_0)p(x)\)</span>、<span class="math inline">\((x-x_0)^2q(x)\)</span> 在 <span class="math inline">\(x_0\)</span> 的邻域内解析，那么有如下形式的解 <span class="math display">\[
+y(x)=(x-x_0)^\rho\sum_{k=0}^\infty a_k(x-x_0)^k
+\]</span> 其中 <span class="math inline">\(a_0\neq 0\)</span>，<span class="math inline">\(\rho\in \mathbb{R}\)</span></p>
+<h3 id="γ-函数">Γ 函数</h3>
+<p><span class="math display">\[
+\Gamma(\alpha)=
+\begin{cases}
+\int_0^\infty x^{\alpha -1}\mathrm e^{-x}\mathrm d x &amp;,\ \alpha &gt;0
+\\
+\frac{\Gamma(\alpha + 1)}{\alpha} &amp;,\ \alpha &lt; 0\ \wedge\ \alpha \notin \mathbb{Z}
+\\
+\infty &amp;,\ \alpha\leq 0\ \wedge\ \alpha \in \mathbb{Z}
+\end{cases}
+\]</span></p>
+<p>性质</p>
+<ul>
+<li><span class="math inline">\(\Gamma(1)=1\)</span>，<span class="math inline">\(\Gamma(1/2)=\sqrt{\pi}\)</span></li>
+<li><span class="math inline">\(\Gamma(\alpha+1)=\alpha\Gamma(\alpha)\)</span></li>
+<li><span class="math inline">\(\Gamma(n+1)=n!\)</span>，<span class="math inline">\(n\in \mathbb{Z}_+\)</span></li>
+</ul>
+<h3 id="贝塞尔方程">贝塞尔方程</h3>
+<p><span class="math inline">\(r\geq 0\)</span> 阶贝塞尔方程</p>
+<p><span class="math display">\[
+x^2y&#39;&#39;+xy&#39;+(x^2-r^2)y=0
+\]</span></p>
+<p>化为二阶变系数线性常微分方程标准形式有 <span class="math inline">\(p(x)=x^{-1}\)</span>，<span class="math inline">\(q(x)=1-\frac{r^2}{x^2}\)</span>，则 <span class="math inline">\(xp(x)\)</span>，<span class="math inline">\(x^2q(x)\)</span> 在 <span class="math inline">\(\mathbb{R}\)</span> 上解析</p>
+<p>有解的形式</p>
+<p><span class="math display">\[
+y(x)=x^\rho\sum_{n=0}^\infty a_nx^n
+\]</span></p>
+<p>代入比较系数（此处略去推导）</p>
+<p>有 <span class="math inline">\(\rho_1=r\)</span>，<span class="math inline">\(\rho_2=-r\)</span></p>
+<ol type="1">
+<li><p>讨论情形 <span class="math inline">\(\rho=\rho_1=r\geq0\)</span> <span class="math display">\[
+J_r(x)=\sum_{k=0}^\infty (-1)^k\frac{1}{k!\Gamma(k+r+1)}\left(\frac{x}{2}\right)^{2k+r}
+\]</span></p></li>
+<li><p>讨论情形 <span class="math inline">\(\rho=\rho_2=-r&lt;0\)</span></p>
+<ul>
+<li><p><span class="math inline">\(r\)</span> 不为正整数 <span class="math display">\[
+J_{-r}(x)
+\]</span></p></li>
+<li><p><span class="math inline">\(r\)</span> 为正整数 <span class="math display">\[
+N_n(x)=\lim_{r\to n^+}\frac{J_r(x)\cos(r\pi)-J_{-r}(x)}{\sin(r\pi)}
+\]</span></p></li>
+</ul></li>
+</ol>
+<h4 id="贝塞尔函数-1">贝塞尔函数</h4>
+<p>有任意 <span class="math inline">\(r\geq 0\)</span>，<span class="math inline">\(\{J_r(x),N_r(x)\}\)</span> 是贝塞尔方程的基解组</p>
+<p>特殊地，<span class="math inline">\(r&gt; 0\)</span> 且不为整数时，<span class="math inline">\(\{J_r(x),J_{-r}(x)\}\)</span> 是贝塞尔方程的基解组</p>
+<p>整数阶贝塞尔函数 <span class="math inline">\(J_n(x)\)</span> 的性质</p>
+<ul>
+<li>奇偶性 <span class="math inline">\(J_n(x)=(-1)^nJ_n(-x)\)</span></li>
+<li>第 <span class="math inline">\(m\)</span> 个正零点 <span class="math inline">\(\mu_m^{(n)}\)</span></li>
+</ul>
+<p>递推公式</p>
+<p><span class="math display">\[
+\begin{align}
+(x^nJ_n(x))&#39;&amp;=x^nJ_{n-1}(x) \nonumber\newline
+(x^{-n}J_n(x))&#39;&amp;=-x^{-n}J_{n+1}(x) \nonumber\newline
+J_{n-1}(x)+J_{n+1}(x)&amp;=\frac{2n}{x}J_n(x) \nonumber\newline
+J_{n-1}(x)-J_{n+1}(x)&amp;=2J_n&#39;(x) \nonumber\newline
+\end{align}
+\]</span></p>
+<h3 id="贝塞尔方程特征值问题">贝塞尔方程特征值问题</h3>
+<p><span class="math display">\[
+u_{\rho\rho}+\frac{1}{\rho}u_\rho+\frac{1}{\rho^2}u_{\theta\theta}=-\lambda u(\rho,\theta)
+\]</span></p>
+<p>将 <span class="math inline">\(u\)</span> 变量分离</p>
+<p>狄利克雷条件 <span class="math inline">\(u(\rho_0,\theta)=0\)</span> 下，<span class="math inline">\(n\)</span> 阶贝塞尔方程特征值问题</p>
+<p><span class="math display">\[
+\begin{cases}
+\rho^2R&#39;&#39;(\rho)+\rho R&#39;(\rho)+(\lambda^2\rho^2-n^2)R(\rho)=0 &amp;,\ 0&lt;\rho&lt;\rho_0 \newline
+R(\rho_0)=0 &amp;,\ |R(0)|&lt;+\infty
+\end{cases}
+\]</span></p>
+<p>特征值 <span class="math inline">\(\lambda_m=\left(\frac{\mu_m^{}(n)}{\rho_0}\right)^2\)</span>，特征函数 <span class="math inline">\(R_m(\rho)=J_n\left(\frac{\mu_m^{}(n)}{\rho_0}\rho\right)\)</span>，<span class="math inline">\(m\ge 1\)</span></p>
+<h3 id="贝塞尔函数的正交性与贝塞尔级数">贝塞尔函数的正交性与贝塞尔级数</h3>
+<p><span class="math inline">\(f(\rho)\)</span> 在 <span class="math inline">\([0,\rho_0]\)</span> 连续且有分段连续的一阶导数 <span class="math display">\[
+f(\rho)=\sum_{m=1}^\infty A_mJ_n\left(\frac{\mu_m^{}(n)}{\rho_0}\rho\right)
+\]</span> 其中 <span class="math display">\[
+A_m=\frac{2}{[\rho_0J_n&#39;(\mu_m^{(n)})]^2}
+\int_0^{\rho_0}\rho f(\rho)J_n\left(\frac{\mu_m^{(n)}}{\rho_0}\rho\right)\mathrm d\rho
+\]</span></p>
+<h3 id="圆柱体或圆域上定解问题">圆柱体或圆域上定解问题</h3>
+<p><span class="math display">\[
+\begin{cases}
+u_t=a^2\Delta u &amp;,\ (\rho,\theta)\in\Omega &amp;,\ t&gt;0
+\\
+u|_{\rho=\rho_0}=0 &amp;,\ t\ge 0
+\\
+u|_{t=0}=\varphi(\rho) &amp;,\ 0\le\rho\le1
+\end{cases}
+\]</span></p>
+<p>令 <span class="math inline">\(u(\rho,t)=R(\rho)T(t)\)</span></p>
+<p><span class="math display">\[
+\frac{T&#39;}{a^2T}=\frac{R&#39;&#39;+\frac{1}{\rho}R&#39;}{R}=-\lambda
+\]</span></p>
+<p>是零阶贝塞尔方程特征值问题</p>
+<p>特征值 <span class="math inline">\(\lambda_m=(\mu_m^{(0)})^2\)</span>，特征函数 <span class="math inline">\(R_m(\rho)=J_0(\mu_m^{(0)}\rho)\)</span>，<span class="math inline">\(m\ge 1\)</span></p>
+<p>特征值代入得 <span class="math display">\[
+T_m(t)=A_m\mathrm e^{-a^2(\mu_m^{(0)})^2t}
+\]</span> 则 <span class="math display">\[
+u(\rho,t)=\sum_{m=1}^{\infty} A_m\mathrm e^{-a^2(\mu_m^{(0)})^2t} J_0(\mu_m^{(0)}\rho)
+\]</span> 展开 <span class="math inline">\(\varphi\)</span> 比较得 <span class="math display">\[
+A_m=\frac{2}{[\rho_0J_0&#39;(\mu_m^{(0)})]^2}
+\int_0^{1}\rho \varphi(\rho)J_0\left(\frac{\mu_m^{(0)}}{\rho_0}\rho\right)\mathrm d\rho
+\]</span></p>
+<h2 id="格林函数法">格林函数法</h2>
+<h3 id="格林公式">格林公式</h3>
+<h4 id="高斯公式">高斯公式</h4>
+<p><span class="math display">\[
+\iiint\limits_{\Omega} \nabla\cdot \boldsymbol F\mathrm d V
+=
+\iint\limits_{\partial\Omega} \boldsymbol F\cdot\boldsymbol n\mathrm d s
+\]</span></p>
+<p>其中汉密尔顿算子 <span class="math inline">\(\nabla=\left(\frac{\partial}{\partial x},\frac{\partial}{\partial y},\frac{\partial}{\partial z}\right)\)</span></p>
+<p>取 <span class="math inline">\(\boldsymbol F=u\nabla v\)</span> 得三维形式格林公式</p>
+<h4 id="格林公式-1">格林公式</h4>
+<p><em>《高等数学》所描述的“格林公式”</em></p>
+<p>设平面场 <span class="math inline">\(F=(P,Q)\)</span></p>
+<p><span class="math display">\[
+\iint\limits_{D}\left(\frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y}\right)\mathrm d S
+=
+\int\limits_L P\mathrm dx+Q\mathrm dy
+\]</span></p>
+<p>若记 <span class="math inline">\(\nabla=(\frac{\partial}{\partial x},\frac{\partial}{\partial y})\)</span>，平面区域 <span class="math inline">\(\Omega\)</span>，<span class="math inline">\(\boldsymbol s=(\cos\alpha,\sin\alpha)\)</span> 表示正向边界切向量，那么</p>
+<p><span class="math display">\[
+\iint\limits_{\Omega}\nabla\times \boldsymbol F \mathrm d \sigma
+=
+\int\limits_{\partial\Omega} \boldsymbol F\cdot\mathrm d\boldsymbol s
+\]</span></p>
+<p>有曲面外法向量 <span class="math inline">\(\boldsymbol n=(\sin\alpha,-cos\alpha)\)</span> 取 <span class="math inline">\(F=u\nabla v\)</span>，<em>仔细考虑平面区域积分</em>可得二维形式格林公式</p>
+<h4 id="格林第一公式">格林第一公式</h4>
+<h5 id="三维">三维</h5>
+<p><span class="math display">\[
+\iiint\limits_{\Omega} u\Delta v \mathrm dV
+=
+\iint\limits_{\partial\Omega}u\frac{\partial v}{\partial \boldsymbol n} \mathrm ds
+-
+\iiint\limits_{\Omega}\nabla u\cdot\nabla v\mathrm d V
+\]</span></p>
+<h5 id="二维">二维</h5>
+<p><span class="math display">\[
+\iint\limits_{\Omega}(uv_x)_x\mathrm d\sigma
+=
+\int\limits_{\partial\Omega}
+v\frac{\partial u}{\partial\boldsymbol n}\mathrm d s
+-
+\iint\limits_{\Omega}(uv_y)_y\mathrm d\sigma
+\]</span></p>
+<h4 id="格林第二公式">格林第二公式</h4>
+<h5 id="三维-1">三维</h5>
+<p><span class="math display">\[
+\iiint\limits_{\Omega} (u\Delta u-v\Delta u)\mathrm dV
+=
+\iint\limits_{\partial\Omega}\left(u\frac{\partial v}{\partial\boldsymbol n}-v\frac{\partial u}{\partial\boldsymbol n}\right)\mathrm d s
+\]</span></p>
+<h5 id="二维-1">二维</h5>
+<p><span class="math display">\[
+\iint\limits_{\Omega}(v\Delta u-u\Delta v)\mathrm d\sigma
+=
+\int\limits_{\partial\Omega}\left(v\frac{\partial u}{\partial\boldsymbol n}-u\frac{\partial v}{\partial\boldsymbol n}\right)\mathrm d s
+\]</span></p>
+<h4 id="格林第三公式">格林第三公式</h4>
+<p>格林第三公式的意义是（除去奇点后）<span class="math inline">\(u\)</span> 的值仅与 <span class="math inline">\(\Delta u\)</span> 和边界上的条件决定</p>
+<h5 id="三维-2">三维</h5>
+<p><span class="math display">\[
+u(\xi,\eta,\zeta)
+=
+\iint\limits_{\partial\Omega}\left(
+\varGamma\frac{\partial u}{\partial\boldsymbol n}
+-
+u\frac{\partial\varGamma}{\partial\boldsymbol n}
+\right)
+\mathrm ds
+-
+\iiint\limits_{\Omega}\varGamma\Delta u \mathrm d V
+\]</span></p>
+<p>其中 <span class="math inline">\(\varGamma=\frac{1}{4\pi r_{P_0P}}\)</span>，<span class="math inline">\(r_{P_0P}=\sqrt{(x-\xi)^2+(y-\eta)^2+(z-\zeta)^2}\)</span></p>
+<h5 id="二维-2">二维</h5>
+<p><span class="math display">\[
+u(\xi,\eta)=\int\limits_{\partial\Omega}
+\left(\varGamma\frac{\partial u}{\partial\boldsymbol n}
+-
+u\frac{\partial\varGamma}{\partial\boldsymbol n}
+\right)
+\mathrm d s
+-
+\iint\limits_{\Omega}\varGamma\Delta u\mathrm d \sigma
+\]</span></p>
+<p>其中 <span class="math inline">\(P_0(\xi,\eta)\in \Omega\)</span>，<span class="math inline">\(\varGamma(P,P_0)=\frac{1}{2\pi}\ln\frac{1}{\sqrt{(x-\xi)^2+(y-\eta)^2}}\)</span></p>
+<h3 id="格林函数法-1">格林函数法</h3>
+<h4 id="格林函数">格林函数</h4>
+<p>设 <span class="math inline">\(\Omega\)</span> 为二维或三维区域，<span class="math inline">\(\partial\Omega\)</span> 充分光滑，<span class="math inline">\(\boldsymbol P_0\in\Omega\)</span>，<span class="math inline">\(\varGamma(\boldsymbol p,\boldsymbol P_0)\)</span> 为拉普拉斯方程基本解</p>
+<p>考虑定解问题</p>
+<p><span class="math display">\[
+\begin{cases}
+-\Delta u=f(\boldsymbol p) &amp;,\ \boldsymbol p\in\Omega \newline
+u(\boldsymbol p)=\varphi(\boldsymbol p) &amp;,\ \boldsymbol p \in\partial\Omega
+\end{cases}
+\]</span></p>
+<p>若 <span class="math inline">\(h(\boldsymbol p)\)</span> 是如下定解问题的解</p>
+<p><span class="math display">\[
+\begin{cases}
+\Delta h=0 &amp;,\ \boldsymbol p\in\Omega \newline
+h(\boldsymbol p)=-\varGamma(\boldsymbol p,\boldsymbol P_0) &amp;,\ \boldsymbol p \in\partial\Omega
+\end{cases}
+\]</span></p>
+<p>使格林函数 <span class="math inline">\(G(\boldsymbol P,\boldsymbol P_0)=\varGamma+h\)</span></p>
+<p>则 <span class="math inline">\(G\)</span> 为如下定解问题的解</p>
+<p><span class="math display">\[
+\begin{cases}
+\Delta G=\delta(\boldsymbol p,\boldsymbol P_0) &amp;,\ \boldsymbol p\in\Omega \newline
+G(\boldsymbol p,\boldsymbol P_0)=0 &amp;,\ \boldsymbol p \in\partial\Omega
+\end{cases}
+\]</span></p>
+<p>那么原定解问题的解（三维）可以表示为</p>
+<p><span class="math display">\[
+u(\xi,\eta,\zeta)=
+-\iint\limits_{\partial\Omega}\varphi\frac{\partial G}{\partial\boldsymbol n}\mathrm ds
++\iiint\limits_{\Omega} Gf\mathrm dV
+\]</span></p>
+<p>（二维）</p>
+<p><span class="math display">\[
+u(\xi,\eta)=
+-\int\limits_{\partial\Omega}\varphi\frac{\partial G}{\partial\boldsymbol n}\mathrm ds
++\iint\limits_{\Omega} Gf\mathrm d\sigma
+\]</span></p>
+<h4 id="应用">应用</h4>
+<p>格林函数中 <span class="math inline">\(h\)</span> 的形式仅与给定边界有关，则对于特定问题，先求出格林函数，在通过上述格林函数法的结果给出原定解问题的解</p>
+<h5 id="半空间上狄利克雷问题">半空间上狄利克雷问题</h5>
+<p><span class="math inline">\(\Omega=\{(x,y,z)\ |\ z&gt;0\}\)</span>，<span class="math inline">\(\partial\Omega=\{(x,y,z)\ |\ z=0\}\)</span></p>
+<p>设 <span class="math inline">\(\boldsymbol P_0\in\Omega\)</span>，<span class="math inline">\(\boldsymbol P_1\)</span> 为对称点，有 <span class="math inline">\(G=\varGamma(\boldsymbol P,\boldsymbol P_0)-\varGamma(\boldsymbol P,\boldsymbol P_1)\)</span></p>
+<p>计算</p>
+<p><span class="math display">\[
+\left.\frac{\partial G}{\partial\boldsymbol n}\right|_{\partial\Omega}
+=
+\left.\frac{\partial G}{\partial z}\right|_{z=0}
+=
+-\frac{1}{2\pi}\frac{\zeta}{[(x-\xi)^2+(y-\eta)^2+\zeta^2]^{3/2}}
+\]</span></p>
+<p>代入格林函数法公式求解</p>
+<h5 id="平面圆域上狄利克雷问题">平面圆域上狄利克雷问题</h5>
+<p><span class="math inline">\(\Omega=\{(x,y)\ |\ x^2+y^2&lt;R^2\}\)</span></p>
+<p>设 <span class="math inline">\(\boldsymbol P_0\in\Omega\)</span>，<span class="math inline">\(\boldsymbol P_1\)</span> 为关于圆的反射点，极坐标 <span class="math inline">\(\boldsymbol P(\rho,\theta)\)</span></p>
+<p>格林函数</p>
+<p><span class="math display">\[
+G(\boldsymbol P,\boldsymbol P_0)=
+-\frac{1}{4\pi}\ln\frac{\rho_0^2 R^2+\rho^2R^2-2\rho_0\rho R^2\cos(\theta_0-\theta)}{R^4+\rho_0\rho^2-2\rho_0\rho R^2\cos(\theta_0-\theta)}
+\]</span></p>
+<h2 id="特征线法">特征线法</h2>
+<h3 id="一阶线性偏微分方程特征线法">一阶线性偏微分方程特征线法</h3>
+<p>有关于 <span class="math inline">\(u(x,t)\)</span> 的一阶线性偏微分方程 <span class="math display">\[
+au_t+bu_x+cu=f
+\]</span> 其中 <span class="math inline">\(a\)</span>、<span class="math inline">\(b\)</span>、<span class="math inline">\(c\)</span>、<span class="math inline">\(f\)</span> 均为 <span class="math inline">\(x\)</span> 和 <span class="math inline">\(t\)</span> 的函数</p>
+<p>特征方程：</p>
+<p><span class="math display">\[
+a\frac{\mathrm d x}{\mathrm dt}-b=0
+\]</span></p>
+<p>其积分曲线为上述方程的特征曲线（族）（带有任意常数 <span class="math inline">\(\tau\)</span>），沿特征曲线有 <span class="math inline">\(au_t+bu_x=\frac{\mathrm du}{\mathrm d t}\)</span>，常微分方程求解后将 <span class="math inline">\(\tau\)</span> 反解代回即可</p>
+<h3 id="一阶拟线性偏微分方程特征线法">一阶拟线性偏微分方程特征线法</h3>
+<p>一阶偏微分方程柯西问题</p>
+<p><span class="math display">\[
+\begin{cases}
+a(x,t,u)u_x+b(x,t,u)u_t=c(x,t,u) &amp;,\ x\in \mathbb{R} &amp;,\ t&gt;t_0
+\\
+u(x,t_0)=\varphi(x) &amp;,\ x\in \mathbb{R}
+\end{cases}
+\]</span></p>
+<ol type="1">
+<li><p>特征向量场 <span class="math inline">\(\boldsymbol\alpha=(a,b,c)\)</span></p></li>
+<li><p>特征方程组 <span class="math display">\[
+\begin{cases}
+\dfrac{\mathrm d x}{\mathrm d s}=a(x,t,u) &amp;,\ x(s_0)=\tau
+\newline
+\dfrac{\mathrm d t}{\mathrm d s}=b(x,t,u) &amp;,\ t(s_0)=t_0
+\newline
+\dfrac{\mathrm d u}{\mathrm d s}=c(x,t,u) &amp;,\ u(s_0)=\varphi(\tau)
+\end{cases}
+\]</span></p></li>
+</ol>
+<p>特征方程组的解称为特征曲线族，其中 <span class="math inline">\(s_0=t_0\)</span></p>
+<p>特征曲线消去参数 <span class="math inline">\(\tau\)</span>、<span class="math inline">\(s\)</span> 即为原问题的解</p>
+<h3 id="一维波动方程特征线法">一维波动方程特征线法</h3>
+<p>无界弦振动柯西问题</p>
+<p><span class="math display">\[
+\begin{cases}
+u_{tt}-a^2u_{xx}=0 &amp;,\ -\infty&lt;x&lt;\infty &amp;,\ t&gt;0
+\\
+u(x,0)=\varphi(x) &amp;,\ u_t(x,0)=\psi(x) &amp;,\ -\infty&lt;x&lt;\infty
+\end{cases}
+\]</span></p>
+<p>特征方程：</p>
+<p><span class="math display">\[
+\left(\frac{\mathrm du}{\mathrm dt}\right)^2-a^2=0
+\]</span></p>
+<p>特征线 <span class="math inline">\(x-at=c_1\)</span>，<span class="math inline">\(x+at=c_2\)</span></p>
+<p>得满足微分方程的行波解</p>
+<p><span class="math display">\[
+u(x,t)=f(x-at)+g(x+at)
+\]</span></p>
+<p>其中 <span class="math inline">\(f\)</span>，<span class="math inline">\(g\)</span> 为有二阶连续偏导数的任意函数</p>
+<p>根据初始条件有达朗贝尔公式</p>
+<p><span class="math display">\[
+u(x,t)=
+\left[\frac{1}{2}\varphi(x-at)-\frac{1}{2a}\int_0^{x-at}\psi(\alpha)\mathrm d\alpha\right]
++
+\left[\frac{1}{2}\varphi(x+at)+\frac{1}{2a}\int_0^{x+at}\psi(\alpha)\mathrm d\alpha\right]
+\]</span></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag"># 课程笔记</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%A4%A7%E9%9B%BE%E4%B8%8B%E5%85%AC%E5%BC%8F%E5%90%88%E9%9B%86/" rel="prev" title="大雾下公式合集">
+      <i class="fa fa-chevron-left"></i> 大雾下公式合集
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/10/13/en/Hexo-Pitfalls/" rel="next" title="Hexo Pitfalls">
+      Hexo Pitfalls <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">数学基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">傅里叶级数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E6%AC%A1%E5%9E%8B%E6%AD%A3%E4%BA%A4%E5%8F%98%E5%8C%96"><span class="nav-number">1.2.</span> <span class="nav-text">二次型正交变化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">数学模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E7%BB%B4%E5%BC%A6%E6%8C%AF%E5%8A%A8%E6%96%B9%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">一维弦振动方程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.1.1.</span> <span class="nav-text">初始条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.1.2.</span> <span class="nav-text">边界条件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%83%AD%E4%BC%A0%E5%AF%BC%E6%96%B9%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">热传导方程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E6%9D%A1%E4%BB%B6-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">初始条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">边界条件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%8A%E6%9D%BE%E6%96%B9%E7%A8%8B"><span class="nav-number">2.3.</span> <span class="nav-text">泊松方程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%8B%84%E5%88%A9%E5%85%8B%E9%9B%B7%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.3.1.</span> <span class="nav-text">狄利克雷条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%BA%E4%BC%8A%E6%9B%BC%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.3.2.</span> <span class="nav-text">诺伊曼条件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%A0%E5%8A%A0%E5%8E%9F%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">叠加原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E7%AE%97%E5%AD%90"><span class="nav-number">3.1.</span> <span class="nav-text">线性算子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E9%98%B6%E7%BA%BF%E6%80%A7%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="nav-number">3.2.</span> <span class="nav-text">二阶线性偏微分方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E6%9D%A1%E4%BB%B6%E5%8F%A0%E5%8A%A0%E5%8E%9F%E7%90%86"><span class="nav-number">3.3.</span> <span class="nav-text">初始条件叠加原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%A0%E5%8A%A0%E5%8E%9F%E7%90%86-1"><span class="nav-number">3.3.1.</span> <span class="nav-text">叠加原理 1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%A0%E5%8A%A0%E5%8E%9F%E7%90%86-23"><span class="nav-number">3.3.2.</span> <span class="nav-text">叠加原理 2、3</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6%E9%BD%90%E6%AC%A1%E6%80%A7"><span class="nav-number">3.4.</span> <span class="nav-text">边界条件齐次性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%BD%90%E6%AC%A1%E5%8C%96"><span class="nav-number">3.4.1.</span> <span class="nav-text">齐次化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%A6%BB%E5%8F%98%E9%87%8F%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">分离变量法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0%E6%B3%95"><span class="nav-number">4.1.</span> <span class="nav-text">特征函数法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%81%87%E8%AE%BE%E5%88%86%E7%A6%BB%E5%8F%98%E9%87%8F%E8%A7%A3"><span class="nav-number">4.1.1.</span> <span class="nav-text">假设分离变量解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%82%E7%89%B9%E5%BE%81%E5%80%BC%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3"><span class="nav-number">4.1.2.</span> <span class="nav-text">求特征值问题的解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A5%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0%E7%B3%BB%E5%B1%95%E5%BC%80%E6%AF%94%E8%BE%83"><span class="nav-number">4.1.3.</span> <span class="nav-text">以特征函数系展开比较</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B3%E9%9D%A2%E4%B8%8A%E6%B3%8A%E6%9D%BE%E6%96%B9%E7%A8%8B%E8%BE%B9%E5%80%BC%E9%97%AE%E9%A2%98"><span class="nav-number">4.2.</span> <span class="nav-text">平面上泊松方程边值问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%81%E5%9D%90%E6%A0%87%E4%B8%8A%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E6%96%B9%E7%A8%8B"><span class="nav-number">4.2.1.</span> <span class="nav-text">极坐标上拉普拉斯方程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%9D%E5%A1%9E%E5%B0%94%E5%87%BD%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">贝塞尔函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%B3%BB%E6%95%B0%E4%BA%8C%E9%98%B6%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="nav-number">5.1.</span> <span class="nav-text">常系数二阶齐次线性微分方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%82%E7%BA%A7%E6%95%B0%E8%A7%A3%E6%B3%95"><span class="nav-number">5.2.</span> <span class="nav-text">幂级数解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%CE%B3-%E5%87%BD%E6%95%B0"><span class="nav-number">5.3.</span> <span class="nav-text">Γ 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%96%B9%E7%A8%8B"><span class="nav-number">5.4.</span> <span class="nav-text">贝塞尔方程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%9D%E5%A1%9E%E5%B0%94%E5%87%BD%E6%95%B0-1"><span class="nav-number">5.4.1.</span> <span class="nav-text">贝塞尔函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%96%B9%E7%A8%8B%E7%89%B9%E5%BE%81%E5%80%BC%E9%97%AE%E9%A2%98"><span class="nav-number">5.5.</span> <span class="nav-text">贝塞尔方程特征值问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%9D%E5%A1%9E%E5%B0%94%E5%87%BD%E6%95%B0%E7%9A%84%E6%AD%A3%E4%BA%A4%E6%80%A7%E4%B8%8E%E8%B4%9D%E5%A1%9E%E5%B0%94%E7%BA%A7%E6%95%B0"><span class="nav-number">5.6.</span> <span class="nav-text">贝塞尔函数的正交性与贝塞尔级数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%86%E6%9F%B1%E4%BD%93%E6%88%96%E5%9C%86%E5%9F%9F%E4%B8%8A%E5%AE%9A%E8%A7%A3%E9%97%AE%E9%A2%98"><span class="nav-number">5.7.</span> <span class="nav-text">圆柱体或圆域上定解问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%BC%E6%9E%97%E5%87%BD%E6%95%B0%E6%B3%95"><span class="nav-number">6.</span> <span class="nav-text">格林函数法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%BC%E6%9E%97%E5%85%AC%E5%BC%8F"><span class="nav-number">6.1.</span> <span class="nav-text">格林公式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AB%98%E6%96%AF%E5%85%AC%E5%BC%8F"><span class="nav-number">6.1.1.</span> <span class="nav-text">高斯公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%BC%E6%9E%97%E5%85%AC%E5%BC%8F-1"><span class="nav-number">6.1.2.</span> <span class="nav-text">格林公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%BC%E6%9E%97%E7%AC%AC%E4%B8%80%E5%85%AC%E5%BC%8F"><span class="nav-number">6.1.3.</span> <span class="nav-text">格林第一公式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%89%E7%BB%B4"><span class="nav-number">6.1.3.1.</span> <span class="nav-text">三维</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4"><span class="nav-number">6.1.3.2.</span> <span class="nav-text">二维</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%BC%E6%9E%97%E7%AC%AC%E4%BA%8C%E5%85%AC%E5%BC%8F"><span class="nav-number">6.1.4.</span> <span class="nav-text">格林第二公式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%89%E7%BB%B4-1"><span class="nav-number">6.1.4.1.</span> <span class="nav-text">三维</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4-1"><span class="nav-number">6.1.4.2.</span> <span class="nav-text">二维</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%BC%E6%9E%97%E7%AC%AC%E4%B8%89%E5%85%AC%E5%BC%8F"><span class="nav-number">6.1.5.</span> <span class="nav-text">格林第三公式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%89%E7%BB%B4-2"><span class="nav-number">6.1.5.1.</span> <span class="nav-text">三维</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4-2"><span class="nav-number">6.1.5.2.</span> <span class="nav-text">二维</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%BC%E6%9E%97%E5%87%BD%E6%95%B0%E6%B3%95-1"><span class="nav-number">6.2.</span> <span class="nav-text">格林函数法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%BC%E6%9E%97%E5%87%BD%E6%95%B0"><span class="nav-number">6.2.1.</span> <span class="nav-text">格林函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">6.2.2.</span> <span class="nav-text">应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%8A%E7%A9%BA%E9%97%B4%E4%B8%8A%E7%8B%84%E5%88%A9%E5%85%8B%E9%9B%B7%E9%97%AE%E9%A2%98"><span class="nav-number">6.2.2.1.</span> <span class="nav-text">半空间上狄利克雷问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B9%B3%E9%9D%A2%E5%9C%86%E5%9F%9F%E4%B8%8A%E7%8B%84%E5%88%A9%E5%85%8B%E9%9B%B7%E9%97%AE%E9%A2%98"><span class="nav-number">6.2.2.2.</span> <span class="nav-text">平面圆域上狄利克雷问题</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E5%BE%81%E7%BA%BF%E6%B3%95"><span class="nav-number">7.</span> <span class="nav-text">特征线法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E9%98%B6%E7%BA%BF%E6%80%A7%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%89%B9%E5%BE%81%E7%BA%BF%E6%B3%95"><span class="nav-number">7.1.</span> <span class="nav-text">一阶线性偏微分方程特征线法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E9%98%B6%E6%8B%9F%E7%BA%BF%E6%80%A7%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%89%B9%E5%BE%81%E7%BA%BF%E6%B3%95"><span class="nav-number">7.2.</span> <span class="nav-text">一阶拟线性偏微分方程特征线法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E7%BB%B4%E6%B3%A2%E5%8A%A8%E6%96%B9%E7%A8%8B%E7%89%B9%E5%BE%81%E7%BA%BF%E6%B3%95"><span class="nav-number">7.3.</span> <span class="nav-text">一维波动方程特征线法</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Junyang Zhang"
+      src="/images/CasualPortraitOct2021.png">
+  <p class="site-author-name" itemprop="name">Junyang Zhang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/James-Hen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;James-Hen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:james-hen@outlook.com" title="E-Mail → mailto:james-hen@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://bytew.net/" title="https:&#x2F;&#x2F;bytew.net&#x2F;" rel="noopener" target="_blank">Nocriz</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://thelajiest.github.io/" title="https:&#x2F;&#x2F;thelajiest.github.io&#x2F;" rel="noopener" target="_blank">KON_automaton</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.mky.moe/" title="https:&#x2F;&#x2F;blog.mky.moe&#x2F;" rel="noopener" target="_blank">MonKey</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.ccandle.top/" title="https:&#x2F;&#x2F;blog.ccandle.top&#x2F;" rel="noopener" target="_blank">CCandle</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://120.79.138.174:8080/" title="http:&#x2F;&#x2F;120.79.138.174:8080&#x2F;" rel="noopener" target="_blank">siyuanluo</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://yang-d19.github.io/" title="https:&#x2F;&#x2F;yang-d19.github.io&#x2F;" rel="noopener" target="_blank">Yangd19</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="languages">
+    <label class="lang-select-label">
+      <i class="fa fa-language"></i>
+      <span>简体中文</span>
+      <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </label>
+    <select class="lang-select" data-canonical="">
+      
+        <option value="zh-CN" data-href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/" selected="">
+          简体中文
+        </option>
+      
+        <option value="en" data-href="/en/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/" selected="">
+          English
+        </option>
+      
+    </select>
+  </div>
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Junyang Zhang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hA0Uyzupz2vdCpNOIC0MCJjT-gzGzoHsz',
+      appKey     : 'dpOcFMwzmsVPyQPECkBb9TUP',
+      placeholder: "Just comment!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
