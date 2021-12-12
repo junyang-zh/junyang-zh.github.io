@@ -149,6 +149,436 @@
       
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/12/12/en/Building-SocketSnake-A-Multiplayer-TUI-Game-Written-in-Rust/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/12/en/Building-SocketSnake-A-Multiplayer-TUI-Game-Written-in-Rust/" class="post-title-link" itemprop="url">Building SocketSnake: A Multiplayer TUI Game Written in Rust</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-12 20:58:52 / Modified: 21:56:57" itemprop="dateCreated datePublished" datetime="2021-12-12T20:58:52+08:00">2021-12-12</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2021/12/12/en/Building-SocketSnake-A-Multiplayer-TUI-Game-Written-in-Rust/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/12/en/Building-SocketSnake-A-Multiplayer-TUI-Game-Written-in-Rust/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure>
+<img src="/images/SocketSnake/in_game_demo.png" alt="In Game Capture"><figcaption aria-hidden="true">In Game Capture</figcaption>
+</figure>
+<p>Github repository: <a target="_blank" rel="noopener" href="https://github.com/James-Hen/SocketSnake">SocketSnake</a></p>
+<h2 id="why-snake">Why snake</h2>
+<p>I started this Rust project days ago before my assignment for computer networks was due. And also, I though that I shall practice coding after reading half through the book <a target="_blank" rel="noopener" href="https://www.oreilly.com/library/view/programming-rust/9781491927274/">Programming Rust by Jim Blandy, Jason Orendorff</a>. Then the snake was born out of nowhere.</p>
+<p>The project is build for personal practice, especially around networks and rust features. Nevertheless, We shall consider if someone would acually play it, right? Or a step forward, if somebody would learn from the project? Thus I write this blog in case of oblivion.</p>
+<h2 id="the-structure-of-the-project">The structure of the project</h2>
+<p>Everything starts from a easy ground. For building a local version of the game, while considering that it may be migrated to a networked version, we implements a <code>Client</code> thread and a <code>Server</code> thread. The <code>Client</code> thread is responsible for listening a keyboard action, and convert then into a <code>Ctrl</code> signal (which is a <code>enum</code> type), and send it to the <code>Server</code> with a <code>std::mpsc</code> channel; The <code>Server</code> thread will host an instance of the game (<code>YardSim</code>), and push the screen buffer <code>YardBuf</code> (which is a <code>Vec&lt;Vec&lt;TUIBlock&gt;&gt;</code>) to the <code>Client</code>, who is in charge of rendering the game.</p>
+<pre class="mermaid">graph TB
+    subgraph Client
+        Renderer(Render)
+        Keyboard(KeyboarCtrlListener)
+    end
+    subgraph Server
+        YardSim(YardSim)--BufferPipe-->Renderer
+        Keyboard--CtrlPipe-->YardSim
+    end</pre>
+<p>Moreover, to implement the multiplayer game via network, we shall develop more modules. The <code>ServerWrapper</code> thread consists the <code>Server</code> thread, so do the <code>ClientWrapper</code> do.</p>
+<pre class="mermaid">graph TB
+    
+    subgraph ClientWrapper1
+        subgraph Client
+            Renderer(Render)
+            Keyboard(KeyboarCtrlListener)
+        end
+        Keyboard--CtrlPipe-->TCPSocket1(TCPSocket)
+        UDPSocket1(UDPSocket)--BufferPipe-->Renderer
+    end
+    
+    
+    
+    subgraph ClientWrapper2
+        TCPSocket2(TCPSocket)
+        UDPSocket2(UDPSocket)
+    end
+
+    subgraph ClientWrapperN
+        TCPSocketN(TCPSocket)
+        UDPSocketN(UDPSocket)
+    end
+    
+    subgraph ServerWrapper
+        TCPSocket1-.Connect.-TCPListener(TCPListener)
+        TCPSocket2-.Connect.-TCPListener
+        TCPSocketN-.Connect.-TCPListener
+        
+        TCPListener-.FireUp.-ClientHandler1
+        TCPListener-.FireUp.-ClientHandler2
+        TCPListener-.FireUp.-ClientHandlerN
+        
+        TCPSocket1==TCPStream==>ClientHandler1
+        TCPSocket2==TCPStream==>ClientHandler2
+        TCPSocketN==TCPStream==>ClientHandlerN
+        
+        ClientHandler1[ClientHandler1]--CtrlPipe-->YardSim
+        ClientHandler2[ClientHandler2]--CtrlPipe-->YardSim
+        ClientHandlerN[ClientHandlerN]--CtrlPipe-->YardSim
+        
+        
+        
+        subgraph Server
+            YardSim(YardSim)
+        end
+        
+        ServerUDPSocket(UDPSocket Multicast)==Buffer==>UDPSocket1
+        ServerUDPSocket==Buffer==>UDPSocket2
+        ServerUDPSocket==Buffer==>UDPSocketN
+        
+        YardSim--BufferPipe-->ServerUDPSocket
+        
+    end</pre>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/12/en/Building-SocketSnake-A-Multiplayer-TUI-Game-Written-in-Rust/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/11/20/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E5%8A%A8%E5%8A%9B%E5%AD%A6%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/11/20/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E5%8A%A8%E5%8A%9B%E5%AD%A6%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B/" class="post-title-link" itemprop="url">复杂网络动力学基础课程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-11-20 22:51:42 / Modified: 23:14:32" itemprop="dateCreated datePublished" datetime="2021-11-20T22:51:42+08:00">2021-11-20</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2021/11/20/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E5%8A%A8%E5%8A%9B%E5%AD%A6%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/11/20/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E5%8A%A8%E5%8A%9B%E5%AD%A6%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>我在之前打数模的时候学了一点复杂网络，虽然学的很浅，感觉还是挺有意思的。</p>
+<p>但这个考试完全打消了我对这个学科的喜爱，或者说觉得它不应该作为有考试的课程。这场考试完全就是背诵结论，弄得我毫无兴趣。现在陷入了人生的大思考。</p>
+<p>考卷结构大概是 20 分名词解释（10 题），40 分填空（40 个空），余下的证明和计算。我有一个证明题没弄对，填空一堆不记得了，经验公式也不太好推出来，烦躁。</p>
+<p>这个课本来是大四下的课，所以像这样背多分，不容易挂，也没人有意见，但是我基本上就惨了，祈求老师能给我分高一点吧。</p>
+<p>还是把考前搞的提纲粘出来，要好好背。也有好多考了提纲里没有，要好好看课件。</p>
+<h2 id="数理统计">数理统计</h2>
+<h3 id="符号">符号</h3>
+<p>随机变量 <span class="math inline">\(X\)</span>，观测值 <span class="math inline">\(x\)</span>，分布函数 CDF <span class="math inline">\(F(x)=P\{X\le x\}\)</span>，概率密度函数 PDF <span class="math inline">\(f(x)=F&#39;(x)\)</span></p>
+<p>若 <span class="math inline">\(Y=g(X)\)</span>，且 <span class="math inline">\(\int g(x)f(x)\ \mathrm d x\)</span> 绝对收敛，则 <span class="math inline">\(E[Y]=\int g(x)f(x)\ \mathrm d x\)</span></p>
+<h3 id="公式与概念">公式与概念</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/11/20/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E5%8A%A8%E5%8A%9B%E5%AD%A6%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/11/20/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/11/20/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B/" class="post-title-link" itemprop="url">优化方法基础课程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-11-20 17:17:44 / Modified: 22:54:10" itemprop="dateCreated datePublished" datetime="2021-11-20T17:17:44+08:00">2021-11-20</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2021/11/20/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/11/20/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天刚考了优化方法，感觉还可以，但是据说改卷很严，我好像也感受到要是一严我就裂开了。唉，听天由命吧。</p>
+<p>考前看到有之前上了的同学给这个课的评价，瘆得慌，博文链接在下面：</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/betelgeu/p/14999087.html">https://www.cnblogs.com/betelgeu/p/14999087.html</a></p>
+<p>虽然他觉得罗老师不行，但是我们对罗老师印象其实挺好的，挠头。</p>
+<p>不过呢，这个博主发的考试回忆还是挺准的，打消了不知道题型带来的考试懵逼感。</p>
+<p>把考前复习整理的放在下面吧</p>
+<h2 id="数学基础">数学基础</h2>
+<h3 id="内积与范数">内积与范数</h3>
+<p><span class="math inline">\(n\)</span> 维实向量集合 <span class="math inline">\(\mathbb R^n\)</span> 上，<span class="math inline">\(\forall x=(x_1,x_2,\cdots,x_n)^\intercal\in\mathbb R^n\)</span>，<span class="math inline">\(y=(y_1,y_2,\cdots,y_n)^\intercal\in \mathbb R^n\)</span>的<strong>标准内积</strong>： <span class="math display">\[
+\left&lt;x,y\right&gt;=x^\intercal y=\sum_{i=1}^n x_iy_i
+\]</span></p>
+<p><strong>范数</strong>的定义：满足以下条件的函数 <span class="math inline">\(f:\mathbb R^n\to\mathbb R\)</span> 称为范数</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/11/20/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/23/zh-CN/%E7%BB%99-MX-Anywhere-3-%E6%8D%A2%E9%9D%99%E9%9F%B3%E5%BE%AE%E5%8A%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/23/zh-CN/%E7%BB%99-MX-Anywhere-3-%E6%8D%A2%E9%9D%99%E9%9F%B3%E5%BE%AE%E5%8A%A8/" class="post-title-link" itemprop="url">给 MX Anywhere 3 换静音微动</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-23 21:05:40" itemprop="dateCreated datePublished" datetime="2021-10-23T21:05:40+08:00">2021-10-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-20 16:41:46" itemprop="dateModified" datetime="2021-11-20T16:41:46+08:00">2021-11-20</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2021/10/23/zh-CN/%E7%BB%99-MX-Anywhere-3-%E6%8D%A2%E9%9D%99%E9%9F%B3%E5%BE%AE%E5%8A%A8/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/23/zh-CN/%E7%BB%99-MX-Anywhere-3-%E6%8D%A2%E9%9D%99%E9%9F%B3%E5%BE%AE%E5%8A%A8/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>多图警告！</p>
+<h2 id="起因">起因</h2>
+<p>2021年初，心想买一个随处用的鼠标，正好 Anywhere 3 出来，搭载了 Master 3 上一样的电磁滚轮。十分心动！所以就买下来了。</p>
+<figure>
+<img src="\images\MXMaster3Pics\1.jpg" alt="罗技 MX Anywhere 3"><figcaption aria-hidden="true">罗技 MX Anywhere 3</figcaption>
+</figure>
+<p>白色鼠标十分讨人欢喜，用到现在也不觉得用脏了，而且有时候撞到什么东西也很难留下划痕。虽然他很贵，但我觉得一点也不娇贵，是个趁手的东西。电池续航很久，根本意识不到需要充电，即使需要充电，Type C 也十分方便。它最拿手的卖点就是电磁滚轮，真的爽到会让人觉得天下只有这一种滚轮，才能配的上鼠标的使用者。</p>
+<p>然而它其实也有一些小缺点，比如回报率只有 125 Hz，比如没有滚轮左右摆动。但是这都不痛不痒，最致命的缺点，便是：</p>
+<ul>
+<li><strong>不静音</strong></li>
+</ul>
+<p>这意味着我这小半年在图书馆用鼠标都畏畏缩缩的，因为这个高频的噪声不止让别人难受，我自己听了也难受。导致这个鼠标只是每天被我带去图书馆，摆在桌上做吉祥物，然后用触摸板......</p>
+<p>我一直想给它换个微动，但是又胆小，怕伤害了它的精致。直到有一天，终于忍不住了，要是它再不闭嘴，它就不是我爱的宝。</p>
+<p>于是上淘宝买了凯华的静音红点（微动）和底部的鼠标脚垫，因为需要揭开脚垫才能拧螺丝。本来想去工程坊借焊台，但是感觉买个垃圾电烙铁也不贵，备着吧，就开始在寝室搞了。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/10/23/zh-CN/%E7%BB%99-MX-Anywhere-3-%E6%8D%A2%E9%9D%99%E9%9F%B3%E5%BE%AE%E5%8A%A8/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/16/en/Solution-on-2018-ICPC-Asia-Nanjing-Regional-M/">
 
@@ -181,7 +611,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-11-20 16:41:45" itemprop="dateModified" datetime="2021-11-20T16:41:45+08:00">2021-11-20</time>
+                <time title="Modified: 2021-11-20 16:41:46" itemprop="dateModified" datetime="2021-11-20T16:41:46+08:00">2021-11-20</time>
               </span>
 
           
@@ -250,8 +680,497 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/GRE-%E5%A4%87%E8%80%83%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/13/zh-CN/GRE-%E5%A4%87%E8%80%83%E7%AF%87/" class="post-title-link" itemprop="url">GRE 备考篇</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-13 20:51:50" itemprop="dateCreated datePublished" datetime="2021-10-13T20:51:50+08:00">2021-10-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-19 16:15:20" itemprop="dateModified" datetime="2021-11-19T16:15:20+08:00">2021-11-19</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2021/10/13/zh-CN/GRE-%E5%A4%87%E8%80%83%E7%AF%87/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/13/zh-CN/GRE-%E5%A4%87%E8%80%83%E7%AF%87/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>考完九天出分，作文不太高吧。但也不想再考这个了，应该做点更有用的东西，不能魔怔。学 GRE 给我最有用的帮助，无外乎词汇量大大增加了，看文章稍微快一点了。但实际上，不会的单词还是得查，也许和我不懂很多汉语成语的意义是一个道理吧。报个 GRE 确实还是有帮助的，否则自己的嘤语水平怎么提升呢（笑）</p>
+<figure>
+<img src="/images/greprep/GREScore.png" alt="GREScore"><figcaption aria-hidden="true">GREScore</figcaption>
+</figure>
+<p>看看这备考的一个半月我都在干什么</p>
+<h2 id="section">2021.10.13</h2>
+<p>上个月十八号脑子一热，报了这个月底 GRE，1665 RMB 比托福雅思还是便宜一点。当时兴致勃勃说别人准备三个月那我自学一个半月应该没什么问题，现在一个月快过去了，我觉得很有问题。</p>
+<p>这一个月中间有十一假期，但是我这个月也做了不少别的事（花了很多时间写课程作业、报 BGA 和 IGSP），所以也不算用了很多时间。要你命三千小程序统计我背了 41 小时单词，算上别的做模拟、看书和用 Excel 背单词，满打满算也就准备了 70 个小时吧。但是 GRE 的标准准备时间差不多是 400 小时，笑死。</p>
+<p>刷了快两遍 3000 了，还是有一半不认识，做题不认识词比较艰难。国庆做的模拟，Verbal 一个 Section 大概错 10/20 个，Quantitive 偶尔粗心（或者题没印好）错。作文看了范文，还没自己写过，我感觉半小时我没法有那么多 Development。</p>
+<p>这两天又忙活了两天博客，修 <span class="math inline">\(\LaTeX\)</span> 修炸脑袋。</p>
+<p>感觉这些东西还是很有用的：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.ets.org/gre/revised_general/prepare/">ETS 官网</a>，上面有 Math Conventions；</li>
+<li>Official Guide，这本大书今年大早就买了，看来只有报了才能促进你学习；（后来我找到电子版，书感觉就不会变旧了）</li>
+<li><a target="_blank" rel="noopener" href="https://library.koolearn.com">新东方在线</a>，交大 IP 的话可以白嫖数年前的线上课程；</li>
+<li>各种模考网站：<a target="_blank" rel="noopener" href="https://11gre.com/paper/view?type=0">11gre</a>，<a target="_blank" rel="noopener" href="http://gwc.weichenedu.cn/products/">微臣</a>，<a target="_blank" rel="noopener" href="https://www.gre.vip/home">皇冠gre</a>，但我一分钱也没交，题够刷了；</li>
+<li><a target="_blank" rel="noopener" href="http://www.dicts.cn/">词根词缀词典</a>，以及它的安卓、IOS App，它们的开发者看起来有血有肉的，很有意思；</li>
+<li><em>The Economist</em> 表达水平这真的高，可惜政治立场有点对立；</li>
+<li>3000 核心词的 Excel 表，我放在博客里吧，感觉有用：<a href="/files/GRE3000Essential.xls">GRE3000Essential.xls</a>（<em>upd.</em> 这有不少错的释义，谨慎）。</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/10/13/zh-CN/GRE-%E5%A4%87%E8%80%83%E7%AF%87/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/en/Hexo-Pitfalls/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/13/en/Hexo-Pitfalls/" class="post-title-link" itemprop="url">Hexo Pitfalls</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-13 10:19:30" itemprop="dateCreated datePublished" datetime="2021-10-13T10:19:30+08:00">2021-10-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-20 22:54:10" itemprop="dateModified" datetime="2021-11-20T22:54:10+08:00">2021-11-20</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2021/10/13/en/Hexo-Pitfalls/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/13/en/Hexo-Pitfalls/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Here are the useful blogs, packages and resources that I learned from to build this site.</p>
+<p>And following the list of changes, I can reproduce this site quickly. This is why the blog is also helpful for me.</p>
+<h2 id="theme-of-hexo-next">Theme of Hexo-Next</h2>
+<p>It's an elegant theme with a lot of effortless customizations.</p>
+<h2 id="internationalization">Internationalization:</h2>
+<p>The i18n package, which can generate directories for languages, but still not perfect.</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Jamling/hexo-generator-i18n">hexo-generator-i18n</a></p>
+<p>Other solutions like moving the whole site to a sub-folder.</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/calvin_zhou/article/details/110957632">Hexo站点建设之——国际化(i18n)</a></p>
+<h2 id="problems-of-nunjucks-collision">Problems of nunjucks collision:</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/10/13/en/Hexo-Pitfalls/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%A4%A7%E9%9B%BE%E4%B8%8B%E5%85%AC%E5%BC%8F%E5%90%88%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%A4%A7%E9%9B%BE%E4%B8%8B%E5%85%AC%E5%BC%8F%E5%90%88%E9%9B%86/" class="post-title-link" itemprop="url">大雾下公式合集</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-13 09:49:30" itemprop="dateCreated datePublished" datetime="2021-10-13T09:49:30+08:00">2021-10-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-10-14 08:33:51" itemprop="dateModified" datetime="2021-10-14T08:33:51+08:00">2021-10-14</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%A4%A7%E9%9B%BE%E4%B8%8B%E5%85%AC%E5%BC%8F%E5%90%88%E9%9B%86/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%A4%A7%E9%9B%BE%E4%B8%8B%E5%85%AC%E5%BC%8F%E5%90%88%E9%9B%86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><em>rev0.3.1</em></p>
+<h2 id="disclaimer">Disclaimer</h2>
+<p>本文档照例应用于考前记诵</p>
+<p>但现在内容多得已经可以用来饱和式学习了</p>
+<p>本文强调值的运算矢量性时利用箭头符号 <span class="math inline">\(\vec a\)</span>，描绘一般原则时则使用加粗体 <span class="math inline">\(\mathbf a\)</span></p>
+<p>所有常量均使用正体（如玻尔兹曼常量 <span class="math inline">\(\mathrm k\)</span>）</p>
+<p>电子电量 <span class="math inline">\(\mathrm e\)</span> 与自然底数 <span class="math inline">\(\mathrm e\)</span> 写法一致，但易于从上下文判断</p>
+<p>rev 0.1，波动光学还没完善好！</p>
+<p>rev 0.2，差不多该可以用了，但也快要考试了，加了一些没什么用的东西</p>
+<p>rev 0.3，修正了一些已知错误</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%A4%A7%E9%9B%BE%E4%B8%8B%E5%85%AC%E5%BC%8F%E5%90%88%E9%9B%86/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/" class="post-title-link" itemprop="url">偏微分方程复习整理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-10-13 09:49:30 / Modified: 22:18:00" itemprop="dateCreated datePublished" datetime="2021-10-13T09:49:30+08:00">2021-10-13</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="数学基础">数学基础</h2>
+<h3 id="傅里叶级数">傅里叶级数</h3>
+<p><span class="math display">\[
+f(t)=\frac{a_0}{2}+\sum_{n=1}^{\infty}\left[a_n\cos(n\omega t)+b_n\sin(n\omega t)\right]
+\]</span></p>
+<p>其中</p>
+<p><span class="math display">\[
+\begin{align}
+a_n&amp;=\frac{2}{T}\int_{t_0}^{t_0+T}f(t)\cos(n\omega t)\mathrm d t &amp;,n\in \mathbb{Z}_+ \nonumber
+\\
+b_n&amp;=\frac{2}{T}\int_{t_0}^{t_0+T}f(t)\sin(n\omega t)\mathrm d t &amp;,n\in \mathbb{Z}_+ \nonumber
+\end{align}
+\]</span></p>
+<h3 id="二次型正交变化">二次型正交变化</h3>
+<p>设有二次型矩阵 <span class="math inline">\(A\)</span>，<span class="math inline">\(f(x)=\boldsymbol x^{\mathrm T}A\boldsymbol x\)</span></p>
+<p>存在正交矩阵 <span class="math inline">\(P\)</span> 使 <span class="math inline">\(\boldsymbol x=P\boldsymbol y\)</span>，<span class="math inline">\(f(x)=\boldsymbol y^{\mathrm T}P^{\mathrm T}AP\boldsymbol x=d_1y_1^2+d_2y_2^2+\cdots+d_ny_n^2\)</span></p>
+<p>步骤</p>
+<ol type="1">
+<li>求出 <span class="math inline">\(A\)</span> 的特征值 <span class="math inline">\(\lambda_1,\lambda_2,\cdots,\lambda_n\)</span>，（即求解 <span class="math inline">\(|A-\lambda I|=0\)</span>）​</li>
+<li>得出对应的特征向量 <span class="math inline">\(\xi_1,\xi_2,\cdots,\xi_n\)</span>，（即求解 <span class="math inline">\((A-\lambda_iI)x=0\)</span>）</li>
+<li>特征向量标准正交化得 <span class="math inline">\(\eta_1,\eta_2,\cdots,\eta_n\)</span></li>
+<li>得 <span class="math inline">\(P=[\eta_1\ \eta_2\ \cdots\ \eta_n]\)</span></li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">数值分析笔记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-10-13 09:49:30 / Modified: 22:18:00" itemprop="dateCreated datePublished" datetime="2021-10-13T09:49:30+08:00">2021-10-13</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本文向量、矩阵符号均不以粗体标识，从上下文推断</p>
+<h2 id="线性代数">线性代数</h2>
+<h3 id="特征值">特征值</h3>
+<p>求矩阵 <span class="math inline">\(A\)</span> 的特征值 <span class="math inline">\(\lambda_i\)</span> 以及特征向量 <span class="math inline">\(x\)</span>：求解方程 <span class="math inline">\(|A-\lambda I|=0\)</span></p>
+<h3 id="二次型">二次型</h3>
+<p>设 <span class="math inline">\(A\)</span> 是对称正定阵，<span class="math inline">\(\forall x\neq 0 \in R^n\)</span> 二次型 <span class="math inline">\(x^{\mathrm T}Ax &gt; 0\)</span></p>
+<p>存在可逆矩阵 <span class="math inline">\(L\)</span> 使 <span class="math inline">\(A = LL^T\)</span></p>
+<p><span class="math inline">\(A\)</span> 特征值、顺序主子式均大于零</p>
+<h2 id="范数">范数</h2>
+<h3 id="向量范数">向量范数</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/en/page/2/">2</a><a class="extend next" rel="next" href="/en/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 
 
 
@@ -318,12 +1237,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -475,6 +1394,19 @@
 
 
 
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
 
 
   

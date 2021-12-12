@@ -299,7 +299,7 @@ y(x)=e^{\alpha x}(C_1\cos\beta x+C_2\sin\beta x)
 \end{align}
 \]</span></p>
 <figure>
-<img src="/images/YDelta.png" alt="Y-Delta 变换示意图" /><figcaption>Y-Delta 变换示意图</figcaption>
+<img src="/images/YDelta.png" alt="Y-Delta 变换示意图" /><figcaption aria-hidden="true">Y-Delta 变换示意图</figcaption>
 </figure>
 <p><span class="math display">\[
 \begin{align}
@@ -429,7 +429,7 @@ r(t) = e(t)*h(t) = \int_0^t e(\xi)h(t - \xi) \mathrm d\xi
 </ul>
 <h2 id="二端口网络">二端口网络</h2>
 <figure>
-<img src="/images/TwoPort.jpg" alt="二端口示意图" /><figcaption>二端口示意图</figcaption>
+<img src="/images/TwoPort.jpg" alt="二端口示意图" /><figcaption aria-hidden="true">二端口示意图</figcaption>
 </figure>
 <p>Y 参数：短路导纳参数</p>
 <p><span class="math display">\[
@@ -533,12 +533,12 @@ H_{21} &amp; H_{22}
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E4%B8%8E%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/" rel="prev" title="概率统计与随机过程复习整理">
-      <i class="fa fa-chevron-left"></i> 概率统计与随机过程复习整理
+    <a href="/2021/10/12/en/Moving-My-Blog-To-a-Static-Website/" rel="prev" title="Moving My Blog To a Static Website">
+      <i class="fa fa-chevron-left"></i> Moving My Blog To a Static Website
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/" rel="next" title="数值分析笔记">
-      数值分析笔记 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/" rel="next" title="组合数学提纲">
+      组合数学提纲 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -615,12 +615,12 @@ H_{21} &amp; H_{22}
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -772,6 +772,19 @@ H_{21} &amp; H_{22}
 
 
 
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
 
 
   
