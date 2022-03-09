@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/Avatar.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.gif">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.gif">
+  <link rel="mask-icon" href="/images/favicon-32x32.gif" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jyzhang.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="不明所以的 SDN 老师出了一道实机实验题，要求模拟下面的过程，中途丢掉某个特定的包。   procedure.jpg  拔网线大概会直接丢所有的包，后来要求收到的包就模拟不出来了，而且十分考验手速。或者使用现有的防火墙程序，但按内容匹配也不容易。另一种方式是使用 mininet，笔者不太会 mininet。不过正好笔者了解过 eBPF，也正要学习，于是用 eBPF 写一个 XDP 防火墙，支持内">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用 eBPF XDP 编写一个实验用防火墙">
+<meta property="og:url" content="http://jyzhang.xyz/2022/03/09/zh-CN/%E5%88%A9%E7%94%A8-eBPF-XDP-%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%AE%9E%E9%AA%8C%E7%94%A8%E9%98%B2%E7%81%AB%E5%A2%99/index.html">
+<meta property="og:site_name" content="Junyang Zhang&#39;s Blog">
+<meta property="og:description" content="不明所以的 SDN 老师出了一道实机实验题，要求模拟下面的过程，中途丢掉某个特定的包。   procedure.jpg  拔网线大概会直接丢所有的包，后来要求收到的包就模拟不出来了，而且十分考验手速。或者使用现有的防火墙程序，但按内容匹配也不容易。另一种方式是使用 mininet，笔者不太会 mininet。不过正好笔者了解过 eBPF，也正要学习，于是用 eBPF 写一个 XDP 防火墙，支持内">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://jyzhang.xyz/images/ePBFFirewall/procedure.jpg">
+<meta property="article:published_time" content="2022-03-09T06:56:10.000Z">
+<meta property="article:modified_time" content="2022-03-09T12:42:39.490Z">
+<meta property="article:author" content="Junyang Zhang">
+<meta property="article:tag" content="CS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://jyzhang.xyz/images/ePBFFirewall/procedure.jpg">
+
+<link rel="canonical" href="http://jyzhang.xyz/2022/03/09/zh-CN/%E5%88%A9%E7%94%A8-eBPF-XDP-%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%AE%9E%E9%AA%8C%E7%94%A8%E9%98%B2%E7%81%AB%E5%A2%99/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>利用 eBPF XDP 编写一个实验用防火墙 | Junyang Zhang's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Junyang Zhang's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2022/03/09/zh-CN/%E5%88%A9%E7%94%A8-eBPF-XDP-%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%AE%9E%E9%AA%8C%E7%94%A8%E9%98%B2%E7%81%AB%E5%A2%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          利用 eBPF XDP 编写一个实验用防火墙
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-09 14:56:10 / 修改时间：20:42:39" itemprop="dateCreated datePublished" datetime="2022-03-09T14:56:10+08:00">2022-03-09</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/03/09/zh-CN/%E5%88%A9%E7%94%A8-eBPF-XDP-%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%AE%9E%E9%AA%8C%E7%94%A8%E9%98%B2%E7%81%AB%E5%A2%99/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/03/09/zh-CN/%E5%88%A9%E7%94%A8-eBPF-XDP-%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%AE%9E%E9%AA%8C%E7%94%A8%E9%98%B2%E7%81%AB%E5%A2%99/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>不明所以的 SDN
+老师出了一道实机实验题，要求模拟下面的过程，中途丢掉某个特定的包。</p>
+<figure>
+<img src="/images/ePBFFirewall/procedure.jpg" alt="procedure.jpg" />
+<figcaption aria-hidden="true">procedure.jpg</figcaption>
+</figure>
+<p>拔网线大概会直接丢所有的包，后来要求收到的包就模拟不出来了，而且十分考验手速。或者使用现有的防火墙程序，但按内容匹配也不容易。另一种方式是使用
+mininet，笔者不太会 mininet。不过正好笔者了解过 eBPF，也正要学习，于是用
+eBPF 写一个 XDP 防火墙，支持内容匹配。</p>
+<p>我们的目的是用 BPF 实现一个 XDP（eXpress Data Path）程序，绑定在本机
+loopback 接口上，匹配到 A 到 B 内容为 <code>Are you OK?</code>
+的包，然后把它过滤掉。</p>
+<p>不了解 eBPF 的话可以先看一下这篇博客 <a
+target="_blank" rel="noopener" href="https://imliuda.com/post/1047">eBPF 技术介绍-刘达的博客</a></p>
+<p>本文的 repo：<a
+target="_blank" rel="noopener" href="https://github.com/James-Hen/eBPF-PayloadFilter">eBPF-PayloadFilter</a></p>
+<h2 id="实现主机-a-和-b">实现主机 A 和 B</h2>
+<p>使用 Socket 实现 TCP 连接已经老生常谈了，这次我们把它们绑定到
+Loopback 接口；A 的端口 <code>1145</code>，B 的端口 <code>5141</code>，A
+作为服务器。 <code>experiment.c</code>
+的简化代码是这样的，错误处理省略掉了：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// experiment.c</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> A_PORT 1145</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> B_PORT 5141</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">host_A</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// SOCKET</span></span><br><span class="line">    <span class="keyword">int</span> server_fd = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">int</span> opt = <span class="number">1</span>;</span><br><span class="line">    setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT,</span><br><span class="line">                                                &amp;opt, <span class="keyword">sizeof</span>(opt));</span><br><span class="line">    <span class="comment">// BIND to 1145</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">address</span>;</span></span><br><span class="line">    <span class="keyword">int</span> addrlen = <span class="keyword">sizeof</span>(address);</span><br><span class="line">    address.sin_family = AF_INET;</span><br><span class="line">    address.sin_addr.s_addr = INADDR_ANY;</span><br><span class="line">    address.sin_port = htons(A_PORT);</span><br><span class="line">    bind(server_fd, (struct sockaddr *)&amp;address,</span><br><span class="line">                                <span class="keyword">sizeof</span>(address));</span><br><span class="line">    <span class="comment">// LISTEN</span></span><br><span class="line">    listen(server_fd, <span class="number">3</span>);</span><br><span class="line">    <span class="comment">// ACCEPT</span></span><br><span class="line">    <span class="keyword">int</span> new_socket = accept(server_fd, (struct sockaddr *)&amp;address,</span><br><span class="line">                    (<span class="keyword">socklen_t</span>*)&amp;addrlen))；</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> buffer[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">char</span> *hello = <span class="string">&quot;Hello!&quot;</span>, *areuok = <span class="string">&quot;Are you OK?&quot;</span>;</span><br><span class="line">    <span class="comment">// A sends &quot;Hello!&quot;</span></span><br><span class="line">    send(new_socket, hello, <span class="built_in">strlen</span>(hello), <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// After ACK, A sends &quot;Are you OK?&quot;</span></span><br><span class="line">    send(new_socket, areuok, <span class="built_in">strlen</span>(areuok), <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// B sends &quot;Hello!&quot;</span></span><br><span class="line">    <span class="keyword">int</span> valread = read(new_socket, buffer, <span class="number">1024</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">host_B</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// SOCKET</span></span><br><span class="line">    <span class="keyword">int</span> client_fd = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// BIND to 5141</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">cli_addr</span>;</span></span><br><span class="line">    cli_addr.sin_family = AF_INET;</span><br><span class="line">    cli_addr.sin_port = htons(B_PORT);</span><br><span class="line">    bind(client_fd, (struct sockaddr *)&amp;cli_addr, <span class="keyword">sizeof</span>(cli_addr));</span><br><span class="line">    <span class="comment">// CONNECT to localhost:1145</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">serv_addr</span>;</span></span><br><span class="line">    serv_addr.sin_family = AF_INET;</span><br><span class="line">    serv_addr.sin_port = htons(A_PORT);</span><br><span class="line">    inet_pton(AF_INET, <span class="string">&quot;127.0.0.1&quot;</span>, &amp;serv_addr.sin_addr);</span><br><span class="line">    connect(client_fd, (struct sockaddr *)&amp;serv_addr, <span class="keyword">sizeof</span>(serv_addr));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> buffer[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="comment">// B reads &quot;Hello!&quot; and ACK</span></span><br><span class="line">    <span class="keyword">int</span> valread = read(client_fd, buffer, <span class="number">1024</span>);</span><br><span class="line">    <span class="comment">// B sends &quot;Hello!&quot;</span></span><br><span class="line">    <span class="keyword">char</span> *hello = <span class="string">&quot;Hello!&quot;</span>;</span><br><span class="line">    send(client_fd, hello ,<span class="built_in">strlen</span>(hello) ,<span class="number">0</span>);</span><br><span class="line">    <span class="comment">// B reads &quot;Are you OK?&quot; and ACK</span></span><br><span class="line">    valread = read(client_fd, buffer, <span class="number">1024</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> B_pid = fork();</span><br><span class="line">    <span class="keyword">if</span> (B_pid == <span class="number">0</span>) &#123; <span class="comment">// B</span></span><br><span class="line">        sleep(<span class="number">1</span>); <span class="comment">// Let A start first</span></span><br><span class="line">        host_B();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123; <span class="comment">// A</span></span><br><span class="line">        host_A();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="ebpf-工具链准备">eBPF 工具链准备</h2>
+<p>既然是 eBPF，必须是 Linux 了，Win 和 MacOS 不好使。</p>
+<p>虽然可以使用 <code>libbpfcc</code> 和 Python
+实现简单的编译和启用，但无奈在我们的服务器上存在权限问题，所以转战
+<code>libbpf</code>。但是 <code>libbpf</code> 在新的 Ubuntu 20.04 LTS
+上不存在了（会有 <code>E: Unable to locate package libbpf</code>
+错误），需要从源码编译，我在 repo 里已经把它作为 submodule，使用
+Makefile 自动编译了。</p>
+<p>再者就是需要 LLVM 和 Clang 作为编译器来生成 eBPF 字节码。</p>
+<p>实验抓包可以使用命令行版本的 WireShark——TShark，使用 TShark
+抓包可以生成 <code>.pcapng</code> 文件，可以利用图形界面的 WireShark
+分析。</p>
+<p>可以这样使用 TShark 抓取 1145 端口的 TCP 包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo tshark -i lo -f <span class="string">&quot;tcp port 1145&quot;</span> -w <span class="string">&quot;./result.pcapng&quot;</span> -P -a duration:5</span><br></pre></td></tr></table></figure>
+<p>其中 <code>-i</code> 选取设备（<code>lo</code>
+是本地环回接口）；<code>-f</code> 设置一个过滤条件（和 WireShark
+的显示条件语法不一样）；<code>-w</code> 写入一个文件；<code>-P</code>
+在写入文件的同时把格式化的输出放到 stdout；<code>-a duration:5</code>
+设置抓包五秒</p>
+<h2 id="编译并加载-ebpf-程序">编译并加载 eBPF 程序</h2>
+<p>上代码之前先看看怎么编译：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang -I/usr/include/x86_64-linux-gnu -Ibuild/usr/include -O3 -target bpf -c filter.c -o filter.o</span><br></pre></td></tr></table></figure>
+<p>指定的 include 目录包括了系统的目录和 libbpf 的安装目录。必须使用
+Clang 才能使用 LLVM 提供的 BPF 字节码后端。可以试试查看 BPF
+字节码长什么样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ llvm-objdump -D filter.o</span><br><span class="line">[...]</span><br><span class="line">Disassembly of section prog:</span><br><span class="line"></span><br><span class="line">0000000000000000 xdp_func:</span><br><span class="line">       0:       b7 00 00 00 02 00 00 00 r0 = 2</span><br><span class="line">       1:       61 12 04 00 00 00 00 00 r2 = *(u32 *)(r1 + 4)</span><br><span class="line">       2:       61 13 00 00 00 00 00 00 r3 = *(u32 *)(r1 + 0)</span><br><span class="line">       3:       bf 31 00 00 00 00 00 00 r1 = r3</span><br><span class="line">       4:       07 01 00 00 0e 00 00 00 r1 += 14</span><br><span class="line">       5:       2d 21 53 00 00 00 00 00 if r1 &gt; r2 goto +83 &lt;LBB0_12&gt;</span><br><span class="line">       6:       bf 31 00 00 00 00 00 00 r1 = r3</span><br><span class="line">       7:       07 01 00 00 22 00 00 00 r1 += 34</span><br><span class="line">       8:       2d 21 50 00 00 00 00 00 if r1 &gt; r2 goto +80 &lt;LBB0_12&gt;</span><br><span class="line">       9:       bf 34 00 00 00 00 00 00 r4 = r3</span><br><span class="line">      10:       07 04 00 00 36 00 00 00 r4 += 54</span><br><span class="line">      11:       2d 24 4d 00 00 00 00 00 if r4 &gt; r2 goto +77 &lt;LBB0_12&gt;</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
+<p>可以看出它是“64 位指令字长的 RISC 架构”，BPF 的内核态 JIT 引擎会在
+Verifier
+验证后（这个验证非常严格），把这些字节码翻译成宿主机的指令集机器码来执行。</p>
+<p>通过下面的命令把编译出来的字节码丢给 Kernel，其中 <code>lo</code>
+是环回接口，<code>xdp</code> 是程序类型：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip link <span class="built_in">set</span> dev lo xdp obj filter.o</span><br></pre></td></tr></table></figure>
+<p>可以这样关闭它：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip link <span class="built_in">set</span> dev lo xdp off</span><br></pre></td></tr></table></figure>
+<p>如果担心是不是没关掉或者误加载了，可以使用 <code>ip link list</code>
+查看一下。</p>
+<h2 id="先实现一个能编译的板子">先实现一个能编译的板子</h2>
+<p>（用 BPF 实现的）XDP
+程序的结构是这样的，前面加了一些问题描述中用到的定义：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// filter.c: drop all A-&gt;B TCP packets</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/bpf.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/if_ether.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/ip.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/tcp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// The pattern that will be matched</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> match_pattern[] = <span class="string">&quot;Are you OK?&quot;</span>;</span><br><span class="line"><span class="comment">// The ports of src and dst</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> A_PORT 1145</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> B_PORT 5141</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Tell clang that the section name of the function is prog</span></span><br><span class="line">SEC(<span class="string">&quot;prog&quot;</span>)</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">xdp_func</span><span class="params">(struct xdp_md *ctx)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ctx: the pointer to the frame and relevant fields</span></span><br><span class="line">    <span class="keyword">void</span> *data_end = (<span class="keyword">void</span> *)(<span class="keyword">long</span>)ctx-&gt;data_end;</span><br><span class="line">    <span class="keyword">void</span> *data = (<span class="keyword">void</span> *)(<span class="keyword">long</span>)ctx-&gt;data;</span><br><span class="line">    <span class="comment">// Ethernet header is the first one</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ethhdr</span> *<span class="title">eth</span> =</span> data;</span><br><span class="line">    <span class="keyword">if</span> ((<span class="keyword">void</span> *)eth + <span class="keyword">sizeof</span>(*eth) &gt; data_end)  <span class="comment">// Overflow detection</span></span><br><span class="line">        <span class="keyword">return</span> XDP_PASS; <span class="comment">// PASS</span></span><br><span class="line">    <span class="comment">// Calculate the IP header address, must&#x27;t overflow because tested</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">iphdr</span> *<span class="title">ip</span> =</span> data + <span class="keyword">sizeof</span>(*eth);</span><br><span class="line">    <span class="keyword">if</span> ((<span class="keyword">void</span> *)ip + <span class="keyword">sizeof</span>(*ip) &gt; data_end)    <span class="comment">// Overflow detection</span></span><br><span class="line">        <span class="keyword">return</span> XDP_PASS;</span><br><span class="line">    <span class="comment">// If not IP protocol</span></span><br><span class="line">    <span class="keyword">if</span> (ip-&gt;protocol != IPPROTO_TCP)</span><br><span class="line">        <span class="keyword">return</span> XDP_PASS;</span><br><span class="line">    <span class="comment">// Calculatethe TCP header address</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">tcphdr</span> *<span class="title">tcp</span> =</span> (<span class="keyword">void</span> *)ip + <span class="keyword">sizeof</span>(*ip);</span><br><span class="line">    <span class="keyword">if</span> ((<span class="keyword">void</span> *)tcp + <span class="keyword">sizeof</span>(*tcp) &gt; data_end)  <span class="comment">// Overflow detection</span></span><br><span class="line">        <span class="keyword">return</span> XDP_PASS;</span><br><span class="line">    <span class="comment">// Match the source and target port</span></span><br><span class="line">    <span class="comment">// htons: host to network (byte order) short</span></span><br><span class="line">    <span class="keyword">if</span> (tcp-&gt;source != htons(A_PORT) || tcp-&gt;dest != htons(B_PORT))</span><br><span class="line">        <span class="keyword">return</span> XDP_PASS;</span><br><span class="line">    <span class="keyword">return</span> XDP_DROP; <span class="comment">// Drop it!</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看得出来，他会把所有的 A 到 B 的 TCP 包通过端口匹配丢掉，可以试试跑
+<code>experiment</code> 来看看能不能过滤。</p>
+<p>XDP
+程序中写了很多溢出的判断，这里的判断都保证了计算下一个包头位置不会达到无效内存。虽然对于正常的帧看起来显然不会溢出，但是
+BPF 的 Verifier 会检查你有没有检查，否则是不愿意把你 JIT 进内核的。</p>
+<h2 id="字符串匹配">字符串匹配</h2>
+<p>XDP 有严格的函数调用限制，<code>strcmp</code>
+是完全不能用的。有些情况下 <code>__builtin_memcmp</code>
+可以用，但是我没用成功。BPF 程序基本不支持循环，但是可以使用
+<code>#pragma unroll</code>
+预处理指令让编译器把常数上下限的循环给完全展开：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// filter.c (part)</span></span><br><span class="line"><span class="comment">// include and some global variables ignored</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// The pattern that will be matched</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> match_pattern[] = <span class="string">&quot;Are you OK?&quot;</span>;</span><br><span class="line"></span><br><span class="line">SEC(<span class="string">&quot;prog&quot;</span>)</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">xdp_func</span><span class="params">(struct xdp_md *ctx)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ignored Ethernet, TCP, IP header tests</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Here we begin to check payloads</span></span><br><span class="line">    <span class="keyword">uint32_t</span> payload_size = <span class="comment">// ip total length - ip header length - tcp data offset</span></span><br><span class="line">        ntohs(ip-&gt;tot_len) - ((<span class="keyword">uint32_t</span>)(ip-&gt;ihl) &lt;&lt; <span class="number">2</span>) - tcp_hdrl(tcp);</span><br><span class="line">    <span class="keyword">uint32_t</span> pattern_size = <span class="keyword">sizeof</span>(match_pattern) - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (payload_size != pattern_size) </span><br><span class="line">        <span class="keyword">return</span> XDP_PASS;</span><br><span class="line">    <span class="comment">// Point to start of payload.</span></span><br><span class="line">    payload = (<span class="keyword">const</span> <span class="keyword">char</span> *)tcp + tcp_hdrl(tcp);</span><br><span class="line">    <span class="keyword">if</span> ((<span class="keyword">void</span> *)payload + payload_size &gt; data_end)</span><br><span class="line">        <span class="keyword">return</span> XDP_PASS;</span><br><span class="line">    <span class="comment">// Compare first bytes, exit if a difference is found.</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> unroll</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; payload_size; i++)</span><br><span class="line">        <span class="keyword">if</span> (match_pattern[i] != payload[i])</span><br><span class="line">            <span class="keyword">return</span> XDP_PASS;</span><br><span class="line">    <span class="comment">// matched, Drop it</span></span><br><span class="line">    <span class="keyword">return</span> XDP_DROP;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>哦对了，出现了一个
+<code>tcp_hdrl(tcp)</code>。它其实是我自己写的宏，来取得 TCP
+的头长度（也是数据的 Offset）。为啥不是个简单的字段呢？因为有些实现是
+BSD 标准，可以参照 <a
+target="_blank" rel="noopener" href="https://sites.uclouvain.be/SystInfo/usr/include/netinet/tcp.h.html">tcp.h</a>。另外，这个偏移量是以
+4 字节（32 位）为单位的。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __FAVOR_BSD</span></span><br><span class="line">    <span class="meta">#<span class="meta-keyword">define</span> tcp_hdrl(hdr) ((uint32_t)(hdr-&gt;th_off) &lt;&lt; 2)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">    <span class="meta">#<span class="meta-keyword">define</span> tcp_hdrl(hdr) ((uint32_t)(hdr-&gt;doff) &lt;&lt; 2)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="需要-debug">需要 Debug！</h2>
+<p>万一写挂了，这东西完全没有调试器，没有断点可以打。只能 print
+些什么，但是连 <code>printf</code> 也不能用！所幸 <code>libbpf</code>
+提供了 <code>bpf_trace_printk()</code>，提供类似 <code>printf</code>
+的功能，但是：</p>
+<ul>
+<li>它最多只可以格式化输出三个变量的值</li>
+<li>必须传格式字符串的长度</li>
+<li>在程序中必须声明使用 <a
+target="_blank" rel="noopener" href="https://github.com/torvalds/linux/blob/master/include/linux/license.h">GPL-compatible</a>
+许可证开源</li>
+</ul>
+<p>唉，虽然不喜欢 GPL，但是至少 MIT 和 BSD 是能 GPL-compatible
+的。至于前两个限制，可以写一个宏解决（来自 <a
+target="_blank" rel="noopener" href="https://www.gigamon.com/content/dam/resource-library/english/guide---cookbook/gu-bpf-reference-guide-gigamon-insight.pdf">BPF
+Reference Guide</a>）。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bpf/bpf_helpers.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEBUG</span></span><br><span class="line"><span class="keyword">char</span> LICENSE[] SEC(<span class="string">&quot;license&quot;</span>) = <span class="string">&quot;Dual MIT/GPL&quot;</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> printk(fmt, ...)                            \</span></span><br><span class="line"><span class="meta">(&#123;                                                  \</span></span><br><span class="line"><span class="meta">        char ____fmt[] = fmt;                       \</span></span><br><span class="line"><span class="meta">        bpf_trace_printk(____fmt, sizeof(____fmt),  \</span></span><br><span class="line"><span class="meta">                         ##__VA_ARGS__);            \</span></span><br><span class="line"><span class="meta">&#125;)</span></span><br><span class="line">SEC(<span class="string">&quot;prog&quot;</span>)</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">xdp_func</span><span class="params">(struct xdp_md *ctx)</span> </span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> DEBUG</span></span><br><span class="line">    printk(<span class="string">&quot;Payload filter debugging enabled!\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="keyword">return</span> XDP_PASS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="我只想丢一次怎么办">我只想丢一次怎么办</h2>
+<p>如果我按照上面的说法写防火墙，那么我内容是 <code>Are you OK?</code>
+的包就再也传不到了，程序只有在超时重传开始摆烂才能真正退出来，很难受，也没法好好做实验。怎么办呢，我搞个全局变量记一下丢了几个包？</p>
+<p>很可惜没有这么简单，XDP
+不允许全局的可变量<del>，淦</del>。但是内核为了实现 Stateful
+的网络设计（比如 NAT
+和虚连接），给你提供了它的一些数据结构的接口。那么我们就用它的
+<code>BPF_MAP_TYPE_HASH</code>
+来实现一下记住我丢了几次吧（虽然我只用一个值就行）。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Packet drop counts, implement as eBPF map, just using map[0] as counter</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DROP_COUNT 1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_ENTRIES	16</span></span><br><span class="line"><span class="function">struct bpf_map_def <span class="title">SEC</span><span class="params">(<span class="string">&quot;maps&quot;</span>)</span> drop_map </span>= &#123;</span><br><span class="line">	.type = BPF_MAP_TYPE_HASH,</span><br><span class="line">	.key_size = <span class="keyword">sizeof</span>(<span class="keyword">uint32_t</span>),</span><br><span class="line">	.value_size = <span class="keyword">sizeof</span>(<span class="keyword">uint32_t</span>),</span><br><span class="line">	.max_entries = MAX_ENTRIES,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">SEC(<span class="string">&quot;prog&quot;</span>)</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">xdp_func</span><span class="params">(struct xdp_md *ctx)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// a lot omitted here...</span></span><br><span class="line">    <span class="comment">// will reach here only if matched the pattern &quot;Are you OK?&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Stateful: only drop DROP_COUNT times</span></span><br><span class="line">    <span class="keyword">uint32_t</span> key = <span class="number">0</span>, init_val = DROP_COUNT;</span><br><span class="line">    <span class="comment">// Update only if it doesn&#x27;t exist</span></span><br><span class="line">	bpf_map_update_elem(&amp;drop_map, &amp;key, &amp;init_val, BPF_NOEXIST);</span><br><span class="line">    <span class="keyword">uint32_t</span> *val = bpf_map_lookup_elem(&amp;drop_map, &amp;key);</span><br><span class="line">	<span class="keyword">if</span> (val &amp;&amp; *val) &#123;</span><br><span class="line">        <span class="keyword">int</span> new_val = *val - <span class="number">1</span>;</span><br><span class="line">        bpf_map_update_elem(&amp;drop_map, &amp;key, &amp;new_val, BPF_ANY);</span><br><span class="line">        <span class="keyword">return</span> XDP_DROP;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Match but had dropped, pass</span></span><br><span class="line">    <span class="keyword">return</span> XDP_PASS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样就把这个实验做好了，搞了一天半属实有点大动干戈，但是学了不少好东西呢！</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://www.gigamon.com/content/dam/resource-library/english/guide---cookbook/gu-bpf-reference-guide-gigamon-insight.pdf">BPF
+Reference Guide</a></li>
+<li><a target="_blank" rel="noopener" href="https://nakryiko.com/posts/bpf-tips-printk/">BPF tips &amp;
+tricks: the guide to bpf_trace_printk() and bpf_printk()</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://github.com/xdp-project/xdp-tutorial/tree/master/tracing03-xdp-debug-print">Tutorial:
+Tracing03 - debug print</a></li>
+<li><a target="_blank" rel="noopener" href="https://vvl.me/2021/02/eBPF-3-eBPF-map/">eBPF 系列三：eBPF
+map</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CS/" rel="tag"># CS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/27/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E8%83%8C%E8%AF%B5%E7%AC%94%E8%AE%B0/" rel="prev" title="计算机组成原理背诵笔记">
+      <i class="fa fa-chevron-left"></i> 计算机组成原理背诵笔记
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%B8%BB%E6%9C%BA-a-%E5%92%8C-b"><span class="nav-number">1.</span> <span class="nav-text">实现主机 A 和 B</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ebpf-%E5%B7%A5%E5%85%B7%E9%93%BE%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">eBPF 工具链准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%B9%B6%E5%8A%A0%E8%BD%BD-ebpf-%E7%A8%8B%E5%BA%8F"><span class="nav-number">3.</span> <span class="nav-text">编译并加载 eBPF 程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E8%83%BD%E7%BC%96%E8%AF%91%E7%9A%84%E6%9D%BF%E5%AD%90"><span class="nav-number">4.</span> <span class="nav-text">先实现一个能编译的板子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D"><span class="nav-number">5.</span> <span class="nav-text">字符串匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9C%80%E8%A6%81-debug"><span class="nav-number">6.</span> <span class="nav-text">需要 Debug！</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E5%8F%AA%E6%83%B3%E4%B8%A2%E4%B8%80%E6%AC%A1%E6%80%8E%E4%B9%88%E5%8A%9E"><span class="nav-number">7.</span> <span class="nav-text">我只想丢一次怎么办</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#references"><span class="nav-number">8.</span> <span class="nav-text">References</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Junyang Zhang"
+      src="/images/CasualPortraitOct2021.png">
+  <p class="site-author-name" itemprop="name">Junyang Zhang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/James-Hen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;James-Hen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mail@junyang.me" title="E-Mail → mailto:mail@junyang.me" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://bytew.net/" title="https:&#x2F;&#x2F;bytew.net&#x2F;" rel="noopener" target="_blank">Nocriz</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://thelajiest.github.io/" title="https:&#x2F;&#x2F;thelajiest.github.io&#x2F;" rel="noopener" target="_blank">KON_automaton</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.mky.moe/" title="https:&#x2F;&#x2F;blog.mky.moe&#x2F;" rel="noopener" target="_blank">MonKey</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.ccandle.top/" title="https:&#x2F;&#x2F;blog.ccandle.top&#x2F;" rel="noopener" target="_blank">CCandle</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://120.79.138.174:8080/" title="http:&#x2F;&#x2F;120.79.138.174:8080&#x2F;" rel="noopener" target="_blank">siyuanluo</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://yang-d19.github.io/" title="https:&#x2F;&#x2F;yang-d19.github.io&#x2F;" rel="noopener" target="_blank">Yangd19</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="languages">
+    <label class="lang-select-label">
+      <i class="fa fa-language"></i>
+      <span>简体中文</span>
+      <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </label>
+    <select class="lang-select" data-canonical="">
+      
+        <option value="zh-CN" data-href="/2022/03/09/zh-CN/%E5%88%A9%E7%94%A8-eBPF-XDP-%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%AE%9E%E9%AA%8C%E7%94%A8%E9%98%B2%E7%81%AB%E5%A2%99/" selected="">
+          简体中文
+        </option>
+      
+        <option value="en" data-href="/en/2022/03/09/zh-CN/%E5%88%A9%E7%94%A8-eBPF-XDP-%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%AE%9E%E9%AA%8C%E7%94%A8%E9%98%B2%E7%81%AB%E5%A2%99/" selected="">
+          English
+        </option>
+      
+    </select>
+  </div>
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Junyang Zhang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hA0Uyzupz2vdCpNOIC0MCJjT-gzGzoHsz',
+      appKey     : 'dpOcFMwzmsVPyQPECkBb9TUP',
+      placeholder: "Just comment!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
