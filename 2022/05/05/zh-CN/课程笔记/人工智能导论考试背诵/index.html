@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/Avatar.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.gif">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.gif">
+  <link rel="mask-icon" href="/images/favicon-32x32.gif" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jyzhang.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="这门课我在 XJTU 大三下学期上的，老师是可爱的罗敏楠老师，用的课本是著名的《人工智能——一种现代的方法》 考试回忆 八个题  填空题，被坑到了，有一个题填的是 \(h(n)\) 可采纳时树搜索的 A* 算法最优；\(h(n)\) 可采纳且一致时图搜索的 A* 算法最优。下面没整理到，我自然就不会了 无信息搜索，让画二叉树，写出深度限制和迭代加深搜索的节点序列 有信息搜索，画出北京地铁北京站到西">
+<meta property="og:type" content="article">
+<meta property="og:title" content="人工智能导论考试背诵">
+<meta property="og:url" content="http://jyzhang.xyz/2022/05/05/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA%E8%80%83%E8%AF%95%E8%83%8C%E8%AF%B5/index.html">
+<meta property="og:site_name" content="Junyang Zhang&#39;s Blog">
+<meta property="og:description" content="这门课我在 XJTU 大三下学期上的，老师是可爱的罗敏楠老师，用的课本是著名的《人工智能——一种现代的方法》 考试回忆 八个题  填空题，被坑到了，有一个题填的是 \(h(n)\) 可采纳时树搜索的 A* 算法最优；\(h(n)\) 可采纳且一致时图搜索的 A* 算法最优。下面没整理到，我自然就不会了 无信息搜索，让画二叉树，写出深度限制和迭代加深搜索的节点序列 有信息搜索，画出北京地铁北京站到西">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-05-05T03:34:47.000Z">
+<meta property="article:modified_time" content="2022-05-05T03:46:03.991Z">
+<meta property="article:author" content="Junyang Zhang">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://jyzhang.xyz/2022/05/05/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA%E8%80%83%E8%AF%95%E8%83%8C%E8%AF%B5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>人工智能导论考试背诵 | Junyang Zhang's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Junyang Zhang's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2022/05/05/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA%E8%80%83%E8%AF%95%E8%83%8C%E8%AF%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          人工智能导论考试背诵
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-05-05 11:34:47 / 修改时间：11:46:03" itemprop="dateCreated datePublished" datetime="2022-05-05T11:34:47+08:00">2022-05-05</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/05/05/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA%E8%80%83%E8%AF%95%E8%83%8C%E8%AF%B5/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/05/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA%E8%80%83%E8%AF%95%E8%83%8C%E8%AF%B5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这门课我在 XJTU
+大三下学期上的，老师是可爱的罗敏楠老师，用的课本是著名的《人工智能——一种现代的方法》</p>
+<h2 id="考试回忆">考试回忆</h2>
+<p>八个题</p>
+<ol type="1">
+<li>填空题，被坑到了，有一个题填的是 <span
+class="math inline">\(h(n)\)</span> 可采纳时<del>树搜索</del>的 A*
+算法最优；<span class="math inline">\(h(n)\)</span>
+可采纳且一致时<del>图搜索</del>的 A*
+算法最优。下面没整理到，我自然就不会了</li>
+<li>无信息搜索，让画二叉树，写出深度限制和迭代加深搜索的节点序列</li>
+<li>有信息搜索，画出北京地铁北京站到西四的 A* 搜索树</li>
+<li>CSP，写弧相容过程</li>
+<li>概率论，给了所有条件概率，算一些概率（简单）</li>
+<li>概率推理，贝叶斯网络推理，不过是解析的而不是数值的，网络结构很小，挺有意思</li>
+<li>时序推理，一阶马尔可夫，不过证据变量一共有四个值（两个布尔变量），算
+<span class="math inline">\(t=1,2,3\)</span> 滤波和平滑</li>
+<li>决策，默写 Expected Utility
+公式，顺便考了理性定义，最后给了个不深的例子让求 EU</li>
+</ol>
+<p>考试两个半小时，但我看不到表，所以前五题不紧不慢写了一个半小时，老师提醒的时候还有三个大题，直接绷不住了。写完刚好交卷。</p>
+<h2 id="agent">Agent</h2>
+<p>Agent 通过传感器感知环境并通过执行器对环境产生影响。</p>
+<ul>
+<li>Agent 函数 <span class="math inline">\(f:P^*\to A\)</span>，其中
+<span class="math inline">\(P^*\)</span> 为感知序列，<span
+class="math inline">\(A\)</span> 为行动；</li>
+<li>Agent 程序实现 Agent 函数；</li>
+<li>Agent 程序在 Agent 体系结构上执行。</li>
+</ul>
+<p>理性：对每一个可能的感知序列，根据已知的感知序列提供的证据和 Agent
+具有的先验知识，理性 Agent
+应该选择能够使其性能度量最大化的行动。判断理性依赖于：性能度量、先验知识、行动、感知序列。</p>
+<p>任务环境 PEAS (Performance, Environment, Actuators, Sensors)</p>
+<p>任务环境的性质：</p>
+<ul>
+<li>完全可观察，部分可观察；</li>
+<li>单 Agent，多 Agent（其他 Agent 的性能度量依赖于你的行为）；</li>
+<li>确定的，随机的；</li>
+<li>片段式的（片段之间没有依赖），延续式的；</li>
+<li>静态的（环境在计算时不变化），半动态的（性能评价在计算时变化），动态的；</li>
+<li>离散的，连续的；</li>
+<li>已知的，未知的；</li>
+</ul>
+<p>Agent 类型：</p>
+<ul>
+<li>简单反射 Agent；</li>
+<li>基于模型的 Agent；</li>
+<li>基于目标的 Agent；</li>
+<li>基于效用的 Agent；</li>
+<li>学习 Agent：Critic, Learning element, Problem generator, Performance
+element.</li>
+</ul>
+<h2 id="搜索">搜索</h2>
+<h3 id="无信息搜索">无信息搜索</h3>
+<p>初始状态、行动、转移模型、目标测试、路径消耗</p>
+<p>图搜索算法：树搜索算法 + 探索集（closed 表）</p>
+<p>最大分支因子 <span class="math inline">\(b\)</span>，最优解深度 <span
+class="math inline">\(d\)</span>，路径最大长度 <span
+class="math inline">\(m\)</span></p>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 17%" />
+<col style="width: 32%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>算法</th>
+<th>完备性</th>
+<th>最优性</th>
+<th>时间复杂度</th>
+<th>空间复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>宽度优先</td>
+<td>是若 <span class="math inline">\(b\)</span> 有限</td>
+<td>是若消耗是深度的非递减函数</td>
+<td><span class="math inline">\(O(b^{d})\)</span></td>
+<td><span class="math inline">\(O(b^d)\)</span></td>
+</tr>
+<tr class="even">
+<td>一致代价</td>
+<td>是若代价大于零</td>
+<td>是</td>
+<td><span class="math inline">\(O(b^{d^*+1})\)</span></td>
+<td><span class="math inline">\(O(b^{d^*+1})\)</span></td>
+</tr>
+<tr class="odd">
+<td>深度优先</td>
+<td>是若空间有限</td>
+<td>否</td>
+<td><span class="math inline">\(O(b^m)\)</span></td>
+<td><span class="math inline">\(O(bm)\)</span></td>
+</tr>
+<tr class="even">
+<td>深度受限 DLS</td>
+<td>是若 <span class="math inline">\(l&gt;d\)</span></td>
+<td>否</td>
+<td><span class="math inline">\(O(b^l)\)</span></td>
+<td><span class="math inline">\(O(bl)\)</span></td>
+</tr>
+<tr class="odd">
+<td>迭代加深 IDS</td>
+<td>是</td>
+<td>是</td>
+<td><span class="math inline">\(O(b^d)\)</span></td>
+<td><span class="math inline">\(O(bd)\)</span></td>
+</tr>
+<tr class="even">
+<td>双向搜索</td>
+<td>是若 <span class="math inline">\(b\)</span> 有限</td>
+<td>是若消耗是深度的非递减函数</td>
+<td><span class="math inline">\(O(b^{d/2})\)</span></td>
+<td><span class="math inline">\(O(b^{d/2})\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>一致代价搜索的最大深度计算：<span class="math inline">\(d^*=1+\lfloor
+C^*/\varepsilon\rfloor\)</span>，其中 <span
+class="math inline">\(C^*\)</span> 是最优解的代价，每个行动的代价至少为
+<span class="math inline">\(\varepsilon\)</span></p>
+<h3 id="有信息搜索">有信息搜索</h3>
+<ul>
+<li>最佳优先搜索：评估函数 <span class="math inline">\(f(n)\)</span>
+表示节点可取性，启发式
+<ul>
+<li>贪婪最佳优先搜索，BFS，对评估函数一致代价，很垃圾，会环</li>
+</ul></li>
+<li>A*：评估函数 <span
+class="math inline">\(f(n)=h(n)+g(n)\)</span>，<span
+class="math inline">\(g(n)\)</span> 是实际代价，<span
+class="math inline">\(h(n)\)</span> 是估计代价
+<ul>
+<li>保证 <span class="math inline">\(h(n)\)</span>
+可采纳（小于真实代价）且一致（三角不等式）；可以得到 <span
+class="math inline">\(f(n)\)</span> 非递减；则最优</li>
+<li><span class="math inline">\(h(n)\)</span> 越大越有优势，两个的 <span
+class="math inline">\(\max\)</span> 也是可采纳的</li>
+</ul></li>
+<li>有效分枝因子 <span class="math inline">\(b^*\)</span> 满足 <span
+class="math inline">\(N+1=1+b^*+(b^*)^2+\cdots+(b^*)^d\)</span>，节点总数
+<span class="math inline">\(N\)</span>，解深度 <span
+class="math inline">\(d\)</span></li>
+</ul>
+<h3 id="非经典搜索算法">非经典搜索算法</h3>
+<h4 id="局部搜索算法">局部搜索算法</h4>
+<ul>
+<li>爬山法、随机重启爬山法</li>
+<li>模拟退火</li>
+<li>局部束搜索（记录 <span class="math inline">\(k\)</span>
+个生成所有子状态，选 <span class="math inline">\(k\)</span>
+个最优）</li>
+<li>遗传（选择、杂交、变异）</li>
+</ul>
+<h4 id="使用不确定性动作的搜索">使用不确定性动作的搜索</h4>
+<p>动作可能导致不同结果，但结果可观察（完全可观察，不确定）</p>
+<p>问题的解不是行动序列，而是应急规划：根据感知信息决定行动</p>
+<p>与或树搜索：或做选择形成与节点，与节点可以导致多个或节点</p>
+<p>与节点需要搜索所有子节点形成规划，或节点需要找到一个成功的子节点</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">ConditionalPlan andOrSearch(Problem p) &#123;</span><br><span class="line">	return orSearch(p.init_state, p, [])</span><br><span class="line">&#125;</span><br><span class="line">ConditionalPlan orSearch(State s, Problem p, Path pth) &#123;</span><br><span class="line">	if (p.goalTest(s))</span><br><span class="line">		return []</span><br><span class="line">	if (s in pth) # infinity loop</span><br><span class="line">		return fail</span><br><span class="line">	for action in p.actions(s) &#123;</span><br><span class="line">		plan = andSearch(state.results(action), p, s + pth)</span><br><span class="line">		if (plan)</span><br><span class="line">			return action + plan</span><br><span class="line">	&#125;</span><br><span class="line">	return fail</span><br><span class="line">&#125;</span><br><span class="line">ConditionalPlan andSearch(State s, Problem p, Path pth) &#123;</span><br><span class="line">	for (si in s) &#123;</span><br><span class="line">		plani = orSearch(si, p, pth)</span><br><span class="line">		if (!plani)</span><br><span class="line">			return fail</span><br><span class="line">	&#125;</span><br><span class="line">	return [if si plan1 elif s2 plan2 elif ... if sn-1 plann-1 else plann]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="使用部分可观察信息的搜索">使用部分可观察信息的搜索</h4>
+<p>部分可观察问题：使用信念状态（状态的集合）</p>
+<p>无观察信息：解是行动序列</p>
+<p>部分可观察：感知函数返回状态 <span class="math inline">\(s\)</span>
+的感知信息，可用于更新信念状态，可使用与或树搜索</p>
+<h3 id="对抗搜索">对抗搜索</h3>
+<p>即博弈，两人参与的游戏，状态 <span class="math inline">\(s\)</span>
+只有 <span class="math inline">\(\text{PLAYER}(s)\)</span> 可以行动
+<span class="math inline">\(\text{UTILITY}(s,p)\)</span> 表示玩家 <span
+class="math inline">\(p\)</span> 在中止状态 <span
+class="math inline">\(s\)</span> 的效用（零和博弈）。 <span
+class="math display">\[
+\text{MINMAX}(s)=\begin{cases}
+\text{UTILITY}(s), &amp; \text{TERMINAL-TEST}(s) \\
+\max_{a\in \text{Actions(s)}}\text{MINMAX}(\text{RESULT}(s, a)), &amp;
+\text{PLAYER}(s) = MAX \\
+\min_{a\in \text{Actions(s)}}\text{MINMAX}(\text{RESULT}(s, a)), &amp;
+\text{PLAYER}(s) = MIN \\
+\end{cases}
+\]</span> 若树有限则完备，若对手最优则最优，时间复杂度 <span
+class="math inline">\(O(b^m)\)</span>，空间复杂度 <span
+class="math inline">\(O(bm)\)</span>（深搜）</p>
+<p><span class="math inline">\(\alpha\)</span>-<span
+class="math inline">\(\beta\)</span>
+剪枝：如果已经有更好的就不搜了，最好情况 <span
+class="math inline">\(O(b^{m/2})\)</span>，平均 <span
+class="math inline">\(O(b^{4m/3})\)</span></p>
+<p>不完美的实时决策：使用 <span
+class="math inline">\(EVAL(s)=\sum_iw_if_i(s)\)</span>
+函数，其在设置的最大深度的下一层节点被使用</p>
+<p>随机博弈：机会节点（MIN-Chance-MAX-Chance-Min-...），机会节点上做期望</p>
+<h2 id="csp">CSP</h2>
+<p>变量 <span class="math inline">\(X_i\in X\)</span> 定义，值域 <span
+class="math inline">\(D_i\in D\)</span>，约束 <span
+class="math inline">\(C_i=\left&lt;scope_i, rel_i\right&gt;\)</span></p>
+<p>状态：对部分（全部）变量的赋值</p>
+<ul>
+<li>相容的赋值：不违反条件</li>
+<li>完整的赋值（对应不完整的）：每个都赋值</li>
+</ul>
+<p>约束：</p>
+<ul>
+<li>一元约束：单变量值的约束（使用结点相容消去）</li>
+<li>二元约束：两个变量值的约束</li>
+<li>高阶约束：多个（使用枚举转换为一元约束）</li>
+<li>全局约束：任意个数的变量</li>
+<li>偏好约束</li>
+</ul>
+<h3 id="约束传播">约束传播</h3>
+<p>弧相容：所有满足二元约束</p>
+<p>AC-3
+算法：队列包含所有弧，每次使一条弧相容，如果有变化，插入所有变化变量的弧</p>
+<p>假设有 <span class="math inline">\(c\)</span> 个弧，复杂度 <span
+class="math inline">\(O(cd^3)\)</span></p>
+<h3 id="回溯搜索">回溯搜索</h3>
+<p>具有单变量赋值的 CSP 的深度优先搜索称为回溯搜索</p>
+<ul>
+<li><p>最少剩余值启发式：每次单变量赋值，选择合法值最少的变量</p></li>
+<li><p>度启发式：选择与未赋值变量约束最多的变量以降低未来分支因子</p></li>
+<li><p>最少约束值启发式：排除剩余变量中最少的值的那个，试图为剩余变量赋
+值留下最大空间</p></li>
+<li><p>前向检验：跟踪未赋值变量的剩余合法值</p></li>
+</ul>
+<h3 id="问题结构">问题结构</h3>
+<p>约束图，可以分解为联通子图，假设每个子图大小 <span
+class="math inline">\(c\)</span>，复杂度 <span
+class="math inline">\(O(d^c n/c)\)</span>，<span
+class="math inline">\(d\)</span> 为值域大小</p>
+<p>树结构 CSP（<span class="math inline">\(O(nd^2)\)</span> 求解）：</p>
+<ol type="1">
+<li>选一个树根做拓扑排序</li>
+<li>倒序做弧相容</li>
+<li>正序赋值</li>
+</ol>
+<p>近似树结构：对一个变量赋值删除更新邻居之后就是树</p>
+<h2 id="概率推理">概率推理</h2>
+<p>先验概率即无条件概率，后验概率即有条件概率</p>
+<p><span class="math inline">\(P(Weather=sunny)=0.72,\cdots\)</span>
+可以这样写概率分布：<span class="math inline">\(\boldsymbol
+P(Weather)=\left&lt;0.72,0.1,0.08,0.1\right&gt;\)</span> <span
+class="math display">\[
+P(a|b)P(b)=P(a,  b)
+\]</span> 并且对概率分布也成立（枚举所有组合的等式组），还有 <span
+class="math display">\[
+P(x_1, \cdots,  x_n)=\prod_{i=1}^n P(x_i|x_1, \cdots,  x_{i-1})
+\]</span> 贝叶斯规则 <span class="math display">\[
+P(a|b)=\frac{P(a,  b)}{P(b)}=\frac{P(b|a)P(a)}{P(b)}
+\]</span> 枚举推理，其中 <span class="math inline">\(Y\cup E\cup
+H=U\)</span> <span class="math display">\[
+\boldsymbol{P}(Y|E=e)=\boldsymbol{P}(Y,E=e)/P(E=e)=\alpha\boldsymbol{P}(Y,E=e)=\alpha\sum_h\boldsymbol{P}(Y,E=e,H=h)
+\]</span> 条件独立性：给定 <span class="math inline">\(A\)</span>，有
+<span class="math inline">\(B\)</span> 和 <span
+class="math inline">\(C\)</span> 独立，即 <span
+class="math inline">\(P(B|C,A)=P(B|A)\)</span></p>
+<p>朴素贝叶斯： <span class="math display">\[
+\boldsymbol{P}(Cause,Effect_1,\cdots,Effect_n)=\boldsymbol{P}(Cause)\prod_{i=1}\boldsymbol{P}(Effect_i|Cause)
+\]</span></p>
+<h3 id="贝叶斯网络">贝叶斯网络</h3>
+<p>每个节点的条件概率表是所有父节点可能取值组合下的概率</p>
+<p>“语法”：网络</p>
+<p>“语义”：<span
+class="math inline">\(P(x_1,\cdots,x_n)=\prod_{i=1}^{n}P(x_i|parents(X_i))\)</span>，其中
+<span class="math inline">\(parents(X_i)\)</span> 表示 <span
+class="math inline">\(X_i\)</span> 的父节点的取值，满足 <span
+class="math inline">\(X_1=x_1,\cdots,X_n=x_n\)</span></p>
+<p>构造贝叶斯网络：选择一个变量顺序 <span
+class="math inline">\(X_1,\cdots,X_n\)</span>，依次加入网络，父节点选择已经在网络里的最小集合</p>
+<p>“拓扑”语义：给定父节点后，变量独立于它的非后代节点</p>
+<p>拓扑语义推论：给定马尔科夫覆盖（父节点，子节点，子节点的父节点），变量独立于其他变量</p>
+<p>确定性节点：<span class="math inline">\(X=f(Parents(X))\)</span></p>
+<p>不确定性节点（噪声或关系）：某一个节点为真仅当某一父节点集合中的一个或多个为真，概率为父节点集合中
+One-Hot 项 <span class="math inline">\(q_i\)</span> 的积（<span
+class="math inline">\(P(X|U_1,\cdots,U_j,\neg
+U_{j+1},\cdots,U_k)=1-\prod_{i=1}^j q_i\)</span>）</p>
+<p>连续节点：</p>
+<ul>
+<li>离散化</li>
+<li>参数化（使用概率密度函数）：子变量连续，则定义条件密度函数；父节点连续，则使用概率密度函数（可
+Sigmoid）</li>
+</ul>
+<h4 id="精确推理">精确推理</h4>
+<p>枚举推理 <span class="math display">\[
+\boldsymbol{P}(Y|E=e)=\alpha\sum_h\boldsymbol{P}(Y,E=e,H=h)
+\]</span> 上式可以以条件概率表项的乘积重写</p>
+<p>变量消元法：按照从右到左的次序求和，存中间因子；因子 <span
+class="math inline">\(\boldsymbol f_i\)</span>
+是其变量所有取值的值在询问元素上形成的子矩阵，两因子逐点相乘得到的因子，变量是两因子的并集</p>
+<h4 id="近似推理">近似推理</h4>
+<ul>
+<li>直接采样：从网络按拓扑序采样，没有证据</li>
+<li>拒绝采样：拒绝与证据不一致的样本</li>
+<li>似然加权：固定证据变量的值，对于证据“依赖”的被采样的事件进行加权，<span
+class="math inline">\(w=\prod_{i}P(e_i|parents(E_i))\)</span></li>
+<li>马尔可夫链蒙特卡洛
+(MCMC)：从一个随机过程采样，每次通过采样一个非证据变量生成下一个状态，这次采样依赖于马尔可夫覆盖；马尔科夫链趋于稳态分布，在每种状态下花费的时间的长期比例正好与其后验概率成正比</li>
+</ul>
+<h3 id="时间上推理">时间上推理</h3>
+<p>下面都忽略了粗体，假设 <span class="math inline">\(P(X)\)</span> 表示
+<span class="math inline">\(X\)</span> 的概率分布</p>
+<p><span class="math inline">\(n\)</span> 阶马尔可夫过程 <span
+class="math inline">\(P(X_t|X_{0:t-1})=P(X_t|X_{t-n:t-1})\)</span></p>
+<p>传感器模型 <span
+class="math inline">\(P(E_t|X_t)\)</span>（不依赖之前传感），<span
+class="math inline">\(n\)</span> 阶传感器马尔可夫过程 <span
+class="math inline">\(P(X_t|X_{t-n:t-1}, E_{t-n:t-1})\)</span></p>
+<p>稳态过程：所有的概率分布是固定的</p>
+<ul>
+<li>滤波：给证据算信念状态 <span
+class="math inline">\(P(X_t|e_{1:t})\)</span>，计算方法类似贝叶斯（<span
+class="math inline">\(P(X|e)=P(e|X)P(X)\)</span>，<span
+class="math inline">\(P(X)\)</span> 依赖过去）</li>
+<li>预测：给证据算未来后验 <span
+class="math inline">\(P(X_{t+k}|e_{1:t})\)</span>，计算方法由马尔可夫性
+<span class="math inline">\(P(X_{t+1}|X_t)\)</span> 得</li>
+<li>平滑：给证据算过去后验 <span
+class="math inline">\(P(X_k|e_{1:t})\)</span>，计算方法是滤波得到的前推后乘马尔可夫得到的后推前</li>
+<li>最可能解释：算状态序列 <span
+class="math inline">\(\arg\max_{x_{1:t}}P(x_{1:t}|e_{1:t})\)</span></li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 46%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>操作</th>
+<th>公式</th>
+<th>一阶马尔可夫计算</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>滤波</td>
+<td><span class="math inline">\(P(X_{t+1}|e_{1:t+1})=\alpha
+P(e_{t+1}|X_{t+1})P(X_{t+1}|e_{1:t})\)</span></td>
+<td><span
+class="math inline">\(P(X_{t+1}|e_{1:t})=\displaystyle\sum_{x_t}P(X_{t+1}|x_t)P(x_t|e_{1:t})\)</span></td>
+</tr>
+<tr class="even">
+<td>预测</td>
+<td>（同上右）</td>
+<td>（同上）</td>
+</tr>
+<tr class="odd">
+<td>平滑</td>
+<td><span class="math inline">\(P(X_k|e_{1:t})=\alpha
+P(X_k|e_{1:k})P(e_{k+1:t}|X_k)\)</span></td>
+<td><span
+class="math inline">\(\begin{aligned}P(e_{k+1:t}|X_k)&amp;=\sum_{x_{k+1}}P(e_{k+1:t}|x_{k+1})P(x_{k+1}|X_k)\\
+&amp;=\sum_{x_{k+1}}P(e_{k+1}|x_{k+1})P(x_{k+1}|X_k)\end{aligned}\)</span></td>
+</tr>
+<tr class="even">
+<td>最可能解释</td>
+<td><span class="math inline">\(m_{1:t}=P(X_{1:t}|e_{1:t})\)</span>，令
+<span
+class="math inline">\(m_{1:t}^{(x_t)}=P(x_{1:t}|e_{1:t})\)</span></td>
+<td><span
+class="math inline">\(m_{1:t+1}=P(e_{t+1}|X_{t+1})\max_{x_t}(P(X_{t+1}|x_t)m^{(x_t)}_{1:t})\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>隐马尔可夫模型，只用一个离散变量 <span
+class="math inline">\(X_t\)</span>，但是这个变量有 <span
+class="math inline">\(S\)</span> 个值</p>
+<ul>
+<li>转移模型 <span
+class="math inline">\(T_{ij}=P(X_t=j|X_{t-1}=i)\)</span>，<span
+class="math inline">\(T=P(X_t|X_{t-1})\)</span></li>
+<li>传感器模型 <span
+class="math inline">\(O_{ii}=P(e_t|X_{t}=i)\)</span></li>
+<li>前向消息 <span class="math inline">\(f_{1:t+1}=\alpha
+O_{t+1}T^{T}f_{1:t}\)</span></li>
+<li>后向消息 <span
+class="math inline">\(b_{k+1:t}=TO_{k+1}b_{k+2:t}\)</span></li>
+</ul>
+<p>卡尔曼滤波用连续变量建模，使用高斯分布，预测使用积分</p>
+<p>动态贝叶斯网络：可以由任意数量状态变量和证据变量构成；隐马尔可夫是各一个离散节点的动态贝叶斯网络；按时间展开再推理</p>
+<p>粒子滤波：采样方式进行预测、滤波，每个样本 <span
+class="math inline">\(x_t\)</span> 通过似然 <span
+class="math inline">\(P(e_t|x_t)\)</span> 加权</p>
+<h2 id="制定决策">制定决策</h2>
+<p>决策理论 = 概率理论 + 效用理论</p>
+<p>期望效用： <span class="math display">\[
+EU(A|E)=\sum_{i}P(Result(A)|Do(A),E)U(Result_i(A))
+\]</span> 最大期望效用原则（MEU）：<span
+class="math inline">\(Action=\arg\max_A EU(A|E)\)</span></p>
+<p>Agent 偏好（遵循下述公理的关系）：</p>
+<ul>
+<li>有序：<span class="math inline">\(\succ,\prec,\sim\)</span>
+成立一个</li>
+<li>传递：<span class="math inline">\(A\succ B\succ C \Rightarrow A\succ
+C\)</span></li>
+<li>连续：有 <span class="math inline">\(A\succ B\succ C \Rightarrow
+\exists p,[p,A;1-p,C]\sim B\)</span></li>
+<li>可替换：<span class="math inline">\(A\sim
+B\Rightarrow[p,A;1-p,C]\sim[p,B;1-p,C]\)</span></li>
+<li>单调：<span class="math inline">\(A\sim B\Rightarrow (p\ge q\iff
+[p,A;1-p, B]\succcurlyeq[q,A;1-1, B])\)</span></li>
+<li>可分解：<span
+class="math inline">\([p,A;1-p,[q,B;1-q,C]]\sim[p,A;(1-p)q,B;(1-p)(1-q),C]\)</span></li>
+</ul>
+<p>如果遵守上述公理，那么存在不唯一的实值函数对应偏好（仿射变换保持性质，则可归一化）</p>
+<p>生命的价值：微亡，质量调整寿命年</p>
+<p>金钱效用，期望货币价值 <span class="math inline">\(EMV(A)=\sum_i
+P(Result_i(A))MV(Result_i(A))\)</span>，追求风险 <span
+class="math inline">\(U(L)&gt;U(S_{EMV(L)})\)</span>，规避风险 <span
+class="math inline">\(U(L)&lt;U(S_{EMV(L)})\)</span>，保险费 <span
+class="math inline">\(U(L)-U(S_{EMV(L)})\)</span></p>
+<h3 id="多属性偏好">多属性偏好</h3>
+<p>多属性效用函数 <span
+class="math inline">\(U(x_1,\cdots,x_n)=f(f_1(x1),\cdots,f_n(x_n))\)</span>，严格优势
+<span class="math inline">\(\forall i, X_i(B)\ge
+X_i(A)\)</span>，当行为导致概率分布时有随机优势 <span
+class="math inline">\(\forall
+x,\int_{-\infty}^xp_1(t)dt\le\int_{-\infty}^xp_2(t)dt\)</span></p>
+<p>定性推理确定随机优势：<span
+class="math inline">\(X\stackrel{+}{\to}Y\)</span> 表示 <span
+class="math inline">\(X\)</span> 对 <span
+class="math inline">\(Y\)</span> 有积极影响</p>
+<p>确定性偏好：<span class="math inline">\(X_1\)</span> 和 <span
+class="math inline">\(X_2\)</span> 偏好独立于 <span
+class="math inline">\(X_3\)</span>，当且仅当结果 <span
+class="math inline">\(\left&lt;x_1,x_2,x_3\right&gt;\)</span> 和 <span
+class="math inline">\(\left&lt;x_1&#39;,x_2&#39;,x_3\right&gt;\)</span>
+之间的偏好不依赖于 <span class="math inline">\(x_3\)</span></p>
+<p>相互偏好独立性：如果每个属性都不会影响其它属性之间的权衡方式，那么所有属性显示出相互偏好独立性；如果相互偏好独立，那么
+<span class="math inline">\(f(f_1(x1),\cdots,f_n(x_n))=\sum_i
+f_i(x_i)\)</span></p>
+<p>效用独立性：如果对 <span class="math inline">\(X\)</span>
+中的属性的抽奖之间的偏好独立于 <span class="math inline">\(Y\)</span>
+中的属性值，则属性集 <span class="math inline">\(X\)</span>
+效用独立于属性集 <span class="math inline">\(Y\)</span></p>
+<p>相互效用独立性（MUI）：如果一个属性集中的每个子集都效用独立于其余属性，则这个属性集满足相互效用独立性；有
+<span
+class="math inline">\(U=k_1U_1+k_2U_2+k_1k_2U_1U_2+\cdots\)</span></p>
+<h3 id="序列式决策">序列式决策</h3>
+<ul>
+<li>回报 <span
+class="math inline">\(R\)</span>：对局部效用，状态的实值函数</li>
+<li>价值 <span
+class="math inline">\(V\)</span>：对全局效用，状态的实值函数</li>
+<li>效用 <span
+class="math inline">\(U\)</span>：适用于行为、状态、状态序列对通用术语</li>
+</ul>
+<p>有限期决策：最优策略非静态（随时间变化）；无限期决策：最优策略静态</p>
+<p>序列的效用（假设静态），那么如果初始状态一致，偏好序列也一致：</p>
+<ul>
+<li>累加效用：<span class="math inline">\(U_h([s_0, s_1,
+s_2,\cdots])=R(S_0)+R(s_i)+R(s_2)+\cdots\)</span></li>
+<li>折扣效用（更重视眼前利益）：<span class="math inline">\(U_h([s_0,
+s_1, s_2,\cdots])=R(S_0)+\gamma R(s_i)+\gamma^2
+R(s_2)+\cdots\)</span></li>
+</ul>
+<p>马尔可夫决策过程：完全可观察、随机动作、马尔可夫转移模型、折扣或累加回报；转移模型
+<span class="math inline">\(P(s&#39;|s,a)\)</span></p>
+<p>策略 <span class="math inline">\(\pi(s)\)</span>：在状态 <span
+class="math inline">\(s\)</span>
+下推荐的行为；无期限折扣效用下对于不同开始状态，策略唯一</p>
+<p>状态的真正效用 <span
+class="math inline">\(V^{\pi^*}(s)=E[\sum_{t=0}^\infty \gamma^t
+R(S_t)]\)</span>：当 Agent 执行最优决策时的折扣回报的期望值</p>
+<p>贝尔曼方程 <span class="math inline">\(V(s)=R(s)+\gamma\max_{a\in
+A(s)}\sum_{s&#39;}P(s&#39;|s,a)V(s&#39;)\)</span>：使用该方程迭代是收敛的</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/09/zh-CN/%E5%88%A9%E7%94%A8-eBPF-XDP-%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%AE%9E%E9%AA%8C%E7%94%A8%E9%98%B2%E7%81%AB%E5%A2%99/" rel="prev" title="利用 eBPF XDP 编写一个实验用防火墙">
+      <i class="fa fa-chevron-left"></i> 利用 eBPF XDP 编写一个实验用防火墙
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%80%83%E8%AF%95%E5%9B%9E%E5%BF%86"><span class="nav-number">1.</span> <span class="nav-text">考试回忆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#agent"><span class="nav-number">2.</span> <span class="nav-text">Agent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2"><span class="nav-number">3.</span> <span class="nav-text">搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E4%BF%A1%E6%81%AF%E6%90%9C%E7%B4%A2"><span class="nav-number">3.1.</span> <span class="nav-text">无信息搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E4%BF%A1%E6%81%AF%E6%90%9C%E7%B4%A2"><span class="nav-number">3.2.</span> <span class="nav-text">有信息搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E7%BB%8F%E5%85%B8%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95"><span class="nav-number">3.3.</span> <span class="nav-text">非经典搜索算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95"><span class="nav-number">3.3.1.</span> <span class="nav-text">局部搜索算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E5%8A%A8%E4%BD%9C%E7%9A%84%E6%90%9C%E7%B4%A2"><span class="nav-number">3.3.2.</span> <span class="nav-text">使用不确定性动作的搜索</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%83%A8%E5%88%86%E5%8F%AF%E8%A7%82%E5%AF%9F%E4%BF%A1%E6%81%AF%E7%9A%84%E6%90%9C%E7%B4%A2"><span class="nav-number">3.3.3.</span> <span class="nav-text">使用部分可观察信息的搜索</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2"><span class="nav-number">3.4.</span> <span class="nav-text">对抗搜索</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#csp"><span class="nav-number">4.</span> <span class="nav-text">CSP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E4%BC%A0%E6%92%AD"><span class="nav-number">4.1.</span> <span class="nav-text">约束传播</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E6%BA%AF%E6%90%9C%E7%B4%A2"><span class="nav-number">4.2.</span> <span class="nav-text">回溯搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E7%BB%93%E6%9E%84"><span class="nav-number">4.3.</span> <span class="nav-text">问题结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E7%8E%87%E6%8E%A8%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">概率推理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BD%91%E7%BB%9C"><span class="nav-number">5.1.</span> <span class="nav-text">贝叶斯网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B2%BE%E7%A1%AE%E6%8E%A8%E7%90%86"><span class="nav-number">5.1.1.</span> <span class="nav-text">精确推理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%91%E4%BC%BC%E6%8E%A8%E7%90%86"><span class="nav-number">5.1.2.</span> <span class="nav-text">近似推理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E4%B8%8A%E6%8E%A8%E7%90%86"><span class="nav-number">5.2.</span> <span class="nav-text">时间上推理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%B6%E5%AE%9A%E5%86%B3%E7%AD%96"><span class="nav-number">6.</span> <span class="nav-text">制定决策</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%81%8F%E5%A5%BD"><span class="nav-number">6.1.</span> <span class="nav-text">多属性偏好</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%BC%8F%E5%86%B3%E7%AD%96"><span class="nav-number">6.2.</span> <span class="nav-text">序列式决策</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Junyang Zhang"
+      src="/images/CasualPortraitOct2021.png">
+  <p class="site-author-name" itemprop="name">Junyang Zhang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/junyang-zh" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;junyang-zh" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mail@junyang.me" title="E-Mail → mailto:mail@junyang.me" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://bytew.net/" title="https:&#x2F;&#x2F;bytew.net&#x2F;" rel="noopener" target="_blank">Nocriz</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://thelajiest.github.io/" title="https:&#x2F;&#x2F;thelajiest.github.io&#x2F;" rel="noopener" target="_blank">KON_automaton</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.kingsiong.top/" title="http:&#x2F;&#x2F;www.kingsiong.top&#x2F;" rel="noopener" target="_blank">iNxli</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.mky.moe/" title="https:&#x2F;&#x2F;blog.mky.moe&#x2F;" rel="noopener" target="_blank">MonKey</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.ccandle.top/" title="https:&#x2F;&#x2F;blog.ccandle.top&#x2F;" rel="noopener" target="_blank">CCandle</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://120.79.138.174:8080/" title="http:&#x2F;&#x2F;120.79.138.174:8080&#x2F;" rel="noopener" target="_blank">siyuanluo</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://yang-d19.github.io/" title="https:&#x2F;&#x2F;yang-d19.github.io&#x2F;" rel="noopener" target="_blank">Yangd19</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="languages">
+    <label class="lang-select-label">
+      <i class="fa fa-language"></i>
+      <span>简体中文</span>
+      <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </label>
+    <select class="lang-select" data-canonical="">
+      
+        <option value="zh-CN" data-href="/2022/05/05/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA%E8%80%83%E8%AF%95%E8%83%8C%E8%AF%B5/" selected="">
+          简体中文
+        </option>
+      
+        <option value="en" data-href="/en/2022/05/05/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA%E8%80%83%E8%AF%95%E8%83%8C%E8%AF%B5/" selected="">
+          English
+        </option>
+      
+    </select>
+  </div>
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Junyang Zhang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hA0Uyzupz2vdCpNOIC0MCJjT-gzGzoHsz',
+      appKey     : 'dpOcFMwzmsVPyQPECkBb9TUP',
+      placeholder: "Just comment!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

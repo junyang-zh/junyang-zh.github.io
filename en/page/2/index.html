@@ -149,6 +149,110 @@
       
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/16/en/Solution-on-2018-ICPC-Asia-Nanjing-Regional-M/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/16/en/Solution-on-2018-ICPC-Asia-Nanjing-Regional-M/" class="post-title-link" itemprop="url">Solution on 2018 ICPC Asia Nanjing Regional M</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-16 20:27:11" itemprop="dateCreated datePublished" datetime="2021-10-16T20:27:11+08:00">2021-10-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-20 16:41:46" itemprop="dateModified" datetime="2021-11-20T16:41:46+08:00">2021-11-20</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2021/10/16/en/Solution-on-2018-ICPC-Asia-Nanjing-Regional-M/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/16/en/Solution-on-2018-ICPC-Asia-Nanjing-Regional-M/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Today we virtually participated the regional of 2018 Nanjing, and I have done my first non-trivial string problem, introducing a new algorithm called Extended-KMP. Thus I bet it notable on by blog.</p>
+<h2 id="problem-statement">Problem Statement</h2>
+<blockquote>
+<p>Given two strings s and t, count the number of tuples <span class="math inline">\((i, j, k)\)</span> such that</p>
+<ol type="1">
+<li><span class="math inline">\(1\le i\le j\le |s|\)</span></li>
+<li><span class="math inline">\(1\le k\le |t|\)</span></li>
+<li><span class="math inline">\(j − i + 1 &gt; k\)</span></li>
+<li>The <span class="math inline">\(i\)</span>-th character of <span class="math inline">\(s\)</span> to the <span class="math inline">\(j\)</span>-th character of <span class="math inline">\(s\)</span>, concatenated with the first character of <span class="math inline">\(t\)</span> to the <span class="math inline">\(k\)</span>-th character of <span class="math inline">\(t\)</span>, is a palindrome.</li>
+</ol>
+<p><span class="math inline">\(2\le |s|\le 10^6\)</span>, <span class="math inline">\(1\le |t|&lt;|s|\)</span></p>
+</blockquote>
+<h2 id="solution">Solution</h2>
+<p>The problem is to find and count the number of cases that there is two adjacent substrings <span class="math inline">\(s^{(1)}\)</span>, <span class="math inline">\(s^{(2)}\)</span> in <span class="math inline">\(s\)</span> and another <span class="math inline">\(t^{(1)}\)</span> in <span class="math inline">\(t\)</span>, provided that <span class="math inline">\(s^{(2)}\)</span> is a palindrome, and <span class="math inline">\(s^{(1)}\)</span> is reversely matched with <span class="math inline">\(t^{(1)}\)</span>.</p>
+<p>So let's reverse the string <span class="math inline">\(s\)</span>. Then use the famous Manacher algorithm on <span class="math inline">\(s\)</span> (when there is a longest palindrome <span class="math inline">\(s_x\cdots s_y\)</span>, let <span class="math inline">\(p_{x+y}=\lfloor(y-x+1)/2\rfloor\)</span>) and count every occurrence centered at <span class="math inline">\(i=\lceil(x+y)/2\rceil\)</span>.</p>
+<p>Let <span class="math inline">\(s^j\)</span> be the suffix of <span class="math inline">\(s\)</span> starting from <span class="math inline">\(j\)</span>. We should firstly find the longest common prefix of suffix <span class="math inline">\(s^j\)</span> and <span class="math inline">\(t\)</span>, and sum up the length of these prefixes around <span class="math inline">\(i\)</span>. Precisely, all of the prefixes starting from <span class="math inline">\(i+1\)</span> to <span class="math inline">\(i+p_{x+y}\)</span> should be counted. Using prefix sum, we could get that value in <span class="math inline">\(O(1)\)</span> at every symmetrical center.</p>
+<p>It must be noted that <span class="math inline">\(j-i+1&gt;k\)</span>, then <span class="math inline">\(s_2\)</span> must not be empty.</p>
+<p>Dealing with bounds and indexes of strings is tricky, so be careful.</p>
+<h2 id="code">Code</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/10/16/en/Solution-on-2018-ICPC-Asia-Nanjing-Regional-M/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/GRE-%E5%A4%87%E8%80%83%E7%AF%87/">
 
@@ -1043,96 +1147,6 @@ P(n;r_1,\cdots,r_k)=\binom{n}{r_1,r_2,\cdots,r_k}=\frac{n!}{r_1!r_2!\cdots r_k!}
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
-    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/12/en/Moving-My-Blog-To-a-Static-Website/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
-      <meta itemprop="name" content="Junyang Zhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Junyang Zhang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/12/en/Moving-My-Blog-To-a-Static-Website/" class="post-title-link" itemprop="url">Moving My Blog To a Static Website</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-10-12 09:14:14" itemprop="dateCreated datePublished" datetime="2021-10-12T09:14:14+08:00">2021-10-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-11-20 16:41:46" itemprop="dateModified" datetime="2021-11-20T16:41:46+08:00">2021-11-20</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2021/10/12/en/Moving-My-Blog-To-a-Static-Website/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/12/en/Moving-My-Blog-To-a-Static-Website/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Hi, This is the first day that my new blog site and domain have been established. The new site is for sharing thoughts on specific problems, sharing works that I have done as well as introducing myself.</p>
-<p>The previous site that I developed in my high school is no longer available, and blog posts are too insignificant to repost. Thus this site only contains posts from now on and some works not previously published before this date.</p>
-<p>Now my blog is powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>, and operated by Github Pages (might change in the future). This is one of the static site frameworks that fit me the most. Several blogs indicating measures and pitfalls on establishing a Hexo site may be posted.</p>
-<p>Hope it would operate well.</p>
-
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/12/en/Moving-My-Blog-To-a-Static-Website/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1204,7 +1218,7 @@ P(n;r_1,\cdots,r_k)=\binom{n}{r_1,r_2,\cdots,r_k}=\frac{n!}{r_1!r_2!\cdots r_k!}
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
