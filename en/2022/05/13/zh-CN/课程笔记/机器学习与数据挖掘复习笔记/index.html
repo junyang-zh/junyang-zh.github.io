@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/Avatar.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.gif">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.gif">
+  <link rel="mask-icon" href="/images/favicon-32x32.gif" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jyzhang.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="结构按照著名坑导 BJP 的 PPT 整理，不代表作者同意其中任何内容，重要部分（如 BP）以及 PPT 啥都没讲的（如 OPTICS）按我的知识而不是 PPT 整理 考试回忆 很水，感觉是拍脑袋出题。六个大题  欠拟合怎么发现怎么解决 举三个人脸识别的算法，简单描述过程 KNN 优缺点？K 值过大过小怎么办 你的机器学习方法精度上不去怎么办 给一个单隐层网络，算 BP 后权重更新值的形式 给四条">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习与数据挖掘复习笔记">
+<meta property="og:url" content="http://jyzhang.xyz/en/2022/05/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Junyang Zhang&#39;s Blog">
+<meta property="og:description" content="结构按照著名坑导 BJP 的 PPT 整理，不代表作者同意其中任何内容，重要部分（如 BP）以及 PPT 啥都没讲的（如 OPTICS）按我的知识而不是 PPT 整理 考试回忆 很水，感觉是拍脑袋出题。六个大题  欠拟合怎么发现怎么解决 举三个人脸识别的算法，简单描述过程 KNN 优缺点？K 值过大过小怎么办 你的机器学习方法精度上不去怎么办 给一个单隐层网络，算 BP 后权重更新值的形式 给四条">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://jyzhang.xyz/en/2022/05/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/Comparison_image_neural_networks.svg">
+<meta property="og:image" content="http://jyzhang.xyz/en/2022/05/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/Inception.png">
+<meta property="og:image" content="http://jyzhang.xyz/en/2022/05/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/LSTM_Cell.svg.png">
+<meta property="article:published_time" content="2022-05-13T14:43:40.000Z">
+<meta property="article:modified_time" content="2022-05-13T14:47:32.374Z">
+<meta property="article:author" content="Junyang Zhang">
+<meta property="article:tag" content="课程笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://jyzhang.xyz/en/2022/05/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/Comparison_image_neural_networks.svg">
+
+<link rel="canonical" href="http://jyzhang.xyz/en/2022/05/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>机器学习与数据挖掘复习笔记 | Junyang Zhang's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Junyang Zhang's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2022/05/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          机器学习与数据挖掘复习笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-05-13 22:43:40 / Modified: 22:47:32" itemprop="dateCreated datePublished" datetime="2022-05-13T22:43:40+08:00">2022-05-13</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/en/2022/05/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/en/2022/05/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>结构按照著名坑导 BJP 的 PPT
+整理，不代表作者同意其中任何内容，重要部分（如 BP）以及 PPT
+啥都没讲的（如 OPTICS）按我的知识而不是 PPT 整理</p>
+<h2 id="考试回忆">考试回忆</h2>
+<p>很水，感觉是拍脑袋出题。六个大题</p>
+<ol type="1">
+<li>欠拟合怎么发现怎么解决</li>
+<li>举三个人脸识别的算法，简单描述过程</li>
+<li>KNN 优缺点？K 值过大过小怎么办</li>
+<li>你的机器学习方法精度上不去怎么办</li>
+<li>给一个单隐层网络，算 BP 后权重更新值的形式</li>
+<li>给四条离散数据，求最大信息增益的属性</li>
+</ol>
+<h2 id="概述">概述</h2>
+<p>大数据：在可接受的时间内，无法用单机系统完整处理的数据</p>
+<ul>
+<li>大数据处理：分治，特定场景优化，并行，异构，弹性，横向扩展，容错</li>
+<li>Hadoop 离线 Map Reduce；Spark 迭代式；Storm 流式在线实时</li>
+</ul>
+<p>机器学习（ML），数据挖掘（DM），知识发现（KDD）</p>
+<p>数据挖掘基本任务：描述性（挖掘模式），预测性（给出值）</p>
+<p>机器学习基本任务：分类，聚类，预测，联想，优化；生成一个数据空间到目标空间的映射
+<span class="math inline">\(S\to Z\)</span></p>
+<ul>
+<li>分类：目标空间已知有限离散</li>
+<li>聚类：目标空间位置有限离散</li>
+<li>预测：目标空间是连续值空间</li>
+<li>联想：目标空间是数据空间，需要发现数据本身的联系</li>
+<li>优化：目标是数据空间上的函数 <span
+class="math inline">\(F(S)\)</span>，需要 <span
+class="math inline">\(\max{d[F(S)]}\)</span>，<span
+class="math inline">\(d\)</span> 为一种度量</li>
+</ul>
+<p>机器学习基本过程：收集数据，清洗数据，提取特征，训练模型，获得知识</p>
+<h2 id="数据和度量">数据和度量</h2>
+<p>概念：</p>
+<ul>
+<li>数据集，数据对象和属性的集合</li>
+<li>数据属性，又叫变量，字段，特征或特性；属性类型（名词，有序，区间，比值）</li>
+<li>数据对象，又叫记录，点，案例，样本，实体或事件</li>
+</ul>
+<p>数据常见类型：记录数据（数据矩阵，词向量，事务数据），图数据，有序数据</p>
+<h3 id="归一化方法">归一化方法</h3>
+<p>线性（离差标准化法，最大最小法），其中 <span
+class="math inline">\(min\)</span>，<span
+class="math inline">\(max\)</span> 分别为数据集最小，最大值 <span
+class="math display">\[
+v=\frac{x-min}{max-min}
+\]</span> Z-Score，其中 <span class="math inline">\(\mu\)</span>，<span
+class="math inline">\(\sigma\)</span> 为数据集均值和方差 <span
+class="math display">\[
+v=\frac{x-\mu}{\sigma}
+\]</span> 其他从 <span class="math inline">\((-\infty,+\infty)\)</span>
+映射到 <span class="math inline">\([0,1]\)</span>
+的函数：高斯，Sigmoid</p>
+<h3 id="度量方法">度量方法</h3>
+<p>相异性</p>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 46%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>方法</th>
+<th>计算</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>欧几里得</td>
+<td><span class="math inline">\(\sqrt{\sum_k(p_k-q_k)^2}\)</span></td>
+<td>各维尺度敏感，不识别相关维</td>
+</tr>
+<tr class="even">
+<td>闵可夫斯基距离</td>
+<td><span class="math inline">\((\sum_k|p_k-q_k|^r)^{1/r}\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>马氏距离</td>
+<td><span
+class="math inline">\(\sqrt{(p-q)^T\Sigma^{-1}(p-q)}\)</span>，其中
+<span
+class="math inline">\(\Sigma=1/n((\boldsymbol{X}-\boldsymbol{\mu})^T(\boldsymbol{X}-\boldsymbol{\mu}))\)</span>
+为所有 <span class="math inline">\(n\)</span> 个样本的协方差矩阵，<span
+class="math inline">\(\boldsymbol{X}\)</span> 是 <span
+class="math inline">\(n\times m\)</span> 的样本矩阵， <span
+class="math inline">\(\boldsymbol{\mu}\)</span> 为 <span
+class="math inline">\(1\times m\)</span> 样本均值</td>
+<td>各维尺度无关，要求样本数量大于维数且满秩，要求总体一致</td>
+</tr>
+</tbody>
+</table>
+<p>相似性</p>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 72%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>方法</th>
+<th>计算</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>余弦相似度</td>
+<td><span class="math inline">\(\cos(p,
+q)=\dfrac{pq}{|p||q|}\)</span></td>
+</tr>
+<tr class="even">
+<td>距离倒数</td>
+<td><span class="math inline">\(\dfrac{1}{1+d}\)</span></td>
+</tr>
+<tr class="odd">
+<td>杰卡德系数（离散集合）</td>
+<td><span class="math inline">\(J(A,B)=\dfrac{|A\cap B|}{|A\cup
+B|}\)</span></td>
+</tr>
+<tr class="even">
+<td>Tanimoto 系数</td>
+<td><span
+class="math inline">\(f(A,B)=\dfrac{\sum_kA_kB_k}{|A|^2+|B|^2-\sum_kA_kB_k}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Dice 系数</td>
+<td><span class="math inline">\(S(A,B)=\dfrac{2|A\cap
+B|}{|A|+|B|}\)</span></td>
+</tr>
+<tr class="even">
+<td>皮尔森相关系数</td>
+<td><span
+class="math inline">\(\dfrac{\mathrm{cov}(X,Y)}{\sigma_x\sigma_y}\)</span></td>
+</tr>
+<tr class="odd">
+<td>斯皮尔曼相关系数</td>
+<td>排序重新按序赋值后的变量的皮尔森相关系数</td>
+</tr>
+<tr class="even">
+<td>交叉熵</td>
+<td><span class="math inline">\(CE(p,q)=-\sum_{i=1}^{k}p_i\log
+q_i\)</span></td>
+</tr>
+<tr class="odd">
+<td>KL 散度</td>
+<td><span
+class="math inline">\(KL(p|q)=\sum_{i=1}^kp_i\log(p_i/q_i)\)</span></td>
+</tr>
+<tr class="even">
+<td>互信息</td>
+<td><span
+class="math inline">\(I(X,Y)=H(Y)-H(Y|X)=\sum_{x,y}p(x,y)\log(p(x,y)/p(x)/p(y))\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>度量公理：非负，对称，三角不等式；Tanimoto，Dice 距离不是度量</p>
+<h3 id="机器学习结果评价">机器学习结果评价</h3>
+<p>鲁棒性，适应性，简洁性，可解释性</p>
+<p>测试数据分割：保留法，交叉验证法，随机法</p>
+<p>各指标：</p>
+<ul>
+<li>误差 <span
+class="math inline">\(Error(T)=\sum_{i=1}^{|T|}P_i\|E_i-L_i\|\)</span></li>
+<li>正确率 <span
+class="math inline">\(Accuracy(T)=|T_{error&lt;\varepsilon}|/|T|\)</span></li>
+<li>精度 <span class="math inline">\(TP/(TP+FP)\)</span></li>
+<li>召回率 <span class="math inline">\(TP/(TP+FN)\)</span></li>
+<li>正确率 <span
+class="math inline">\((TP+TN)/(TP+TN+FP++FN)\)</span></li>
+<li><span class="math inline">\(F_\beta=(\beta^2+1)precision\cdot
+recall/(\beta^2precision + recall)\)</span></li>
+<li>假阳率 <span
+class="math inline">\(FPR=1-Specificity=TNR=FP/(FP+TN)\)</span></li>
+<li>灵敏度 <span
+class="math inline">\(Sensitivity=Recall=TPR=TP/(TP+FN)\)</span></li>
+<li>特异度 <span
+class="math inline">\(Specificity=TNR=TN/(TN+FP)\)</span></li>
+</ul>
+<p>多分类问题指标处理：宏平均（各类别平均），微平均（先平均每个类别的
+<span class="math inline">\(TP\)</span>，<span
+class="math inline">\(TN\)</span>，<span
+class="math inline">\(FP\)</span>，<span
+class="math inline">\(FN\)</span>）</p>
+<h2 id="分类">分类</h2>
+<h3 id="小样本学习理论">小样本学习理论</h3>
+<p>参数 <span class="math inline">\(a\)</span>，被学习函数 <span
+class="math inline">\(f(x,a)\)</span>，训练器输出联合概率 <span
+class="math inline">\(F(x,y)\)</span>（样本满足该分布），损失函数 <span
+class="math inline">\(L(y,y&#39;)\)</span></p>
+<p>期望风险 <span class="math display">\[
+R(a)=\iint L(y,(f(x,a))\ \mathrm d F(x,y)
+\]</span> 经验风险 <span class="math display">\[
+R_{\text{empirical}}(a)=\frac{1}{N}\sum_{i=1}^{N}L(y_i,f(x_i,a))
+\]</span> 经验风险最小化原则 ERM</p>
+<p>VC 维：对于一个函数集 <span
+class="math inline">\(\{f(x,a_1,a_2,\cdots,a_n)|a_i\in
+A_i\}\)</span>，如果 <span class="math inline">\(h\)</span>
+个样本能由该函数集中的不同函数分类为 <span
+class="math inline">\(2^h\)</span> 种不同可能，则 <span
+class="math inline">\(f\)</span> 的 VC 维为 <span
+class="math inline">\(h\)</span></p>
+<ul>
+<li><span class="math inline">\(n\)</span> 维超平面的 VC 维为 <span
+class="math inline">\(n+1\)</span></li>
+<li><span class="math inline">\(R_{\text{emp}} -R(a)=
+\varPhi\)</span>，其中随机变量 <span
+class="math inline">\(\varPhi\)</span> 满足</li>
+</ul>
+<p><span class="math display">\[
+F_{\varPhi}\left(\sqrt{\dfrac{h\ln(2N/h)+h-\ln(\eta/4)}{N}}\right)=\eta
+\]</span></p>
+<p>结构风险最小化原则：考虑经验风险和置信界限</p>
+<p>过拟合：给定一个假设空间 <span
+class="math inline">\(H\)</span>，一个假设 <span
+class="math inline">\(h\in H\)</span>，如果存在其他的假设 <span
+class="math inline">\(h&#39;\in H\)</span>，使得在训练样例上 <span
+class="math inline">\(h\)</span> 的错误率比 <span
+class="math inline">\(h&#39;\)</span> 小，但在整个实例分布上 <span
+class="math inline">\(h&#39;\)</span> 的错误率 <span
+class="math inline">\(h\)</span> 比小，那么就说假设 <span
+class="math inline">\(h\)</span> 过度拟合训练数据</p>
+<h3 id="knn">KNN</h3>
+<p>距离输入对象最近的 <span class="math inline">\(k\)</span>
+个对象的属性投票</p>
+<h3 id="决策树">决策树</h3>
+<p>每次选一个最优属性作为当前节点，去掉该属性分支成两个或多个子节点，递归</p>
+<p>ID3 算法评估属性：信息增益 <span
+class="math inline">\(IG(S,A)=H(S)-\sum_{v\in
+Values(A)}|S_v|/|S|H(S_v)\)</span>，其中 <span
+class="math inline">\(S_v\)</span> 表示 <span
+class="math inline">\(S\)</span> 中属性 <span
+class="math inline">\(A\)</span> 的值为 <span
+class="math inline">\(v\)</span> 的样本集</p>
+<p>样本集的熵是 <span class="math display">\[
+H(S)=\sum_{s\in Classes}-P(s\in S)\log P(s\in S)
+\]</span> <span class="math inline">\(P(s\in S)\)</span>
+表示该样本在集合 <span class="math inline">\(S\)</span> 中类别为 <span
+class="math inline">\(s\)</span> 的概率，用频率计算</p>
+<p>搜索策略：优先选择小树防过拟合，早停止法（编码树复杂性），后修剪法</p>
+<p>剪枝：将该子树所有后继去掉，把树根变成叶，类别是本节点出现最多的类别</p>
+<p>规则后修剪：先变成规则，再删规则</p>
+<p>其他的最优属性标准，惩罚值多（<span class="math inline">\(D\)</span>
+大）的属性：</p>
+<ul>
+<li>增益属性：<span
+class="math inline">\(GainRatio(S,A)=Gain(S,A)/SplitInformation(S,A)\)</span>，<span
+class="math inline">\(SplitInformation(S,A)=\sum_{v\in
+D}-|S_v|/|D|\log(|S_v|/|D|)\)</span>；启发式：可以仅对增益过高的属性做惩罚</li>
+<li>Mantaras 基于距离的度量（选择最接近理想划分的划分）：设 <span
+class="math inline">\(A\)</span> 和 <span
+class="math inline">\(B\)</span> 都表示数据集的划分，<span
+class="math inline">\(P(A_iB_j)\)</span> 表示一个数据划分在 <span
+class="math inline">\(A_i\)</span> 类和 <span
+class="math inline">\(B_j\)</span> 类的概率，条件熵 <span
+class="math inline">\(H(B|A)=\sum_{i,j}-P(A_iB_j)\log\dfrac{P(A_iB_j)}{P(A_i)}\)</span>，联合熵
+<span class="math inline">\(H(A,B)=\sum_{i,j}-P(A_iB_j)\log
+P(A_iB_j)\)</span>，距离 <span
+class="math inline">\(d(A,B)=H(A|B)+H(B|A)\)</span>，归一化 <span
+class="math inline">\(d_N(A,B)=d(A,B)/H(A,B)\)</span></li>
+</ul>
+<h3 id="随机森林">随机森林</h3>
+<p>使用多个基本方法（随机选数据，随机选特征，多个决策树），最后投票或加权平均</p>
+<h3 id="朴素贝叶斯">朴素贝叶斯</h3>
+<p>事件 <span
+class="math inline">\(D=\{A_1,A_2,\cdots,A_n\}\)</span>，<span
+class="math inline">\(h\in H\)</span> 为假设，训练数据是一组 <span
+class="math inline">\(\left&lt;D_i,h_i\right&gt;\)</span>，<span
+class="math inline">\(P(h)\)</span> 称为先验概率，<span
+class="math inline">\(P(D|h)\)</span> 为似然度，<span
+class="math inline">\(P(h|D)\)</span> 为后验概率</p>
+<p>贝叶斯公式 <span class="math display">\[
+P(h|D)=\frac{P(D|h)P(h)}{P(D)}
+\]</span> 极大后验假设 <span
+class="math inline">\(h_{\text{MAP}}=\arg\max_{h}P(D|h)P(h)\)</span></p>
+<p>极大似然假设 <span
+class="math inline">\(h_{ML}=\arg\max_{h}P(D|h)\)</span></p>
+<p>朴素贝叶斯，假设 <span
+class="math inline">\(P(a_1,a_2,\cdots,a_n|h)=\prod_i
+P(a_i|h)\)</span>，对于事件 <span class="math inline">\(X\)</span>
+的估计： <span class="math display">\[
+h_{NB}=\arg\max_h P(h)\prod_{a\in X} P(a|h)
+\]</span> 对于 <span class="math inline">\(P(h)\)</span> 和 <span
+class="math inline">\(P(a|h)\)</span> 的 <span
+class="math inline">\(m\)</span>-估计方法 <span class="math display">\[
+p=\frac{n_{\text{satisfy}}+mp_{priori}}{n+m}
+\]</span></p>
+<h3 id="svm">SVM</h3>
+<p>固定经验风险，最小化置信界限 <span class="math display">\[
+g(\boldsymbol x)=\boldsymbol w^T\boldsymbol x + \boldsymbol b
+\]</span> 对于支持向量 <span class="math inline">\(\boldsymbol
+x_s\)</span>，<span class="math inline">\(g(\boldsymbol x_s)=\pm
+1\)</span>，两个类别的间隔 <span
+class="math inline">\(\dfrac{2}{\|\boldsymbol w\|}\)</span></p>
+<p>等价于求 <span class="math inline">\(\|\boldsymbol w\|^2\)</span>
+最大，加入松弛变量 <span class="math inline">\(\boldsymbol \xi\)</span>
+<span class="math display">\[
+\begin{aligned}
+\min_{\boldsymbol w, \boldsymbol b} \,\,&amp; \|\boldsymbol
+w\|^2+\sum_{i=1}^n \xi_i \\
+\mathrm{s.t.} \,\,&amp; y_i(\boldsymbol w^T\boldsymbol x + \boldsymbol
+b) &gt; 1-\xi_i \text{  and  } \xi_i \ge 0
+\end{aligned}
+\]</span> 拉格朗日乘子 <span class="math inline">\(\boldsymbol
+\alpha\)</span>，有对偶问题 <span class="math display">\[
+\begin{aligned}
+\max\,\,&amp; f(\boldsymbol \alpha)=\sum _{i=1}^{n}\alpha_{i}-{\frac
+{1}{2}}\sum _{i=1}^{n}\sum _{j=1}^{n}y_{i}\alpha_{i}(\mathbf {x}
+_{i}^{T}\mathbf {x} _{j})y_{j}\alpha_{j}
+\\
+\text{s.t.}\,\,&amp; \alpha_i\ge 0\text{  and  }
+\sum_{i=1}^ny_i\alpha_i=0
+\end{aligned}
+\]</span> 是二次规划，可得 <span class="math inline">\(\mathbf {w} =\sum
+_{i=1}^{n}\alpha_{i}y_{i}\mathbf {x} _{i}\)</span></p>
+<p>非线性可分问题，找一个到高维的映射 <span
+class="math inline">\(\varphi(x)\)</span>，利用核函数 <span
+class="math inline">\(k(x_i,x_j)=\varphi(x_i)\cdot\varphi(x_j)\)</span>
+算高维内积</p>
+<p>Mercer 条件：<span class="math inline">\(k(x,y)\)</span>
+描述高维内积的充要条件是对任意 <span class="math inline">\(g(x)\)</span>
+满足 <span class="math inline">\(\displaystyle \int g^2(x)\ \mathrm
+dx\)</span> 存在，有 <span class="math inline">\(\displaystyle \iint
+k(x,y)g(x)g(y)\ \mathrm dx\mathrm dy\ge0\)</span></p>
+<p>多项式核函数（二次）：<span class="math inline">\(\varphi(\boldsymbol
+x) =
+\left&lt;x_n^2,\cdots,x_1^2,\sqrt2x_nx_{x-1},\cdots,\sqrt2x_2x_1,\sqrt{2c}x_n,\cdots,\sqrt{2c}x_1,c\right&gt;\)</span>，<span
+class="math inline">\(k(\boldsymbol x,\boldsymbol y)=(\boldsymbol
+x^T\boldsymbol y+c)^2\)</span></p>
+<p>多项式核函数 <span class="math inline">\(k(\boldsymbol x,\boldsymbol
+y)=(\boldsymbol x^T\boldsymbol y+c)^d\)</span></p>
+<p>径向基核函数（RBF）<span class="math inline">\(k(\boldsymbol
+x,\boldsymbol y)=\exp(-\|\boldsymbol x-\boldsymbol
+y\|^2/\sigma^2)\)</span></p>
+<p>Sigmoid 核函数 <span class="math inline">\(k(\boldsymbol
+x,\boldsymbol y)=\tanh(-\gamma\boldsymbol x^T\boldsymbol
+y+c)\)</span></p>
+<h3 id="logistic-回归">Logistic 回归</h3>
+<p>线性回归：<span class="math inline">\(f(\boldsymbol x)=\boldsymbol
+w^T\boldsymbol x\)</span>；Logistic 回归：<span
+class="math inline">\(f(x)=\sigma(\boldsymbol w^T\boldsymbol
+x)\)</span>，<span
+class="math inline">\(\sigma(x)=1/(1+e^{-x})\)</span></p>
+<p>梯度下降求解，<span class="math inline">\(\dfrac{\partial f}{\partial
+w_i}=(f(x_i)-y_i)x_i\)</span></p>
+<p>防止过拟合：损失加正则化项 <span
+class="math inline">\(\lambda\|\boldsymbol
+w\|\)</span>，那么每次迭代会减小参数</p>
+<h2 id="聚类">聚类</h2>
+<p>硬聚类：任意两类没有共享数据点；软聚类：有</p>
+<p>使类内相似度大，类间相似度小</p>
+<h3 id="层次聚类">层次聚类</h3>
+<p>自顶向下构造（分裂聚类），自底向上构造（凝聚聚类）</p>
+<ul>
+<li>Linkage（仅凸且可度量）：每次合并最相似的簇；单链（SLink）：两个最近点；全链：两个最远点；均链：平均距离</li>
+<li>CURE（任意形状可度量）：使用簇代表点中的最短距离，代表点是互相距离远的
+<span class="math inline">\(c\)</span> 个点，向簇中心收缩 <span
+class="math inline">\(a\)</span>
+倍；先采样，采样点均匀分布在分区，分区分别聚类，再一起聚类，再把剩下点分给簇</li>
+</ul>
+<p>CHAMELEON（任意形状）：构造 <span
+class="math inline">\(k\)</span>-近邻子图，划分成大量子图，然后层次聚类子图，设
+<span class="math inline">\(EC(C_i,C_j)\)</span> 为连接类 <span
+class="math inline">\(C_i\)</span>，<span
+class="math inline">\(C_j\)</span> 所有边的权重，<span
+class="math inline">\(EC(C_i)\)</span> 为将 <span
+class="math inline">\(C_i\)</span>
+划分为两个相等子类的最小割集，相对互联性函数 <span
+class="math display">\[
+RI(C_i,C_j)=\frac{2\sum EC(C_i,C_j)}{\sum EC(C_i)+\sum EC(C_j)}
+\]</span> 相对近似性函数 <span class="math display">\[
+RC(C_i,C_j)=\frac{\overline{EC(C_i,C_j)}}{\dfrac{|C_i|}{|C_i|+|C_j|}\overline{EC(C_i)}+\dfrac{|C_j|}{|C_i|+|C_j|}\overline{EC(C_j)}}
+\]</span> 聚类使用的相似性度量：<span
+class="math inline">\(RI(C_i,C_j)\times RC^\alpha(C_i,C_j)\)</span></p>
+<h3 id="划分聚类">划分聚类</h3>
+<ul>
+<li><span class="math inline">\(k\)</span>-means：取中心</li>
+<li><span
+class="math inline">\(k\)</span>-medoids：靠近中心的代表点</li>
+</ul>
+<p>随机取 <span class="math inline">\(k\)</span>
+个代表点，然后分配并重新计算代表点直到收敛，评估是各点到各自中心点距离平方和（SSE）</p>
+<h3 id="密度聚类">密度聚类</h3>
+<ul>
+<li>DBSCAN：Eps 邻域内大于 MinPts
+的点是核心点，否则若在核心点邻域点则是边界点；到另一个核心点距离小于 Eps
+则密度可达；互相可达的核心点和其边界点是一簇</li>
+<li>OPTICS：可以分辨密度不同簇，扫的时候维护第 MinPts
+远的点距离，拿优先队列加进已扫点集；Reachablility 排序反应簇结构</li>
+<li>DENCLUE：推导密度函数，拿局部极值点，各点往梯度方向合并</li>
+</ul>
+<h3 id="子空间聚类">子空间聚类</h3>
+<p>自底向上
+CLIQUE（维增长子空间聚类方法）：维数从低到高处理，对每个属性等分，则成超立方网格，网格内大于某个阈值的单元称为稠密单元，由
+<span class="math inline">\(k-1\)</span> 维稠密单元产生 <span
+class="math inline">\(k\)</span> 维候选稠密单元，最后通过单元发现簇</p>
+<p>自顶向下
+PROCLUS（维规约子空间聚类方法）：初始化，采样出一个潜在中心点集合；迭代，用新点替代，距离是各子空间的平均；改进，对各中心确定特征子集</p>
+<h3 id="ann-聚类">ANN 聚类</h3>
+<p>SOM 网络（Self Organizing
+Map）：输入层，竞争层。输入层与竞争层全连接，竞争层内部连接，对临近节点激活，远离节点抑制。每次寻找一个获胜节点激活。会把输入映射到一个空间（二维）空间上不同的区域表示不同类别。</p>
+<h2 id="神经网络">神经网络</h2>
+<p>感知机 <span class="math inline">\(y=f(\boldsymbol w^T\boldsymbol
+x-\theta)\)</span>，<span class="math inline">\(f\)</span>
+可以是阶跃函数也可以是 <span class="math inline">\(\mathrm
+{sgn}\)</span>，单隐层感知机能表示凸区域，双隐层能表示任意形状</p>
+<p>分类使用 softmax 将输出映射到概率 <span
+class="math inline">\(\text{softmax}(x_i)=\exp(x_i)/\sum_i\exp(x_i)\)</span></p>
+<h3 id="常用激活函数">常用激活函数</h3>
+<p><span
+class="math inline">\(\tanh(x)=\dfrac{\exp(x)-\exp(-x)}{\exp(x)+\exp(-x)}\)</span></p>
+<p><span
+class="math inline">\(\text{sigmoid}(x)=\dfrac{1}{1+\exp(-x)}\)</span></p>
+<p><span class="math inline">\(\text{ReLU}(x)=\max(0,x)\)</span></p>
+<h3 id="backpropagation">Backpropagation</h3>
+<p>假设总层数 <span class="math inline">\(L\)</span>，代价 <span
+class="math inline">\(C\)</span>，第 <span
+class="math inline">\(l\)</span> 层输入 <span
+class="math inline">\(x^l\)</span>，对应 <span
+class="math inline">\(\delta^l=\dfrac{\partial C}{\partial
+x^l}\)</span>，算子输出 <span
+class="math inline">\(z^l\)</span>，激活输出 <span
+class="math inline">\(x^{l+1}=\sigma(z^l)\)</span></p>
+<p>最后一层 <span class="math inline">\(\delta^L=\Delta C\cdot
+\sigma&#39;(z^L)\)</span></p>
+<p>线性层 <span class="math inline">\(z^l=wx^l+b^l\)</span> <span
+class="math display">\[
+\begin{cases}
+\delta^l=(w^{l})^T\delta^{l+1}\cdot\sigma&#39;(z^l)
+\\
+\dfrac{\partial C}{\partial b^l}=\delta^{l+1}
+\\
+\dfrac{\partial C}{\partial w^l}=x^l\delta^{l+1}
+\end{cases}
+\]</span> 卷积层 <span class="math inline">\(z^l=x^l\otimes h^l\)</span>
+<span class="math display">\[
+\begin{cases}
+\delta^l=\delta^{l+1}\otimes \text{ROT}_{180}(h^l)\cdot\sigma&#39;(z^l)
+\\
+\dfrac{\partial C}{\partial h^l}=\delta^{l+1}\otimes x^l
+\end{cases}
+\]</span></p>
+<h3 id="cnn">CNN</h3>
+<p>LeNet and AlexNet：</p>
+<p><img src="Comparison_image_neural_networks.svg" alt="Comparison_image_neural_networks" style="zoom: 25%;" /></p>
+<p>AlexNet 可多 GPU，不增 Channels 的卷积可以并行</p>
+<h4 id="inception">Inception</h4>
+<p>来自 GoogleLeNet，拿不同的层卷，然后叠起来</p>
+<figure>
+<img src="Inception.png" alt="Inception" />
+<figcaption aria-hidden="true">Inception</figcaption>
+</figure>
+<h4 id="residule">Residule</h4>
+<p>残差网络</p>
+<p>BasicBlock 两个 <span class="math inline">\(3\times3\)</span>
+卷积</p>
+<p>Bottoleneck <span
+class="math inline">\(1\times1\times2^n;3\times3\times2^n;1\times1\times2^{n+1}\)</span></p>
+<p>两种单元都计算残差</p>
+<h3 id="rnn">RNN</h3>
+<p>每层输入 <span class="math inline">\(x^L_t\)</span>，输出 <span
+class="math inline">\(x^{L+1}_t=\sigma(z^L_t)\)</span>，权重 <span
+class="math inline">\(w^L\)</span>，循环权重 <span
+class="math inline">\(u^L\)</span> <span class="math display">\[
+z^L_t=w^Lx^L_t+u^L\sigma(z^L_{t-1})
+\]</span> BP Through Time：反向传播，沿着时间倒序给自己传播</p>
+<p>BiRNN：双向 RNN，实际上是两个反向 RNN 拼起来</p>
+<h4 id="lstm">LSTM</h4>
+<p><img src="LSTM_Cell.svg.png" alt="LSTM_Cell.svg" style="zoom: 25%;" /></p>
+<p>输入门 <span class="math display">\[
+\begin{cases}
+i_t=\sigma(W_i[h_{t-1},x_t]+b_i)\\
+c_t=f_{t}c_{t-1}+i_t\tanh(W_C[h_{t-1},x_t]+b_C)
+\end{cases}
+\]</span> 输出门 <span class="math display">\[
+\begin{cases}
+o_t=\sigma(W_o[h_{t-1},x_t]+b_o)\\
+h_t=o_t\tanh(c_t)
+\end{cases}
+\]</span> 遗忘门 <span class="math display">\[
+f_t=\sigma(W_f[h_{t-1},x_t]+b_f)
+\]</span></p>
+<h4 id="nlp">NLP</h4>
+<p>词向量表示</p>
+<ul>
+<li>One-Hot：词典中的位置</li>
+<li>共现矩阵：把相邻的词所在词典中的位置也加一</li>
+<li>SVD：对共现矩阵奇异值分解</li>
+<li>分布式表示：将词映射到低维空间，此时距离产生意义</li>
+<li>NNLM：权重矩阵将 One-Hot 映射到低维向量后拼接 <span
+class="math inline">\(n\)</span> 个</li>
+<li>Word2Vec，上下文 <span class="math inline">\(2m\)</span> 窗口：
+<ul>
+<li>CBOW，上下文预测当前值，输入词向量序列由一个周围词矩阵乘再平均，softmax
+输出每个词的概率</li>
+<li>Skip-gram，当前值预测上下文</li>
+</ul></li>
+<li>Attention：计算 query 和 key 的相似性，归一化后对 values
+加权求和</li>
+</ul>
+<h2 id="智能优化方法">智能优化方法</h2>
+<p>遗传算法（GA）：选择，交叉，变异</p>
+<p>蚁群算法，<span class="math inline">\(p\)</span> 蚂蚁 <span
+class="math inline">\(k\)</span> 在 <span
+class="math inline">\(t\)</span> 时刻从位置 <span
+class="math inline">\(i\)</span> 移动到位置 <span
+class="math inline">\(j\)</span> 的概率，<span
+class="math inline">\(\tau\)</span> 是信息素， <span
+class="math inline">\(\eta\)</span> 是启发式（能见度），各自有权重 <span
+class="math display">\[
+p_{ij}^k(t)=\frac{\tau_{ij}^\alpha(t)+\eta_{ij}^\beta(t)}{\sum_{s\in
+Reachable(j)}\tau_{is}^\alpha(t)+\eta_{is}^\beta(t)}
+\]</span> 信息素更新 <span class="math display">\[
+\tau_{ij}(t+1)=\rho\tau_{ij}(t)+\sum_k \frac{Q}{\eta_k(t)}
+\]</span>
+粒子群算法（PSO）：每步更新速度和位移，速度向自己曾经到过的最优位置和整个群体到过的最优位置迭代；惯性可以逐步减少避免震荡</p>
+<p>自适应协方差矩阵进化（CMAES）：进化的目标是找到一个分布 <span
+class="math inline">\(P_\theta(X)\)</span>，<span
+class="math inline">\(\theta\)</span> 是参数，使 <span
+class="math inline">\(f(x)\)</span> 较优。将 <span
+class="math inline">\(P_\theta\)</span>
+建模为多维高斯。每步调整均值（最优子群加权平均）、协方差矩阵、全局步长</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag"># 课程笔记</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/05/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA%E8%80%83%E8%AF%95%E8%83%8C%E8%AF%B5/" rel="prev" title="人工智能导论考试背诵">
+      <i class="fa fa-chevron-left"></i> 人工智能导论考试背诵
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%80%83%E8%AF%95%E5%9B%9E%E5%BF%86"><span class="nav-number">1.</span> <span class="nav-text">考试回忆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%92%8C%E5%BA%A6%E9%87%8F"><span class="nav-number">3.</span> <span class="nav-text">数据和度量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%92%E4%B8%80%E5%8C%96%E6%96%B9%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">归一化方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%A6%E9%87%8F%E6%96%B9%E6%B3%95"><span class="nav-number">3.2.</span> <span class="nav-text">度量方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%93%E6%9E%9C%E8%AF%84%E4%BB%B7"><span class="nav-number">3.3.</span> <span class="nav-text">机器学习结果评价</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">4.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E6%A0%B7%E6%9C%AC%E5%AD%A6%E4%B9%A0%E7%90%86%E8%AE%BA"><span class="nav-number">4.1.</span> <span class="nav-text">小样本学习理论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#knn"><span class="nav-number">4.2.</span> <span class="nav-text">KNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%B3%E7%AD%96%E6%A0%91"><span class="nav-number">4.3.</span> <span class="nav-text">决策树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97"><span class="nav-number">4.4.</span> <span class="nav-text">随机森林</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF"><span class="nav-number">4.5.</span> <span class="nav-text">朴素贝叶斯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#svm"><span class="nav-number">4.6.</span> <span class="nav-text">SVM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#logistic-%E5%9B%9E%E5%BD%92"><span class="nav-number">4.7.</span> <span class="nav-text">Logistic 回归</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%9A%E7%B1%BB"><span class="nav-number">5.</span> <span class="nav-text">聚类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%82%E6%AC%A1%E8%81%9A%E7%B1%BB"><span class="nav-number">5.1.</span> <span class="nav-text">层次聚类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%92%E5%88%86%E8%81%9A%E7%B1%BB"><span class="nav-number">5.2.</span> <span class="nav-text">划分聚类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E5%BA%A6%E8%81%9A%E7%B1%BB"><span class="nav-number">5.3.</span> <span class="nav-text">密度聚类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E7%A9%BA%E9%97%B4%E8%81%9A%E7%B1%BB"><span class="nav-number">5.4.</span> <span class="nav-text">子空间聚类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ann-%E8%81%9A%E7%B1%BB"><span class="nav-number">5.5.</span> <span class="nav-text">ANN 聚类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">6.</span> <span class="nav-text">神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="nav-number">6.1.</span> <span class="nav-text">常用激活函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#backpropagation"><span class="nav-number">6.2.</span> <span class="nav-text">Backpropagation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cnn"><span class="nav-number">6.3.</span> <span class="nav-text">CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#inception"><span class="nav-number">6.3.1.</span> <span class="nav-text">Inception</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#residule"><span class="nav-number">6.3.2.</span> <span class="nav-text">Residule</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rnn"><span class="nav-number">6.4.</span> <span class="nav-text">RNN</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#lstm"><span class="nav-number">6.4.1.</span> <span class="nav-text">LSTM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nlp"><span class="nav-number">6.4.2.</span> <span class="nav-text">NLP</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%99%BA%E8%83%BD%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95"><span class="nav-number">7.</span> <span class="nav-text">智能优化方法</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Junyang Zhang"
+      src="/images/CasualPortraitOct2021.png">
+  <p class="site-author-name" itemprop="name">Junyang Zhang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/junyang-zh" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;junyang-zh" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mail@junyang.me" title="E-Mail → mailto:mail@junyang.me" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://bytew.net/" title="https:&#x2F;&#x2F;bytew.net&#x2F;" rel="noopener" target="_blank">Nocriz</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://thelajiest.github.io/" title="https:&#x2F;&#x2F;thelajiest.github.io&#x2F;" rel="noopener" target="_blank">KON_automaton</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.kingsiong.top/" title="http:&#x2F;&#x2F;www.kingsiong.top&#x2F;" rel="noopener" target="_blank">iNxli</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.mky.moe/" title="https:&#x2F;&#x2F;blog.mky.moe&#x2F;" rel="noopener" target="_blank">MonKey</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.ccandle.top/" title="https:&#x2F;&#x2F;blog.ccandle.top&#x2F;" rel="noopener" target="_blank">CCandle</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://120.79.138.174:8080/" title="http:&#x2F;&#x2F;120.79.138.174:8080&#x2F;" rel="noopener" target="_blank">siyuanluo</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://yang-d19.github.io/" title="https:&#x2F;&#x2F;yang-d19.github.io&#x2F;" rel="noopener" target="_blank">Yangd19</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="languages">
+    <label class="lang-select-label">
+      <i class="fa fa-language"></i>
+      <span>English</span>
+      <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </label>
+    <select class="lang-select" data-canonical="">
+      
+        <option value="zh-CN" data-href="/2022/05/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" selected="">
+          简体中文
+        </option>
+      
+        <option value="en" data-href="/en/2022/05/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" selected="">
+          English
+        </option>
+      
+    </select>
+  </div>
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Junyang Zhang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hA0Uyzupz2vdCpNOIC0MCJjT-gzGzoHsz',
+      appKey     : 'dpOcFMwzmsVPyQPECkBb9TUP',
+      placeholder: "Just comment!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

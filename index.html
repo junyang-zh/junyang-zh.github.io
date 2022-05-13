@@ -150,6 +150,108 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2022/05/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">机器学习与数据挖掘复习笔记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-05-13 22:43:40 / 修改时间：22:47:32" itemprop="dateCreated datePublished" datetime="2022-05-13T22:43:40+08:00">2022-05-13</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/05/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>结构按照著名坑导 BJP 的 PPT
+整理，不代表作者同意其中任何内容，重要部分（如 BP）以及 PPT
+啥都没讲的（如 OPTICS）按我的知识而不是 PPT 整理</p>
+<h2 id="考试回忆">考试回忆</h2>
+<p>很水，感觉是拍脑袋出题。六个大题</p>
+<ol type="1">
+<li>欠拟合怎么发现怎么解决</li>
+<li>举三个人脸识别的算法，简单描述过程</li>
+<li>KNN 优缺点？K 值过大过小怎么办</li>
+<li>你的机器学习方法精度上不去怎么办</li>
+<li>给一个单隐层网络，算 BP 后权重更新值的形式</li>
+<li>给四条离散数据，求最大信息增益的属性</li>
+</ol>
+<h2 id="概述">概述</h2>
+<p>大数据：在可接受的时间内，无法用单机系统完整处理的数据</p>
+<ul>
+<li>大数据处理：分治，特定场景优化，并行，异构，弹性，横向扩展，容错</li>
+<li>Hadoop 离线 Map Reduce；Spark 迭代式；Storm 流式在线实时</li>
+</ul>
+<p>机器学习（ML），数据挖掘（DM），知识发现（KDD）</p>
+<p>数据挖掘基本任务：描述性（挖掘模式），预测性（给出值）</p>
+<p>机器学习基本任务：分类，聚类，预测，联想，优化；生成一个数据空间到目标空间的映射
+<span class="math inline">\(S\to Z\)</span></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/05/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
     <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2022/05/05/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA%E8%80%83%E8%AF%95%E8%83%8C%E8%AF%B5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1079,105 +1181,6 @@ Loopback 接口；A 的端口 <code>1145</code>，B 的端口 <code>5141</code>�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
-    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/23/zh-CN/%E7%BB%99-MX-Anywhere-3-%E6%8D%A2%E9%9D%99%E9%9F%B3%E5%BE%AE%E5%8A%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
-      <meta itemprop="name" content="Junyang Zhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Junyang Zhang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/23/zh-CN/%E7%BB%99-MX-Anywhere-3-%E6%8D%A2%E9%9D%99%E9%9F%B3%E5%BE%AE%E5%8A%A8/" class="post-title-link" itemprop="url">给 MX Anywhere 3 换静音微动</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-10-23 21:05:40" itemprop="dateCreated datePublished" datetime="2021-10-23T21:05:40+08:00">2021-10-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-11-20 16:41:46" itemprop="dateModified" datetime="2021-11-20T16:41:46+08:00">2021-11-20</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/10/23/zh-CN/%E7%BB%99-MX-Anywhere-3-%E6%8D%A2%E9%9D%99%E9%9F%B3%E5%BE%AE%E5%8A%A8/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/23/zh-CN/%E7%BB%99-MX-Anywhere-3-%E6%8D%A2%E9%9D%99%E9%9F%B3%E5%BE%AE%E5%8A%A8/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>多图警告！</p>
-<h2 id="起因">起因</h2>
-<p>2021年初，心想买一个随处用的鼠标，正好 Anywhere 3 出来，搭载了 Master 3 上一样的电磁滚轮。十分心动！所以就买下来了。</p>
-<figure>
-<img src="\images\MXMaster3Pics\1.jpg" alt="罗技 MX Anywhere 3"><figcaption aria-hidden="true">罗技 MX Anywhere 3</figcaption>
-</figure>
-<p>白色鼠标十分讨人欢喜，用到现在也不觉得用脏了，而且有时候撞到什么东西也很难留下划痕。虽然他很贵，但我觉得一点也不娇贵，是个趁手的东西。电池续航很久，根本意识不到需要充电，即使需要充电，Type C 也十分方便。它最拿手的卖点就是电磁滚轮，真的爽到会让人觉得天下只有这一种滚轮，才能配的上鼠标的使用者。</p>
-<p>然而它其实也有一些小缺点，比如回报率只有 125 Hz，比如没有滚轮左右摆动。但是这都不痛不痒，最致命的缺点，便是：</p>
-<ul>
-<li><strong>不静音</strong></li>
-</ul>
-<p>这意味着我这小半年在图书馆用鼠标都畏畏缩缩的，因为这个高频的噪声不止让别人难受，我自己听了也难受。导致这个鼠标只是每天被我带去图书馆，摆在桌上做吉祥物，然后用触摸板......</p>
-<p>我一直想给它换个微动，但是又胆小，怕伤害了它的精致。直到有一天，终于忍不住了，要是它再不闭嘴，它就不是我爱的宝。</p>
-<p>于是上淘宝买了凯华的静音红点（微动）和底部的鼠标脚垫，因为需要揭开脚垫才能拧螺丝。本来想去工程坊借焊台，但是感觉买个垃圾电烙铁也不贵，备着吧，就开始在寝室搞了。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/23/zh-CN/%E7%BB%99-MX-Anywhere-3-%E6%8D%A2%E9%9D%99%E9%9F%B3%E5%BE%AE%E5%8A%A8/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1249,7 +1252,7 @@ Loopback 接口；A 的端口 <code>1145</code>，B 的端口 <code>5141</code>�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
