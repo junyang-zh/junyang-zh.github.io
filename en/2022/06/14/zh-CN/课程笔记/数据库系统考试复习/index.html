@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/Avatar.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.gif">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.gif">
+  <link rel="mask-icon" href="/images/favicon-32x32.gif" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jyzhang.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="这个课老师纯念 PPT，要命的是 PPT 做得很烂，懂得都懂 这次我做的笔记仅供回忆知识点用，先学会比较好 建议看一遍 Database System Concepts 来真正学习数据库原理 考试回忆 考试回忆里可能着重列一些我场上觉得不是很确定的题，难度参考下就得了  填空（15）：十五个空，考了如何由前趋图判断无法冲突串行等价（有环） 选择（15）：十五题，有锁相容矩阵、事务 UNDO RED">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库系统考试复习">
+<meta property="og:url" content="http://jyzhang.xyz/en/2022/06/14/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E8%80%83%E8%AF%95%E5%A4%8D%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Junyang Zhang&#39;s Blog">
+<meta property="og:description" content="这个课老师纯念 PPT，要命的是 PPT 做得很烂，懂得都懂 这次我做的笔记仅供回忆知识点用，先学会比较好 建议看一遍 Database System Concepts 来真正学习数据库原理 考试回忆 考试回忆里可能着重列一些我场上觉得不是很确定的题，难度参考下就得了  填空（15）：十五个空，考了如何由前趋图判断无法冲突串行等价（有环） 选择（15）：十五题，有锁相容矩阵、事务 UNDO RED">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-06-14T03:14:19.000Z">
+<meta property="article:modified_time" content="2022-06-14T03:38:26.540Z">
+<meta property="article:author" content="Junyang Zhang">
+<meta property="article:tag" content="课程笔记">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://jyzhang.xyz/en/2022/06/14/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E8%80%83%E8%AF%95%E5%A4%8D%E4%B9%A0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>数据库系统考试复习 | Junyang Zhang's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Junyang Zhang's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2022/06/14/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E8%80%83%E8%AF%95%E5%A4%8D%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据库系统考试复习
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-06-14 11:14:19 / Modified: 11:38:26" itemprop="dateCreated datePublished" datetime="2022-06-14T11:14:19+08:00">2022-06-14</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/en/2022/06/14/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E8%80%83%E8%AF%95%E5%A4%8D%E4%B9%A0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/en/2022/06/14/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E8%80%83%E8%AF%95%E5%A4%8D%E4%B9%A0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这个课老师纯念 PPT，要命的是 PPT 做得很烂，懂得都懂</p>
+<p>这次我做的笔记仅供回忆知识点用，先学会比较好</p>
+<p>建议看一遍 Database System Concepts 来真正学习数据库原理</p>
+<h2 id="考试回忆">考试回忆</h2>
+<p>考试回忆里可能着重列一些我场上觉得不是很确定的题，难度参考下就得了</p>
+<ol type="1">
+<li>填空（15）：十五个空，考了如何由前趋图判断无法冲突串行等价（有环）</li>
+<li>选择（15）：十五题，有锁相容矩阵、事务 UNDO REDO</li>
+<li>简答（9）：三个题，非常坑，得理解一下再知道要列什么，老师说只需要列出概念不用详细解释；考了六级模型五级映像、查询优化分类、约束实现（CHECK
+字句，断言，存储过程，触发器）</li>
+<li>大题：计算关系代数、关系演算转换关系代数、查询优化</li>
+<li>大题：SQL 查询</li>
+<li>大题：判断范式，最小表示、求候选键、3NF 分解</li>
+<li>大题（15）：画 ER 图</li>
+</ol>
+<h2 id="纯背诵合集">纯背诵合集</h2>
+<h3 id="定义">定义</h3>
+<p>数据库（DB）：是长期储存在计算机内、有组织的、可共享的大量数据的集合</p>
+<p>数据库管理系统（DBMS）：为建立、使用和维护数据库而配置的通用软件系统，是整个数据库系统的核心</p>
+<p>数据库系统（DBS）：实现有组织、动态地存储大量相关的结构化数据、方便各类用户访问的计算机软/硬件资源的集合；由数据库和数据库管理系统构成</p>
+<p>数据库系统的软件成分：DBMS、高级语言和编译系统、应用开发工具、应用程序（DBAP）</p>
+<p>数据库系统的用户：数据库管理员（DBA）、应用程序员、终端用户（End
+User）</p>
+<p>数据：数据是信息的符号表示或称为载体，信息则是数据的内涵，是对数据语义的解释；数据有语法（Syntax，指格式规定）、语义（Semantic，指含义）两个方面</p>
+<p>数据库语言：数据定义语言（DDL）、数据操纵语言（DML）、数据控制语言（DCL）、数据查询语言（QL）；嵌入型，自含型，双重型</p>
+<p>数据库例程，多线程
+DBMS：编译器、查询优化和实现、存储与索引、通信控制、事务处理、控制程序（安全性控制、完整性控制）、装载、重组、故障恢复、字典管理、性能分析</p>
+<h3 id="数据管理的发展">数据管理的发展</h3>
+<p>其中独立性指应用程序和数据之间的独立性</p>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 21%" />
+<col style="width: 26%" />
+<col style="width: 39%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>性质</th>
+<th>人工管理阶段</th>
+<th>文件系统阶段</th>
+<th>数据库系统阶段</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>背景</td>
+<td>Fortran+Batch</td>
+<td>OS+Realtime</td>
+<td>DBMS+Distributed</td>
+</tr>
+<tr class="even">
+<td>数据量</td>
+<td>小</td>
+<td>大</td>
+<td>很大</td>
+</tr>
+<tr class="odd">
+<td>持久性</td>
+<td>无法保存</td>
+<td>可持久</td>
+<td>可持久</td>
+</tr>
+<tr class="even">
+<td>管理者</td>
+<td>应用程序</td>
+<td>文件系统</td>
+<td>DBMS</td>
+</tr>
+<tr class="odd">
+<td>共享度</td>
+<td>无</td>
+<td>差</td>
+<td>好</td>
+</tr>
+<tr class="even">
+<td>独立性</td>
+<td>无</td>
+<td>差</td>
+<td>好</td>
+</tr>
+<tr class="odd">
+<td>结构化</td>
+<td>无</td>
+<td>记录内有整体无</td>
+<td>有</td>
+</tr>
+<tr class="even">
+<td>数据控制</td>
+<td>应用程序</td>
+<td>大部分由应用程序</td>
+<td>DBMS控制安全完整并发恢复</td>
+</tr>
+<tr class="odd">
+<td>用户接口</td>
+<td>无</td>
+<td>物理存取</td>
+<td>抽象接口</td>
+</tr>
+</tbody>
+</table>
+<h3 id="数据模型与模式">数据模型与模式</h3>
+<p>数据模型是规定现实世界数据特征的抽象，是用来描述数据的语法、语义和操作的一组概念的集合。描述内容包括数据库的静态特征、动态特征和完整性约束条件。由以下三部分组成</p>
+<ol type="1">
+<li>数据结构：指对象的类型集合</li>
+<li>数据操作：对各种对象的实例允许执行的操作集合</li>
+<li>完整性约束：一组完整性规则的集合（静态列级/元组/关系约束、动态列级/元组/关系约束，静态关系约束包含实体/参照/函数依赖/统计约束）</li>
+</ol>
+<p>三级模型</p>
+<ol type="1">
+<li>概念数据模型：面向用户和现实世界的数据模型，如 ER 图</li>
+<li>逻辑数据模型：数据库角度看到的数据模型，分为层次（只有 <span
+class="math inline">\(1:N\)</span>）、网状（需导航式操作）、关系型、面向对象模型</li>
+<li>物理数据模型：反映物理存储结构的模型，利用块、索引、聚簇等术语描述</li>
+</ol>
+<p>数据模式（Schema）是数据库中全体数据的结构和特征的描述，它仅仅涉及类型的描述，不涉及具体的值</p>
+<p>三级模式两级映像，两级映像分别保证逻辑独立性和物理独立性</p>
+<ol type="1">
+<li>外模式：用逻辑数据模型对用户局部数据的描述</li>
+<li>模式：用逻辑数据模型对一数据库全体数据的描述</li>
+<li>内模式：用物理数据模型对数据的描述</li>
+</ol>
+<h3 id="数据库设计">数据库设计</h3>
+<p>数据库生命周期：系统规划、数据库设计、系统实现、运行和维护</p>
+<p>设计方法：面向数据的设计方法、面向过程的设计方法</p>
+<p>扩充的 ER
+模型：弱实体、普遍化/特殊化（子类、超类；disjoint/overlap）、范畴（合并；U）、聚集（is
+part of）</p>
+<p>联系集：多于一个实体的数学关系（<span
+class="math inline">\(M:N:P\)</span> 联系）</p>
+<p>数据库设计六阶段：</p>
+<ul>
+<li>需求分析：信息要求、处理要求、安全与完整性要求；系统范围图、业务流程图、数据流图、数据字典</li>
+<li>概念结构设计（ER）：自顶向下、自底向上、由内而外（是自底向上）、混合策略；
+<ul>
+<li>集中式设计：所有一起设计</li>
+<li>视图集成（合并 ER 图）（二元梯形即成、n
+元集成、二元平衡集成）：解决冲突（命名冲突、属性冲突、类型冲突、约束冲突），消除冗余，</li>
+</ul></li>
+<li>逻辑结构设计（IDEF1x）：转换数据库模式、优化与调整、用户子模式设计
+<ul>
+<li>联系基数（<span
+class="math inline">\(1:N\)</span>）多端用圆点表示</li>
+<li>子实体上的外键标“（FK）”</li>
+<li>确定性关系实线，FK 是主键</li>
+<li>非确定性关系虚线，FK
+不是主键：强制性关系（子实体存在依赖父实体）、非强制性关系（父实体菱形）</li>
+<li>参照完整性（删父实体怎么办）：限制、级连、设空、无规则</li>
+</ul></li>
+<li>物理结构设计：确定存储结构、存放位置、存放方法、系统配置、评价物理结构</li>
+<li>数据库实施：用 DDL
+定义数据库结构、组织数据入库、编制与调试应用程序、数据库试运行</li>
+<li>数据库运行与维护：数据库转储与恢复、数据库性能监督分析改进、数据库重组、数据库重构</li>
+</ul>
+<h3 id="事务管理">事务管理</h3>
+<p>事务（Transaction）是数据库环境下由一组数据库操作序列组成的逻辑工作单元</p>
+<p>完成后 Commit 或 Rollback</p>
+<p>事务特性
+ACID：原子性、一致性（前后的数据库均是一致的）、隔离性、持续性（Durability
+提交完了就持续了）</p>
+<p>事务状态自动机：活动状态、局部提交状态、失败状态、终止状态、提交状态</p>
+<p>故障分类：事务故障（逻辑错误和系统错误）、系统故障、介质故障</p>
+<p>故障恢复（冗余）：</p>
+<ul>
+<li>数据备份（转储）：静态（脱机）备份和动态（实时）备份；全备份，部分备份和增量备份</li>
+<li>日志文件，先写日志后写数据库；建立检查点时刻正在执行的事物清单</li>
+</ul>
+<p>并发的问题：丢失修改、读（已被 REDO
+的）脏数据、不可重读（被写了）</p>
+<p>并发正确性原则：调度为一个次序的安排；两个调度目标等价就是最后结果一定一样；冲突（读写冲突、写写冲突）；两个调度冲突等价即交换不冲突的顺序能使其相等；并发正确即和串行目标等价</p>
+<p>前趋图：有冲突操作的事务，先向后建边</p>
+<p>锁：排他锁 X（写锁）、共享锁 S（读锁）、更新锁
+U（写入前可被别的事物读）</p>
+<ol type="1">
+<li>一级加锁协议（防丢失修改）：事务 T 在修改数据 T 之前必须先对其加 X
+锁，直到事务结束才释放</li>
+<li>二级加锁协议（+防脏数据）：+事务 T 在读取数据 A 之前必须先对其加 S
+锁，读完后即可释放 S 锁</li>
+<li>三级加锁协议（+防不可重复读）：+事务 T 在读取数据 A 之前必须先对其加
+S 锁，直到事务结束才释放</li>
+</ol>
+<p>SQL 中的一致性级别：Serializable, Repeatable Read, Read Committed,
+Read Uncommited</p>
+<p>两段锁（保证可串行化，不一定保证无死锁）：第一阶段只能加锁，第二阶段只能放锁</p>
+<p>防死锁：一次封锁；顺序封锁；事务重执：</p>
+<ul>
+<li>wait-die：若后要锁的是老事务则老事务等待，否则先要锁的老事务回滚再执行</li>
+<li>wound-wait：若后要锁的是新事务则新事务等待，否则先要锁的年轻事物回滚再执行</li>
+</ul>
+<p>死锁检测：超时、等待图</p>
+<p>活锁：可以随着一个事务的锁关掉自行解开；先来先服务避免活锁</p>
+<p>多粒度锁：按资源的层次锁；意向锁（IS 要读所有元组, IX 要写元组, SIX
+先读再写）：加锁时必须向高层次加的锁</p>
+<p>多粒度锁强度偏序 <span class="math inline">\(-\prec IS \prec (S,
+IX)\prec SIX \prec X\)</span></p>
+<p>多粒度锁相容矩阵</p>
+<table>
+<thead>
+<tr class="header">
+<th>T1</th>
+<th>S</th>
+<th>X</th>
+<th>IS</th>
+<th>IX</th>
+<th>SIX</th>
+<th>-</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>S</td>
+<td>Y</td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td>Y</td>
+</tr>
+<tr class="even">
+<td>X</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+</tr>
+<tr class="odd">
+<td>IS</td>
+<td>Y</td>
+<td></td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr class="even">
+<td>IX</td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td>Y</td>
+<td></td>
+<td>Y</td>
+</tr>
+<tr class="odd">
+<td>SIX</td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td>Y</td>
+</tr>
+<tr class="even">
+<td>-</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+</tbody>
+</table>
+<p>幻影现象：只对元组加锁的话，插入删除就会导致非串行化；可对数据字典加锁/对索引加锁</p>
+<h3 id="分布式与并行数据库">分布式与并行数据库</h3>
+<p>数据复制、数据分片</p>
+<p>六级模式五级映像：</p>
+<ol type="1">
+<li>全局外模式</li>
+<li>全局概念模式（逻辑数据独立性）</li>
+<li>分片模式（分片透明性）</li>
+<li>分配模式（位置透明性）</li>
+<li>局部概念模式（局部数据模型透明性）</li>
+<li>局部内模式（物理数据独立性）</li>
+</ol>
+<p>DDBMS
+的部分：全局数据库管理系统（GDBMS），全局数据字典（GDD），局部数据库管理系统（LDBM），通信管理（CM）</p>
+<p>两种分类：物理分布逻辑集中/物理分布逻辑分布（联邦分布式数据库）</p>
+<p>联邦分布式数据库：数据库转换、模式转换；多数据库系统 MDBS</p>
+<p>分布式查询处理：</p>
+<ol type="1">
+<li>查询分解（和 DBMS 一样）</li>
+<li>数据本地化：使用查询树，上推并，下推选择投影</li>
+<li>全局优化</li>
+<li>局部优化</li>
+</ol>
+<p>分布式事务管理：全局事务、局部事务</p>
+<ul>
+<li>两阶段提交协议：投票阶段，决定阶段</li>
+<li>三阶段提交协议</li>
+</ul>
+<p>分布式并发控制：单一锁管理器、多协调器、多数协议、有偏协议、主副本</p>
+<p>死锁处理：局部等待图、全局等待图</p>
+<p>并行数据库系统：事务间并行、查询间并行、操作间并行、操作内并行；水平并行、垂直并行（流水）</p>
+<h2 id="关系模型">关系模型</h2>
+<h3 id="定义-1">定义</h3>
+<p>域（domain）是相同类型值组成的集合；</p>
+<p>定义在 <span class="math inline">\(D_1,D_2,\cdots,D_n\)</span>
+上的关系是 <span class="math inline">\(D_1\times D_2\times\cdots \times
+D_n\)</span> 的任意子集；</p>
+<p>关系的属性 <span class="math inline">\(A,B,C,\cdots\)</span>
+是为每个列起的名称；</p>
+<p>关系上的超键（SK）是能唯一确定元组的属性集；</p>
+<p>关系上的候选键（CK）是能唯一确定元组的极小属性集；</p>
+<p>主键（PK）一般从候选键中选择一个；</p>
+<p>一个关系上的外键（FK）是另一个关系的候选键；</p>
+<p>主属性是在任意候选键中出现过的属性。</p>
+<p>关系模式 <span class="math inline">\(R(U,D,DOM,I,F)\)</span>
+是对关系的型的描述，其中</p>
+<ul>
+<li><span class="math inline">\(U=\{A_1,A_2,\cdots,A_n\}\)</span>
+是属性的有序集合</li>
+<li><span class="math inline">\(D=\{D_1,D_2,\cdots,D_n\}\)</span>
+域集合</li>
+<li><span class="math inline">\(DOM=\{A_1\to D_1,A_2\to
+D_2,\cdots,A_n\to D_n\}\)</span> 是属性到值域的映射的集合</li>
+<li><span class="math inline">\(I\)</span>
+是完整性约束规则集，约束分为域完整性约束、实体完整性约束（键不重复）、参照完整性约束（外键约束）、用户自定义完整性约束</li>
+<li><span class="math inline">\(F\)</span> 是函数依赖集合</li>
+</ul>
+<p>关系模式的简记：仅列出 <span class="math inline">\(U\)</span>，写作
+<span class="math inline">\(R(A_1,A_2,\cdots,A_n)\)</span></p>
+<h3 id="关系代数">关系代数</h3>
+<p>并 <span class="math inline">\(R\cup S\)</span>、差 <span
+class="math inline">\(R-S\)</span>、交 <span class="math inline">\(R\cap
+S\)</span>、笛卡尔积 <span class="math inline">\(R\times S\)</span></p>
+<p>选择 <span class="math inline">\(\sigma_F(R)\)</span>、投影 <span
+class="math inline">\(\Pi_x(R)\)</span>、<span
+class="math inline">\(\theta\)</span> 连接 <span
+class="math inline">\(R\Join_{A\theta B}S\)</span>、自然连接 <span
+class="math inline">\(R\Join S\)</span></p>
+<p>外连接 <span class="math inline">\(R*\Join *S\)</span>、左外连接
+<span class="math inline">\(R*\Join S\)</span>、右外连接 <span
+class="math inline">\(R\Join *S\)</span></p>
+<p>半连接 <span class="math inline">\(R\ltimes S=\Pi_R(R\Join
+S)\)</span></p>
+<p>设 <span class="math inline">\(R(X,Y)\)</span>，<span
+class="math inline">\(S(Y)\)</span> 除 <span class="math inline">\(R\div
+S=\Pi_X(R)-\Pi_X((\Pi_X(R)\times S)-R)\)</span>，表示 <span
+class="math inline">\(R\)</span> 中“包含” <span
+class="math inline">\(S\)</span> 中“所有”元组的元组</p>
+<p>最小完备集</p>
+<ul>
+<li><span class="math inline">\(\{\cup, -, \times, \sigma,
+\Pi\}\)</span></li>
+<li><span class="math inline">\(\{\cup, -, \Join, \sigma,
+\Pi\}\)</span></li>
+</ul>
+<p>等价变换规则</p>
+<ul>
+<li>选择串接律：<span
+class="math inline">\(\sigma_{C_1}(\sigma_{C_2}(R))=\sigma_{C_1\wedge
+C_2}(R)\)</span></li>
+<li>选择交换律：<span
+class="math inline">\(\sigma_{C_1}(\sigma_{C_2}(R))=\sigma_{C_2}(\sigma_{C_1}(R))\)</span></li>
+<li>投影串接律（<span class="math inline">\(L_n\subseteq L_2\subseteq
+\cdots\subseteq L_1\)</span>）：<span
+class="math inline">\(\Pi_{L_1}(\Pi_{L_2}(\cdots(\Pi_{L_n}(R))))=\Pi_{L_1}(R)\)</span></li>
+<li>选择投影交换律：<span
+class="math inline">\(\Pi_{L}(\sigma_C(R))=\sigma_{C}(\Pi_L(R))\)</span></li>
+<li>连接和笛卡尔积的交换律（仅优化时使用，数学上不甚正确）</li>
+<li>选择对连接/笛卡尔积的分配律（<span class="math inline">\(U_{C_1}\cap
+U_{S}=U_{C_2}\cap U_{R}=\emptyset\)</span>）：<span
+class="math inline">\(\sigma_{C_1\wedge C_2}(R\Join
+S)=\sigma_{C_1}(R)\Join\sigma_{C_2}(S)\)</span></li>
+<li>投影对连接/笛卡尔积的分配律（和上条相似）</li>
+<li>选择对交并差的分配律：<span class="math inline">\(\sigma_{C}(R\cap
+S)=\sigma_C{R}\cap \sigma_C(S)\)</span></li>
+<li>投影对并的分配律：<span class="math inline">\(\Pi_{L}(R\cup
+S)=\Pi_L{R}\cup \Pi_L(S)\)</span></li>
+<li>连接、笛卡尔积、交、并各自的结合律</li>
+</ul>
+<h3 id="关系演算">关系演算</h3>
+<h4 id="元组关系演算">元组关系演算</h4>
+<p><span class="math inline">\(\{t\,|\,P(t)\}\)</span></p>
+<p><span class="math inline">\(P\)</span> 为元组关系演算表达式，简化的
+BNF 如下 <span class="math display">\[
+\begin{aligned}
+P(s,t,u,\cdots)
+    &amp; \to &amp; P \vee P \\
+  &amp; |   &amp; P \wedge P \\
+  &amp; |   &amp; \neg P \\
+  &amp; |   &amp; \exists s(P) &amp; &amp; \text{There exists a tuple
+}s\text{ that satisfies }P\\
+  &amp; |   &amp; \forall s(P) &amp; &amp; \text{All tuples of }s\text{
+satisfy }P\\
+  &amp; |   &amp; (P) \\
+  &amp; |   &amp; R(t) &amp; &amp; t\text{ is a tuple of relation} R\\
+  &amp; |   &amp; s[i]\, \theta\, t[i] &amp; &amp; \text{The }i\text{ th
+attribute of }s\text{ has a }\theta\text{ relationship with the other}\\
+  &amp; |   &amp; c\, \theta\, t[i] \\
+  &amp; |   &amp; t[i]\, \theta\, c \\
+\end{aligned}
+\]</span> 蕴含运算 <span class="math inline">\(p\to q\)</span>
+可以表示为 <span class="math inline">\(\neg p\vee q\)</span></p>
+<p>关系演算的安全表达式是不产生无穷验证和无限关系的表达式，其满足</p>
+<ol type="1">
+<li>若 <span class="math inline">\(P(t)\)</span> 为真，<span
+class="math inline">\(t\)</span> 的每个分量在 <span
+class="math inline">\(Dom(P)\)</span> 中</li>
+<li><span class="math inline">\(P\)</span> 中对每个存在表达式 <span
+class="math inline">\(\exists u(Q)\)</span>，若 <span
+class="math inline">\(u\)</span> 使 <span
+class="math inline">\(Q\)</span> 为真，<span
+class="math inline">\(u\)</span> 的每个分量在 <span
+class="math inline">\(Dom(P)\)</span>​ 中</li>
+<li><span class="math inline">\(P\)</span> 中对每个全称表达式 <span
+class="math inline">\(\forall u(Q)\)</span>，若 <span
+class="math inline">\(u\)</span> 使 <span
+class="math inline">\(Q\)</span> 为假，<span
+class="math inline">\(u\)</span> 的每个分量在 <span
+class="math inline">\(Dom(P)\)</span> 中</li>
+</ol>
+<p>其中 <span class="math inline">\(Dom(P)\)</span> 是 <span
+class="math inline">\(P\)</span>
+中出现的所有常量和所有关系中的属性值集合</p>
+<h3 id="域关系演算">域关系演算</h3>
+<p><span
+class="math inline">\(\{xyz\cdots\,|\,P(x,y,z,\cdots)\}\)</span></p>
+<p>即把元组写开，剩余略</p>
+<h3 id="函数依赖">函数依赖</h3>
+<p>设 <span class="math inline">\(R\)</span> 为关系模式，<span
+class="math inline">\(r\)</span> 是 <span
+class="math inline">\(R\)</span> 上的任意一个关系实例，<span
+class="math inline">\(X, Y\subseteq U\)</span> 是两个属性子集，若 <span
+class="math inline">\(\forall t_1,t_2\in r \wedge t_1[X]=t_2[X]\)</span>
+有 <span class="math inline">\(t_1[Y]=t_2[Y]\)</span>，则称 <span
+class="math inline">\(Y\)</span> 函数依赖于 <span
+class="math inline">\(X\)</span>，记为 <span class="math inline">\(X\to
+Y\)</span>；若 <span class="math inline">\(Y\nsubseteq X\)</span>
+则称为非平凡函数依赖；一一对应 <span
+class="math inline">\(X\leftrightarrow Y\)</span></p>
+<p>设 <span class="math inline">\(X\to Y\)</span>，且不存在 <span
+class="math inline">\(X&#39;\subset Y\)</span> 使 <span
+class="math inline">\(X&#39;\to Y\)</span>，则有完全函数依赖 <span
+class="math inline">\(X\stackrel{f}{\to} Y\)</span>；否则有部分函数依赖
+<span class="math inline">\(X\stackrel{P}{\to} Y\)</span></p>
+<p>若 <span class="math inline">\(X\to Y\)</span>，<span
+class="math inline">\(Y\to Z\)</span> 且 <span
+class="math inline">\(X\not\to Z\)</span>，则 <span
+class="math inline">\(Z\)</span> 传递函数依赖于 <span
+class="math inline">\(X\)</span></p>
+<p>Armstrong 公理</p>
+<ul>
+<li>自反：若 <span class="math inline">\(Y\subseteq X\subseteq
+U\)</span> 则 <span class="math inline">\(X\to Y\)</span></li>
+<li>增广：若 <span class="math inline">\(X\to Y\)</span> 成立，且 <span
+class="math inline">\(Z\subseteq U\)</span> 则 <span
+class="math inline">\(XZ\to YZ\)</span> 成立</li>
+<li>传递：若 <span class="math inline">\(X\to Y\)</span>，<span
+class="math inline">\(Y\to Z\)</span> 成立，则 <span
+class="math inline">\(X\to Z\)</span> 成立</li>
+</ul>
+<p>推论</p>
+<ul>
+<li>合并规则：<span class="math inline">\(X\to Y\)</span> 且 <span
+class="math inline">\(X\to Z\)</span>，则 <span
+class="math inline">\(X\to YZ\)</span></li>
+<li>伪传递规则：<span class="math inline">\(X\to Y\)</span> 且 <span
+class="math inline">\(WY\to Z\)</span>，则 <span
+class="math inline">\(WX\to Z\)</span></li>
+<li>分解规则：<span class="math inline">\(X\to Y\)</span> 且 <span
+class="math inline">\(Z\subseteq Y\)</span> 则 <span
+class="math inline">\(X\to Z\)</span></li>
+</ul>
+<p>设 <span class="math inline">\(F\)</span> 是函数依赖集合，若 <span
+class="math inline">\(F\)</span> 成立时有 <span
+class="math inline">\(X\to Y\)</span> 成立，则称 <span
+class="math inline">\(F\)</span> 逻辑蕴含 <span
+class="math inline">\(X\to Y\)</span>，记为 <span
+class="math inline">\(F\models X\to Y\)</span></p>
+<p>闭包 <span class="math inline">\(F^+=\{X\to Y\,|\, F\models X\to
+Y\}\)</span></p>
+<p>若 F 满足如下三条属性，则称为最小函数依赖集</p>
+<ol type="1">
+<li><span class="math inline">\(F\)</span> 右部均为单属性</li>
+<li><span class="math inline">\(F\)</span> 中不存在 <span
+class="math inline">\(X\to A\)</span> 及 <span
+class="math inline">\(Z\subset X\)</span> 使得 <span
+class="math inline">\(F^+=((F-\{X\to A\})\cup\{Z\to
+A\})^+\)</span>，（就是去掉部分依赖）</li>
+<li><span class="math inline">\(F\)</span> 中不存在 <span
+class="math inline">\(X\to A\)</span> 使得 <span
+class="math inline">\(F^+=(F-\{X\to A\})^+\)</span></li>
+</ol>
+<p>属性集 <span class="math inline">\(X\)</span> 关于 <span
+class="math inline">\(R(U,F)\)</span> 上的函数依赖 <span
+class="math inline">\(F\)</span> 的闭包 <span
+class="math inline">\(X_F^+=\{A\,|\, A\in U \wedge X\to A \in
+F^+\}\)</span>；计算该闭包仅需重复应用函数依赖直至不变</p>
+<p>三步构造最小函数依赖集：展开为单属性；缩小部分依赖；检查右部是否存在于剩余依赖的闭包，是则去除</p>
+<p>由 <span class="math inline">\(R(U,F)\)</span> 求全部的候选键（<span
+class="math inline">\(F\)</span> 必须是最小覆盖）：</p>
+<ol type="1">
+<li>分四类：<span class="math inline">\(C_1\)</span>
+不在任何依赖中出现的属性；<span class="math inline">\(C_2\)</span>
+仅在左侧出现；<span class="math inline">\(C_3\)</span>
+仅在右侧出现；<span class="math inline">\(C_4\)</span> 左右均出现。</li>
+<li>若 <span class="math inline">\((C_1\cup C_2)^+=U\)</span> 或 <span
+class="math inline">\(C_4=\emptyset\)</span>，则 <span
+class="math inline">\(C_1\cup C_2\)</span> 为唯一候选键；否则逐一将
+<span class="math inline">\(C_4\)</span> 的属性 <span
+class="math inline">\(A_i\)</span> 加入计算闭包，若是 全集，则 <span
+class="math inline">\(C_1\cup C_2\cup \{A_i\}\)</span> 是候选键</li>
+</ol>
+<h3 id="多值依赖">多值依赖</h3>
+<p>设关系 <span class="math inline">\(R(U)\)</span>，<span
+class="math inline">\(X,Y,Z\subset U\)</span>，<span
+class="math inline">\(Z=U-X-Y\)</span>，若对 <span
+class="math inline">\(R\)</span> 的任意实例 <span
+class="math inline">\(r\)</span> 有：若 <span
+class="math inline">\(r\)</span> 中存在两个元组 <span
+class="math inline">\(s\)</span>，<span class="math inline">\(t\)</span>
+使得 <span class="math inline">\(s[X]=t[X]\)</span>，则 <span
+class="math inline">\(r\)</span> 中必然存在两个元组 <span
+class="math inline">\(u\)</span>，<span class="math inline">\(v\)</span>
+使得，交换 <span class="math inline">\(s\)</span>，<span
+class="math inline">\(t\)</span> 在 <span
+class="math inline">\(Y\)</span> 属性上的新元组仍在 <span
+class="math inline">\(r\)</span> 中出现，则 <span
+class="math inline">\(Y\)</span> 多值依赖于 <span
+class="math inline">\(X\)</span>，记为 <span
+class="math inline">\(X\to\to Y\)</span></p>
+<p>多值依赖的 Armstrong 公理</p>
+<ul>
+<li>互补：若 <span class="math inline">\(X\to\to Y\)</span> 则 <span
+class="math inline">\(X\to\to(U-X-Y)\)</span></li>
+<li>多值增广：若 <span class="math inline">\(X\to\to Y\)</span> 且 <span
+class="math inline">\(V\subseteq W\)</span>，则 <span
+class="math inline">\(WX\to\to VY\)</span></li>
+<li>多值传递：若 <span class="math inline">\(X\to\to Y\)</span> 且 <span
+class="math inline">\(Y\to\to Z\)</span>，则 <span
+class="math inline">\(X\to\to(Z-Y)\)</span></li>
+<li>若 <span class="math inline">\(X\to Y\)</span> 则 <span
+class="math inline">\(X\to\to Y\)</span></li>
+<li>若 <span class="math inline">\(X\to\to Y\)</span>，<span
+class="math inline">\(Z\subseteq Y\)</span>，且对某一 <span
+class="math inline">\(W\)</span>，当 <span class="math inline">\(Y\cap
+W=\emptyset\)</span> 时如有 <span class="math inline">\(W\to
+Z\)</span>，则 <span class="math inline">\(X\to Z\)</span></li>
+</ul>
+<h3 id="分解">分解</h3>
+<p><span class="math inline">\(R(U,F)\)</span>
+的分解是一个关系模式的集合 <span
+class="math inline">\(\rho=\{R_1(U_1,F_1),R_2(U_2,F_2),\cdots,R_k(U_k,F_k)\}\)</span>，其中属性集合的并为全集，各函数依赖为在对应属性集上的投影</p>
+<p>关系集的投影连接算子</p>
+<h4 id="无损连接分解">无损连接分解</h4>
+<p>假设 <span class="math inline">\(\rho=\{R_1,R_2,\cdots,R_k\}\)</span>
+是 <span class="math inline">\(R\)</span> 的一个分解，<span
+class="math inline">\(r\)</span> 是 <span
+class="math inline">\(R\)</span> 的一个关系，设投影连接算子 <span
+class="math inline">\(m_\rho(r)=r_1\Join r_2\Join\cdots\Join
+r_k\)</span>，有</p>
+<ul>
+<li>属性数量单调，<span class="math inline">\(r\subseteq
+m_\rho(r)\)</span></li>
+<li>可逆，设 <span class="math inline">\(s=m_\rho(r)\)</span>，有 <span
+class="math inline">\(\Pi_{U_i}(s)=r_i\)</span></li>
+<li>幂等，<span
+class="math inline">\(m_\rho(m_\rho(r))=m_\rho(r)\)</span></li>
+</ul>
+<p>无损连接分解指 <span class="math inline">\(r=m_\rho(r)\)</span></p>
+<p>无损连接分解判定</p>
+<ol type="1">
+<li>构造一个 <span class="math inline">\(m\times n\)</span>
+的符号表，每行对应一个子关系模式，每列对应一个属性，<span
+class="math inline">\(A_j\in R_i\)</span> 时， <span
+class="math inline">\(T[i,j]=a_j\)</span>，否则 <span
+class="math inline">\(T[i,j]=b_{ij}\)</span></li>
+<li>根据函数依赖进行变换，如果存在不满足依赖的行，则修改属性值为相同的
+<span class="math inline">\(a\)</span>，没 <span
+class="math inline">\(a\)</span> 则改为 <span
+class="math inline">\(i,j\)</span> 最小的 <span
+class="math inline">\(b_{ij}\)</span></li>
+<li>若进行了变换回到 2</li>
+<li>若存在全 <span class="math inline">\(a\)</span>
+行则是无损连接，否则不是</li>
+</ol>
+<p>两个子模式 <span class="math inline">\(\rho=\{R_1,R_2\}\)</span>
+分解的快速判断：<span class="math inline">\((U_1\cap U_2)\to(U_1-U_2)\in
+F^+\)</span> 或 <span class="math inline">\((U_1\cap U_2)\to(U_2-U_1)\in
+F^+\)</span></p>
+<h4 id="保持函数依赖分解">保持函数依赖分解</h4>
+<p>若 <span class="math inline">\(F^+=\left(\cup_{i=1}^k
+F_i\right)^+\)</span> 则保持函数依赖</p>
+<h3 id="范式和规范分解">范式和规范分解</h3>
+<p>范式：</p>
+<ul>
+<li>若 <span class="math inline">\(R\)</span>
+每个属性是原子属性，且元组在属性的取值也是不可再分的，则满足 1NF</li>
+<li>若 <span class="math inline">\(R\in \text{1NF}\)</span>
+且所有非主属性都完全函数依赖于 CK 的所有属性，则满足 2NF</li>
+<li>若 <span class="math inline">\(R\in \text{2NF}\)</span>
+且所有非主属性不传递函数依赖于 CK 的任何属性，则满足 3NF</li>
+<li>若 <span class="math inline">\(R\in \text{3NF}\)</span>
+上的任何非平凡函数依赖都有决定子包含某个候选键，则满足 BCNF</li>
+<li>若 <span class="math inline">\(R\in\text{BCNF}\)</span>
+且其所有非平凡多值依赖都有决定子包含某个候选键，则满足 4NF</li>
+</ul>
+<p>无损连接且保持函数依赖的 3NF 分解：</p>
+<ol type="1">
+<li>将 <span class="math inline">\(F\)</span> 转换为最小覆盖</li>
+<li>不在 <span class="math inline">\(F\)</span> 中的属性构成 <span
+class="math inline">\(R_0(U_0)\)</span>，剩余属性记为 <span
+class="math inline">\(U\)</span></li>
+<li><span class="math inline">\(F\)</span>
+按照决定子相同原则分组，每组的所有属性构成一个关系 <span
+class="math inline">\(R_i(U_i)\)</span></li>
+<li>加入由候选键构成的关系模式 <span
+class="math inline">\(R_{CK}\)</span></li>
+</ol>
+<p>保证无损连接的 BCNF 分解</p>
+<ol type="1">
+<li>令 <span class="math inline">\(\rho=\{R(U,F)\}\)</span></li>
+<li>若每个子关系是 BCNF，则终止，否则存在函数依赖 <span
+class="math inline">\((X\to A)\in F_i^+\)</span> 不包含候选键，则分为
+<span class="math inline">\(R_{i1}(XA,F_{i1})\)</span>，<span
+class="math inline">\(R_{i2}(U_i-A,F_{i2})\)</span></li>
+</ol>
+<h2 id="sql">SQL</h2>
+<p>请前往 W3C School 等地学习</p>
+<h2 id="数据库物理存储">数据库物理存储</h2>
+<h3 id="文件">文件</h3>
+<p>文件结构：</p>
+<ul>
+<li>定长记录文件：所有记录一样长，可以使用顺序移动法、末尾移动法、空闲列表法维护</li>
+<li>变长记录文件：字节流表示法、保留空间法、锚块/溢出块表示法（做链表）</li>
+</ul>
+<p>文件组织<del>指的是数据组织成记录、块和访问结构的方式，包括把记录和块存储在磁盘上的方式，以及记录和块之间相互联系的方法</del>（应该是记录组织为逻辑结构的方式）；存取方法指的是对文件所采取的存取操作方法</p>
+<p>文件组织：</p>
+<ul>
+<li>无序文件：插入尾，删除直接删/标志，定期整理；查需扫描</li>
+<li>顺序文件：维护有序；插入可使用溢出块形成链表，定期整理</li>
+<li>索引文件：使用索引维护文件</li>
+<li>散列文件：维护键到桶所在磁盘块地址的映射，可以用溢出桶；非相等比较的查找必须扫；动态散列即拿哈希值的高
+<span class="math inline">\(k\)</span> 位先分桶，不够了加大 <span
+class="math inline">\(k\)</span> 值，用 Trie 树维护</li>
+</ul>
+<h3 id="索引">索引</h3>
+<p>稠密索引：每个值都有索引；稀疏索引：部分值有索引</p>
+<p>主索引：主键是排序域，是每个块的第一个主键值到这个块的映射</p>
+<p>聚簇索引：用一个顺序文件中不是键的排序域建的索引，指向这个值第一次出现的块；这个索引文件是一个排序文件；原文件一个块可能被引用多次；只能有一个聚簇索引因为和物理相关</p>
+<p>辅助索引：非排序域上的索引；索引指向存储一系列记录指针的磁盘块（类似二级索引）</p>
+<p>B 树索引：秩为 <span class="math inline">\(n\)</span>，每个结点至少
+<span class="math inline">\(\lceil n/2 \rceil\)</span> 个树指针，至多
+<span class="math inline">\(n\)</span> 个，内节点存储键和数据指针，有
+<span class="math inline">\(q\)</span> 个树指针的节点有 <span
+class="math inline">\(q-1\)</span> 个键</p>
+<p>B+
+树索引：数据指针仅存在最后一层叶节点并且是同一层，叶节点维护下一个叶节点的指针；一般除非只有一个叶，根可以拥有少于
+<span class="math inline">\(\lceil n/2\rceil\)</span>
+个树指针，来形成至少两层；下溢时先看兄弟能否补足不然合并</p>
+<h2 id="查询处理和优化">查询处理和优化</h2>
+<p>过程：（查询）词法分析语法分析（语法树）优化（查询计划）系统执行（结果）</p>
+<p>预编译：可执行访问模块（AM）</p>
+<p>类型：</p>
+<ul>
+<li>规则优化</li>
+<li>代数优化：把选择展开，选择投影下推叶节点，合并选择投影和一个连接/笛卡尔积组成操作；找公共表达式，投影可与下方二元一起，适当预处理</li>
+<li>物理优化（依赖于存取路径的优化），估计选中占比（较大不用无序索引）</li>
+<li>代价估算优化：多做几个选最优</li>
+<li>语义优化</li>
+</ul>
+<p>代价估算的单位 <span
+class="math inline">\(C_{I/O}=D_0+xD_1\)</span></p>
+<p>代价估计模型：</p>
+<ul>
+<li>连接 <span class="math inline">\(R\Join S\)</span> 中 <span
+class="math inline">\(js=|R\Join_C S|/|R\times S|\)</span>，<span
+class="math inline">\(0\le js\le1\)</span>，估算 <span
+class="math inline">\(js\sim 1/M\)</span>；其中 <span
+class="math inline">\(n_R\)</span>，<span
+class="math inline">\(n_S\)</span> 为元组数，块因子 <span
+class="math inline">\(p_R\)</span>，<span
+class="math inline">\(p_S\)</span> 为一块的元组数，块数 <span
+class="math inline">\(b_R=\lceil n_R/p_R\rceil\)</span>，假设外循环为
+<span class="math inline">\(R\)</span>，内存块数 <span
+class="math inline">\(n\ll b_r\sim b_s\)</span></li>
+<li>选择 <span class="math inline">\(\sigma_{P(A)}(R)\)</span> 中 <span
+class="math inline">\(N_A\)</span> 属性 <span
+class="math inline">\(A\)</span> 在关系中不同值数，<span
+class="math inline">\(M_A\)</span> 属性的值域大小，<span
+class="math inline">\(L_i\)</span> 索引 <span
+class="math inline">\(i\)</span> 的级数，<span
+class="math inline">\(s\sim N_a/M_A\)</span> 为满足条件的元组数量</li>
+</ul>
+<p>连接操作的代价：</p>
+<ul>
+<li>嵌套循环，则 <span class="math inline">\(R\)</span>
+的块放进去剩一块给 <span class="math inline">\(S\)</span>，访问块数
+<span class="math inline">\(b_R+\lceil b_R/(n-1)\rceil\times
+b_S\)</span>，代价 <span class="math inline">\(C_{NLJ} = b_R+\lceil
+b_R/(n-1)\rceil\cdot b_S+(js\cdot n_R\cdot r_S)/p_{RS}\)</span></li>
+<li>索引嵌套循环，访问块数 <span class="math inline">\(b_R+n_R\cdot
+c\)</span>，其中 <span class="math inline">\(c\)</span> 是索引代价
+<ul>
+<li>无序索引 <span class="math inline">\(C_{NSJ}=b_R+n_R\cdot
+(L_B+n_S/N_B)\)</span></li>
+<li>聚簇索引 <span class="math inline">\(C_{SJ}=b_R+n_R\cdot
+(L_B+n_S/N_B/p_S)\)</span></li>
+<li>散列索引 <span class="math inline">\(C_{SHJ}=b_R+n_R\cdot
+h\)</span>，其中 <span class="math inline">\(h\sim 1\)</span>
+为散列一次访问的块数</li>
+</ul></li>
+<li>排序归并连接算法，访问块数 <span
+class="math inline">\(b_R+b_S\)</span></li>
+<li>散列连接算法，各自哈希进同一组桶，各桶里连接，访问块数 <span
+class="math inline">\(b_R+b_S\)</span>，代价 <span
+class="math inline">\(C_{HJ} = b_R+b_S+js\cdot(n_R\cdot N_B+n_S\cdot
+N_A)\)</span></li>
+</ul>
+<p>选择操作的代价：</p>
+<ul>
+<li>顺序扫描：<span class="math inline">\(C_{sa}=b_r\)</span> 或 <span
+class="math inline">\(C_{sa}=1/2b_R\)</span></li>
+<li>利用索引 <span class="math inline">\(C_{lk}=L+1\)</span>，散列索引
+<span class="math inline">\(C_{hk}=1\)</span></li>
+<li>利用无序索引 <span class="math inline">\(C_{INK}=L+s\)</span></li>
+<li>聚簇索引等值 <span class="math inline">\(C_{CI}=L+\lceil
+s/p\rceil\)</span>，范围 <span class="math inline">\(C_{CIR}=L+\lceil
+b/2\rceil\)</span></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag"># 课程笔记</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="机器学习与数据挖掘复习笔记">
+      <i class="fa fa-chevron-left"></i> 机器学习与数据挖掘复习笔记
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%80%83%E8%AF%95%E5%9B%9E%E5%BF%86"><span class="nav-number">1.</span> <span class="nav-text">考试回忆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%AF%E8%83%8C%E8%AF%B5%E5%90%88%E9%9B%86"><span class="nav-number">2.</span> <span class="nav-text">纯背诵合集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86%E7%9A%84%E5%8F%91%E5%B1%95"><span class="nav-number">2.2.</span> <span class="nav-text">数据管理的发展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">数据模型与模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.4.</span> <span class="nav-text">数据库设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="nav-number">2.5.</span> <span class="nav-text">事务管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%8E%E5%B9%B6%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">2.6.</span> <span class="nav-text">分布式与并行数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">关系模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-1"><span class="nav-number">3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0"><span class="nav-number">3.2.</span> <span class="nav-text">关系代数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E6%BC%94%E7%AE%97"><span class="nav-number">3.3.</span> <span class="nav-text">关系演算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%83%E7%BB%84%E5%85%B3%E7%B3%BB%E6%BC%94%E7%AE%97"><span class="nav-number">3.3.1.</span> <span class="nav-text">元组关系演算</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E5%85%B3%E7%B3%BB%E6%BC%94%E7%AE%97"><span class="nav-number">3.4.</span> <span class="nav-text">域关系演算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96"><span class="nav-number">3.5.</span> <span class="nav-text">函数依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%80%BC%E4%BE%9D%E8%B5%96"><span class="nav-number">3.6.</span> <span class="nav-text">多值依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E8%A7%A3"><span class="nav-number">3.7.</span> <span class="nav-text">分解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E6%8D%9F%E8%BF%9E%E6%8E%A5%E5%88%86%E8%A7%A3"><span class="nav-number">3.7.1.</span> <span class="nav-text">无损连接分解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%9D%E6%8C%81%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E5%88%86%E8%A7%A3"><span class="nav-number">3.7.2.</span> <span class="nav-text">保持函数依赖分解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8C%83%E5%BC%8F%E5%92%8C%E8%A7%84%E8%8C%83%E5%88%86%E8%A7%A3"><span class="nav-number">3.8.</span> <span class="nav-text">范式和规范分解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sql"><span class="nav-number">4.</span> <span class="nav-text">SQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%89%A9%E7%90%86%E5%AD%98%E5%82%A8"><span class="nav-number">5.</span> <span class="nav-text">数据库物理存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6"><span class="nav-number">5.1.</span> <span class="nav-text">文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-number">5.2.</span> <span class="nav-text">索引</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86%E5%92%8C%E4%BC%98%E5%8C%96"><span class="nav-number">6.</span> <span class="nav-text">查询处理和优化</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Junyang Zhang"
+      src="/images/CasualPortraitOct2021.png">
+  <p class="site-author-name" itemprop="name">Junyang Zhang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/junyang-zh" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;junyang-zh" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mail@junyang.me" title="E-Mail → mailto:mail@junyang.me" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://bytew.net/" title="https:&#x2F;&#x2F;bytew.net&#x2F;" rel="noopener" target="_blank">Nocriz</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://thelajiest.github.io/" title="https:&#x2F;&#x2F;thelajiest.github.io&#x2F;" rel="noopener" target="_blank">KON_automaton</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.kingsiong.top/" title="http:&#x2F;&#x2F;www.kingsiong.top&#x2F;" rel="noopener" target="_blank">iNxli</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.mky.moe/" title="https:&#x2F;&#x2F;blog.mky.moe&#x2F;" rel="noopener" target="_blank">MonKey</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.ccandle.top/" title="https:&#x2F;&#x2F;blog.ccandle.top&#x2F;" rel="noopener" target="_blank">CCandle</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://120.79.138.174:8080/" title="http:&#x2F;&#x2F;120.79.138.174:8080&#x2F;" rel="noopener" target="_blank">siyuanluo</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://yang-d19.github.io/" title="https:&#x2F;&#x2F;yang-d19.github.io&#x2F;" rel="noopener" target="_blank">Yangd19</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="languages">
+    <label class="lang-select-label">
+      <i class="fa fa-language"></i>
+      <span>English</span>
+      <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </label>
+    <select class="lang-select" data-canonical="">
+      
+        <option value="zh-CN" data-href="/2022/06/14/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E8%80%83%E8%AF%95%E5%A4%8D%E4%B9%A0/" selected="">
+          简体中文
+        </option>
+      
+        <option value="en" data-href="/en/2022/06/14/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E8%80%83%E8%AF%95%E5%A4%8D%E4%B9%A0/" selected="">
+          English
+        </option>
+      
+    </select>
+  </div>
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Junyang Zhang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hA0Uyzupz2vdCpNOIC0MCJjT-gzGzoHsz',
+      appKey     : 'dpOcFMwzmsVPyQPECkBb9TUP',
+      placeholder: "Just comment!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
