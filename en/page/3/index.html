@@ -150,6 +150,110 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E4%B8%8E%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E4%B8%8E%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/" class="post-title-link" itemprop="url">概率统计与随机过程复习整理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-13 09:49:30" itemprop="dateCreated datePublished" datetime="2021-10-13T09:49:30+08:00">2021-10-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-10-14 08:48:00" itemprop="dateModified" datetime="2021-10-14T08:48:00+08:00">2021-10-14</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E4%B8%8E%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E4%B8%8E%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="概率论">概率论</h2>
+<h3 id="不等式合集">不等式合集</h3>
+<h4 id="柯西-施瓦茨不等式">柯西-施瓦茨不等式</h4>
+<p>由协方差性质推导 <span class="math display">\[
+E\left((XY)^2\right)\leq E(X^2)E(Y^2)
+\]</span></p>
+<h4 id="马尔可夫不等式">马尔可夫不等式</h4>
+<p><span class="math inline">\(r\)</span> 阶矩存在，则 <span class="math inline">\(\forall \varepsilon &gt;0\)</span> <span class="math display">\[
+P\{|X|\geq \varepsilon\}\leq \frac{(|X|^r)}{\varepsilon^r}
+\]</span></p>
+<h4 id="切比雪夫不等式">切比雪夫不等式</h4>
+<p><span class="math display">\[
+\begin{align}
+P\{|X-E(X)|\geq \varepsilon\}&amp;\leq\frac{D(X)}{\varepsilon^2} \nonumber\newline
+P\{|X-E(X)|&lt; \varepsilon\}&amp;\geq 1-\frac{D(X)}{\varepsilon^2}\nonumber
+\end{align}
+\]</span></p>
+<h3 id="事件">事件</h3>
+<p>随机现象的观察（<strong>随机试验</strong>） <span class="math inline">\(E\)</span> 的<strong>样本空间</strong>为 <span class="math inline">\(\Omega=\{\omega\}\)</span>，<strong>随机事件</strong> <span class="math inline">\(A\subset \Omega\)</span>。<strong>必然事件</strong> <span class="math inline">\(\Omega\)</span>，<strong>不可能事件</strong> <span class="math inline">\(\varnothing\)</span></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E4%B8%8E%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
     <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%94%B5%E8%B7%AF%E9%9C%80%E8%AE%B0%E5%85%AC%E5%BC%8F%E9%9B%86%E9%94%A6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -609,7 +713,7 @@ P(n;r_1,\cdots,r_k)=\binom{n}{r_1,r_2,\cdots,r_k}=\frac{n!}{r_1!r_2!\cdots r_k!}
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
