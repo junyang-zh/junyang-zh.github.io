@@ -81,7 +81,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
+    <div class="toggle" aria-label="Toggle navigation bar">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -110,17 +110,17 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
   </ul>
@@ -173,10 +173,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-06-17 11:31:10 / 修改时间：11:33:46" itemprop="dateCreated datePublished" datetime="2022-06-17T11:31:10+08:00">2022-06-17</time>
+              <time title="创建时间：2022-06-17 11:31:10" itemprop="dateCreated datePublished" datetime="2022-06-17T11:31:10+08:00">2022-06-17</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-07-02 15:13:37" itemprop="dateModified" datetime="2022-07-02T15:13:37+08:00">2022-07-02</time>
+              </span>
 
           
   
@@ -203,58 +209,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="前言考试前">前言（考试前）</h2>
+          <h2 id="前言考试前"><del>前言（考试前）</del></h2>
 <p>开始复习 CVPR 的时候 CVPR
 大佬，你交校友孙剑博士去世了，RIP。以后无论水平高低出身贵贱，都得先养好身体。</p>
 <p>这门课的老师是苏远歧老师，由于之前在 UPenn
 带同一门课所以基本可以算高端课程的减负版（但是相比之下还是作业很多<del>笑死</del>），想要上课学本事的非常建议选！</p>
-<h2 id="前言考试后">前言（考试后）</h2>
+<h2 id="前言考试后"><del>前言（考试后）</del></h2>
 <p><strong>快跑快跑快跑快跑快跑快跑快跑快跑快跑快跑快跑快跑快跑快跑快跑快跑快跑快跑快跑快跑vvvvvv</strong></p>
+<h2 id="前言出分了">前言（出分了）</h2>
+<p>竟然意外地不错。</p>
+<p>看来老师 Norm 了（笑）。</p>
 <h2 id="符号版式说明">符号版式说明</h2>
 <p>考虑到排版规范和编写便利性、可读性，后文的符号版式说明如下</p>
-<ol type="1">
-<li>矩阵是斜体大写字母 <span class="math inline">\(A,B,C,R,H_{3\times
-3},P,I_3,\cdots\)</span></li>
-<li>集合也是斜体大写字母，但是用的不多，上下文判断吧</li>
-<li>向量是粗体小写字母 <span class="math inline">\(\boldsymbol
-{x},\boldsymbol {v},\boldsymbol {d},\cdots\)</span></li>
-<li>标量是斜体小写字母 <span class="math inline">\(a,b,c,x,y,z,u,v,w,\cdots\)</span></li>
-<li>向量展开可以写成如 <span class="math inline">\((x,y,z,1)^T\)</span>
-的元组形式，也可以写成矩阵形式 <span class="math inline">\(\begin{bmatrix}x &amp;y &amp;
-z\end{bmatrix}^T\)</span></li>
-<li>矩阵乘法写成 <span class="math inline">\(AB\)</span>、<span class="math inline">\(A\boldsymbol x\)</span>、<span class="math inline">\(\boldsymbol{y}^T\boldsymbol{x}\)</span>
-等，向量点乘写作 <span class="math inline">\(\boldsymbol{y}\cdot
-\boldsymbol{x}\)</span></li>
-<li><span class="math inline">\(A^{-T}=(A^{-1})^T\)</span>，即逆的转置</li>
-</ol>
-<h2 id="数学知识">数学知识</h2>
-<p>三维向量的叉积 <span class="math inline">\(\boldsymbol v=\boldsymbol
-{v_1}\times \boldsymbol {v_2}\)</span>
-垂直（点乘为零）于两个向量，长度为正弦，方向符合右手法则；设 <span class="math inline">\(\boldsymbol{\hat\imath},\boldsymbol{\hat\jmath},\boldsymbol{\hat
-k}\)</span> 为正交基、计算如下： <span class="math display">\[
-\begin{aligned}
-\boldsymbol v=\boldsymbol {v_1}\times \boldsymbol {v_2}
-&amp; =
-(x,y,z)^T\times(u,v,w)^T \\
-&amp; =
-\begin{vmatrix}
-\boldsymbol{\hat\imath} &amp; \boldsymbol{\hat\jmath}
-&amp;\boldsymbol{\hat k} \\
-x &amp; y &amp; z \\
-u &amp; v &amp; w
-\end{vmatrix} \\
-&amp; =
-[v_\times]\boldsymbol{v_2}\\
-&amp; =
-\begin{bmatrix}
-0 &amp; -z &amp; y \\
-z &amp; 0 &amp; -x \\
--y &amp; x &amp; 0
-\end{bmatrix}
-\boldsymbol {v_2}
-\end{aligned}
-\]</span> 其中 <span class="math inline">\([v_\times]\)</span> 为 <span class="math inline">\(\boldsymbol {v_1}\)</span>
-的叉积矩阵，是反对称矩阵，它把叉积运算转换为矩阵乘法运算方便推导</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/06/17/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB/#more" rel="contents">
@@ -1302,12 +1268,12 @@ Loopback 接口；A 的端口 <code>1145</code>，B 的端口 <code>5141</code>�
           <a href="/archives/">
         
           <span class="site-state-item-count">25</span>
-          <span class="site-state-item-name">日志</span>
+          <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <span class="site-state-item-count">6</span>
-        <span class="site-state-item-name">标签</span>
+        <span class="site-state-item-name">tags</span>
       </div>
   </nav>
 </div>
@@ -1393,7 +1359,7 @@ Loopback 接口；A 的端口 <code>1145</code>，B 的端口 <code>5141</code>�
   </span>
   <span class="author" itemprop="copyrightHolder">Junyang Zhang</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
@@ -1403,7 +1369,7 @@ Loopback 接口；A 的端口 <code>1145</code>，B 的端口 <code>5141</code>�
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
       </span>
-      <span class="site-uv" title="总访客量">
+      <span class="site-uv" title="Total Visitors">
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
@@ -1412,7 +1378,7 @@ Loopback 接口；A 的端口 <code>1145</code>，B 的端口 <code>5141</code>�
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
       </span>
-      <span class="site-pv" title="总访问量">
+      <span class="site-pv" title="Total Views">
         <span id="busuanzi_value_site_pv"></span>
       </span>
     </span>
