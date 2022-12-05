@@ -218,33 +218,51 @@
         <h2 id="数学基础">数学基础</h2>
 <h3 id="傅里叶级数">傅里叶级数</h3>
 <p><span class="math display">\[
-f(t)=\frac{a_0}{2}+\sum_{n=1}^{\infty}\left[a_n\cos(n\omega t)+b_n\sin(n\omega t)\right]
+f(t)=\frac{a_0}{2}+\sum_{n=1}^{\infty}\left[a_n\cos(n\omega
+t)+b_n\sin(n\omega t)\right]
 \]</span></p>
 <p>其中</p>
 <p><span class="math display">\[
 \begin{align}
-a_n&amp;=\frac{2}{T}\int_{t_0}^{t_0+T}f(t)\cos(n\omega t)\mathrm d t &amp;,n\in \mathbb{Z}_+ \nonumber
+a_n&amp;=\frac{2}{T}\int_{t_0}^{t_0+T}f(t)\cos(n\omega t)\mathrm d t
+&amp;,n\in \mathbb{Z}_+ \nonumber
 \\
-b_n&amp;=\frac{2}{T}\int_{t_0}^{t_0+T}f(t)\sin(n\omega t)\mathrm d t &amp;,n\in \mathbb{Z}_+ \nonumber
+b_n&amp;=\frac{2}{T}\int_{t_0}^{t_0+T}f(t)\sin(n\omega t)\mathrm d t
+&amp;,n\in \mathbb{Z}_+ \nonumber
 \end{align}
 \]</span></p>
 <h3 id="二次型正交变化">二次型正交变化</h3>
-<p>设有二次型矩阵 <span class="math inline">\(A\)</span>，<span class="math inline">\(f(x)=\boldsymbol x^{\mathrm T}A\boldsymbol x\)</span></p>
-<p>存在正交矩阵 <span class="math inline">\(P\)</span> 使 <span class="math inline">\(\boldsymbol x=P\boldsymbol y\)</span>，<span class="math inline">\(f(x)=\boldsymbol y^{\mathrm T}P^{\mathrm T}AP\boldsymbol x=d_1y_1^2+d_2y_2^2+\cdots+d_ny_n^2\)</span></p>
+<p>设有二次型矩阵 <span class="math inline">\(A\)</span>，<span
+class="math inline">\(f(x)=\boldsymbol x^{\mathrm T}A\boldsymbol
+x\)</span></p>
+<p>存在正交矩阵 <span class="math inline">\(P\)</span> 使 <span
+class="math inline">\(\boldsymbol x=P\boldsymbol y\)</span>，<span
+class="math inline">\(f(x)=\boldsymbol y^{\mathrm T}P^{\mathrm
+T}AP\boldsymbol x=d_1y_1^2+d_2y_2^2+\cdots+d_ny_n^2\)</span></p>
 <p>步骤</p>
 <ol type="1">
-<li>求出 <span class="math inline">\(A\)</span> 的特征值 <span class="math inline">\(\lambda_1,\lambda_2,\cdots,\lambda_n\)</span>，（即求解 <span class="math inline">\(|A-\lambda I|=0\)</span>）​</li>
-<li>得出对应的特征向量 <span class="math inline">\(\xi_1,\xi_2,\cdots,\xi_n\)</span>，（即求解 <span class="math inline">\((A-\lambda_iI)x=0\)</span>）</li>
-<li>特征向量标准正交化得 <span class="math inline">\(\eta_1,\eta_2,\cdots,\eta_n\)</span></li>
-<li>得 <span class="math inline">\(P=[\eta_1\ \eta_2\ \cdots\ \eta_n]\)</span></li>
+<li>求出 <span class="math inline">\(A\)</span> 的特征值 <span
+class="math inline">\(\lambda_1,\lambda_2,\cdots,\lambda_n\)</span>，（即求解
+<span class="math inline">\(|A-\lambda I|=0\)</span>）​</li>
+<li>得出对应的特征向量 <span
+class="math inline">\(\xi_1,\xi_2,\cdots,\xi_n\)</span>，（即求解 <span
+class="math inline">\((A-\lambda_iI)x=0\)</span>）</li>
+<li>特征向量标准正交化得 <span
+class="math inline">\(\eta_1,\eta_2,\cdots,\eta_n\)</span></li>
+<li>得 <span class="math inline">\(P=[\eta_1\ \eta_2\ \cdots\
+\eta_n]\)</span></li>
 </ol>
-<p>应用于梯度算子 <span class="math inline">\(\boldsymbol{\nabla_x}=\left(\dfrac{\partial}{\partial x_2},\dfrac{\partial}{\partial x_2}\right)\)</span> 以化简二阶线性微分方程</p>
+<p>应用于梯度算子 <span
+class="math inline">\(\boldsymbol{\nabla_x}=\left(\dfrac{\partial}{\partial
+x_2},\dfrac{\partial}{\partial x_2}\right)\)</span>
+以化简二阶线性微分方程</p>
 <h2 id="数学模型">数学模型</h2>
 <h3 id="一维弦振动方程">一维弦振动方程</h3>
 <p><span class="math display">\[
 u_{tt}=a^2u_{xx}+f(x,t)\ ,\ 0&lt;x&lt;l\ ,\ t&gt;0
 \]</span></p>
-<p>其中 <span class="math inline">\(a^2=T_0/\rho\)</span>，<span class="math inline">\(f=f_0/\rho\)</span></p>
+<p>其中 <span class="math inline">\(a^2=T_0/\rho\)</span>，<span
+class="math inline">\(f=f_0/\rho\)</span></p>
 <h4 id="初始条件">初始条件</h4>
 <p><span class="math display">\[
 u|_{t=0} = \phi(x)\ ,\ u_t|_{t=0} = \psi(x)
@@ -253,19 +271,29 @@ u|_{t=0} = \phi(x)\ ,\ u_t|_{t=0} = \psi(x)
 <ol type="1">
 <li><p>第一类边界条件：已知端点的位移随时间的变化</p></li>
 <li><p>第二类边界条件：已知端点的受力随时间的变化</p>
-<p>设受外力 <span class="math inline">\(\bar g_1(t)\)</span>、<span class="math inline">\(\bar g_2(t)\)</span></p>
-<p>左端 <span class="math inline">\(u_x(0,t)=-\frac{\bar g_1(t)}{T_0}\)</span></p>
-<p>右端 <span class="math inline">\(u_x(l,t)=\frac{\bar g_2(t)}{T_0}\)</span></p></li>
+<p>设受外力 <span class="math inline">\(\bar g_1(t)\)</span>、<span
+class="math inline">\(\bar g_2(t)\)</span></p>
+<p>左端 <span class="math inline">\(u_x(0,t)=-\frac{\bar
+g_1(t)}{T_0}\)</span></p>
+<p>右端 <span class="math inline">\(u_x(l,t)=\frac{\bar
+g_2(t)}{T_0}\)</span></p></li>
 <li><p>第三类边界条件：端点连接弹簧振子</p>
-<p>以左端为例，弹簧长度 <span class="math inline">\(l_1\)</span>，下端位置 <span class="math inline">\(Q_1(t)\)</span>，<span class="math inline">\(\sigma_1=k_1/T_0\)</span></p>
-<p>得条件 <span class="math inline">\(u_x(0,t)-\sigma_1 u(0,t)=-\sigma_1(Q_1(t)+l_1)\)</span></p>
-<p>右端 <span class="math inline">\(u_x(l,t)+\sigma_2 u(l,t)=\sigma_1(Q_1(t)+l_2)\)</span></p></li>
+<p>以左端为例，弹簧长度 <span
+class="math inline">\(l_1\)</span>，下端位置 <span
+class="math inline">\(Q_1(t)\)</span>，<span
+class="math inline">\(\sigma_1=k_1/T_0\)</span></p>
+<p>得条件 <span class="math inline">\(u_x(0,t)-\sigma_1
+u(0,t)=-\sigma_1(Q_1(t)+l_1)\)</span></p>
+<p>右端 <span class="math inline">\(u_x(l,t)+\sigma_2
+u(l,t)=\sigma_1(Q_1(t)+l_2)\)</span></p></li>
 </ol>
 <h3 id="热传导方程">热传导方程</h3>
 <p><span class="math display">\[
 u_t = a^2\Delta u + f
 \]</span></p>
-<p>其中 <span class="math inline">\(a^2=k/(\rho c)\)</span>，（<span class="math inline">\(c\)</span> 为比热容），<span class="math inline">\(f=f_0/c\)</span>，表示热源强度</p>
+<p>其中 <span class="math inline">\(a^2=k/(\rho c)\)</span>，（<span
+class="math inline">\(c\)</span> 为比热容），<span
+class="math inline">\(f=f_0/c\)</span>，表示热源强度</p>
 <h4 id="初始条件-1">初始条件</h4>
 <p><span class="math display">\[
 u|_{t=0}=\varphi(x,y,z)
@@ -273,11 +301,14 @@ u|_{t=0}=\varphi(x,y,z)
 <h4 id="边界条件-1">边界条件</h4>
 <ol type="1">
 <li><p>第一类边界条件：已知边界的温度分布</p></li>
-<li><p>第二类边界条件：已知通过边界的热流量 <span class="math display">\[
-\left.k\frac{\partial u}{\partial\boldsymbol n}\right|_{\partial\Omega}=g(x,y,z,t)
+<li><p>第二类边界条件：已知通过边界的热流量 <span
+class="math display">\[
+\left.k\frac{\partial u}{\partial\boldsymbol
+n}\right|_{\partial\Omega}=g(x,y,z,t)
 \]</span></p></li>
 <li><p>第三类边界条件：导热体置于介质之中 <span class="math display">\[
-\frac{\partial u}{\partial\boldsymbol n}+\sigma u=g(x,y,z,t)\ ,\ (x,y,z,t)\in\partial\Omega
+\frac{\partial u}{\partial\boldsymbol n}+\sigma u=g(x,y,z,t)\ ,\
+(x,y,z,t)\in\partial\Omega
 \]</span></p></li>
 </ol>
 <h3 id="泊松方程">泊松方程</h3>
@@ -286,7 +317,8 @@ u|_{t=0}=\varphi(x,y,z)
 -\Delta u=\frac{1}{a^2}f
 \]</span></p>
 <p>其中 <span class="math inline">\(f\)</span> 描述热源</p>
-<p>当 <span class="math inline">\(f\equiv 0\)</span> 时称为拉普拉斯方程</p>
+<p>当 <span class="math inline">\(f\equiv 0\)</span>
+时称为拉普拉斯方程</p>
 <h4 id="狄利克雷条件">狄利克雷条件</h4>
 <p><span class="math display">\[
 u|_{\partial \Omega}=\varphi
@@ -297,7 +329,8 @@ u|_{\partial \Omega}=\varphi
 \]</span></p>
 <p>或</p>
 <p><span class="math display">\[
-\left.\left(\frac{\partial u}{\partial n}+\sigma u\right)\right|_{\partial\Omega}=\varphi
+\left.\left(\frac{\partial u}{\partial n}+\sigma
+u\right)\right|_{\partial\Omega}=\varphi
 \]</span></p>
 <h2 id="叠加原理">叠加原理</h2>
 <h3 id="线性算子">线性算子</h3>
@@ -311,11 +344,14 @@ L&amp;=a_{11}\frac{\partial^2}{\partial x^2}
 +b_2\frac{\partial}{\partial y}
 +c \nonumber
 \\
-\Box&amp;=\frac{\partial^2}{\partial t^2}-a^2\frac{\partial^2}{\partial x^2} \nonumber
+\Box&amp;=\frac{\partial^2}{\partial t^2}-a^2\frac{\partial^2}{\partial
+x^2} \nonumber
 \\
-\Delta&amp;=\frac{\partial^2}{\partial x^2}+\frac{\partial^2}{\partial y^2} \nonumber
+\Delta&amp;=\frac{\partial^2}{\partial x^2}+\frac{\partial^2}{\partial
+y^2} \nonumber
 \\
-H&amp;=\frac{\partial}{\partial t}-a^2\frac{\partial^2}{\partial x^2} \nonumber
+H&amp;=\frac{\partial}{\partial t}-a^2\frac{\partial^2}{\partial x^2}
+\nonumber
 \end{align}
 \]</span></p>
 <h3 id="二阶线性偏微分方程">二阶线性偏微分方程</h3>
@@ -326,26 +362,44 @@ Lu=f
 <p><span class="math display">\[
 \begin{cases}
 &amp; u_{tt} -a^2u_{xx}=f &amp;&amp;,\ 0&lt;x&lt;l\ ,\ t&gt;0 \newline
-&amp; u|_{x=0} = g_1(t)  &amp;,\ u|_{x=l} = g_2(t) &amp;,\ t\geq 0 \newline
-&amp; u|_{t=0}=\varphi(x)&amp;,\ u_t|_{t=0} = \psi(x) &amp;,\ 0&lt;x&lt;l
+&amp; u|_{x=0} = g_1(t)  &amp;,\ u|_{x=l} = g_2(t) &amp;,\ t\geq 0
+\newline
+&amp; u|_{t=0}=\varphi(x)&amp;,\ u_t|_{t=0} = \psi(x) &amp;,\
+0&lt;x&lt;l
 \end{cases}
 \]</span></p>
 <h3 id="初始条件叠加原理">初始条件叠加原理</h3>
 <h4 id="叠加原理-1">叠加原理 1</h4>
-<p>若 <span class="math inline">\(f=\sum_i \alpha_if_i\)</span>，<span class="math inline">\(\alpha_i\)</span> 为任意常数，<span class="math inline">\(u_i\)</span> 是 <span class="math inline">\(Lu=f_i\)</span> 的解，则 <span class="math inline">\(\sum_i \alpha_iu_i\)</span> 是原问题的解</p>
+<p>若 <span class="math inline">\(f=\sum_i \alpha_if_i\)</span>，<span
+class="math inline">\(\alpha_i\)</span> 为任意常数，<span
+class="math inline">\(u_i\)</span> 是 <span
+class="math inline">\(Lu=f_i\)</span> 的解，则 <span
+class="math inline">\(\sum_i \alpha_iu_i\)</span> 是原问题的解</p>
 <h4 id="叠加原理-23">叠加原理 2、3</h4>
 <p><em>当将方程叠加时将初始条件和非齐次项一起加在一起</em></p>
 <h3 id="边界条件齐次性">边界条件齐次性</h3>
-<p>方程边界条件 <span class="math inline">\(u|_{x=0}\ ,\ u|_{x=l}\)</span> 为零时，称为<strong>齐次边界条件</strong></p>
+<p>方程边界条件 <span class="math inline">\(u|_{x=0}\ ,\
+u|_{x=l}\)</span> 为零时，称为<strong>齐次边界条件</strong></p>
 <h4 id="齐次化">齐次化</h4>
-<p>采用变换 <span class="math inline">\(u(x,t)=v(x,t)+w(x,t)\)</span>，其中 <span class="math inline">\(w(x,t)\)</span> 满足 <span class="math inline">\(w(0,t)=g_1(t)\ ,\ w(l,t)=g_2(t)\)</span></p>
-<p>可以取 <span class="math inline">\(w(x,t)=g_1(t)+\frac{g_2(t)-g_1(t)}{l}x\)</span></p>
+<p>采用变换 <span
+class="math inline">\(u(x,t)=v(x,t)+w(x,t)\)</span>，其中 <span
+class="math inline">\(w(x,t)\)</span> 满足 <span
+class="math inline">\(w(0,t)=g_1(t)\ ,\ w(l,t)=g_2(t)\)</span></p>
+<p>可以取 <span
+class="math inline">\(w(x,t)=g_1(t)+\frac{g_2(t)-g_1(t)}{l}x\)</span></p>
 <p>代入可得边界条件齐次化方程</p>
-<p>当存在如下边界条件时，<span class="math inline">\(w\)</span> 取以下构造</p>
+<p>当存在如下边界条件时，<span class="math inline">\(w\)</span>
+取以下构造</p>
 <ul>
-<li><span class="math inline">\(u_x(0,t)=g_1\ ,\ u(l,t)=g_2\)</span>：<span class="math inline">\(w=(x-l)g_1+g_2\)</span></li>
-<li><span class="math inline">\(u(0,t)=g_1\ ,\ u_x(l,t)=g_2\)</span>：<span class="math inline">\(w=xg_2+g_1\)</span></li>
-<li><span class="math inline">\(u_x(0,t)=g_1\ ,\ u_x(l,t)=g_2\)</span>：<span class="math inline">\(w=xg_1+\frac{g_2-g_1}{2l}x^2\)</span></li>
+<li><span class="math inline">\(u_x(0,t)=g_1\ ,\
+u(l,t)=g_2\)</span>：<span
+class="math inline">\(w=(x-l)g_1+g_2\)</span></li>
+<li><span class="math inline">\(u(0,t)=g_1\ ,\
+u_x(l,t)=g_2\)</span>：<span
+class="math inline">\(w=xg_2+g_1\)</span></li>
+<li><span class="math inline">\(u_x(0,t)=g_1\ ,\
+u_x(l,t)=g_2\)</span>：<span
+class="math inline">\(w=xg_1+\frac{g_2-g_1}{2l}x^2\)</span></li>
 </ul>
 <h2 id="分离变量法">分离变量法</h2>
 <h3 id="特征函数法">特征函数法</h3>
@@ -355,14 +409,17 @@ Lu=f
 \begin{cases}
 &amp; u_{tt} -a^2u_{xx}=f &amp;&amp;,\ 0&lt;x&lt;l\ ,\ t&gt;0 \newline
 &amp; u|_{x=0} = 0  &amp;,\ u|_{x=l} = 0 &amp;,\ t\geq 0 \newline
-&amp; u|_{t=0}=\varphi(x)&amp;,\ u_t|_{t=0} = \psi(x) &amp;,\ 0&lt;x&lt;l
+&amp; u|_{t=0}=\varphi(x)&amp;,\ u_t|_{t=0} = \psi(x) &amp;,\
+0&lt;x&lt;l
 \end{cases}
 \]</span></p>
 <p>求解按如下四步进行</p>
 <h4 id="假设分离变量解">假设分离变量解</h4>
-<p>设 <span class="math inline">\(u=X(x)T(t)\)</span>，代入齐次方程得</p>
+<p>设 <span
+class="math inline">\(u=X(x)T(t)\)</span>，代入齐次方程得</p>
 <p><span class="math display">\[
-XT&#39;&#39;=a^2X&#39;&#39;T \Rightarrow \frac{X&#39;&#39;}{X}=\frac{T&#39;&#39;}{a^2T}
+XT&#39;&#39;=a^2X&#39;&#39;T \Rightarrow
+\frac{X&#39;&#39;}{X}=\frac{T&#39;&#39;}{a^2T}
 \equiv -\lambda
 \]</span></p>
 <p>有特征值问题</p>
@@ -377,13 +434,20 @@ XT&#39;&#39;=a^2X&#39;&#39;T \Rightarrow \frac{X&#39;&#39;}{X}=\frac{T&#39;&#39;
 <p><span class="math display">\[
 X(x)=c_1\cos\sqrt{\lambda}l+c_2\sin\sqrt{\lambda}l
 \]</span></p>
-<p>代入边界条件有 <span class="math inline">\(\sin\sqrt{\lambda}l=0 \Rightarrow \sqrt{\lambda}l=n\pi\)</span></p>
-<p>则特征值 <span class="math inline">\(\lambda_n=\left(\frac{n\pi}{l}\right)^2\)</span>，特征函数 <span class="math inline">\(X_n(x)=\sin\frac{n\pi}{l}x\)</span>，<span class="math inline">\(n\geq 0\)</span></p>
+<p>代入边界条件有 <span class="math inline">\(\sin\sqrt{\lambda}l=0
+\Rightarrow \sqrt{\lambda}l=n\pi\)</span></p>
+<p>则特征值 <span
+class="math inline">\(\lambda_n=\left(\frac{n\pi}{l}\right)^2\)</span>，特征函数
+<span class="math inline">\(X_n(x)=\sin\frac{n\pi}{l}x\)</span>，<span
+class="math inline">\(n\geq 0\)</span></p>
 <h4 id="以特征函数系展开比较">以特征函数系展开比较</h4>
-<p>将 <span class="math inline">\(\varphi\)</span>，<span class="math inline">\(\psi\)</span>，<span class="math inline">\(f\)</span> 也按特征函数系展开叠加</p>
+<p>将 <span class="math inline">\(\varphi\)</span>，<span
+class="math inline">\(\psi\)</span>，<span
+class="math inline">\(f\)</span> 也按特征函数系展开叠加</p>
 <p><span class="math display">\[
 \begin{align}
-\varphi(x)&amp;=\sum_{n=0}^\infty \varphi_n\sin\frac{n\pi}{l}(x) \nonumber
+\varphi(x)&amp;=\sum_{n=0}^\infty \varphi_n\sin\frac{n\pi}{l}(x)
+\nonumber
 \\
 \psi(x)&amp;=\sum_{n=0}^\infty \psi_n\sin\frac{n\pi}{l}(x) \nonumber
 \\
@@ -404,7 +468,10 @@ f(x,t)&amp;=\sum_{n=0}^\infty f_n(t)\sin\frac{n\pi}{l}(x) \nonumber
 <p><span class="math display">\[
 u_{xx}+u_{yy}=u_{\rho\rho}+\frac{1}{\rho}u_\rho+\frac{1}{\rho^2}u_{\theta\theta}=0
 \]</span></p>
-<p>设 <span class="math inline">\(u(\rho,\theta)=R(\rho)\varPhi(\theta)\)</span>，<span class="math inline">\(\varPhi(\theta + 2\pi)=\varPhi(\theta)\)</span>，有</p>
+<p>设 <span
+class="math inline">\(u(\rho,\theta)=R(\rho)\varPhi(\theta)\)</span>，<span
+class="math inline">\(\varPhi(\theta +
+2\pi)=\varPhi(\theta)\)</span>，有</p>
 <p><span class="math display">\[
 \frac{\varPhi&#39;&#39;(\theta)}{\varPhi(\theta)}
 =
@@ -419,7 +486,8 @@ u_{xx}+u_{yy}=u_{\rho\rho}+\frac{1}{\rho}u_\rho+\frac{1}{\rho^2}u_{\theta\theta}
 <p>且有</p>
 <p><span class="math display">\[
 \rho^2R_n&#39;&#39;(\rho)+\rho R_n&#39;(\rho)-\lambda_nR_n(\rho)=0
-\]</span> 此方程为欧拉方程，作代换 <span class="math inline">\(\rho = \mathrm e^s\)</span>，有 <span class="math display">\[
+\]</span> 此方程为欧拉方程，作代换 <span class="math inline">\(\rho =
+\mathrm e^s\)</span>，有 <span class="math display">\[
 R_{ss}&#39;&#39;-\lambda_nR_n=0
 \]</span></p>
 <h2 id="贝塞尔函数">贝塞尔函数</h2>
@@ -433,26 +501,37 @@ y&#39;&#39;+ay&#39;+by=0
 \]</span></p>
 <p>基解组如下</p>
 <ul>
-<li><p><span class="math inline">\(\lambda\)</span> 两个不同实根 <span class="math inline">\(\rho_1\)</span>，<span class="math inline">\(\rho_2\)</span> <span class="math display">\[
+<li><p><span class="math inline">\(\lambda\)</span> 两个不同实根 <span
+class="math inline">\(\rho_1\)</span>，<span
+class="math inline">\(\rho_2\)</span> <span class="math display">\[
 \left\{\mathrm e^{\rho_1x},\mathrm e^{\rho_2x}\right\}
-\]</span> 特别的，当 <span class="math inline">\(\rho_1=\rho=-\rho_2\)</span> <span class="math display">\[
+\]</span> 特别的，当 <span
+class="math inline">\(\rho_1=\rho=-\rho_2\)</span> <span
+class="math display">\[
 \left\{
 \cosh \rho x=\frac{\mathrm e^{\rho x}+\mathrm e^{-\rho x}}{2},
 \sinh \rho x=\frac{\mathrm e^{\rho x} -\mathrm e^{-\rho x}}{2}
 \right\}
 \]</span></p></li>
-<li><p><span class="math inline">\(\lambda\)</span> 两个共轭的复根 <span class="math inline">\(\rho_{1,2}=\alpha\pm \beta\mathrm{i}\)</span> <span class="math display">\[
+<li><p><span class="math inline">\(\lambda\)</span> 两个共轭的复根 <span
+class="math inline">\(\rho_{1,2}=\alpha\pm \beta\mathrm{i}\)</span>
+<span class="math display">\[
 \left\{
 \mathrm{e}^{(\alpha+\beta\mathrm{i})x},
 \mathrm{e}^{(\alpha-\beta\mathrm{i})x}
 \right\}
-\]</span> 利用欧拉公式 <span class="math inline">\(\mathrm{e}^{(\alpha+ \beta\mathrm{i})x}=\mathrm{e}^{\alpha x}\cos \beta x+\mathrm{e}^{\alpha x}\mathrm{i}\sin \beta x\)</span> 并取实部后 <span class="math display">\[
+\]</span> 利用欧拉公式 <span class="math inline">\(\mathrm{e}^{(\alpha+
+\beta\mathrm{i})x}=\mathrm{e}^{\alpha x}\cos \beta x+\mathrm{e}^{\alpha
+x}\mathrm{i}\sin \beta x\)</span> 并取实部后 <span
+class="math display">\[
 \left\{
 \mathrm{e}^{\alpha x}\cos \beta x,
 \mathrm{e}^{\alpha x}\sin \beta x
 \right\}
 \]</span></p></li>
-<li><p><span class="math inline">\(\lambda\)</span> 一个重根 <span class="math inline">\(\rho_1=\rho_2=\rho\)</span> <span class="math display">\[
+<li><p><span class="math inline">\(\lambda\)</span> 一个重根 <span
+class="math inline">\(\rho_1=\rho_2=\rho\)</span> <span
+class="math display">\[
 \left\{
 \mathrm{e}^{\rho x},
 x\mathrm{e}^{\rho x}
@@ -462,61 +541,91 @@ x\mathrm{e}^{\rho x}
 <h3 id="幂级数解法">幂级数解法</h3>
 <p>变系数二阶线性常微分方程 <span class="math display">\[
 y&#39;&#39;+p(x)y&#39;+q(x)y=0
-\]</span> 若 <span class="math inline">\(p(x)\)</span>、<span class="math inline">\(q(x)\)</span> 在 <span class="math inline">\(x_0\)</span> 的邻域内解析，那么有如下形式的解 <span class="math display">\[
+\]</span> 若 <span class="math inline">\(p(x)\)</span>、<span
+class="math inline">\(q(x)\)</span> 在 <span
+class="math inline">\(x_0\)</span> 的邻域内解析，那么有如下形式的解
+<span class="math display">\[
 y(x)=\sum_{k=0}^\infty a_k(x-x_0)^k
-\]</span> 否则若 <span class="math inline">\((x-x_0)p(x)\)</span>、<span class="math inline">\((x-x_0)^2q(x)\)</span> 在 <span class="math inline">\(x_0\)</span> 的邻域内解析，那么有如下形式的解 <span class="math display">\[
+\]</span> 否则若 <span class="math inline">\((x-x_0)p(x)\)</span>、<span
+class="math inline">\((x-x_0)^2q(x)\)</span> 在 <span
+class="math inline">\(x_0\)</span> 的邻域内解析，那么有如下形式的解
+<span class="math display">\[
 y(x)=(x-x_0)^\rho\sum_{k=0}^\infty a_k(x-x_0)^k
-\]</span> 其中 <span class="math inline">\(a_0\neq 0\)</span>，<span class="math inline">\(\rho\in \mathbb{R}\)</span></p>
+\]</span> 其中 <span class="math inline">\(a_0\neq 0\)</span>，<span
+class="math inline">\(\rho\in \mathbb{R}\)</span></p>
 <h3 id="γ-函数">Γ 函数</h3>
 <p><span class="math display">\[
 \Gamma(\alpha)=
 \begin{cases}
-\int_0^\infty x^{\alpha -1}\mathrm e^{-x}\mathrm d x &amp;,\ \alpha &gt;0
+\int_0^\infty x^{\alpha -1}\mathrm e^{-x}\mathrm d x &amp;,\ \alpha
+&gt;0
 \\
-\frac{\Gamma(\alpha + 1)}{\alpha} &amp;,\ \alpha &lt; 0\ \wedge\ \alpha \notin \mathbb{Z}
+\frac{\Gamma(\alpha + 1)}{\alpha} &amp;,\ \alpha &lt; 0\ \wedge\ \alpha
+\notin \mathbb{Z}
 \\
 \infty &amp;,\ \alpha\leq 0\ \wedge\ \alpha \in \mathbb{Z}
 \end{cases}
 \]</span></p>
 <p>性质</p>
 <ul>
-<li><span class="math inline">\(\Gamma(1)=1\)</span>，<span class="math inline">\(\Gamma(1/2)=\sqrt{\pi}\)</span></li>
-<li><span class="math inline">\(\Gamma(\alpha+1)=\alpha\Gamma(\alpha)\)</span></li>
-<li><span class="math inline">\(\Gamma(n+1)=n!\)</span>，<span class="math inline">\(n\in \mathbb{Z}_+\)</span></li>
+<li><span class="math inline">\(\Gamma(1)=1\)</span>，<span
+class="math inline">\(\Gamma(1/2)=\sqrt{\pi}\)</span></li>
+<li><span
+class="math inline">\(\Gamma(\alpha+1)=\alpha\Gamma(\alpha)\)</span></li>
+<li><span class="math inline">\(\Gamma(n+1)=n!\)</span>，<span
+class="math inline">\(n\in \mathbb{Z}_+\)</span></li>
 </ul>
 <h3 id="贝塞尔方程">贝塞尔方程</h3>
 <p><span class="math inline">\(r\geq 0\)</span> 阶贝塞尔方程</p>
 <p><span class="math display">\[
 x^2y&#39;&#39;+xy&#39;+(x^2-r^2)y=0
 \]</span></p>
-<p>化为二阶变系数线性常微分方程标准形式有 <span class="math inline">\(p(x)=x^{-1}\)</span>，<span class="math inline">\(q(x)=1-\frac{r^2}{x^2}\)</span>，则 <span class="math inline">\(xp(x)\)</span>，<span class="math inline">\(x^2q(x)\)</span> 在 <span class="math inline">\(\mathbb{R}\)</span> 上解析</p>
+<p>化为二阶变系数线性常微分方程标准形式有 <span
+class="math inline">\(p(x)=x^{-1}\)</span>，<span
+class="math inline">\(q(x)=1-\frac{r^2}{x^2}\)</span>，则 <span
+class="math inline">\(xp(x)\)</span>，<span
+class="math inline">\(x^2q(x)\)</span> 在 <span
+class="math inline">\(\mathbb{R}\)</span> 上解析</p>
 <p>有解的形式</p>
 <p><span class="math display">\[
 y(x)=x^\rho\sum_{n=0}^\infty a_nx^n
 \]</span></p>
 <p>代入比较系数（此处略去推导）</p>
-<p>有 <span class="math inline">\(\rho_1=r\)</span>，<span class="math inline">\(\rho_2=-r\)</span></p>
+<p>有 <span class="math inline">\(\rho_1=r\)</span>，<span
+class="math inline">\(\rho_2=-r\)</span></p>
 <ol type="1">
-<li><p>讨论情形 <span class="math inline">\(\rho=\rho_1=r\geq0\)</span> <span class="math display">\[
-J_r(x)=\sum_{k=0}^\infty (-1)^k\frac{1}{k!\Gamma(k+r+1)}\left(\frac{x}{2}\right)^{2k+r}
+<li><p>讨论情形 <span class="math inline">\(\rho=\rho_1=r\geq0\)</span>
+<span class="math display">\[
+J_r(x)=\sum_{k=0}^\infty
+(-1)^k\frac{1}{k!\Gamma(k+r+1)}\left(\frac{x}{2}\right)^{2k+r}
 \]</span></p></li>
-<li><p>讨论情形 <span class="math inline">\(\rho=\rho_2=-r&lt;0\)</span></p>
+<li><p>讨论情形 <span
+class="math inline">\(\rho=\rho_2=-r&lt;0\)</span></p>
 <ul>
-<li><p><span class="math inline">\(r\)</span> 不为正整数 <span class="math display">\[
+<li><p><span class="math inline">\(r\)</span> 不为正整数 <span
+class="math display">\[
 J_{-r}(x)
 \]</span></p></li>
-<li><p><span class="math inline">\(r\)</span> 为正整数 <span class="math display">\[
+<li><p><span class="math inline">\(r\)</span> 为正整数 <span
+class="math display">\[
 N_n(x)=\lim_{r\to n^+}\frac{J_r(x)\cos(r\pi)-J_{-r}(x)}{\sin(r\pi)}
 \]</span></p></li>
 </ul></li>
 </ol>
 <h4 id="贝塞尔函数-1">贝塞尔函数</h4>
-<p>有任意 <span class="math inline">\(r\geq 0\)</span>，<span class="math inline">\(\{J_r(x),N_r(x)\}\)</span> 是贝塞尔方程的基解组</p>
-<p>特殊地，<span class="math inline">\(r&gt; 0\)</span> 且不为整数时，<span class="math inline">\(\{J_r(x),J_{-r}(x)\}\)</span> 是贝塞尔方程的基解组</p>
-<p>整数阶贝塞尔函数 <span class="math inline">\(J_n(x)\)</span> 的性质</p>
+<p>有任意 <span class="math inline">\(r\geq 0\)</span>，<span
+class="math inline">\(\{J_r(x),N_r(x)\}\)</span>
+是贝塞尔方程的基解组</p>
+<p>特殊地，<span class="math inline">\(r&gt; 0\)</span>
+且不为整数时，<span class="math inline">\(\{J_r(x),J_{-r}(x)\}\)</span>
+是贝塞尔方程的基解组</p>
+<p>整数阶贝塞尔函数 <span class="math inline">\(J_n(x)\)</span>
+的性质</p>
 <ul>
-<li>奇偶性 <span class="math inline">\(J_n(x)=(-1)^nJ_n(-x)\)</span></li>
-<li>第 <span class="math inline">\(m\)</span> 个正零点 <span class="math inline">\(\mu_m^{(n)}\)</span></li>
+<li>奇偶性 <span
+class="math inline">\(J_n(x)=(-1)^nJ_n(-x)\)</span></li>
+<li>第 <span class="math inline">\(m\)</span> 个正零点 <span
+class="math inline">\(\mu_m^{(n)}\)</span></li>
 </ul>
 <p>递推公式</p>
 <p><span class="math display">\[
@@ -529,23 +638,35 @@ J_{n-1}(x)-J_{n+1}(x)&amp;=2J_n&#39;(x) \nonumber\newline
 \]</span></p>
 <h3 id="贝塞尔方程特征值问题">贝塞尔方程特征值问题</h3>
 <p><span class="math display">\[
-u_{\rho\rho}+\frac{1}{\rho}u_\rho+\frac{1}{\rho^2}u_{\theta\theta}=-\lambda u(\rho,\theta)
+u_{\rho\rho}+\frac{1}{\rho}u_\rho+\frac{1}{\rho^2}u_{\theta\theta}=-\lambda
+u(\rho,\theta)
 \]</span></p>
 <p>将 <span class="math inline">\(u\)</span> 变量分离</p>
-<p>狄利克雷条件 <span class="math inline">\(u(\rho_0,\theta)=0\)</span> 下，<span class="math inline">\(n\)</span> 阶贝塞尔方程特征值问题</p>
+<p>狄利克雷条件 <span class="math inline">\(u(\rho_0,\theta)=0\)</span>
+下，<span class="math inline">\(n\)</span> 阶贝塞尔方程特征值问题</p>
 <p><span class="math display">\[
 \begin{cases}
-\rho^2R&#39;&#39;(\rho)+\rho R&#39;(\rho)+(\lambda^2\rho^2-n^2)R(\rho)=0 &amp;,\ 0&lt;\rho&lt;\rho_0 \newline
+\rho^2R&#39;&#39;(\rho)+\rho R&#39;(\rho)+(\lambda^2\rho^2-n^2)R(\rho)=0
+&amp;,\ 0&lt;\rho&lt;\rho_0 \newline
 R(\rho_0)=0 &amp;,\ |R(0)|&lt;+\infty
 \end{cases}
 \]</span></p>
-<p>特征值 <span class="math inline">\(\lambda_m=\left(\frac{\mu_m^{}(n)}{\rho_0}\right)^2\)</span>，特征函数 <span class="math inline">\(R_m(\rho)=J_n\left(\frac{\mu_m^{}(n)}{\rho_0}\rho\right)\)</span>，<span class="math inline">\(m\ge 1\)</span></p>
-<h3 id="贝塞尔函数的正交性与贝塞尔级数">贝塞尔函数的正交性与贝塞尔级数</h3>
-<p><span class="math inline">\(f(\rho)\)</span> 在 <span class="math inline">\([0,\rho_0]\)</span> 连续且有分段连续的一阶导数 <span class="math display">\[
-f(\rho)=\sum_{m=1}^\infty A_mJ_n\left(\frac{\mu_m^{}(n)}{\rho_0}\rho\right)
+<p>特征值 <span
+class="math inline">\(\lambda_m=\left(\frac{\mu_m^{}(n)}{\rho_0}\right)^2\)</span>，特征函数
+<span
+class="math inline">\(R_m(\rho)=J_n\left(\frac{\mu_m^{}(n)}{\rho_0}\rho\right)\)</span>，<span
+class="math inline">\(m\ge 1\)</span></p>
+<h3
+id="贝塞尔函数的正交性与贝塞尔级数">贝塞尔函数的正交性与贝塞尔级数</h3>
+<p><span class="math inline">\(f(\rho)\)</span> 在 <span
+class="math inline">\([0,\rho_0]\)</span> 连续且有分段连续的一阶导数
+<span class="math display">\[
+f(\rho)=\sum_{m=1}^\infty
+A_mJ_n\left(\frac{\mu_m^{}(n)}{\rho_0}\rho\right)
 \]</span> 其中 <span class="math display">\[
 A_m=\frac{2}{[\rho_0J_n&#39;(\mu_m^{(n)})]^2}
-\int_0^{\rho_0}\rho f(\rho)J_n\left(\frac{\mu_m^{(n)}}{\rho_0}\rho\right)\mathrm d\rho
+\int_0^{\rho_0}\rho
+f(\rho)J_n\left(\frac{\mu_m^{(n)}}{\rho_0}\rho\right)\mathrm d\rho
 \]</span></p>
 <h3 id="圆柱体或圆域上定解问题">圆柱体或圆域上定解问题</h3>
 <p><span class="math display">\[
@@ -562,14 +683,20 @@ u|_{t=0}=\varphi(\rho) &amp;,\ 0\le\rho\le1
 \frac{T&#39;}{a^2T}=\frac{R&#39;&#39;+\frac{1}{\rho}R&#39;}{R}=-\lambda
 \]</span></p>
 <p>是零阶贝塞尔方程特征值问题</p>
-<p>特征值 <span class="math inline">\(\lambda_m=(\mu_m^{(0)})^2\)</span>，特征函数 <span class="math inline">\(R_m(\rho)=J_0(\mu_m^{(0)}\rho)\)</span>，<span class="math inline">\(m\ge 1\)</span></p>
+<p>特征值 <span
+class="math inline">\(\lambda_m=(\mu_m^{(0)})^2\)</span>，特征函数 <span
+class="math inline">\(R_m(\rho)=J_0(\mu_m^{(0)}\rho)\)</span>，<span
+class="math inline">\(m\ge 1\)</span></p>
 <p>特征值代入得 <span class="math display">\[
 T_m(t)=A_m\mathrm e^{-a^2(\mu_m^{(0)})^2t}
 \]</span> 则 <span class="math display">\[
-u(\rho,t)=\sum_{m=1}^{\infty} A_m\mathrm e^{-a^2(\mu_m^{(0)})^2t} J_0(\mu_m^{(0)}\rho)
-\]</span> 展开 <span class="math inline">\(\varphi\)</span> 比较得 <span class="math display">\[
+u(\rho,t)=\sum_{m=1}^{\infty} A_m\mathrm e^{-a^2(\mu_m^{(0)})^2t}
+J_0(\mu_m^{(0)}\rho)
+\]</span> 展开 <span class="math inline">\(\varphi\)</span> 比较得 <span
+class="math display">\[
 A_m=\frac{2}{[\rho_0J_0&#39;(\mu_m^{(0)})]^2}
-\int_0^{1}\rho \varphi(\rho)J_0\left(\frac{\mu_m^{(0)}}{\rho_0}\rho\right)\mathrm d\rho
+\int_0^{1}\rho
+\varphi(\rho)J_0\left(\frac{\mu_m^{(0)}}{\rho_0}\rho\right)\mathrm d\rho
 \]</span></p>
 <h2 id="格林函数法">格林函数法</h2>
 <h3 id="格林公式">格林公式</h3>
@@ -579,29 +706,42 @@ A_m=\frac{2}{[\rho_0J_0&#39;(\mu_m^{(0)})]^2}
 =
 \iint\limits_{\partial\Omega} \boldsymbol F\cdot\boldsymbol n\mathrm d s
 \]</span></p>
-<p>其中汉密尔顿算子 <span class="math inline">\(\nabla=\left(\frac{\partial}{\partial x},\frac{\partial}{\partial y},\frac{\partial}{\partial z}\right)\)</span></p>
-<p>取 <span class="math inline">\(\boldsymbol F=u\nabla v\)</span> 得三维形式格林公式</p>
+<p>其中汉密尔顿算子 <span
+class="math inline">\(\nabla=\left(\frac{\partial}{\partial
+x},\frac{\partial}{\partial y},\frac{\partial}{\partial
+z}\right)\)</span></p>
+<p>取 <span class="math inline">\(\boldsymbol F=u\nabla v\)</span>
+得三维形式格林公式</p>
 <h4 id="格林公式-1">格林公式</h4>
 <p><em>《高等数学》所描述的“格林公式”</em></p>
 <p>设平面场 <span class="math inline">\(F=(P,Q)\)</span></p>
 <p><span class="math display">\[
-\iint\limits_{D}\left(\frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y}\right)\mathrm d S
+\iint\limits_{D}\left(\frac{\partial Q}{\partial x}-\frac{\partial
+P}{\partial y}\right)\mathrm d S
 =
 \int\limits_L P\mathrm dx+Q\mathrm dy
 \]</span></p>
-<p>若记 <span class="math inline">\(\nabla=(\frac{\partial}{\partial x},\frac{\partial}{\partial y})\)</span>，平面区域 <span class="math inline">\(\Omega\)</span>，<span class="math inline">\(\boldsymbol s=(\cos\alpha,\sin\alpha)\)</span> 表示正向边界切向量，那么</p>
+<p>若记 <span class="math inline">\(\nabla=(\frac{\partial}{\partial
+x},\frac{\partial}{\partial y})\)</span>，平面区域 <span
+class="math inline">\(\Omega\)</span>，<span
+class="math inline">\(\boldsymbol s=(\cos\alpha,\sin\alpha)\)</span>
+表示正向边界切向量，那么</p>
 <p><span class="math display">\[
 \iint\limits_{\Omega}\nabla\times \boldsymbol F \mathrm d \sigma
 =
 \int\limits_{\partial\Omega} \boldsymbol F\cdot\mathrm d\boldsymbol s
 \]</span></p>
-<p>有曲面外法向量 <span class="math inline">\(\boldsymbol n=(\sin\alpha,-cos\alpha)\)</span> 取 <span class="math inline">\(F=u\nabla v\)</span>，<em>仔细考虑平面区域积分</em>可得二维形式格林公式</p>
+<p>有曲面外法向量 <span class="math inline">\(\boldsymbol
+n=(\sin\alpha,-cos\alpha)\)</span> 取 <span
+class="math inline">\(F=u\nabla
+v\)</span>，<em>仔细考虑平面区域积分</em>可得二维形式格林公式</p>
 <h4 id="格林第一公式">格林第一公式</h4>
 <h5 id="三维">三维</h5>
 <p><span class="math display">\[
 \iiint\limits_{\Omega} u\Delta v \mathrm dV
 =
-\iint\limits_{\partial\Omega}u\frac{\partial v}{\partial \boldsymbol n} \mathrm ds
+\iint\limits_{\partial\Omega}u\frac{\partial v}{\partial \boldsymbol n}
+\mathrm ds
 -
 \iiint\limits_{\Omega}\nabla u\cdot\nabla v\mathrm d V
 \]</span></p>
@@ -619,16 +759,21 @@ v\frac{\partial u}{\partial\boldsymbol n}\mathrm d s
 <p><span class="math display">\[
 \iiint\limits_{\Omega} (u\Delta u-v\Delta u)\mathrm dV
 =
-\iint\limits_{\partial\Omega}\left(u\frac{\partial v}{\partial\boldsymbol n}-v\frac{\partial u}{\partial\boldsymbol n}\right)\mathrm d s
+\iint\limits_{\partial\Omega}\left(u\frac{\partial
+v}{\partial\boldsymbol n}-v\frac{\partial u}{\partial\boldsymbol
+n}\right)\mathrm d s
 \]</span></p>
 <h5 id="二维-1">二维</h5>
 <p><span class="math display">\[
 \iint\limits_{\Omega}(v\Delta u-u\Delta v)\mathrm d\sigma
 =
-\int\limits_{\partial\Omega}\left(v\frac{\partial u}{\partial\boldsymbol n}-u\frac{\partial v}{\partial\boldsymbol n}\right)\mathrm d s
+\int\limits_{\partial\Omega}\left(v\frac{\partial u}{\partial\boldsymbol
+n}-u\frac{\partial v}{\partial\boldsymbol n}\right)\mathrm d s
 \]</span></p>
 <h4 id="格林第三公式">格林第三公式</h4>
-<p>格林第三公式的意义是（除去奇点后）<span class="math inline">\(u\)</span> 的值仅与 <span class="math inline">\(\Delta u\)</span> 和边界上的条件决定</p>
+<p>格林第三公式的意义是（除去奇点后）<span
+class="math inline">\(u\)</span> 的值仅与 <span
+class="math inline">\(\Delta u\)</span> 和边界上的条件决定</p>
 <h5 id="三维-2">三维</h5>
 <p><span class="math display">\[
 u(\xi,\eta,\zeta)
@@ -642,7 +787,9 @@ u\frac{\partial\varGamma}{\partial\boldsymbol n}
 -
 \iiint\limits_{\Omega}\varGamma\Delta u \mathrm d V
 \]</span></p>
-<p>其中 <span class="math inline">\(\varGamma=\frac{1}{4\pi r_{P_0P}}\)</span>，<span class="math inline">\(r_{P_0P}=\sqrt{(x-\xi)^2+(y-\eta)^2+(z-\zeta)^2}\)</span></p>
+<p>其中 <span class="math inline">\(\varGamma=\frac{1}{4\pi
+r_{P_0P}}\)</span>，<span
+class="math inline">\(r_{P_0P}=\sqrt{(x-\xi)^2+(y-\eta)^2+(z-\zeta)^2}\)</span></p>
 <h5 id="二维-2">二维</h5>
 <p><span class="math display">\[
 u(\xi,\eta)=\int\limits_{\partial\Omega}
@@ -654,49 +801,70 @@ u\frac{\partial\varGamma}{\partial\boldsymbol n}
 -
 \iint\limits_{\Omega}\varGamma\Delta u\mathrm d \sigma
 \]</span></p>
-<p>其中 <span class="math inline">\(P_0(\xi,\eta)\in \Omega\)</span>，<span class="math inline">\(\varGamma(P,P_0)=\frac{1}{2\pi}\ln\frac{1}{\sqrt{(x-\xi)^2+(y-\eta)^2}}\)</span></p>
+<p>其中 <span class="math inline">\(P_0(\xi,\eta)\in
+\Omega\)</span>，<span
+class="math inline">\(\varGamma(P,P_0)=\frac{1}{2\pi}\ln\frac{1}{\sqrt{(x-\xi)^2+(y-\eta)^2}}\)</span></p>
 <h3 id="格林函数法-1">格林函数法</h3>
 <h4 id="格林函数">格林函数</h4>
-<p>设 <span class="math inline">\(\Omega\)</span> 为二维或三维区域，<span class="math inline">\(\partial\Omega\)</span> 充分光滑，<span class="math inline">\(\boldsymbol P_0\in\Omega\)</span>，<span class="math inline">\(\varGamma(\boldsymbol p,\boldsymbol P_0)\)</span> 为拉普拉斯方程基本解</p>
+<p>设 <span class="math inline">\(\Omega\)</span>
+为二维或三维区域，<span class="math inline">\(\partial\Omega\)</span>
+充分光滑，<span class="math inline">\(\boldsymbol
+P_0\in\Omega\)</span>，<span class="math inline">\(\varGamma(\boldsymbol
+p,\boldsymbol P_0)\)</span> 为拉普拉斯方程基本解</p>
 <p>考虑定解问题</p>
 <p><span class="math display">\[
 \begin{cases}
 -\Delta u=f(\boldsymbol p) &amp;,\ \boldsymbol p\in\Omega \newline
-u(\boldsymbol p)=\varphi(\boldsymbol p) &amp;,\ \boldsymbol p \in\partial\Omega
+u(\boldsymbol p)=\varphi(\boldsymbol p) &amp;,\ \boldsymbol p
+\in\partial\Omega
 \end{cases}
 \]</span></p>
-<p>若 <span class="math inline">\(h(\boldsymbol p)\)</span> 是如下定解问题的解</p>
+<p>若 <span class="math inline">\(h(\boldsymbol p)\)</span>
+是如下定解问题的解</p>
 <p><span class="math display">\[
 \begin{cases}
 \Delta h=0 &amp;,\ \boldsymbol p\in\Omega \newline
-h(\boldsymbol p)=-\varGamma(\boldsymbol p,\boldsymbol P_0) &amp;,\ \boldsymbol p \in\partial\Omega
+h(\boldsymbol p)=-\varGamma(\boldsymbol p,\boldsymbol P_0) &amp;,\
+\boldsymbol p \in\partial\Omega
 \end{cases}
 \]</span></p>
-<p>使格林函数 <span class="math inline">\(G(\boldsymbol P,\boldsymbol P_0)=\varGamma+h\)</span></p>
+<p>使格林函数 <span class="math inline">\(G(\boldsymbol P,\boldsymbol
+P_0)=\varGamma+h\)</span></p>
 <p>则 <span class="math inline">\(G\)</span> 为如下定解问题的解</p>
 <p><span class="math display">\[
 \begin{cases}
-\Delta G=\delta(\boldsymbol p,\boldsymbol P_0) &amp;,\ \boldsymbol p\in\Omega \newline
-G(\boldsymbol p,\boldsymbol P_0)=0 &amp;,\ \boldsymbol p \in\partial\Omega
+\Delta G=\delta(\boldsymbol p,\boldsymbol P_0) &amp;,\ \boldsymbol
+p\in\Omega \newline
+G(\boldsymbol p,\boldsymbol P_0)=0 &amp;,\ \boldsymbol p
+\in\partial\Omega
 \end{cases}
 \]</span></p>
 <p>那么原定解问题的解（三维）可以表示为</p>
 <p><span class="math display">\[
 u(\xi,\eta,\zeta)=
--\iint\limits_{\partial\Omega}\varphi\frac{\partial G}{\partial\boldsymbol n}\mathrm ds
+-\iint\limits_{\partial\Omega}\varphi\frac{\partial
+G}{\partial\boldsymbol n}\mathrm ds
 +\iiint\limits_{\Omega} Gf\mathrm dV
 \]</span></p>
 <p>（二维）</p>
 <p><span class="math display">\[
 u(\xi,\eta)=
--\int\limits_{\partial\Omega}\varphi\frac{\partial G}{\partial\boldsymbol n}\mathrm ds
+-\int\limits_{\partial\Omega}\varphi\frac{\partial
+G}{\partial\boldsymbol n}\mathrm ds
 +\iint\limits_{\Omega} Gf\mathrm d\sigma
 \]</span></p>
 <h4 id="应用">应用</h4>
-<p>格林函数中 <span class="math inline">\(h\)</span> 的形式仅与给定边界有关，则对于特定问题，先求出格林函数，在通过上述格林函数法的结果给出原定解问题的解</p>
+<p>格林函数中 <span class="math inline">\(h\)</span>
+的形式仅与给定边界有关，则对于特定问题，先求出格林函数，在通过上述格林函数法的结果给出原定解问题的解</p>
 <h5 id="半空间上狄利克雷问题">半空间上狄利克雷问题</h5>
-<p><span class="math inline">\(\Omega=\{(x,y,z)\ |\ z&gt;0\}\)</span>，<span class="math inline">\(\partial\Omega=\{(x,y,z)\ |\ z=0\}\)</span></p>
-<p>设 <span class="math inline">\(\boldsymbol P_0\in\Omega\)</span>，<span class="math inline">\(\boldsymbol P_1\)</span> 为对称点，有 <span class="math inline">\(G=\varGamma(\boldsymbol P,\boldsymbol P_0)-\varGamma(\boldsymbol P,\boldsymbol P_1)\)</span></p>
+<p><span class="math inline">\(\Omega=\{(x,y,z)\ |\
+z&gt;0\}\)</span>，<span class="math inline">\(\partial\Omega=\{(x,y,z)\
+|\ z=0\}\)</span></p>
+<p>设 <span class="math inline">\(\boldsymbol
+P_0\in\Omega\)</span>，<span class="math inline">\(\boldsymbol
+P_1\)</span> 为对称点，有 <span
+class="math inline">\(G=\varGamma(\boldsymbol P,\boldsymbol
+P_0)-\varGamma(\boldsymbol P,\boldsymbol P_1)\)</span></p>
 <p>计算</p>
 <p><span class="math display">\[
 \left.\frac{\partial G}{\partial\boldsymbol n}\right|_{\partial\Omega}
@@ -707,34 +875,51 @@ u(\xi,\eta)=
 \]</span></p>
 <p>代入格林函数法公式求解</p>
 <h5 id="平面圆域上狄利克雷问题">平面圆域上狄利克雷问题</h5>
-<p><span class="math inline">\(\Omega=\{(x,y)\ |\ x^2+y^2&lt;R^2\}\)</span></p>
-<p>设 <span class="math inline">\(\boldsymbol P_0\in\Omega\)</span>，<span class="math inline">\(\boldsymbol P_1\)</span> 为关于圆的反射点，极坐标 <span class="math inline">\(\boldsymbol P(\rho,\theta)\)</span></p>
+<p><span class="math inline">\(\Omega=\{(x,y)\ |\
+x^2+y^2&lt;R^2\}\)</span></p>
+<p>设 <span class="math inline">\(\boldsymbol
+P_0\in\Omega\)</span>，<span class="math inline">\(\boldsymbol
+P_1\)</span> 为关于圆的反射点，极坐标 <span
+class="math inline">\(\boldsymbol P(\rho,\theta)\)</span></p>
 <p>格林函数</p>
 <p><span class="math display">\[
 G(\boldsymbol P,\boldsymbol P_0)=
--\frac{1}{4\pi}\ln\frac{\rho_0^2 R^2+\rho^2R^2-2\rho_0\rho R^2\cos(\theta_0-\theta)}{R^4+\rho_0\rho^2-2\rho_0\rho R^2\cos(\theta_0-\theta)}
+-\frac{1}{4\pi}\ln\frac{\rho_0^2 R^2+\rho^2R^2-2\rho_0\rho
+R^2\cos(\theta_0-\theta)}{R^4+\rho_0\rho^2-2\rho_0\rho
+R^2\cos(\theta_0-\theta)}
 \]</span></p>
 <h2 id="特征线法">特征线法</h2>
 <h3 id="一阶线性偏微分方程特征线法">一阶线性偏微分方程特征线法</h3>
-<p>有关于 <span class="math inline">\(u(x,t)\)</span> 的一阶线性偏微分方程 <span class="math display">\[
+<p>有关于 <span class="math inline">\(u(x,t)\)</span>
+的一阶线性偏微分方程 <span class="math display">\[
 au_t+bu_x+cu=f
-\]</span> 其中 <span class="math inline">\(a\)</span>、<span class="math inline">\(b\)</span>、<span class="math inline">\(c\)</span>、<span class="math inline">\(f\)</span> 均为 <span class="math inline">\(x\)</span> 和 <span class="math inline">\(t\)</span> 的函数</p>
+\]</span> 其中 <span class="math inline">\(a\)</span>、<span
+class="math inline">\(b\)</span>、<span
+class="math inline">\(c\)</span>、<span class="math inline">\(f\)</span>
+均为 <span class="math inline">\(x\)</span> 和 <span
+class="math inline">\(t\)</span> 的函数</p>
 <p>特征方程：</p>
 <p><span class="math display">\[
 a\frac{\mathrm d x}{\mathrm dt}-b=0
 \]</span></p>
-<p>其积分曲线为上述方程的特征曲线（族）（带有任意常数 <span class="math inline">\(\tau\)</span>），沿特征曲线有 <span class="math inline">\(au_t+bu_x=\frac{\mathrm du}{\mathrm d t}\)</span>，常微分方程求解后将 <span class="math inline">\(\tau\)</span> 反解代回即可</p>
+<p>其积分曲线为上述方程的特征曲线（族）（带有任意常数 <span
+class="math inline">\(\tau\)</span>），沿特征曲线有 <span
+class="math inline">\(au_t+bu_x=\frac{\mathrm du}{\mathrm d
+t}\)</span>，常微分方程求解后将 <span
+class="math inline">\(\tau\)</span> 反解代回即可</p>
 <h3 id="一阶拟线性偏微分方程特征线法">一阶拟线性偏微分方程特征线法</h3>
 <p>一阶偏微分方程柯西问题</p>
 <p><span class="math display">\[
 \begin{cases}
-a(x,t,u)u_x+b(x,t,u)u_t=c(x,t,u) &amp;,\ x\in \mathbb{R} &amp;,\ t&gt;t_0
+a(x,t,u)u_x+b(x,t,u)u_t=c(x,t,u) &amp;,\ x\in \mathbb{R} &amp;,\
+t&gt;t_0
 \\
 u(x,t_0)=\varphi(x) &amp;,\ x\in \mathbb{R}
 \end{cases}
 \]</span></p>
 <ol type="1">
-<li><p>特征向量场 <span class="math inline">\(\boldsymbol\alpha=(a,b,c)\)</span></p></li>
+<li><p>特征向量场 <span
+class="math inline">\(\boldsymbol\alpha=(a,b,c)\)</span></p></li>
 <li><p>特征方程组 <span class="math display">\[
 \begin{cases}
 \dfrac{\mathrm d x}{\mathrm d s}=a(x,t,u) &amp;,\ x(s_0)=\tau
@@ -745,33 +930,40 @@ u(x,t_0)=\varphi(x) &amp;,\ x\in \mathbb{R}
 \end{cases}
 \]</span></p></li>
 </ol>
-<p>特征方程组的解称为特征曲线族，其中 <span class="math inline">\(s_0=t_0\)</span></p>
-<p>特征曲线消去参数 <span class="math inline">\(\tau\)</span>、<span class="math inline">\(s\)</span> 即为原问题的解</p>
+<p>特征方程组的解称为特征曲线族，其中 <span
+class="math inline">\(s_0=t_0\)</span></p>
+<p>特征曲线消去参数 <span class="math inline">\(\tau\)</span>、<span
+class="math inline">\(s\)</span> 即为原问题的解</p>
 <h3 id="一维波动方程特征线法">一维波动方程特征线法</h3>
 <p>无界弦振动柯西问题</p>
 <p><span class="math display">\[
 \begin{cases}
 u_{tt}-a^2u_{xx}=0 &amp;,\ -\infty&lt;x&lt;\infty &amp;,\ t&gt;0
 \\
-u(x,0)=\varphi(x) &amp;,\ u_t(x,0)=\psi(x) &amp;,\ -\infty&lt;x&lt;\infty
+u(x,0)=\varphi(x) &amp;,\ u_t(x,0)=\psi(x) &amp;,\
+-\infty&lt;x&lt;\infty
 \end{cases}
 \]</span></p>
 <p>特征方程：</p>
 <p><span class="math display">\[
 \left(\frac{\mathrm du}{\mathrm dt}\right)^2-a^2=0
 \]</span></p>
-<p>特征线 <span class="math inline">\(x-at=c_1\)</span>，<span class="math inline">\(x+at=c_2\)</span></p>
+<p>特征线 <span class="math inline">\(x-at=c_1\)</span>，<span
+class="math inline">\(x+at=c_2\)</span></p>
 <p>得满足微分方程的行波解</p>
 <p><span class="math display">\[
 u(x,t)=f(x-at)+g(x+at)
 \]</span></p>
-<p>其中 <span class="math inline">\(f\)</span>，<span class="math inline">\(g\)</span> 为有二阶连续偏导数的任意函数</p>
+<p>其中 <span class="math inline">\(f\)</span>，<span
+class="math inline">\(g\)</span> 为有二阶连续偏导数的任意函数</p>
 <p>根据初始条件有达朗贝尔公式</p>
 <p><span class="math display">\[
 u(x,t)=
-\left[\frac{1}{2}\varphi(x-at)-\frac{1}{2a}\int_0^{x-at}\psi(\alpha)\mathrm d\alpha\right]
+\left[\frac{1}{2}\varphi(x-at)-\frac{1}{2a}\int_0^{x-at}\psi(\alpha)\mathrm
+d\alpha\right]
 +
-\left[\frac{1}{2}\varphi(x+at)+\frac{1}{2a}\int_0^{x+at}\psi(\alpha)\mathrm d\alpha\right]
+\left[\frac{1}{2}\varphi(x+at)+\frac{1}{2a}\int_0^{x+at}\psi(\alpha)\mathrm
+d\alpha\right]
 \]</span></p>
 
     </div>
@@ -791,12 +983,12 @@ u(x,t)=
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%A4%A7%E9%9B%BE%E4%B8%8B%E5%85%AC%E5%BC%8F%E5%90%88%E9%9B%86/" rel="prev" title="大雾下公式合集">
-      <i class="fa fa-chevron-left"></i> 大雾下公式合集
+    <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E4%B8%8E%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/" rel="prev" title="概率统计与随机过程复习整理">
+      <i class="fa fa-chevron-left"></i> 概率统计与随机过程复习整理
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/10/13/en/Hexo-Pitfalls/" rel="next" title="Hexo Pitfalls">
-      Hexo Pitfalls <i class="fa fa-chevron-right"></i>
+    <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%BC%96%E8%AF%91%E6%8F%90%E7%BA%B2/" rel="next" title="形式语言与编译提纲">
+      形式语言与编译提纲 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>

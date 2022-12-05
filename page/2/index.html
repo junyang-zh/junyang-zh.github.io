@@ -210,14 +210,32 @@
 
       
           <figure>
-<img src="/images/SocketSnake/in_game_demo.png" alt="In Game Capture"><figcaption aria-hidden="true">In Game Capture</figcaption>
+<img src="/images/SocketSnake/in_game_demo.png" alt="In Game Capture">
+<figcaption aria-hidden="true">In Game Capture</figcaption>
 </figure>
 <p>Github repository: <a target="_blank" rel="noopener" href="https://github.com/James-Hen/SocketSnake">SocketSnake</a></p>
 <h2 id="why-snake">Why snake</h2>
-<p>I started this Rust project days ago before my assignment for computer networks was due. And also, I though that I shall practice coding after reading half through the book <a target="_blank" rel="noopener" href="https://www.oreilly.com/library/view/programming-rust/9781491927274/">Programming Rust by Jim Blandy, Jason Orendorff</a>. Then the snake was born out of nowhere.</p>
-<p>The project is build for personal practice, especially around networks and rust features. Nevertheless, We shall consider if someone would acually play it, right? Or a step forward, if somebody would learn from the project? Thus I write this blog in case of oblivion.</p>
+<p>I started this Rust project days ago before my assignment for
+computer networks was due. And also, I though that I shall practice
+coding after reading half through the book <a target="_blank" rel="noopener" href="https://www.oreilly.com/library/view/programming-rust/9781491927274/">Programming
+Rust by Jim Blandy, Jason Orendorff</a>. Then the snake was born out of
+nowhere.</p>
+<p>The project is build for personal practice, especially around
+networks and rust features. Nevertheless, We shall consider if someone
+would acually play it, right? Or a step forward, if somebody would learn
+from the project? Thus I write this blog in case of oblivion.</p>
 <h2 id="the-structure-of-the-project">The structure of the project</h2>
-<p>Everything starts from a easy ground. For building a local version of the game, while considering that it may be migrated to a networked version, we implements a <code>Client</code> thread and a <code>Server</code> thread. The <code>Client</code> thread is responsible for listening a keyboard action, and convert then into a <code>Ctrl</code> signal (which is a <code>enum</code> type), and send it to the <code>Server</code> with a <code>std::mpsc</code> channel; The <code>Server</code> thread will host an instance of the game (<code>YardSim</code>), and push the screen buffer <code>YardBuf</code> (which is a <code>Vec&lt;Vec&lt;TUIBlock&gt;&gt;</code>) to the <code>Client</code>, who is in charge of rendering the game.</p>
+<p>Everything starts from a easy ground. For building a local version of
+the game, while considering that it may be migrated to a networked
+version, we implements a <code>Client</code> thread and a
+<code>Server</code> thread. The <code>Client</code> thread is
+responsible for listening a keyboard action, and convert then into a
+<code>Ctrl</code> signal (which is a <code>enum</code> type), and send
+it to the <code>Server</code> with a <code>std::mpsc</code> channel; The
+<code>Server</code> thread will host an instance of the game
+(<code>YardSim</code>), and push the screen buffer <code>YardBuf</code>
+(which is a <code>Vec&lt;Vec&lt;TUIBlock&gt;&gt;</code>) to the
+<code>Client</code>, who is in charge of rendering the game.</p>
 <pre class="mermaid">graph TB
     subgraph Client
         Renderer(Render)
@@ -227,7 +245,9 @@
         YardSim(YardSim)--BufferPipe-->Renderer
         Keyboard--CtrlPipe-->YardSim
     end</pre>
-<p>Moreover, to implement the multiplayer game via network, we shall develop more modules. The <code>ServerWrapper</code> thread consists the <code>Server</code> thread, so do the <code>ClientWrapper</code> do.</p>
+<p>Moreover, to implement the multiplayer game via network, we shall
+develop more modules. The <code>ServerWrapper</code> thread consists the
+<code>Server</code> thread, so do the <code>ClientWrapper</code> do.</p>
 <pre class="mermaid">graph TB
     
     subgraph ClientWrapper1
@@ -362,13 +382,15 @@
       
           <p>我在之前打数模的时候学了一点复杂网络，虽然学的很浅，感觉还是挺有意思的。</p>
 <p>但这个考试完全打消了我对这个学科的喜爱，或者说觉得它不应该作为有考试的课程。这场考试完全就是背诵结论，弄得我毫无兴趣。现在陷入了人生的大思考。</p>
-<p>考卷结构大概是 20 分名词解释（10 题），40 分填空（40 个空），余下的证明和计算。我有一个证明题没弄对，填空一堆不记得了，经验公式也不太好推出来，烦躁。</p>
+<p>考卷结构大概是 20 分名词解释（10 题），40 分填空（40
+个空），余下的证明和计算。我有一个证明题没弄对，填空一堆不记得了，经验公式也不太好推出来，烦躁。</p>
 <p>这个课本来是大四下的课，所以像这样背多分，不容易挂，也没人有意见，但是我基本上就惨了，祈求老师能给我分高一点吧。</p>
 <p>还是把考前搞的提纲粘出来，要好好背。也有好多考了提纲里没有，要好好看课件。</p>
 <h2 id="数理统计">数理统计</h2>
 <h3 id="符号">符号</h3>
 <p>随机变量 <span class="math inline">\(X\)</span>，观测值 <span class="math inline">\(x\)</span>，分布函数 CDF <span class="math inline">\(F(x)=P\{X\le x\}\)</span>，概率密度函数 PDF <span class="math inline">\(f(x)=F&#39;(x)\)</span></p>
-<p>若 <span class="math inline">\(Y=g(X)\)</span>，且 <span class="math inline">\(\int g(x)f(x)\ \mathrm d x\)</span> 绝对收敛，则 <span class="math inline">\(E[Y]=\int g(x)f(x)\ \mathrm d x\)</span></p>
+<p>若 <span class="math inline">\(Y=g(X)\)</span>，且 <span class="math inline">\(\int g(x)f(x)\ \mathrm d x\)</span> 绝对收敛，则
+<span class="math inline">\(E[Y]=\int g(x)f(x)\ \mathrm d x\)</span></p>
 <h3 id="公式与概念">公式与概念</h3>
           <!--noindex-->
             <div class="post-button">
@@ -457,7 +479,9 @@
 <p>把考前复习整理的放在下面吧</p>
 <h2 id="数学基础">数学基础</h2>
 <h3 id="内积与范数">内积与范数</h3>
-<p><span class="math inline">\(n\)</span> 维实向量集合 <span class="math inline">\(\mathbb R^n\)</span> 上，<span class="math inline">\(\forall x=(x_1,x_2,\cdots,x_n)^\intercal\in\mathbb R^n\)</span>，<span class="math inline">\(y=(y_1,y_2,\cdots,y_n)^\intercal\in \mathbb R^n\)</span>的<strong>标准内积</strong>： <span class="math display">\[
+<p><span class="math inline">\(n\)</span> 维实向量集合 <span class="math inline">\(\mathbb R^n\)</span> 上，<span class="math inline">\(\forall x=(x_1,x_2,\cdots,x_n)^\intercal\in\mathbb
+R^n\)</span>，<span class="math inline">\(y=(y_1,y_2,\cdots,y_n)^\intercal\in \mathbb
+R^n\)</span>的<strong>标准内积</strong>： <span class="math display">\[
 \left&lt;x,y\right&gt;=x^\intercal y=\sum_{i=1}^n x_iy_i
 \]</span></p>
 <p><strong>范数</strong>的定义：满足以下条件的函数 <span class="math inline">\(f:\mathbb R^n\to\mathbb R\)</span> 称为范数</p>
@@ -548,12 +572,17 @@
       
           <p>多图警告！</p>
 <h2 id="起因">起因</h2>
-<p>2021年初，心想买一个随处用的鼠标，正好 Anywhere 3 出来，搭载了 Master 3 上一样的电磁滚轮。十分心动！所以就买下来了。</p>
+<p>2021年初，心想买一个随处用的鼠标，正好 Anywhere 3 出来，搭载了 Master
+3 上一样的电磁滚轮。十分心动！所以就买下来了。</p>
 <figure>
-<img src="\images\MXMaster3Pics\1.jpg" alt="罗技 MX Anywhere 3"><figcaption aria-hidden="true">罗技 MX Anywhere 3</figcaption>
+<img src="\images\MXMaster3Pics\1.jpg" alt="罗技 MX Anywhere 3">
+<figcaption aria-hidden="true">罗技 MX Anywhere 3</figcaption>
 </figure>
-<p>白色鼠标十分讨人欢喜，用到现在也不觉得用脏了，而且有时候撞到什么东西也很难留下划痕。虽然他很贵，但我觉得一点也不娇贵，是个趁手的东西。电池续航很久，根本意识不到需要充电，即使需要充电，Type C 也十分方便。它最拿手的卖点就是电磁滚轮，真的爽到会让人觉得天下只有这一种滚轮，才能配的上鼠标的使用者。</p>
-<p>然而它其实也有一些小缺点，比如回报率只有 125 Hz，比如没有滚轮左右摆动。但是这都不痛不痒，最致命的缺点，便是：</p>
+<p>白色鼠标十分讨人欢喜，用到现在也不觉得用脏了，而且有时候撞到什么东西也很难留下划痕。虽然他很贵，但我觉得一点也不娇贵，是个趁手的东西。电池续航很久，根本意识不到需要充电，即使需要充电，Type
+C
+也十分方便。它最拿手的卖点就是电磁滚轮，真的爽到会让人觉得天下只有这一种滚轮，才能配的上鼠标的使用者。</p>
+<p>然而它其实也有一些小缺点，比如回报率只有 125
+Hz，比如没有滚轮左右摆动。但是这都不痛不痒，最致命的缺点，便是：</p>
 <ul>
 <li><strong>不静音</strong></li>
 </ul>
@@ -645,7 +674,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Today we virtually participated the regional of 2018 Nanjing, and I have done my first non-trivial string problem, introducing a new algorithm called Extended-KMP. Thus I bet it notable on by blog.</p>
+          <p>Today we virtually participated the regional of 2018 Nanjing, and I
+have done my first non-trivial string problem, introducing a new
+algorithm called Extended-KMP. Thus I bet it notable on by blog.</p>
 <h2 id="problem-statement">Problem Statement</h2>
 <blockquote>
 <p>Given two strings s and t, count the number of tuples <span class="math inline">\((i, j, k)\)</span> such that</p>
@@ -653,16 +684,29 @@
 <li><span class="math inline">\(1\le i\le j\le |s|\)</span></li>
 <li><span class="math inline">\(1\le k\le |t|\)</span></li>
 <li><span class="math inline">\(j − i + 1 &gt; k\)</span></li>
-<li>The <span class="math inline">\(i\)</span>-th character of <span class="math inline">\(s\)</span> to the <span class="math inline">\(j\)</span>-th character of <span class="math inline">\(s\)</span>, concatenated with the first character of <span class="math inline">\(t\)</span> to the <span class="math inline">\(k\)</span>-th character of <span class="math inline">\(t\)</span>, is a palindrome.</li>
+<li>The <span class="math inline">\(i\)</span>-th character of <span class="math inline">\(s\)</span> to the <span class="math inline">\(j\)</span>-th character of <span class="math inline">\(s\)</span>, concatenated with the first character
+of <span class="math inline">\(t\)</span> to the <span class="math inline">\(k\)</span>-th character of <span class="math inline">\(t\)</span>, is a palindrome.</li>
 </ol>
 <p><span class="math inline">\(2\le |s|\le 10^6\)</span>, <span class="math inline">\(1\le |t|&lt;|s|\)</span></p>
 </blockquote>
 <h2 id="solution">Solution</h2>
-<p>The problem is to find and count the number of cases that there is two adjacent substrings <span class="math inline">\(s^{(1)}\)</span>, <span class="math inline">\(s^{(2)}\)</span> in <span class="math inline">\(s\)</span> and another <span class="math inline">\(t^{(1)}\)</span> in <span class="math inline">\(t\)</span>, provided that <span class="math inline">\(s^{(2)}\)</span> is a palindrome, and <span class="math inline">\(s^{(1)}\)</span> is reversely matched with <span class="math inline">\(t^{(1)}\)</span>.</p>
-<p>So let's reverse the string <span class="math inline">\(s\)</span>. Then use the famous Manacher algorithm on <span class="math inline">\(s\)</span> (when there is a longest palindrome <span class="math inline">\(s_x\cdots s_y\)</span>, let <span class="math inline">\(p_{x+y}=\lfloor(y-x+1)/2\rfloor\)</span>) and count every occurrence centered at <span class="math inline">\(i=\lceil(x+y)/2\rceil\)</span>.</p>
-<p>Let <span class="math inline">\(s^j\)</span> be the suffix of <span class="math inline">\(s\)</span> starting from <span class="math inline">\(j\)</span>. We should firstly find the longest common prefix of suffix <span class="math inline">\(s^j\)</span> and <span class="math inline">\(t\)</span>, and sum up the length of these prefixes around <span class="math inline">\(i\)</span>. Precisely, all of the prefixes starting from <span class="math inline">\(i+1\)</span> to <span class="math inline">\(i+p_{x+y}\)</span> should be counted. Using prefix sum, we could get that value in <span class="math inline">\(O(1)\)</span> at every symmetrical center.</p>
+<p>The problem is to find and count the number of cases that there is
+two adjacent substrings <span class="math inline">\(s^{(1)}\)</span>,
+<span class="math inline">\(s^{(2)}\)</span> in <span class="math inline">\(s\)</span> and another <span class="math inline">\(t^{(1)}\)</span> in <span class="math inline">\(t\)</span>, provided that <span class="math inline">\(s^{(2)}\)</span> is a palindrome, and <span class="math inline">\(s^{(1)}\)</span> is reversely matched with <span class="math inline">\(t^{(1)}\)</span>.</p>
+<p>So let's reverse the string <span class="math inline">\(s\)</span>.
+Then use the famous Manacher algorithm on <span class="math inline">\(s\)</span> (when there is a longest palindrome
+<span class="math inline">\(s_x\cdots s_y\)</span>, let <span class="math inline">\(p_{x+y}=\lfloor(y-x+1)/2\rfloor\)</span>) and
+count every occurrence centered at <span class="math inline">\(i=\lceil(x+y)/2\rceil\)</span>.</p>
+<p>Let <span class="math inline">\(s^j\)</span> be the suffix of <span class="math inline">\(s\)</span> starting from <span class="math inline">\(j\)</span>. We should firstly find the longest
+common prefix of suffix <span class="math inline">\(s^j\)</span> and
+<span class="math inline">\(t\)</span>, and sum up the length of these
+prefixes around <span class="math inline">\(i\)</span>. Precisely, all
+of the prefixes starting from <span class="math inline">\(i+1\)</span>
+to <span class="math inline">\(i+p_{x+y}\)</span> should be counted.
+Using prefix sum, we could get that value in <span class="math inline">\(O(1)\)</span> at every symmetrical center.</p>
 <p>It must be noted that <span class="math inline">\(j-i+1&gt;k\)</span>, then <span class="math inline">\(s_2\)</span> must not be empty.</p>
-<p>Dealing with bounds and indexes of strings is tricky, so be careful.</p>
+<p>Dealing with bounds and indexes of strings is tricky, so be
+careful.</p>
 <h2 id="code">Code</h2>
           <!--noindex-->
             <div class="post-button">
@@ -749,25 +793,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>考完九天出分，作文不太高吧。但也不想再考这个了，应该做点更有用的东西，不能魔怔。学 GRE 给我最有用的帮助，无外乎词汇量大大增加了，看文章稍微快一点了。但实际上，不会的单词还是得查，也许和我不懂很多汉语成语的意义是一个道理吧。报个 GRE 确实还是有帮助的，否则自己的嘤语水平怎么提升呢（笑）</p>
+          <p>考完九天出分，作文不太高吧。但也不想再考这个了，应该做点更有用的东西，不能魔怔。学
+GRE
+给我最有用的帮助，无外乎词汇量大大增加了，看文章稍微快一点了。但实际上，不会的单词还是得查，也许和我不懂很多汉语成语的意义是一个道理吧。报个
+GRE 确实还是有帮助的，否则自己的嘤语水平怎么提升呢（笑）</p>
 <figure>
-<img src="/images/greprep/GREScore.png" alt="GREScore"><figcaption aria-hidden="true">GREScore</figcaption>
+<img src="/images/greprep/GREScore.png" alt="GREScore">
+<figcaption aria-hidden="true">GREScore</figcaption>
 </figure>
 <p>看看这备考的一个半月我都在干什么</p>
 <h2 id="section">2021.10.13</h2>
-<p>上个月十八号脑子一热，报了这个月底 GRE，1665 RMB 比托福雅思还是便宜一点。当时兴致勃勃说别人准备三个月那我自学一个半月应该没什么问题，现在一个月快过去了，我觉得很有问题。</p>
-<p>这一个月中间有十一假期，但是我这个月也做了不少别的事（花了很多时间写课程作业、报 BGA 和 IGSP），所以也不算用了很多时间。要你命三千小程序统计我背了 41 小时单词，算上别的做模拟、看书和用 Excel 背单词，满打满算也就准备了 70 个小时吧。但是 GRE 的标准准备时间差不多是 400 小时，笑死。</p>
-<p>刷了快两遍 3000 了，还是有一半不认识，做题不认识词比较艰难。国庆做的模拟，Verbal 一个 Section 大概错 10/20 个，Quantitive 偶尔粗心（或者题没印好）错。作文看了范文，还没自己写过，我感觉半小时我没法有那么多 Development。</p>
+<p>上个月十八号脑子一热，报了这个月底 GRE，1665 RMB
+比托福雅思还是便宜一点。当时兴致勃勃说别人准备三个月那我自学一个半月应该没什么问题，现在一个月快过去了，我觉得很有问题。</p>
+<p>这一个月中间有十一假期，但是我这个月也做了不少别的事（花了很多时间写课程作业、报
+BGA 和 IGSP），所以也不算用了很多时间。要你命三千小程序统计我背了 41
+小时单词，算上别的做模拟、看书和用 Excel 背单词，满打满算也就准备了 70
+个小时吧。但是 GRE 的标准准备时间差不多是 400 小时，笑死。</p>
+<p>刷了快两遍 3000
+了，还是有一半不认识，做题不认识词比较艰难。国庆做的模拟，Verbal 一个
+Section 大概错 10/20 个，Quantitive
+偶尔粗心（或者题没印好）错。作文看了范文，还没自己写过，我感觉半小时我没法有那么多
+Development。</p>
 <p>这两天又忙活了两天博客，修 <span class="math inline">\(\LaTeX\)</span> 修炸脑袋。</p>
 <p>感觉这些东西还是很有用的：</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.ets.org/gre/revised_general/prepare/">ETS 官网</a>，上面有 Math Conventions；</li>
-<li>Official Guide，这本大书今年大早就买了，看来只有报了才能促进你学习；（后来我找到电子版，书感觉就不会变旧了）</li>
-<li><a target="_blank" rel="noopener" href="https://library.koolearn.com">新东方在线</a>，交大 IP 的话可以白嫖数年前的线上课程；</li>
+<li><a target="_blank" rel="noopener" href="https://www.ets.org/gre/revised_general/prepare/">ETS
+官网</a>，上面有 Math Conventions；</li>
+<li>Official
+Guide，这本大书今年大早就买了，看来只有报了才能促进你学习；（后来我找到电子版，书感觉就不会变旧了）</li>
+<li><a target="_blank" rel="noopener" href="https://library.koolearn.com">新东方在线</a>，交大 IP
+的话可以白嫖数年前的线上课程；</li>
 <li>各种模考网站：<a target="_blank" rel="noopener" href="https://11gre.com/paper/view?type=0">11gre</a>，<a target="_blank" rel="noopener" href="http://gwc.weichenedu.cn/products/">微臣</a>，<a target="_blank" rel="noopener" href="https://www.gre.vip/home">皇冠gre</a>，但我一分钱也没交，题够刷了；</li>
-<li><a target="_blank" rel="noopener" href="http://www.dicts.cn/">词根词缀词典</a>，以及它的安卓、IOS App，它们的开发者看起来有血有肉的，很有意思；</li>
+<li><a target="_blank" rel="noopener" href="http://www.dicts.cn/">词根词缀词典</a>，以及它的安卓、IOS
+App，它们的开发者看起来有血有肉的，很有意思；</li>
 <li><em>The Economist</em> 表达水平这真的高，可惜政治立场有点对立；</li>
-<li>3000 核心词的 Excel 表，我放在博客里吧，感觉有用：<a href="/files/GRE3000Essential.xls">GRE3000Essential.xls</a>（<em>upd.</em> 这有不少错的释义，谨慎）。</li>
+<li>3000 核心词的 Excel 表，我放在博客里吧，感觉有用：<a href="/files/GRE3000Essential.xls">GRE3000Essential.xls</a>（<em>upd.</em>
+这有不少错的释义，谨慎）。</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -854,121 +915,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Here are the useful blogs, packages and resources that I learned from to build this site.</p>
-<p>And following the list of changes, I can reproduce this site quickly. This is why the blog is also helpful for me.</p>
+          <p>Here are the useful blogs, packages and resources that I learned from
+to build this site.</p>
+<p>And following the list of changes, I can reproduce this site quickly.
+This is why the blog is also helpful for me.</p>
 <h2 id="theme-of-hexo-next">Theme of Hexo-Next</h2>
 <p>It's an elegant theme with a lot of effortless customizations.</p>
 <h2 id="internationalization">Internationalization:</h2>
-<p>The i18n package, which can generate directories for languages, but still not perfect.</p>
+<p>The i18n package, which can generate directories for languages, but
+still not perfect.</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/Jamling/hexo-generator-i18n">hexo-generator-i18n</a></p>
 <p>Other solutions like moving the whole site to a sub-folder.</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/calvin_zhou/article/details/110957632">Hexo站点建设之——国际化(i18n)</a></p>
-<h2 id="problems-of-nunjucks-collision">Problems of nunjucks collision:</h2>
+<h2 id="problems-of-nunjucks-collision">Problems of nunjucks
+collision:</h2>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/10/13/en/Hexo-Pitfalls/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
-    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
-      <meta itemprop="name" content="Junyang Zhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Junyang Zhang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/" class="post-title-link" itemprop="url">偏微分方程复习整理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-10-13 09:49:30 / 修改时间：22:18:00" itemprop="dateCreated datePublished" datetime="2021-10-13T09:49:30+08:00">2021-10-13</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="数学基础">数学基础</h2>
-<h3 id="傅里叶级数">傅里叶级数</h3>
-<p><span class="math display">\[
-f(t)=\frac{a_0}{2}+\sum_{n=1}^{\infty}\left[a_n\cos(n\omega t)+b_n\sin(n\omega t)\right]
-\]</span></p>
-<p>其中</p>
-<p><span class="math display">\[
-\begin{align}
-a_n&amp;=\frac{2}{T}\int_{t_0}^{t_0+T}f(t)\cos(n\omega t)\mathrm d t &amp;,n\in \mathbb{Z}_+ \nonumber
-\\
-b_n&amp;=\frac{2}{T}\int_{t_0}^{t_0+T}f(t)\sin(n\omega t)\mathrm d t &amp;,n\in \mathbb{Z}_+ \nonumber
-\end{align}
-\]</span></p>
-<h3 id="二次型正交变化">二次型正交变化</h3>
-<p>设有二次型矩阵 <span class="math inline">\(A\)</span>，<span class="math inline">\(f(x)=\boldsymbol x^{\mathrm T}A\boldsymbol x\)</span></p>
-<p>存在正交矩阵 <span class="math inline">\(P\)</span> 使 <span class="math inline">\(\boldsymbol x=P\boldsymbol y\)</span>，<span class="math inline">\(f(x)=\boldsymbol y^{\mathrm T}P^{\mathrm T}AP\boldsymbol x=d_1y_1^2+d_2y_2^2+\cdots+d_ny_n^2\)</span></p>
-<p>步骤</p>
-<ol type="1">
-<li>求出 <span class="math inline">\(A\)</span> 的特征值 <span class="math inline">\(\lambda_1,\lambda_2,\cdots,\lambda_n\)</span>，（即求解 <span class="math inline">\(|A-\lambda I|=0\)</span>）​</li>
-<li>得出对应的特征向量 <span class="math inline">\(\xi_1,\xi_2,\cdots,\xi_n\)</span>，（即求解 <span class="math inline">\((A-\lambda_iI)x=0\)</span>）</li>
-<li>特征向量标准正交化得 <span class="math inline">\(\eta_1,\eta_2,\cdots,\eta_n\)</span></li>
-<li>得 <span class="math inline">\(P=[\eta_1\ \eta_2\ \cdots\ \eta_n]\)</span></li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1023,7 +986,7 @@ b_n&amp;=\frac{2}{T}\int_{t_0}^{t_0+T}f(t)\sin(n\omega t)\mathrm d t &amp;,n\in 
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-10-14 08:33:51" itemprop="dateModified" datetime="2021-10-14T08:33:51+08:00">2021-10-14</time>
+                <time title="修改时间：2022-12-05 11:29:00" itemprop="dateModified" datetime="2022-12-05T11:29:00+08:00">2022-12-05</time>
               </span>
 
           
@@ -1055,9 +1018,12 @@ b_n&amp;=\frac{2}{T}\int_{t_0}^{t_0+T}f(t)\sin(n\omega t)\mathrm d t &amp;,n\in 
 <h2 id="disclaimer">Disclaimer</h2>
 <p>本文档照例应用于考前记诵</p>
 <p>但现在内容多得已经可以用来饱和式学习了</p>
-<p>本文强调值的运算矢量性时利用箭头符号 <span class="math inline">\(\vec a\)</span>，描绘一般原则时则使用加粗体 <span class="math inline">\(\mathbf a\)</span></p>
+<p>本文强调值的运算矢量性时利用箭头符号 <span class="math inline">\(\vec
+a\)</span>，描绘一般原则时则使用加粗体 <span class="math inline">\(\mathbf a\)</span></p>
 <p>所有常量均使用正体（如玻尔兹曼常量 <span class="math inline">\(\mathrm k\)</span>）</p>
-<p>电子电量 <span class="math inline">\(\mathrm e\)</span> 与自然底数 <span class="math inline">\(\mathrm e\)</span> 写法一致，但易于从上下文判断</p>
+<p>电子电量 <span class="math inline">\(\mathrm e\)</span> 与自然底数
+<span class="math inline">\(\mathrm e\)</span>
+写法一致，但易于从上下文判断</p>
 <p>rev 0.1，波动光学还没完善好！</p>
 <p>rev 0.2，差不多该可以用了，但也快要考试了，加了一些没什么用的东西</p>
 <p>rev 0.3，修正了一些已知错误</p>
@@ -1146,9 +1112,12 @@ b_n&amp;=\frac{2}{T}\int_{t_0}^{t_0+T}f(t)\sin(n\omega t)\mathrm d t &amp;,n\in 
 <p>DFA 扩展转移函数 <span class="math inline">\(\hat\delta:Q\times\Sigma^*\to Q\)</span></p>
 <p>NFA 是五元组 <span class="math inline">\((Q,\Sigma,\delta,q_0,F)\)</span>，其中 <span class="math inline">\(\delta:Q\times\Sigma\to2^Q\)</span></p>
 <p>NFA 扩展转移函数 <span class="math inline">\(\hat\delta:Q\times\Sigma^*\to 2^Q\)</span></p>
-<p><span class="math inline">\(\mathrm \varepsilon\)</span>-NFA 是五元组 <span class="math inline">\((Q,\Sigma,\delta,q_0,F)\)</span>，其中 <span class="math inline">\(\delta:Q\times(\Sigma\cup\{\varepsilon\})\to2^Q\)</span></p>
+<p><span class="math inline">\(\mathrm \varepsilon\)</span>-NFA 是五元组
+<span class="math inline">\((Q,\Sigma,\delta,q_0,F)\)</span>，其中 <span class="math inline">\(\delta:Q\times(\Sigma\cup\{\varepsilon\})\to2^Q\)</span></p>
 <ul>
-<li><span class="math inline">\(\mathrm \varepsilon\)</span>-NFA 到 DFA：<span class="math inline">\(\mathrm{ECLOSE}(r)\)</span> 与子集构造</li>
+<li><span class="math inline">\(\mathrm \varepsilon\)</span>-NFA 到
+DFA：<span class="math inline">\(\mathrm{ECLOSE}(r)\)</span>
+与子集构造</li>
 <li>NFA 到 DFA：（惰性）子集构造，<span class="math inline">\(O(n^32^n)\)</span></li>
 <li>DFA 到 RE：消除状态得 GNFA，<span class="math inline">\(O(n^34^n)\)</span>；证明：归纳法</li>
 <li>RE 到 <span class="math inline">\(\varepsilon\)</span>-NFA：<span class="math inline">\(O(n)\)</span></li>
@@ -1160,6 +1129,115 @@ b_n&amp;=\frac{2}{T}\int_{t_0}^{t_0+T}f(t)\sin(n\omega t)\mathrm d t &amp;,n\in 
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%BC%96%E8%AF%91%E6%8F%90%E7%BA%B2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/" class="post-title-link" itemprop="url">偏微分方程复习整理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-10-13 09:49:30 / 修改时间：22:18:00" itemprop="dateCreated datePublished" datetime="2021-10-13T09:49:30+08:00">2021-10-13</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="数学基础">数学基础</h2>
+<h3 id="傅里叶级数">傅里叶级数</h3>
+<p><span class="math display">\[
+f(t)=\frac{a_0}{2}+\sum_{n=1}^{\infty}\left[a_n\cos(n\omega
+t)+b_n\sin(n\omega t)\right]
+\]</span></p>
+<p>其中</p>
+<p><span class="math display">\[
+\begin{align}
+a_n&amp;=\frac{2}{T}\int_{t_0}^{t_0+T}f(t)\cos(n\omega t)\mathrm d t
+&amp;,n\in \mathbb{Z}_+ \nonumber
+\\
+b_n&amp;=\frac{2}{T}\int_{t_0}^{t_0+T}f(t)\sin(n\omega t)\mathrm d t
+&amp;,n\in \mathbb{Z}_+ \nonumber
+\end{align}
+\]</span></p>
+<h3 id="二次型正交变化">二次型正交变化</h3>
+<p>设有二次型矩阵 <span class="math inline">\(A\)</span>，<span class="math inline">\(f(x)=\boldsymbol x^{\mathrm T}A\boldsymbol
+x\)</span></p>
+<p>存在正交矩阵 <span class="math inline">\(P\)</span> 使 <span class="math inline">\(\boldsymbol x=P\boldsymbol y\)</span>，<span class="math inline">\(f(x)=\boldsymbol y^{\mathrm T}P^{\mathrm
+T}AP\boldsymbol x=d_1y_1^2+d_2y_2^2+\cdots+d_ny_n^2\)</span></p>
+<p>步骤</p>
+<ol type="1">
+<li>求出 <span class="math inline">\(A\)</span> 的特征值 <span class="math inline">\(\lambda_1,\lambda_2,\cdots,\lambda_n\)</span>，（即求解
+<span class="math inline">\(|A-\lambda I|=0\)</span>）​</li>
+<li>得出对应的特征向量 <span class="math inline">\(\xi_1,\xi_2,\cdots,\xi_n\)</span>，（即求解 <span class="math inline">\((A-\lambda_iI)x=0\)</span>）</li>
+<li>特征向量标准正交化得 <span class="math inline">\(\eta_1,\eta_2,\cdots,\eta_n\)</span></li>
+<li>得 <span class="math inline">\(P=[\eta_1\ \eta_2\ \cdots\
+\eta_n]\)</span></li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

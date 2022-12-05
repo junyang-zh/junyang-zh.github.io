@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="Junyang Zhang&#39;s Blog">
 <meta property="og:description" content="rev0.3.1 Disclaimer 本文档照例应用于考前记诵 但现在内容多得已经可以用来饱和式学习了 本文强调值的运算矢量性时利用箭头符号 \(\vec a\)，描绘一般原则时则使用加粗体 \(\mathbf a\) 所有常量均使用正体（如玻尔兹曼常量 \(\mathrm k\)） 电子电量 \(\mathrm e\) 与自然底数 \(\mathrm e\) 写法一致，但易于从上下文判断 re">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://jyzhang.xyz/images/Beat.svg">
-<meta property="og:image" content="http://jyzhang.xyz/images/fresnel-h-zone.jpg">
-<meta property="og:image" content="http://jyzhang.xyz/images/grating.jpg">
+<meta property="og:image" content="http://jyzhang.xyz/images/UndergradPhysics/Beat.svg">
+<meta property="og:image" content="http://jyzhang.xyz/images/UndergradPhysics/fresnel-h-zone.jpg">
+<meta property="og:image" content="http://jyzhang.xyz/images/UndergradPhysics/grating.jpg">
 <meta property="article:published_time" content="2021-10-13T01:49:30.000Z">
-<meta property="article:modified_time" content="2021-10-14T00:33:51.000Z">
+<meta property="article:modified_time" content="2022-12-05T03:29:00.000Z">
 <meta property="article:author" content="Junyang Zhang">
 <meta property="article:tag" content="课程笔记">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://jyzhang.xyz/images/Beat.svg">
+<meta name="twitter:image" content="http://jyzhang.xyz/images/UndergradPhysics/Beat.svg">
 
 <link rel="canonical" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%A4%A7%E9%9B%BE%E4%B8%8B%E5%85%AC%E5%BC%8F%E5%90%88%E9%9B%86/">
 
@@ -190,7 +190,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-10-14 08:33:51" itemprop="dateModified" datetime="2021-10-14T08:33:51+08:00">2021-10-14</time>
+                <time title="修改时间：2022-12-05 11:29:00" itemprop="dateModified" datetime="2022-12-05T11:29:00+08:00">2022-12-05</time>
               </span>
 
           
@@ -229,65 +229,86 @@
 <h2 id="disclaimer">Disclaimer</h2>
 <p>本文档照例应用于考前记诵</p>
 <p>但现在内容多得已经可以用来饱和式学习了</p>
-<p>本文强调值的运算矢量性时利用箭头符号 <span class="math inline">\(\vec a\)</span>，描绘一般原则时则使用加粗体 <span class="math inline">\(\mathbf a\)</span></p>
-<p>所有常量均使用正体（如玻尔兹曼常量 <span class="math inline">\(\mathrm k\)</span>）</p>
-<p>电子电量 <span class="math inline">\(\mathrm e\)</span> 与自然底数 <span class="math inline">\(\mathrm e\)</span> 写法一致，但易于从上下文判断</p>
+<p>本文强调值的运算矢量性时利用箭头符号 <span class="math inline">\(\vec
+a\)</span>，描绘一般原则时则使用加粗体 <span
+class="math inline">\(\mathbf a\)</span></p>
+<p>所有常量均使用正体（如玻尔兹曼常量 <span
+class="math inline">\(\mathrm k\)</span>）</p>
+<p>电子电量 <span class="math inline">\(\mathrm e\)</span> 与自然底数
+<span class="math inline">\(\mathrm e\)</span>
+写法一致，但易于从上下文判断</p>
 <p>rev 0.1，波动光学还没完善好！</p>
 <p>rev 0.2，差不多该可以用了，但也快要考试了，加了一些没什么用的东西</p>
 <p>rev 0.3，修正了一些已知错误</p>
 <p>rev 0.3，修正了一些微不足道的错误，增加了“平均自由程”</p>
 <h2 id="waiver">Waiver</h2>
-<p>采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/about/cclicenses/">cc-by-nc-sa 4.0</a></p>
+<p>采用 <a
+target="_blank" rel="noopener" href="https://creativecommons.org/about/cclicenses/">cc-by-nc-sa
+4.0</a></p>
 <p>不完全对本文摘要内容的严谨性与正确性负责</p>
 <h2 id="数学基础">数学基础</h2>
 <h3 id="积化和差与和差化积">积化和差与和差化积</h3>
-<p>请不要尝试记住 8 个公式，反之（在考场上）启发式地从以下二式推导 <span class="math display">\[
+<p>请不要尝试记住 8 个公式，反之（在考场上）启发式地从以下二式推导 <span
+class="math display">\[
 \begin{align}
-\cos(\alpha + \beta) &amp;+ \cos(\alpha - \beta) 
+\cos(\alpha + \beta) &amp;+ \cos(\alpha - \beta)
 \nonumber \newline
-&amp;= \cos(\alpha)\cos(\beta)-\sin(\alpha)\sin(\beta) + \cos(\alpha)\cos(\beta) + \sin(\alpha)\sin(\beta)
+&amp;= \cos(\alpha)\cos(\beta)-\sin(\alpha)\sin(\beta) +
+\cos(\alpha)\cos(\beta) + \sin(\alpha)\sin(\beta)
 \nonumber \newline
 &amp;= 2\cos(\alpha)\cos(\beta)
 \nonumber \newline
 \sin(\alpha+\beta) &amp;+ \sin(\alpha - \beta)
 \nonumber \newline
-&amp;= \sin(\alpha)\cos(\beta) + \sin(\beta)\cos(\alpha) + \sin(\alpha)\cos(\beta) - \sin(\beta)\cos(\alpha)
+&amp;= \sin(\alpha)\cos(\beta) + \sin(\beta)\cos(\alpha) +
+\sin(\alpha)\cos(\beta) - \sin(\beta)\cos(\alpha)
 \nonumber \newline
 &amp;= 2\sin(\alpha)\cos(\beta)
-\nonumber 
+\nonumber
 \end{align}
 \]</span></p>
 <h3 id="旋转矢量法解二阶线性微分方程">旋转矢量法解二阶线性微分方程</h3>
-<p>类似相量法，设复位移 <span class="math inline">\(x=A\mathrm e^{\mathrm i(\omega t+\phi)}\)</span> 的实部表示位移，则微分关系</p>
+<p>类似相量法，设复位移 <span class="math inline">\(x=A\mathrm
+e^{\mathrm i(\omega t+\phi)}\)</span> 的实部表示位移，则微分关系</p>
 <p><span class="math display">\[
 \begin{align}
-\frac{\mathrm d}{\mathrm dt} x &amp;= \mathrm i\omega A \mathrm e^{\mathrm i(\omega t+\phi)}
+\frac{\mathrm d}{\mathrm dt} x &amp;= \mathrm i\omega A \mathrm
+e^{\mathrm i(\omega t+\phi)}
 = \omega A \mathrm e^{\mathrm i(\omega t+\phi+\frac{\pi}{2})}
 \nonumber\newline
-\frac{\mathrm d^2}{\mathrm dt^2} x &amp;= -\omega^2 A \mathrm e^{\mathrm i(\omega t+\phi)}
+\frac{\mathrm d^2}{\mathrm dt^2} x &amp;= -\omega^2 A \mathrm e^{\mathrm
+i(\omega t+\phi)}
 = \omega^2 A \mathrm e^{\mathrm i(\omega t+\phi+\pi)}\nonumber
 \end{align}
 \]</span></p>
-<p>将复位移转化为极坐标形式 <span class="math inline">\(\vec x=A\angle\phi\)</span>，微分算符几何意义</p>
+<p>将复位移转化为极坐标形式 <span class="math inline">\(\vec
+x=A\angle\phi\)</span>，微分算符几何意义</p>
 <p><span class="math display">\[
 \begin{align}
-\frac{\mathrm d}{\mathrm dt} = \omega\angle\frac{\pi}{2} \nonumber\newline
+\frac{\mathrm d}{\mathrm dt} = \omega\angle\frac{\pi}{2}
+\nonumber\newline
 \frac{\mathrm d^2}{\mathrm dt^2} = \omega^2\angle\pi \nonumber
 \end{align}
 \]</span></p>
 <h4 id="谐振子">谐振子</h4>
 <p>微分方程 <span class="math display">\[
--kx + F_0\cos(\omega t) = m\frac{\mathrm d^2}{\mathrm dt^2}x + \mu\frac{\mathrm d}{\mathrm dt}x
-\]</span> 其中驱动力项 <span class="math inline">\(F_0\cos(\omega t)\)</span>，阻尼项 <span class="math inline">\(\mu\frac{\mathrm d}{\mathrm dt}x\)</span>，恢复力项 <span class="math inline">\(-kx\)</span></p>
+-kx + F_0\cos(\omega t) = m\frac{\mathrm d^2}{\mathrm dt^2}x +
+\mu\frac{\mathrm d}{\mathrm dt}x
+\]</span> 其中驱动力项 <span class="math inline">\(F_0\cos(\omega
+t)\)</span>，阻尼项 <span class="math inline">\(\mu\frac{\mathrm
+d}{\mathrm dt}x\)</span>，恢复力项 <span
+class="math inline">\(-kx\)</span></p>
 <p>旋转矢量形式 <span class="math display">\[
--kA\angle\phi+F_0\angle0=m\omega^2 A\angle(\pi+\phi)+\mu\omega A\angle(\frac{\pi}{2}+\phi)
+-kA\angle\phi+F_0\angle0=m\omega^2 A\angle(\pi+\phi)+\mu\omega
+A\angle(\frac{\pi}{2}+\phi)
 \]</span> 画图求解即可</p>
 <p>结论： <span class="math display">\[
 \begin{align}
 \omega_0 &amp;= \sqrt\frac{k}{m} \nonumber\newline
 n&amp;=\frac{\mu}{2m} \nonumber\newline
 f &amp;= \frac{F_0}{m} \nonumber\newline
-A &amp;= \frac{f}{\sqrt{(\omega_0^2-\omega^2)^2+4n^2\omega^2}} \nonumber\newline
+A &amp;= \frac{f}{\sqrt{(\omega_0^2-\omega^2)^2+4n^2\omega^2}}
+\nonumber\newline
 \tan\phi &amp;= \frac{2n\omega}{\omega_0^2-\omega^2}\nonumber
 \end{align}
 \]</span></p>
@@ -300,16 +321,23 @@ pV=\nu \mathrm R T \nonumber\newline
 p = n\mathrm k T \nonumber
 \end{align}
 \]</span></p>
-<p>其中 <span class="math inline">\(\nu\)</span> 为物质的量（摩尔数），<span class="math inline">\(n\)</span> 为分子数密度，<span class="math inline">\(\mathrm k = \frac{\mathrm R}{\mathrm {N_A}}\)</span></p>
+<p>其中 <span class="math inline">\(\nu\)</span>
+为物质的量（摩尔数），<span class="math inline">\(n\)</span>
+为分子数密度，<span class="math inline">\(\mathrm k = \frac{\mathrm
+R}{\mathrm {N_A}}\)</span></p>
 <h3 id="微观状态量">微观状态量</h3>
 <h4 id="分子平均平动动能">分子平均平动动能</h4>
 <p><span class="math display">\[
-\overline\varepsilon \triangleq \frac{1}{2}m_0\overline{v^2} = \frac{3}{2}\mathrm k T
+\overline\varepsilon \triangleq \frac{1}{2}m_0\overline{v^2} =
+\frac{3}{2}\mathrm k T
 \]</span></p>
-<p>其中 <span class="math inline">\(m_0\)</span> 为分子质量，由状态方程可得 <span class="math inline">\(p = \frac{2}{3}n\overline\varepsilon\)</span></p>
+<p>其中 <span class="math inline">\(m_0\)</span>
+为分子质量，由状态方程可得 <span class="math inline">\(p =
+\frac{2}{3}n\overline\varepsilon\)</span></p>
 <h4 id="麦克斯韦分布">麦克斯韦分布</h4>
 <p><span class="math display">\[
-f(v) = 4\pi\left(\frac{m_0}{2\pi\mathrm k T}\right)^{\frac{3}{2}}v^2\mathrm e^{-\frac{m_0v^2}{2\mathrm kT}}
+f(v) = 4\pi\left(\frac{m_0}{2\pi\mathrm k
+T}\right)^{\frac{3}{2}}v^2\mathrm e^{-\frac{m_0v^2}{2\mathrm kT}}
 \]</span></p>
 <table>
 <colgroup>
@@ -320,19 +348,25 @@ f(v) = 4\pi\left(\frac{m_0}{2\pi\mathrm k T}\right)^{\frac{3}{2}}v^2\mathrm e^{-
 <thead>
 <tr class="header">
 <th>平均速率 <span class="math inline">\(\overline v\)</span></th>
-<th>方均根速率 <span class="math inline">\(\sqrt{\bar {v^2}}\)</span></th>
+<th>方均根速率 <span class="math inline">\(\sqrt{\bar
+{v^2}}\)</span></th>
 <th>最概然速率 <span class="math inline">\(v_p\)</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="math inline">\(\sqrt{\frac{8}{\pi}}\sqrt{\frac{\mathrm RT}{M}}\)</span></td>
-<td><span class="math inline">\(\sqrt{3}\sqrt{\frac{\mathrm RT}{M}}\)</span></td>
-<td><span class="math inline">\(\sqrt{2}\sqrt{\frac{\mathrm RT}{M}}\)</span></td>
+<td><span class="math inline">\(\sqrt{\frac{8}{\pi}}\sqrt{\frac{\mathrm
+RT}{M}}\)</span></td>
+<td><span class="math inline">\(\sqrt{3}\sqrt{\frac{\mathrm
+RT}{M}}\)</span></td>
+<td><span class="math inline">\(\sqrt{2}\sqrt{\frac{\mathrm
+RT}{M}}\)</span></td>
 </tr>
 </tbody>
 </table>
-<p>其中 <span class="math inline">\(M=m_0 \mathrm {N_A}\)</span> 为分子量（注意单位 <span class="math inline">\(\mathrm{g\cdot mol^{-1}}\)</span>）</p>
+<p>其中 <span class="math inline">\(M=m_0 \mathrm {N_A}\)</span>
+为分子量（注意单位 <span class="math inline">\(\mathrm{g\cdot
+mol^{-1}}\)</span>）</p>
 <h4 id="玻尔兹曼分布">玻尔兹曼分布</h4>
 <p><span class="math display">\[
 n=n_0 \mathrm e^{-\frac{\varepsilon_p}{\mathrm k T}}
@@ -344,7 +378,8 @@ n=n_0 \mathrm e^{-\frac{\varepsilon_p}{\mathrm k T}}
 \]</span> 其中 <span class="math inline">\(d\)</span> 为分子直径</p>
 <p>平均自由程 <span class="math inline">\(\overline \lambda\)</span></p>
 <p><span class="math display">\[
-\overline \lambda=\frac{1}{\sqrt{2}\pi d^2n}=\frac{\mathrm kT}{\sqrt{2}\pi d^2p}
+\overline \lambda=\frac{1}{\sqrt{2}\pi d^2n}=\frac{\mathrm
+kT}{\sqrt{2}\pi d^2p}
 \]</span></p>
 <h3 id="内能">内能</h3>
 <p><span class="math display">\[
@@ -352,37 +387,59 @@ E = \nu \frac{i}{2}\mathrm R T
 \]</span></p>
 <p>其中 <span class="math inline">\(i\)</span> 为分子自由度</p>
 <h3 id="热容">热容</h3>
-<p>等体摩尔热容 <span class="math inline">\(C_{V,m}=\frac{i}{2}\mathrm R\)</span></p>
-<p>等压摩尔热容 <span class="math inline">\(C_{p,m}= C_{V,m} + R =\frac{i+2}{2}\mathrm R\)</span></p>
-<p>摩尔热容比 <span class="math inline">\(\gamma \triangleq \frac{C_{p,m}}{C_{V,m}} = \frac{i+2}{i}\)</span></p>
+<p>等体摩尔热容 <span class="math inline">\(C_{V,m}=\frac{i}{2}\mathrm
+R\)</span></p>
+<p>等压摩尔热容 <span class="math inline">\(C_{p,m}= C_{V,m} + R
+=\frac{i+2}{2}\mathrm R\)</span></p>
+<p>摩尔热容比 <span class="math inline">\(\gamma \triangleq
+\frac{C_{p,m}}{C_{V,m}} = \frac{i+2}{i}\)</span></p>
 <h3 id="热力学第一定律">热力学第一定律</h3>
 <p><span class="math display">\[
 Q = \Delta E + A
 \]</span></p>
-<p>其中 <span class="math inline">\(Q\)</span> 为系统向外界吸热，<span class="math inline">\(\Delta E = E_2-E_1\)</span> 为系统内能增量，<span class="math inline">\(A\)</span> 为系统对外做功</p>
+<p>其中 <span class="math inline">\(Q\)</span> 为系统向外界吸热，<span
+class="math inline">\(\Delta E = E_2-E_1\)</span> 为系统内能增量，<span
+class="math inline">\(A\)</span> 为系统对外做功</p>
 <h3 id="热机">热机</h3>
 <h4 id="热机效率">热机效率</h4>
 <p><span class="math display">\[
 \eta \triangleq \frac{A}{Q_1}
 \]</span></p>
-<p>其中 <span class="math inline">\(A\)</span> 为热机循环对外做功，<span class="math inline">\(Q_1\)</span> 为系统向高温热源吸热</p>
-<p>当热机为卡诺热机或可逆热机时， <span class="math inline">\(\eta = \eta_{\text{max}}=1-\frac{T_2}{T_1}\)</span>，其中 <span class="math inline">\(T_1\)</span>，<span class="math inline">\(T_2\)</span> 分别为高温、低温热源温度</p>
+<p>其中 <span class="math inline">\(A\)</span> 为热机循环对外做功，<span
+class="math inline">\(Q_1\)</span> 为系统向高温热源吸热</p>
+<p>当热机为卡诺热机或可逆热机时， <span class="math inline">\(\eta =
+\eta_{\text{max}}=1-\frac{T_2}{T_1}\)</span>，其中 <span
+class="math inline">\(T_1\)</span>，<span
+class="math inline">\(T_2\)</span> 分别为高温、低温热源温度</p>
 <h4 id="致冷效率">致冷效率</h4>
 <p><span class="math display">\[
 \omega = \frac{Q_2}{A}
 \]</span></p>
-<p>其中 <span class="math inline">\(A\)</span> 为外界对致冷机做功，<span class="math inline">\(Q_2\)</span> 为系统向低温冷库吸热，<span class="math inline">\(\omega_\text{max} = \frac{T_2}{T_1-T_2}\)</span></p>
+<p>其中 <span class="math inline">\(A\)</span> 为外界对致冷机做功，<span
+class="math inline">\(Q_2\)</span> 为系统向低温冷库吸热，<span
+class="math inline">\(\omega_\text{max} =
+\frac{T_2}{T_1-T_2}\)</span></p>
 <h4 id="热力学第二定律">热力学第二定律</h4>
-<p><span class="math inline">\(\eta &lt; 1\)</span>，并有 <span class="math inline">\(\omega \neq +\infty\)</span></p>
+<p><span class="math inline">\(\eta &lt; 1\)</span>，并有 <span
+class="math inline">\(\omega \neq +\infty\)</span></p>
 <h3 id="熵">熵</h3>
 <p>在可逆过程中有</p>
 <p><span class="math display">\[
 \mathrm d S=\frac{\mathrm d Q}{T}
-\]</span> 其中 <span class="math inline">\(Q\)</span> 为进入系统的热量</p>
+\]</span> 其中 <span class="math inline">\(Q\)</span>
+为进入系统的热量</p>
 <h4 id="热力学第三定律">热力学第三定律</h4>
-<p><span class="math inline">\(T=0 \ \mathrm K\)</span> 时有 <span class="math inline">\(S = 0\)</span></p>
+<p><span class="math inline">\(T=0 \ \mathrm K\)</span> 时有 <span
+class="math inline">\(S = 0\)</span></p>
 <h3 id="过程公式">过程公式</h3>
-<table>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 24%" />
+<col style="width: 34%" />
+<col style="width: 11%" />
+<col style="width: 20%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>过程</th>
@@ -410,7 +467,8 @@ Q = \Delta E + A
 <tr class="odd">
 <td>等温过程</td>
 <td><span class="math inline">\(pV=p_0V_0\)</span></td>
-<td><span class="math inline">\(\nu \mathrm R T\ln\frac{V_2}{V_1}\)</span></td>
+<td><span class="math inline">\(\nu \mathrm R
+T\ln\frac{V_2}{V_1}\)</span></td>
 <td><span class="math inline">\(=Q\)</span></td>
 <td><span class="math inline">\(0\)</span></td>
 </tr>
@@ -432,7 +490,13 @@ Q = \Delta E + A
 </table>
 <h2 id="机械波">机械波</h2>
 <h3 id="miscellaneous">miscellaneous</h3>
-<p>频率 <span class="math inline">\(\nu\)</span>，周期 <span class="math inline">\(T\)</span>，波速 <span class="math inline">\(u\)</span>，波长 <span class="math inline">\(\lambda\)</span>，频率 <span class="math inline">\(f\)</span>，圆频率 <span class="math inline">\(\omega\)</span>，振幅 <span class="math inline">\(A\)</span></p>
+<p>频率 <span class="math inline">\(\nu\)</span>，周期 <span
+class="math inline">\(T\)</span>，波速 <span
+class="math inline">\(u\)</span>，波长 <span
+class="math inline">\(\lambda\)</span>，频率 <span
+class="math inline">\(f\)</span>，圆频率 <span
+class="math inline">\(\omega\)</span>，振幅 <span
+class="math inline">\(A\)</span></p>
 <p><span class="math display">\[
 \begin{align}
 \nu = \frac{1}{T} \nonumber\newline
@@ -444,20 +508,32 @@ u = \frac{\lambda}{T} = \nu\lambda \nonumber\newline
 <p><span class="math display">\[
 y(x,t)=A\cos\left(\omega\left(t-\frac{x}{u}\right)+\phi_0\right)
 \]</span></p>
-<p>其中 <span class="math inline">\(y\)</span> 表示 <span class="math inline">\(x\)</span> 处质点偏离平衡位置的位移</p>
+<p>其中 <span class="math inline">\(y\)</span> 表示 <span
+class="math inline">\(x\)</span> 处质点偏离平衡位置的位移</p>
 <h4 id="波动微分方程">波动微分方程</h4>
 <p><span class="math display">\[
-\frac{\partial^2 y}{\partial x^2}=\frac{1}{u^2}\frac{\partial^2 y}{\partial t^2}
+\frac{\partial^2 y}{\partial x^2}=\frac{1}{u^2}\frac{\partial^2
+y}{\partial t^2}
 \]</span></p>
 <h3 id="波状态量">波状态量</h3>
 <h4 id="波能量">波能量</h4>
-<p>设质点 <span class="math inline">\((x,t)\)</span> 处小段质元 <span class="math inline">\(\Delta x\)</span> 的动能为 <span class="math inline">\(E_k\)</span>，势能为 <span class="math inline">\(E_p\)</span> <span class="math display">\[
-E_k=E_p=\frac{1}{2}\rho\Delta x A^2\omega^2\sin^2\left[\omega\left(t-\frac{x}{u}\right)+\phi_0\right]=\frac{1}{2}\rho\Delta x \omega^2 y_{\phi}^2
-\]</span> 其中 <span class="math inline">\(y_\phi\)</span> 表示以 <span class="math inline">\(\frac{\pi}{2}\)</span> 相位超前 <span class="math inline">\(y\)</span> 的位移，<span class="math inline">\(\rho\)</span> 为质量密度</p>
+<p>设质点 <span class="math inline">\((x,t)\)</span> 处小段质元 <span
+class="math inline">\(\Delta x\)</span> 的动能为 <span
+class="math inline">\(E_k\)</span>，势能为 <span
+class="math inline">\(E_p\)</span> <span class="math display">\[
+E_k=E_p=\frac{1}{2}\rho\Delta x
+A^2\omega^2\sin^2\left[\omega\left(t-\frac{x}{u}\right)+\phi_0\right]=\frac{1}{2}\rho\Delta
+x \omega^2 y_{\phi}^2
+\]</span> 其中 <span class="math inline">\(y_\phi\)</span> 表示以 <span
+class="math inline">\(\frac{\pi}{2}\)</span> 相位超前 <span
+class="math inline">\(y\)</span> 的位移，<span
+class="math inline">\(\rho\)</span> 为质量密度</p>
 <h4 id="能量密度">能量密度</h4>
 <p>单位体积中波的能量 <span class="math display">\[
-w = \frac{E}{\Delta V}=\frac{E_k+E_p}{\Delta x\Delta S} = \rho\omega^2 y_{\phi}^2
-\]</span> 其中 <span class="math inline">\(V\)</span> 为体积，<span class="math inline">\(S\)</span> 为对于平面波所考虑的面积</p>
+w = \frac{E}{\Delta V}=\frac{E_k+E_p}{\Delta x\Delta S} = \rho\omega^2
+y_{\phi}^2
+\]</span> 其中 <span class="math inline">\(V\)</span> 为体积，<span
+class="math inline">\(S\)</span> 为对于平面波所考虑的面积</p>
 <h4 id="平均能量密度">平均能量密度</h4>
 <p><span class="math display">\[
 \overline w = \frac{1}{2}\rho A^2\omega^2
@@ -470,7 +546,9 @@ w = \frac{E}{\Delta V}=\frac{E_k+E_p}{\Delta x\Delta S} = \rho\omega^2 y_{\phi}^
 <p><span class="math display">\[
 P = \vec I\cdot\vec S
 \]</span></p>
-<p>在取 <span class="math inline">\(\vec S /\kern -0.3 em/ \vec u\)</span> 时可不考虑矢量性，利用波功率守恒可推导出非平面波振幅（平方与面积反比）</p>
+<p>在取 <span class="math inline">\(\vec S /\kern -0.3 em/ \vec
+u\)</span>
+时可不考虑矢量性，利用波功率守恒可推导出非平面波振幅（平方与面积反比）</p>
 <h5 id="波的吸收">波的吸收</h5>
 <p>即波功率的吸收</p>
 <p><span class="math display">\[
@@ -486,30 +564,46 @@ I&amp;=I_0\mathrm e^{-\alpha x} \nonumber
 <li>振动方向相同</li>
 <li>相位差恒定</li>
 </ul>
-<p>设两波相位差为 <span class="math inline">\(\Delta\phi=(\phi_2-\phi_1)-2\pi\frac{r_2-r_1}{\lambda}\)</span>，合成波满足 <span class="math display">\[
+<p>设两波相位差为 <span
+class="math inline">\(\Delta\phi=(\phi_2-\phi_1)-2\pi\frac{r_2-r_1}{\lambda}\)</span>，合成波满足
+<span class="math display">\[
 A^2=A_1^2+A_2^2+2A_1A_2\cos\Delta\phi
-\]</span> <span class="math inline">\(A_\text{max} =A_1+A_2 \Rightarrow I_\text{max} = I_1+I_2+2\sqrt{I_1I_2}\)</span></p>
-<p><span class="math inline">\(A_\text{min} =\left|A_1-A_2\right| \Rightarrow I_\text{min} = I_1+I_2-2\sqrt{I_1I_2}\)</span></p>
+\]</span> <span class="math inline">\(A_\text{max} =A_1+A_2 \Rightarrow
+I_\text{max} = I_1+I_2+2\sqrt{I_1I_2}\)</span></p>
+<p><span class="math inline">\(A_\text{min} =\left|A_1-A_2\right|
+\Rightarrow I_\text{min} = I_1+I_2-2\sqrt{I_1I_2}\)</span></p>
 <h5 id="驻波">驻波</h5>
-<p>固定端反射存在<strong>半波损失</strong>（反射点必为波节） <span class="math display">\[
+<p>固定端反射存在<strong>半波损失</strong>（反射点必为波节） <span
+class="math display">\[
 \begin{align}
-y&amp;=y_1+y_2=A\left[\cos2\pi\left(\nu t-\frac{x}{\lambda}\right) + \cos2\pi\left(\nu t+\frac{x}{\lambda}\right) \right]
+y&amp;=y_1+y_2=A\left[\cos2\pi\left(\nu t-\frac{x}{\lambda}\right) +
+\cos2\pi\left(\nu t+\frac{x}{\lambda}\right) \right]
 \nonumber \newline
-&amp;= 2A\cos\left(2\pi\frac{x}{\lambda}\right)\cdot\cos2\pi\nu t \nonumber
+&amp;= 2A\cos\left(2\pi\frac{x}{\lambda}\right)\cdot\cos2\pi\nu t
+\nonumber
 \end{align}
 \]</span></p>
 <h5 id="拍频波">拍频波</h5>
-<p>圆频率相近（<span class="math inline">\(|\omega_1-\omega_2|\ll \omega_1\)</span>）的两列振动方向相同波合成（利用和差化积推导）</p>
+<p>圆频率相近（<span class="math inline">\(|\omega_1-\omega_2|\ll
+\omega_1\)</span>）的两列振动方向相同波合成（利用和差化积推导）</p>
 <figure>
-<img src="/images/Beat.svg" alt="拍频波" /><figcaption aria-hidden="true">拍频波</figcaption>
+<img src="/images/UndergradPhysics/Beat.svg" alt="拍频波" />
+<figcaption aria-hidden="true">拍频波</figcaption>
 </figure>
-<p>合成波振幅（包络）的圆频率 <span class="math inline">\(\omega=\left|\frac{\omega_1-\omega_2}{2}\right|\)</span></p>
-<p><strong>拍频</strong> <span class="math inline">\(f = \left|f_1-f_2\right|\)</span>，为两个振幅峰值出现频率</p>
+<p>合成波振幅（包络）的圆频率 <span
+class="math inline">\(\omega=\left|\frac{\omega_1-\omega_2}{2}\right|\)</span></p>
+<p><strong>拍频</strong> <span class="math inline">\(f =
+\left|f_1-f_2\right|\)</span>，为两个振幅峰值出现频率</p>
 <h5 id="振动方向垂直的波合成"><em>振动方向垂直的波合成</em></h5>
 <p>利用李萨如图形分析</p>
 <h4 id="多普勒效应">多普勒效应</h4>
-<p>设波速率 <span class="math inline">\(u\)</span>，波源相对介质速度为 <span class="math inline">\(\vec v_s\)</span>，观察者相对介质速度 <span class="math inline">\(\vec v_0\)</span>，波源相对观察者位移单位向量 <span class="math inline">\(\vec r_0=\frac{\vec r}{|\vec r|}\)</span></p>
-<p>原频率 <span class="math inline">\(\nu_0\)</span> 与观察频率 <span class="math inline">\(\nu\)</span> 的关系</p>
+<p>设波速率 <span class="math inline">\(u\)</span>，波源相对介质速度为
+<span class="math inline">\(\vec v_s\)</span>，观察者相对介质速度 <span
+class="math inline">\(\vec v_0\)</span>，波源相对观察者位移单位向量
+<span class="math inline">\(\vec r_0=\frac{\vec r}{|\vec
+r|}\)</span></p>
+<p>原频率 <span class="math inline">\(\nu_0\)</span> 与观察频率 <span
+class="math inline">\(\nu\)</span> 的关系</p>
 <p><span class="math display">\[
 \nu = \frac{u + \vec v_0 \cdot \vec r_0}{u+\vec v_s\cdot \vec r_0}\nu_0
 \]</span> 若观察者相对波源速度平行且相反</p>
@@ -523,76 +617,137 @@ y&amp;=y_1+y_2=A\left[\cos2\pi\left(\nu t-\frac{x}{\lambda}\right) + \cos2\pi\le
 <h2 id="波动光学">波动光学</h2>
 <h3 id="光强">光强</h3>
 <p><span class="math display">\[
-\mathbf I=\left&lt;\mathbf S\right&gt;=\left&lt;\mathbf{E\times H}\right&gt; \propto \frac{1}{2}E_0^2
+\mathbf I=\left&lt;\mathbf S\right&gt;=\left&lt;\mathbf{E\times
+H}\right&gt; \propto \frac{1}{2}E_0^2
 \]</span></p>
-<p>其中<strong>坡印廷矢量</strong> <span class="math inline">\(\mathbf S=\mathbf{E\times H}\)</span>，<span class="math inline">\(\mathbf E\)</span>，<span class="math inline">\(\mathbf H\)</span> 分别为电场强度矢量，磁场强度矢量，<span class="math inline">\(E_0\)</span>，<span class="math inline">\(H_0\)</span> 为其振幅</p>
-<p>有 <span class="math inline">\(\sqrt{\varepsilon_0}E_0=\sqrt{\mu_0}H_0\)</span>，光速 <span class="math inline">\(\mathrm c=\sqrt{\frac{1}{\varepsilon_0\mu_0}}\)</span>，<span class="math inline">\(\varepsilon_0\)</span> 为真空电介常数，<span class="math inline">\(\mu_0\)</span> 为真空磁介常数</p>
-<p>算符 <span class="math inline">\(\left&lt;\right&gt;\)</span> 为平均算符</p>
+<p>其中<strong>坡印廷矢量</strong> <span class="math inline">\(\mathbf
+S=\mathbf{E\times H}\)</span>，<span class="math inline">\(\mathbf
+E\)</span>，<span class="math inline">\(\mathbf H\)</span>
+分别为电场强度矢量，磁场强度矢量，<span
+class="math inline">\(E_0\)</span>，<span
+class="math inline">\(H_0\)</span> 为其振幅</p>
+<p>有 <span
+class="math inline">\(\sqrt{\varepsilon_0}E_0=\sqrt{\mu_0}H_0\)</span>，光速
+<span class="math inline">\(\mathrm
+c=\sqrt{\frac{1}{\varepsilon_0\mu_0}}\)</span>，<span
+class="math inline">\(\varepsilon_0\)</span> 为真空电介常数，<span
+class="math inline">\(\mu_0\)</span> 为真空磁介常数</p>
+<p>算符 <span class="math inline">\(\left&lt;\right&gt;\)</span>
+为平均算符</p>
 <h3 id="相干性">相干性</h3>
 <h4 id="空间相干性">空间相干性</h4>
 <p>光源线度对相干性的影响 <span class="math display">\[
 b = \frac{B}{d}\lambda
-\]</span> 其中 <span class="math inline">\(b\)</span> 为光源线度，<span class="math inline">\(B\)</span> 为光源与双缝的距离（观测距离），<span class="math inline">\(d\)</span> 为双缝间距（相干性度量）</p>
+\]</span> 其中 <span class="math inline">\(b\)</span> 为光源线度，<span
+class="math inline">\(B\)</span> 为光源与双缝的距离（观测距离），<span
+class="math inline">\(d\)</span> 为双缝间距（相干性度量）</p>
 <h4 id="时间相干性">时间相干性</h4>
 <p><span class="math display">\[
 L=\frac{\lambda^2}{\Delta \lambda}
 \]</span></p>
-<p><span class="math inline">\(L\)</span> 表示相干长度，<span class="math inline">\(\Delta \lambda\)</span> 为单色性的度量</p>
+<p><span class="math inline">\(L\)</span> 表示相干长度，<span
+class="math inline">\(\Delta \lambda\)</span> 为单色性的度量</p>
 <h3 id="光的干涉">光的干涉</h3>
 <h4 id="干涉条纹条件">干涉条纹条件</h4>
 <p><span class="math display">\[
 \delta(x) =
 \begin{cases}
-\pm 2k\cdot\frac{\lambda}{2}        &amp;, &amp; k \in \mathbb{N}_+     &amp;, \text{ center of light stripes} \newline
-\pm (2k+1)\cdot\frac{\lambda}{2}    &amp;, &amp; k \in \mathbb{N}       &amp;, \text{ center of dark stripes}
+\pm 2k\cdot\frac{\lambda}{2}        &amp;, &amp; k \in
+\mathbb{N}_+     &amp;, \text{ center of light stripes} \newline
+\pm (2k+1)\cdot\frac{\lambda}{2}    &amp;, &amp; k \in
+\mathbb{N}       &amp;, \text{ center of dark stripes}
 \end{cases}
 \]</span></p>
-<p>其中 <span class="math inline">\(\delta(x)\)</span> 为使用分波阵面法或分振幅法时，在成像位置 <span class="math inline">\(x\)</span> 形成的光程差</p>
+<p>其中 <span class="math inline">\(\delta(x)\)</span>
+为使用分波阵面法或分振幅法时，在成像位置 <span
+class="math inline">\(x\)</span> 形成的光程差</p>
 <h4 id="举例">举例</h4>
 <p>以下举例不同干涉实验中光程差的具体计算</p>
 <h5 id="双缝干涉">双缝干涉</h5>
-<p>当缝宽度 <span class="math inline">\(a \ll\)</span> 双缝间距 <span class="math inline">\(d\)</span> 时</p>
+<p>当缝宽度 <span class="math inline">\(a \ll\)</span> 双缝间距 <span
+class="math inline">\(d\)</span> 时</p>
 <p><span class="math display">\[
 \delta = \frac{xd}{D}
-\]</span> 其中 <span class="math inline">\(D\)</span> 为光屏与双缝距离，<span class="math inline">\(D \gg d\)</span> 或 <span class="math inline">\(D= f\)</span>（凸透镜汇聚）</p>
-<h5 id="劈尖干涉牛顿环薄膜干涉迈克尔逊干涉仪">劈尖干涉/牛顿环/薄膜干涉/迈克尔逊干涉仪</h5>
-<p>设单色光以入射角 <span class="math inline">\(\gamma\)</span> 入射折射率为 <span class="math inline">\(n_2\)</span> 的材料，入射处厚度为 <span class="math inline">\(d\)</span></p>
-<p>假设入射方向观察干涉对象（反射光干涉），且环境折射率 <span class="math inline">\(n_1 &lt; n_2\)</span>，一次反射光有半波损失，则</p>
+\]</span> 其中 <span class="math inline">\(D\)</span>
+为光屏与双缝距离，<span class="math inline">\(D \gg d\)</span> 或 <span
+class="math inline">\(D= f\)</span>（凸透镜汇聚）</p>
+<h5
+id="劈尖干涉牛顿环薄膜干涉迈克尔逊干涉仪">劈尖干涉/牛顿环/薄膜干涉/迈克尔逊干涉仪</h5>
+<p>设单色光以入射角 <span class="math inline">\(\gamma\)</span>
+入射折射率为 <span class="math inline">\(n_2\)</span>
+的材料，入射处厚度为 <span class="math inline">\(d\)</span></p>
+<p>假设入射方向观察干涉对象（反射光干涉），且环境折射率 <span
+class="math inline">\(n_1 &lt;
+n_2\)</span>，一次反射光有半波损失，则</p>
 <p><span class="math display">\[
 \delta = 2n_2d\cos\gamma + \frac{\lambda}{2}
-\]</span> 若光源（可近似）为平行光，即关注 <span class="math inline">\(d\)</span> 对 <span class="math inline">\(\delta\)</span> 的影响时，形成<strong>等厚干涉</strong>条纹：同一条纹厚度相等，形成“等高线”</p>
-<p>若光源（可近似）为无限大面光源，即关注 <span class="math inline">\(\gamma\)</span> 对 <span class="math inline">\(\delta\)</span> 的影响时，形成<strong>等倾干涉</strong>条纹：同一条纹倾角相等</p>
+\]</span> 若光源（可近似）为平行光，即关注 <span
+class="math inline">\(d\)</span> 对 <span
+class="math inline">\(\delta\)</span>
+的影响时，形成<strong>等厚干涉</strong>条纹：同一条纹厚度相等，形成“等高线”</p>
+<p>若光源（可近似）为无限大面光源，即关注 <span
+class="math inline">\(\gamma\)</span> 对 <span
+class="math inline">\(\delta\)</span>
+的影响时，形成<strong>等倾干涉</strong>条纹：同一条纹倾角相等</p>
 <h6 id="牛顿环入射处厚度近似">牛顿环入射处厚度近似</h6>
-<p>设凸透镜曲率半径 <span class="math inline">\(R\)</span>，条纹距接触点距离 <span class="math inline">\(r\)</span>，该位置空气隙厚度 <span class="math inline">\(d\)</span>，有 <span class="math display">\[
+<p>设凸透镜曲率半径 <span
+class="math inline">\(R\)</span>，条纹距接触点距离 <span
+class="math inline">\(r\)</span>，该位置空气隙厚度 <span
+class="math inline">\(d\)</span>，有 <span class="math display">\[
 R^2=r^2+(R-d)^2=r^2+R^2-2Rd+d^2
-\]</span> 由于 <span class="math inline">\(d \ll R\)</span>，<span class="math inline">\(d^2 \ll Rd \ll R^2\)</span>，则 <span class="math display">\[
+\]</span> 由于 <span class="math inline">\(d \ll R\)</span>，<span
+class="math inline">\(d^2 \ll Rd \ll R^2\)</span>，则 <span
+class="math display">\[
 d = \frac{r^2}{2R}
 \]</span></p>
 <h6 id="迈克尔逊干涉仪">迈克尔逊干涉仪</h6>
 <p>可以同时体现等厚、等倾干涉的仪器，有</p>
 <p><span class="math display">\[
 \delta = 2d
-\]</span> 其中 <span class="math inline">\(d\)</span> 为反射镜 <span class="math inline">\(M_1\)</span> 与 <span class="math inline">\(M_2&#39;\)</span>（<span class="math inline">\(M_2\)</span> 关于分光板 <span class="math inline">\(G_1\)</span> 的像）在反射位置的距离</p>
+\]</span> 其中 <span class="math inline">\(d\)</span> 为反射镜 <span
+class="math inline">\(M_1\)</span> 与 <span
+class="math inline">\(M_2&#39;\)</span>（<span
+class="math inline">\(M_2\)</span> 关于分光板 <span
+class="math inline">\(G_1\)</span> 的像）在反射位置的距离</p>
 <h4 id="衍射的干涉化处理">衍射的干涉化处理</h4>
 <h5 id="半波带法">半波带法</h5>
 <p>可以利用“半波带法”将单缝夫琅禾费衍射以干涉形式计算</p>
-<p>设单缝衍射缝宽 <span class="math inline">\(a\)</span>，考虑衍射角（与法向夹角）为 <span class="math inline">\(\phi\)</span> 的出射光线</p>
-<p>将波面分为宽度为 <span class="math inline">\(\Delta S\)</span> 的窄条，使得窄条上下光线相位差为 <span class="math inline">\(\pi\)</span></p>
+<p>设单缝衍射缝宽 <span
+class="math inline">\(a\)</span>，考虑衍射角（与法向夹角）为 <span
+class="math inline">\(\phi\)</span> 的出射光线</p>
+<p>将波面分为宽度为 <span class="math inline">\(\Delta S\)</span>
+的窄条，使得窄条上下光线相位差为 <span
+class="math inline">\(\pi\)</span></p>
 <figure>
-<img src="/images/fresnel-h-zone.jpg" alt="半波带法" /><figcaption aria-hidden="true">半波带法</figcaption>
+<img src="/images/UndergradPhysics/fresnel-h-zone.jpg" alt="半波带法" />
+<figcaption aria-hidden="true">半波带法</figcaption>
 </figure>
-<p>半波带数量 <span class="math inline">\(N = \frac{a\sin\phi}{\frac{\lambda}{2}}\)</span>，则当 <span class="math inline">\(N\)</span> 为奇数时明纹，偶数时暗纹，此结论形式上与将</p>
+<p>半波带数量 <span class="math inline">\(N =
+\frac{a\sin\phi}{\frac{\lambda}{2}}\)</span>，则当 <span
+class="math inline">\(N\)</span>
+为奇数时明纹，偶数时暗纹，此结论形式上与将</p>
 <p><span class="math display">\[
 \delta=a\sin\phi
 \]</span> 代入干涉条件时一致</p>
 <h5 id="半波带法的局限"><em>半波带法的局限</em></h5>
-<p>由菲涅尔积分法，得到暗纹条件一致，真实明纹条件 <span class="math inline">\(\phi\)</span> 略小于半波带法的结果</p>
-<p>设 <span class="math inline">\(\alpha = \frac{\pi a\sin\phi}{\lambda}\)</span>，有次极大条件 <span class="math inline">\(\tan\alpha=\alpha\)</span></p>
-<p>设中央明纹亮度 <span class="math inline">\(I_m\)</span>，有 <span class="math inline">\(I = I_m\left(\frac{\sin\alpha}{\alpha}\right)\)</span></p>
+<p>由菲涅尔积分法，得到暗纹条件一致，真实明纹条件 <span
+class="math inline">\(\phi\)</span> 略小于半波带法的结果</p>
+<p>设 <span class="math inline">\(\alpha = \frac{\pi
+a\sin\phi}{\lambda}\)</span>，有次极大条件 <span
+class="math inline">\(\tan\alpha=\alpha\)</span></p>
+<p>设中央明纹亮度 <span class="math inline">\(I_m\)</span>，有 <span
+class="math inline">\(I =
+I_m\left(\frac{\sin\alpha}{\alpha}\right)\)</span></p>
 <h4 id="光栅">光栅</h4>
 <h5 id="干涉成分">干涉成分</h5>
 <p>假设光在每缝的衍射是均匀的，考虑干涉条纹</p>
-<p>设光栅缝（透光部分）宽 <span class="math inline">\(a\)</span>，不透光部分宽度 <span class="math inline">\(b\)</span>，光栅常量 <span class="math inline">\(d = a + b\)</span>，缝总数 <span class="math inline">\(N\)</span>，平行光以于光栅法线夹角 <span class="math inline">\(\theta\)</span> 斜入射，考虑衍射角为 <span class="math inline">\(\phi\)</span> 的衍射光</p>
+<p>设光栅缝（透光部分）宽 <span
+class="math inline">\(a\)</span>，不透光部分宽度 <span
+class="math inline">\(b\)</span>，光栅常量 <span class="math inline">\(d
+= a + b\)</span>，缝总数 <span
+class="math inline">\(N\)</span>，平行光以于光栅法线夹角 <span
+class="math inline">\(\theta\)</span> 斜入射，考虑衍射角为 <span
+class="math inline">\(\phi\)</span> 的衍射光</p>
 <p><strong>光栅明纹方程</strong> <span class="math display">\[
 d(\sin\phi+\sin\theta)=\pm k\lambda\ ,\ k = 0, 1, 2,\cdots
 \]</span> 其中 <span class="math inline">\(k\)</span> 称为“明纹级数”</p>
@@ -600,11 +755,15 @@ d(\sin\phi+\sin\theta)=\pm k\lambda\ ,\ k = 0, 1, 2,\cdots
 <p>利用振幅矢量法推导，存在次极大 <span class="math display">\[
 Nd(\sin\phi+\sin\theta)=\pm m\lambda
 \]</span></p>
-<p>考虑衍射时，设 <span class="math inline">\(\delta\)</span> 为相邻两光线相位差 <span class="math display">\[
-I = I_m\left(\frac{\sin\alpha}{\alpha}\right)^2\left(\frac{\sin\frac{N\delta}{2}}{\sin\frac{\delta}{2}}\right)^2
+<p>考虑衍射时，设 <span class="math inline">\(\delta\)</span>
+为相邻两光线相位差 <span class="math display">\[
+I =
+I_m\left(\frac{\sin\alpha}{\alpha}\right)^2\left(\frac{\sin\frac{N\delta}{2}}{\sin\frac{\delta}{2}}\right)^2
 \]</span></p>
 <figure>
-<img src="/images/grating.jpg" alt="光栅次极大分布合成示意图" /><figcaption aria-hidden="true">光栅次极大分布合成示意图</figcaption>
+<img src="/images/UndergradPhysics/grating.jpg"
+alt="光栅次极大分布合成示意图" />
+<figcaption aria-hidden="true">光栅次极大分布合成示意图</figcaption>
 </figure>
 <h5 id="衍射成分">衍射成分</h5>
 <p>造成了光栅条纹的“缺级”，当</p>
@@ -617,24 +776,33 @@ k = \frac{a+b}{a}k&#39;
 <p><span class="math display">\[
 \phi = 1.22\frac{\lambda}{D}
 \]</span></p>
-<p>其中 <span class="math inline">\(\phi\)</span> 为最小分辨角，<span class="math inline">\(D\)</span> 为光学系统孔径</p>
+<p>其中 <span class="math inline">\(\phi\)</span> 为最小分辨角，<span
+class="math inline">\(D\)</span> 为光学系统孔径</p>
 <h3 id="偏振光">偏振光</h3>
 <h4 id="马吕斯定律">马吕斯定律</h4>
 <p><span class="math display">\[
 I=I_0\cos^2\alpha
 \]</span></p>
-<p>其中 <span class="math inline">\(\alpha\)</span> 为两偏振片偏振化方向夹角</p>
+<p>其中 <span class="math inline">\(\alpha\)</span>
+为两偏振片偏振化方向夹角</p>
 <h4 id="布儒斯特定律">布儒斯特定律</h4>
-<p>以入射角 <span class="math inline">\(i\)</span> 由介质折射率 <span class="math inline">\(n_1\)</span> 入射晶体 <span class="math inline">\(n_2\)</span> 的自然光，当反射光垂直于折射光时入射角为 <span class="math inline">\(i_b\)</span>，此时反射光为线偏振光，且偏振化方向垂直于主平面</p>
+<p>以入射角 <span class="math inline">\(i\)</span> 由介质折射率 <span
+class="math inline">\(n_1\)</span> 入射晶体 <span
+class="math inline">\(n_2\)</span>
+的自然光，当反射光垂直于折射光时入射角为 <span
+class="math inline">\(i_b\)</span>，此时反射光为线偏振光，且偏振化方向垂直于主平面</p>
 <p><span class="math display">\[
 \tan i_b=\frac{n_2}{n_1}
 \]</span></p>
 <h4 id="晶体双折射">晶体双折射</h4>
 <ul>
-<li>o 光：波阵面各向同性，折射率 <span class="math inline">\(n_o\)</span>，偏振化方向垂直于自身主平面</li>
-<li>e 光：波阵面各向异性，折射率 <span class="math inline">\(n_e\)</span>，偏振化方向在自身主平面内</li>
+<li>o 光：波阵面各向同性，折射率 <span
+class="math inline">\(n_o\)</span>，偏振化方向垂直于自身主平面</li>
+<li>e 光：波阵面各向异性，折射率 <span
+class="math inline">\(n_e\)</span>，偏振化方向在自身主平面内</li>
 </ul>
-<p><span class="math inline">\(n_e &gt; n_o\)</span> <strong>正晶体</strong>，反之<strong>负晶体</strong></p>
+<p><span class="math inline">\(n_e &gt; n_o\)</span>
+<strong>正晶体</strong>，反之<strong>负晶体</strong></p>
 <h5 id="光轴">光轴</h5>
 <p>o 光与 e 光波阵面同向的方向</p>
 <p>垂直于光轴入射时，e 光偏振化方向平行光轴，o 光偏振化方向垂直光轴</p>
@@ -644,44 +812,59 @@ I=I_0\cos^2\alpha
 <li>沃拉斯顿棱镜：两个光轴方向垂直的双折射晶体</li>
 </ul>
 <h5 id="偏振干涉"><em>偏振干涉</em></h5>
-<p>利用偏振片将两个出射光成分调整至同一偏振化方向形成干涉的现象，<span class="math inline">\(d\)</span> 为波片厚度</p>
+<p>利用偏振片将两个出射光成分调整至同一偏振化方向形成干涉的现象，<span
+class="math inline">\(d\)</span> 为波片厚度</p>
 <p><span class="math display">\[
 \delta=\frac{2\pi}{\lambda}\left|n_o-n_e\right|d + \Delta\phi
-\]</span> 当利用偏振片调整后两偏振化方向相反时有 <span class="math inline">\(\Delta\phi=\pi\)</span></p>
+\]</span> 当利用偏振片调整后两偏振化方向相反时有 <span
+class="math inline">\(\Delta\phi=\pi\)</span></p>
 <h2 id="近代物理">近代物理</h2>
 <h3 id="相对论">相对论</h3>
 <h4 id="基本公式">基本公式</h4>
 <p><span class="math inline">\(\beta = \frac{v}{\mathrm c}\)</span></p>
 <p>能量 <span class="math inline">\(E = m\mathrm c^2\)</span></p>
-<p>相对论质量 <span class="math inline">\(m = \frac{m_0}{\sqrt{1-\beta^2}}\)</span></p>
-<p>动能 <span class="math inline">\(E_k = m\mathrm c^2 - m_0\mathrm c^2\)</span></p>
-<p>动量 <span class="math inline">\(\vec p = m\vec v=\frac{m_0}{\sqrt{1-\beta^2}} \vec v\)</span></p>
+<p>相对论质量 <span class="math inline">\(m =
+\frac{m_0}{\sqrt{1-\beta^2}}\)</span></p>
+<p>动能 <span class="math inline">\(E_k = m\mathrm c^2 - m_0\mathrm
+c^2\)</span></p>
+<p>动量 <span class="math inline">\(\vec p = m\vec
+v=\frac{m_0}{\sqrt{1-\beta^2}} \vec v\)</span></p>
 <h4 id="洛伦兹变换">洛伦兹变换</h4>
-<p>设参考系 <span class="math inline">\(S&#39;\)</span> 相对 <span class="math inline">\(S\)</span> 以速度 <span class="math inline">\(\vec u = (u, 0, 0)\)</span> 运动，则原参考系 <span class="math inline">\(S\)</span> 下坐标 <span class="math inline">\((x, y, z)\)</span>，与变换参考系 <span class="math inline">\(S&#39;\)</span> 下坐标 <span class="math inline">\((x&#39;,y&#39;,z&#39;)\)</span> 满足：</p>
+<p>设参考系 <span class="math inline">\(S&#39;\)</span> 相对 <span
+class="math inline">\(S\)</span> 以速度 <span class="math inline">\(\vec
+u = (u, 0, 0)\)</span> 运动，则原参考系 <span
+class="math inline">\(S\)</span> 下坐标 <span class="math inline">\((x,
+y, z)\)</span>，与变换参考系 <span class="math inline">\(S&#39;\)</span>
+下坐标 <span class="math inline">\((x&#39;,y&#39;,z&#39;)\)</span>
+满足：</p>
 <p><span class="math display">\[
 \begin{cases}
 &amp; x&#39; &amp; = &amp; \frac{x-ut}{\sqrt{1-\beta^2}} \newline
 &amp; y&#39; &amp; = &amp; y \newline
 &amp; z&#39; &amp; = &amp; z \newline
-&amp; t&#39; &amp; = &amp; \frac{t-\frac{u}{\mathrm c^2}x}{\sqrt{1-\beta^2}}
+&amp; t&#39; &amp; = &amp; \frac{t-\frac{u}{\mathrm
+c^2}x}{\sqrt{1-\beta^2}}
 \end{cases}
-\ \ \ \ \ \ \ \ 
+\ \ \ \ \ \ \ \
 \begin{cases}
 &amp; x &amp; = &amp; \frac{x&#39;+ut}{\sqrt{1-\beta^2}} \newline
 &amp; y &amp; = &amp; y&#39; \newline
 &amp; z &amp; = &amp; z&#39; \newline
-&amp; t &amp; = &amp; \frac{t&#39;+\frac{u}{\mathrm c^2}x&#39;}{\sqrt{1-\beta^2}}
+&amp; t &amp; = &amp; \frac{t&#39;+\frac{u}{\mathrm
+c^2}x&#39;}{\sqrt{1-\beta^2}}
 \end{cases}
 \]</span></p>
 <h4 id="速度变换">速度变换</h4>
-<p>设 <span class="math inline">\(\xi = 1-\frac{u}{\mathrm c^2}v_x\)</span>，<span class="math inline">\(\eta = 1+\frac{u}{\mathrm c^2}v_x&#39;\)</span></p>
+<p>设 <span class="math inline">\(\xi = 1-\frac{u}{\mathrm
+c^2}v_x\)</span>，<span class="math inline">\(\eta = 1+\frac{u}{\mathrm
+c^2}v_x&#39;\)</span></p>
 <p><span class="math display">\[
 \begin{cases}
 &amp; v_x&#39; &amp; = &amp; \frac{v_x-u}{\xi} \newline
 &amp; v_y&#39; &amp; = &amp; \frac{v_y\sqrt{1-\beta^2}}{\xi} \newline
 &amp; v_z&#39; &amp; = &amp; \frac{v_z\sqrt{1-\beta^2}}{\xi} \newline
 \end{cases}
-\ \ \ \ \ \ \ \ 
+\ \ \ \ \ \ \ \
 \begin{cases}
 &amp; v_x &amp; = &amp; \frac{v_x&#39;+u}{\eta} \newline
 &amp; v_y &amp; = &amp; \frac{v_y&#39;\sqrt{1-\beta^2}}{\eta} \newline
@@ -694,55 +877,95 @@ I=I_0\cos^2\alpha
 <p><span class="math display">\[
 M_B(T)=\int_0^{+\infty} M_B(T,\lambda) \mathrm d \lambda = \sigma T^4
 \]</span></p>
-<p>其中 <span class="math inline">\(M_B\)</span> 为黑体辐出度，<span class="math inline">\(\sigma = 5.670373\times10^{-8}\ \mathrm{Wm^{-2}K^{-4}}\)</span> 为斯特藩-玻尔兹曼常量</p>
+<p>其中 <span class="math inline">\(M_B\)</span> 为黑体辐出度，<span
+class="math inline">\(\sigma = 5.670373\times10^{-8}\
+\mathrm{Wm^{-2}K^{-4}}\)</span> 为斯特藩-玻尔兹曼常量</p>
 <h5 id="维恩位移定律">维恩位移定律</h5>
 <p><span class="math display">\[
 T\lambda_m = \mathrm b
 \]</span></p>
-<p>其中 <span class="math inline">\(\lambda_m\)</span> 表示峰值波长，<span class="math inline">\(\mathrm b = 2898 \ \mathrm{\mu m\cdot K}\)</span> 为一常数</p>
+<p>其中 <span class="math inline">\(\lambda_m\)</span>
+表示峰值波长，<span class="math inline">\(\mathrm b = 2898 \ \mathrm{\mu
+m\cdot K}\)</span> 为一常数</p>
 <h5 id="普朗克公式">普朗克公式</h5>
 <p><span class="math display">\[
-M_B(T,\lambda)=\frac{2\pi\mathrm {hc^2}\lambda^{-5}}{\mathrm e^{\frac{\mathrm {hc}}{\lambda\mathrm k T}} - 1}
+M_B(T,\lambda)=\frac{2\pi\mathrm {hc^2}\lambda^{-5}}{\mathrm
+e^{\frac{\mathrm {hc}}{\lambda\mathrm k T}} - 1}
 \]</span></p>
 <h4 id="光电效应">光电效应</h4>
 <h5 id="爱因斯坦光电效应方程">爱因斯坦光电效应方程</h5>
 <p><span class="math display">\[
 \mathrm h\nu = A+\frac{1}{2}mv_m^2
 \]</span></p>
-<p>其中 <span class="math inline">\(A\)</span> 为逸出功，<span class="math inline">\(\frac{1}{2}mv_m^2\)</span> 为电子的最大初动能</p>
-<p>可得截止频率 <span class="math inline">\(\nu_0=\frac{A}{\mathrm h}\)</span>，遏止电压 <span class="math inline">\(U_a=\mathrm{\frac{h}{e}}\nu - \mathrm{\frac{A}{e}}\)</span>，其中 <span class="math inline">\(\mathrm e\)</span> 为电子电量</p>
+<p>其中 <span class="math inline">\(A\)</span> 为逸出功，<span
+class="math inline">\(\frac{1}{2}mv_m^2\)</span> 为电子的最大初动能</p>
+<p>可得截止频率 <span class="math inline">\(\nu_0=\frac{A}{\mathrm
+h}\)</span>，遏止电压 <span
+class="math inline">\(U_a=\mathrm{\frac{h}{e}}\nu -
+\mathrm{\frac{A}{e}}\)</span>，其中 <span class="math inline">\(\mathrm
+e\)</span> 为电子电量</p>
 <h4 id="康普顿散射">康普顿散射</h4>
 <p><span class="math display">\[
-\Delta \lambda = \lambda -\lambda_0=\mathrm{\frac{h}{m_0c}}(1-\cos\theta)
+\Delta \lambda = \lambda
+-\lambda_0=\mathrm{\frac{h}{m_0c}}(1-\cos\theta)
 \]</span></p>
-<p>其中 <span class="math inline">\(\mathrm {m_0}\)</span> 为电子静质量，<span class="math inline">\(\lambda\)</span> 为散射波波长，<span class="math inline">\(\lambda_0\)</span> 为入射光波长</p>
+<p>其中 <span class="math inline">\(\mathrm {m_0}\)</span>
+为电子静质量，<span class="math inline">\(\lambda\)</span>
+为散射波波长，<span class="math inline">\(\lambda_0\)</span>
+为入射光波长</p>
 <h4 id="初步原子模型">初步原子模型</h4>
 <h5 id="里德伯-里兹并合原则">里德伯-里兹并合原则</h5>
 <p><span class="math display">\[
-\sigma=\frac{1}{\lambda}=\mathrm{R_H}\left(\frac{1}{k^2}-\frac{1}{n^2}\right)\ ,\ n&gt;k\in\mathbb{Z}_+
+\sigma=\frac{1}{\lambda}=\mathrm{R_H}\left(\frac{1}{k^2}-\frac{1}{n^2}\right)\
+,\ n&gt;k\in\mathbb{Z}_+
 \]</span></p>
-<p>其中 <span class="math inline">\(\sigma\)</span> 称为波数，里德伯常量 <span class="math inline">\(\mathrm{R_H}=1.0973731\times10^{-7}\ \mathrm{m^{-1}}\)</span></p>
+<p>其中 <span class="math inline">\(\sigma\)</span> 称为波数，里德伯常量
+<span class="math inline">\(\mathrm{R_H}=1.0973731\times10^{-7}\
+\mathrm{m^{-1}}\)</span></p>
 <h5 id="玻尔氢原子模型">玻尔氢原子模型</h5>
 <ul>
-<li>定态假设 <span class="math inline">\(E = E_n= -\frac{1}{n^2}\left(\frac{m\mathrm e^4}{8\varepsilon_0^2\mathrm h^2}\right)\ ,\ n\in \mathbb{Z}_+\)</span></li>
-<li>辐射频率公式 <span class="math inline">\(\nu_{kn}=\frac{|E_k-E_n|}{\mathrm h}\)</span></li>
-<li>角动量量子化条件 <span class="math inline">\(L = mvr = n\frac{\mathrm h}{2\pi}= n\hbar\ ,\ n\in\mathbb{Z}_+\)</span></li>
-<li>定态轨道半径 <span class="math inline">\(r_n=n^2\left(\frac{\varepsilon_0\mathrm h^2}{\pi m\mathrm e^2}\right) = n^2r_1\ ,\ n\in\mathbb{Z}_+\)</span></li>
+<li>定态假设 <span class="math inline">\(E = E_n=
+-\frac{1}{n^2}\left(\frac{m\mathrm e^4}{8\varepsilon_0^2\mathrm
+h^2}\right)\ ,\ n\in \mathbb{Z}_+\)</span></li>
+<li>辐射频率公式 <span
+class="math inline">\(\nu_{kn}=\frac{|E_k-E_n|}{\mathrm h}\)</span></li>
+<li>角动量量子化条件 <span class="math inline">\(L = mvr =
+n\frac{\mathrm h}{2\pi}= n\hbar\ ,\ n\in\mathbb{Z}_+\)</span></li>
+<li>定态轨道半径 <span
+class="math inline">\(r_n=n^2\left(\frac{\varepsilon_0\mathrm h^2}{\pi
+m\mathrm e^2}\right) = n^2r_1\ ,\ n\in\mathbb{Z}_+\)</span></li>
 </ul>
 <h5 id="索末菲椭圆轨道理论">索末菲椭圆轨道理论</h5>
 <ul>
 <li>长半轴 <span class="math inline">\(a=n^2r_1\)</span></li>
-<li>短半轴 <span class="math inline">\(b= nn_\phi r_1 = \frac{n_\phi}{n}a\ ,\ n_\phi &lt; n\in\mathbb{Z}_+\)</span></li>
+<li>短半轴 <span class="math inline">\(b= nn_\phi r_1 =
+\frac{n_\phi}{n}a\ ,\ n_\phi &lt; n\in\mathbb{Z}_+\)</span></li>
 </ul>
 <h4 id="量子力学原子模型">量子力学原子模型</h4>
 <ul>
-<li>电子能量量子化 <span class="math inline">\(E_n=-\frac{1}{n^2}\left(\frac{m\mathrm e^4}{8\varepsilon_0^2\mathrm h^2}\right)\ ,\ n\in \mathbb{Z}_+\)</span></li>
-<li>电子角动量量子化 <span class="math inline">\(L=\sqrt{l(l+1)}\hbar\)</span>，磁矩 <span class="math inline">\(\mu = -\mathrm{\frac{e}{2me}}L\)</span></li>
-<li>角动量空间取向量子化 <span class="math inline">\(L_z=m_l\hbar\)</span></li>
-<li>自旋角动量量子化 <span class="math inline">\(S=\sqrt{s(s+1)}\hbar = \sqrt{\frac{1}{2}(\frac{1}{2}+1)}\hbar\)</span>，角动量（取向）在 <span class="math inline">\(z\)</span> 方向分量 <span class="math inline">\(S_z=m_z\hbar\)</span></li>
+<li>电子能量量子化 <span
+class="math inline">\(E_n=-\frac{1}{n^2}\left(\frac{m\mathrm
+e^4}{8\varepsilon_0^2\mathrm h^2}\right)\ ,\ n\in
+\mathbb{Z}_+\)</span></li>
+<li>电子角动量量子化 <span
+class="math inline">\(L=\sqrt{l(l+1)}\hbar\)</span>，磁矩 <span
+class="math inline">\(\mu = -\mathrm{\frac{e}{2me}}L\)</span></li>
+<li>角动量空间取向量子化 <span
+class="math inline">\(L_z=m_l\hbar\)</span></li>
+<li>自旋角动量量子化 <span class="math inline">\(S=\sqrt{s(s+1)}\hbar =
+\sqrt{\frac{1}{2}(\frac{1}{2}+1)}\hbar\)</span>，角动量（取向）在 <span
+class="math inline">\(z\)</span> 方向分量 <span
+class="math inline">\(S_z=m_z\hbar\)</span></li>
 </ul>
 <h5 id="量子数">量子数</h5>
 <table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 32%" />
+<col style="width: 27%" />
+<col style="width: 22%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>量子数</th>
@@ -784,8 +1007,10 @@ M_B(T,\lambda)=\frac{2\pi\mathrm {hc^2}\lambda^{-5}}{\mathrm e^{\frac{\mathrm {h
 </tbody>
 </table>
 <h4 id="德布罗意物质波">德布罗意物质波</h4>
-<p>动量 <span class="math inline">\(p=mv=\frac{\mathrm h}{\lambda}\)</span></p>
-<p>能量 <span class="math inline">\(E=m\mathrm c^2 = \mathrm h\nu\)</span></p>
+<p>动量 <span class="math inline">\(p=mv=\frac{\mathrm
+h}{\lambda}\)</span></p>
+<p>能量 <span class="math inline">\(E=m\mathrm c^2 = \mathrm
+h\nu\)</span></p>
 <h4 id="不确定性关系">不确定性关系</h4>
 <p><span class="math display">\[
 \begin{align}
@@ -796,13 +1021,21 @@ M_B(T,\lambda)=\frac{2\pi\mathrm {hc^2}\lambda^{-5}}{\mathrm e^{\frac{\mathrm {h
 <p>后者表示能级宽度与能级稳定性的关系</p>
 <h4 id="薛定谔方程">薛定谔方程</h4>
 <p><span class="math display">\[
-\left[V-\frac{\hbar}{2m}\Delta\right]\Psi=\mathrm i\hbar\frac{\partial\Psi}{\partial t}
+\left[V-\frac{\hbar}{2m}\Delta\right]\Psi=\mathrm
+i\hbar\frac{\partial\Psi}{\partial t}
 \]</span></p>
-<p>其中波函数 <span class="math inline">\(\Psi(\vec r,t)\)</span> 满足单值、有限、连续且有平方归一化条件</p>
-<p>拉普拉斯算子 <span class="math inline">\(\Delta=\nabla\cdot\nabla=\frac{\partial^2}{\partial x^2}+\frac{\partial^2}{\partial y^2}+\frac{\partial^2}{\partial z^2}\)</span></p>
+<p>其中波函数 <span class="math inline">\(\Psi(\vec r,t)\)</span>
+满足单值、有限、连续且有平方归一化条件</p>
+<p>拉普拉斯算子 <span
+class="math inline">\(\Delta=\nabla\cdot\nabla=\frac{\partial^2}{\partial
+x^2}+\frac{\partial^2}{\partial y^2}+\frac{\partial^2}{\partial
+z^2}\)</span></p>
 <p><span class="math inline">\(V(\vec r,t)\)</span> 为空间势函数</p>
 <h5 id="定态薛定谔方程">定态薛定谔方程</h5>
-<p>在粒子总能量 <span class="math inline">\(E=V+\frac{p^2}{2m}\)</span> 不随 <span class="math inline">\(t\)</span> 变化的条件下，有分离变量形式 <span class="math inline">\(\Psi(\vec r,t)=\Psi(\vec r)\mathrm e^{-\frac{2\pi\mathrm i}{\mathrm h} Et}\)</span>，则</p>
+<p>在粒子总能量 <span class="math inline">\(E=V+\frac{p^2}{2m}\)</span>
+不随 <span class="math inline">\(t\)</span> 变化的条件下，有分离变量形式
+<span class="math inline">\(\Psi(\vec r,t)=\Psi(\vec r)\mathrm
+e^{-\frac{2\pi\mathrm i}{\mathrm h} Et}\)</span>，则</p>
 <p><span class="math display">\[
 \Delta\Psi+\frac{2m}{\hbar^2}(E-V)\Psi=0
 \]</span></p>
@@ -810,59 +1043,84 @@ M_B(T,\lambda)=\frac{2\pi\mathrm {hc^2}\lambda^{-5}}{\mathrm e^{\frac{\mathrm {h
 <p><span class="math display">\[
 \begin{cases}
 &amp; V(x) &amp; = &amp; 0      &amp;, &amp; x\in(0, a) \newline
-&amp; V(x) &amp; = &amp;\infty  &amp;, &amp; x\in(-\infty,0]\cup[a,+\infty)
+&amp; V(x) &amp; = &amp;\infty  &amp;, &amp;
+x\in(-\infty,0]\cup[a,+\infty)
 \end{cases}
 \]</span></p>
 <p>一维定态薛定谔方程的解：</p>
 <p><span class="math display">\[
 \Psi_n(x)=\pm\sqrt{\frac{2}{a}}\sin\frac{n\pi}{a}x\ ,\ n=1,2,3,\cdots
-\]</span> 能量 <span class="math inline">\(E_n=n^2\frac{\mathrm h^2}{8ma^2}\)</span></p>
-<p>驻波条件 <span class="math inline">\(a=n\frac{\lambda_n}{2}\)</span></p>
+\]</span> 能量 <span class="math inline">\(E_n=n^2\frac{\mathrm
+h^2}{8ma^2}\)</span></p>
+<p>驻波条件 <span
+class="math inline">\(a=n\frac{\lambda_n}{2}\)</span></p>
 <h3 id="激光与固体物理">激光与固体物理</h3>
 <h4 id="格波">格波</h4>
-<p>声子能量 <span class="math inline">\(E=\hbar\omega\)</span>，其中 <span class="math inline">\(\omega\)</span> 为格波角频率</p>
+<p>声子能量 <span class="math inline">\(E=\hbar\omega\)</span>，其中
+<span class="math inline">\(\omega\)</span> 为格波角频率</p>
 <h4 id="固体能带">固体能带</h4>
-<p>原子能级分裂数 <span class="math inline">\(N\)</span> 为晶体原子数，形成满带、禁带、空带（导带）、价带（导带）</p>
+<p>原子能级分裂数 <span class="math inline">\(N\)</span>
+为晶体原子数，形成满带、禁带、空带（导带）、价带（导带）</p>
 <h5 id="导体">导体</h5>
 <p>存在价带/空带满带重叠/价带空带重叠</p>
 <h5 id="绝缘体">绝缘体</h5>
-<p>满带与最近空带间禁带宽度 <span class="math inline">\(\Delta E_g=3\sim6\ \mathrm{eV}\)</span></p>
+<p>满带与最近空带间禁带宽度 <span class="math inline">\(\Delta
+E_g=3\sim6\ \mathrm{eV}\)</span></p>
 <h5 id="半导体">半导体</h5>
-<p>满带与最近空带间禁带宽度 <span class="math inline">\(\Delta E_g=0.1\sim1.5\ \mathrm{eV}\)</span></p>
+<p>满带与最近空带间禁带宽度 <span class="math inline">\(\Delta
+E_g=0.1\sim1.5\ \mathrm{eV}\)</span></p>
 <ul>
 <li>n 型半导体：掺入五价元素（砷 As、磷 P、锑 Sb）</li>
 <li>p 型半导体：参入三价元素（硼 B、镓 Ga、铟 In、铝 Al）</li>
 </ul>
 <h4 id="激光原理">激光原理</h4>
 <h5 id="玻尔兹曼分布-1">玻尔兹曼分布</h5>
-<p>设系统热平衡状态温度 <span class="math inline">\(T\)</span> 下处于能级 <span class="math inline">\(i\)</span> 的原子数为 <span class="math inline">\(N_i\)</span> <span class="math display">\[
+<p>设系统热平衡状态温度 <span class="math inline">\(T\)</span>
+下处于能级 <span class="math inline">\(i\)</span> 的原子数为 <span
+class="math inline">\(N_i\)</span> <span class="math display">\[
 N_i \propto g_i e^{-\frac{E_i}{\mathrm kT}}
-\]</span> 其中 <span class="math inline">\(g_i\)</span> 为该能级的简并数</p>
+\]</span> 其中 <span class="math inline">\(g_i\)</span>
+为该能级的简并数</p>
 <p>粒子数反转：高能级原子数大于低能级原子数的现象</p>
 <h5 id="自发辐射系数">自发辐射系数</h5>
 <p><span class="math display">\[
-\left(\frac{\mathrm dN_{21}}{\mathrm dt}\right)_{\text{ spontaneous}} = A_{21}N_2
+\left(\frac{\mathrm dN_{21}}{\mathrm dt}\right)_{\text{ spontaneous}} =
+A_{21}N_2
 \]</span></p>
-<p>其中 <span class="math inline">\(N_{21}\)</span> 为能级 <span class="math inline">\(2\)</span> 转移至能级 <span class="math inline">\(1\)</span> 的粒子数，<span class="math inline">\(A_{21}\)</span> 为自发辐射系数</p>
+<p>其中 <span class="math inline">\(N_{21}\)</span> 为能级 <span
+class="math inline">\(2\)</span> 转移至能级 <span
+class="math inline">\(1\)</span> 的粒子数，<span
+class="math inline">\(A_{21}\)</span> 为自发辐射系数</p>
 <h5 id="受激辐射系数">受激辐射系数</h5>
 <p><span class="math display">\[
-\left(\frac{\mathrm dN_{21}}{\mathrm dt}\right)_{\text{ motivated}} = kN_2IB
+\left(\frac{\mathrm dN_{21}}{\mathrm dt}\right)_{\text{ motivated}} =
+kN_2IB
 \]</span></p>
-<p>其中 <span class="math inline">\(k\)</span> 为比例系数，<span class="math inline">\(I\)</span> 为激发光强，<span class="math inline">\(B\)</span> 为受激辐射系数</p>
+<p>其中 <span class="math inline">\(k\)</span> 为比例系数，<span
+class="math inline">\(I\)</span> 为激发光强，<span
+class="math inline">\(B\)</span> 为受激辐射系数</p>
 <h5 id="受激吸收系数">受激吸收系数</h5>
 <p><span class="math display">\[
-\left(\frac{\mathrm dN_{12}}{\mathrm dt}\right)_{\text{ motivated}} = kN_1IB&#39;
+\left(\frac{\mathrm dN_{12}}{\mathrm dt}\right)_{\text{ motivated}} =
+kN_1IB&#39;
 \]</span></p>
-<p>其中 <span class="math inline">\(k\)</span> 为比例系数，<span class="math inline">\(I\)</span> 为激发光强，<span class="math inline">\(B&#39;\)</span> 为受激吸收系数，简并度相同时 <span class="math inline">\(B&#39;=B\)</span></p>
+<p>其中 <span class="math inline">\(k\)</span> 为比例系数，<span
+class="math inline">\(I\)</span> 为激发光强，<span
+class="math inline">\(B&#39;\)</span> 为受激吸收系数，简并度相同时 <span
+class="math inline">\(B&#39;=B\)</span></p>
 <h5 id="光增益">光增益</h5>
-<p>光在经过增益介质时光强 <span class="math inline">\(I\)</span> 随经过距离 <span class="math inline">\(z\)</span> 的变化</p>
+<p>光在经过增益介质时光强 <span class="math inline">\(I\)</span>
+随经过距离 <span class="math inline">\(z\)</span> 的变化</p>
 <p><span class="math display">\[
 \mathrm dI(z)=GI(z)\mathrm dz
 \]</span> 或 <span class="math display">\[
 I(z)=I_0\mathrm e^{Gz}
 \]</span> 其中 <span class="math inline">\(G\)</span> 为光增益系数</p>
 <h4 id="激光器">激光器</h4>
-<p>设增益介质长度 <span class="math inline">\(L\)</span>，两反射镜反射率分别为 <span class="math inline">\(r_1\)</span>，<span class="math inline">\(r_2\)</span></p>
+<p>设增益介质长度 <span
+class="math inline">\(L\)</span>，两反射镜反射率分别为 <span
+class="math inline">\(r_1\)</span>，<span
+class="math inline">\(r_2\)</span></p>
 <h5 id="阈值条件">阈值条件</h5>
 <p><span class="math display">\[
 r_1r_2\mathrm e^{2GL}\geq 1
@@ -889,8 +1147,8 @@ r_1r_2\mathrm e^{2GL}\geq 1
       <i class="fa fa-chevron-left"></i> 形式语言与编译提纲
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/" rel="next" title="偏微分方程复习整理">
-      偏微分方程复习整理 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/10/13/en/Hexo-Pitfalls/" rel="next" title="Hexo Pitfalls">
+      Hexo Pitfalls <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>

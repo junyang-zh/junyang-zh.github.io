@@ -209,7 +209,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Today we virtually participated the regional of 2018 Nanjing, and I have done my first non-trivial string problem, introducing a new algorithm called Extended-KMP. Thus I bet it notable on by blog.</p>
+          <p>Today we virtually participated the regional of 2018 Nanjing, and I
+have done my first non-trivial string problem, introducing a new
+algorithm called Extended-KMP. Thus I bet it notable on by blog.</p>
 <h2 id="problem-statement">Problem Statement</h2>
 <blockquote>
 <p>Given two strings s and t, count the number of tuples <span class="math inline">\((i, j, k)\)</span> such that</p>
@@ -217,16 +219,29 @@
 <li><span class="math inline">\(1\le i\le j\le |s|\)</span></li>
 <li><span class="math inline">\(1\le k\le |t|\)</span></li>
 <li><span class="math inline">\(j − i + 1 &gt; k\)</span></li>
-<li>The <span class="math inline">\(i\)</span>-th character of <span class="math inline">\(s\)</span> to the <span class="math inline">\(j\)</span>-th character of <span class="math inline">\(s\)</span>, concatenated with the first character of <span class="math inline">\(t\)</span> to the <span class="math inline">\(k\)</span>-th character of <span class="math inline">\(t\)</span>, is a palindrome.</li>
+<li>The <span class="math inline">\(i\)</span>-th character of <span class="math inline">\(s\)</span> to the <span class="math inline">\(j\)</span>-th character of <span class="math inline">\(s\)</span>, concatenated with the first character
+of <span class="math inline">\(t\)</span> to the <span class="math inline">\(k\)</span>-th character of <span class="math inline">\(t\)</span>, is a palindrome.</li>
 </ol>
 <p><span class="math inline">\(2\le |s|\le 10^6\)</span>, <span class="math inline">\(1\le |t|&lt;|s|\)</span></p>
 </blockquote>
 <h2 id="solution">Solution</h2>
-<p>The problem is to find and count the number of cases that there is two adjacent substrings <span class="math inline">\(s^{(1)}\)</span>, <span class="math inline">\(s^{(2)}\)</span> in <span class="math inline">\(s\)</span> and another <span class="math inline">\(t^{(1)}\)</span> in <span class="math inline">\(t\)</span>, provided that <span class="math inline">\(s^{(2)}\)</span> is a palindrome, and <span class="math inline">\(s^{(1)}\)</span> is reversely matched with <span class="math inline">\(t^{(1)}\)</span>.</p>
-<p>So let's reverse the string <span class="math inline">\(s\)</span>. Then use the famous Manacher algorithm on <span class="math inline">\(s\)</span> (when there is a longest palindrome <span class="math inline">\(s_x\cdots s_y\)</span>, let <span class="math inline">\(p_{x+y}=\lfloor(y-x+1)/2\rfloor\)</span>) and count every occurrence centered at <span class="math inline">\(i=\lceil(x+y)/2\rceil\)</span>.</p>
-<p>Let <span class="math inline">\(s^j\)</span> be the suffix of <span class="math inline">\(s\)</span> starting from <span class="math inline">\(j\)</span>. We should firstly find the longest common prefix of suffix <span class="math inline">\(s^j\)</span> and <span class="math inline">\(t\)</span>, and sum up the length of these prefixes around <span class="math inline">\(i\)</span>. Precisely, all of the prefixes starting from <span class="math inline">\(i+1\)</span> to <span class="math inline">\(i+p_{x+y}\)</span> should be counted. Using prefix sum, we could get that value in <span class="math inline">\(O(1)\)</span> at every symmetrical center.</p>
+<p>The problem is to find and count the number of cases that there is
+two adjacent substrings <span class="math inline">\(s^{(1)}\)</span>,
+<span class="math inline">\(s^{(2)}\)</span> in <span class="math inline">\(s\)</span> and another <span class="math inline">\(t^{(1)}\)</span> in <span class="math inline">\(t\)</span>, provided that <span class="math inline">\(s^{(2)}\)</span> is a palindrome, and <span class="math inline">\(s^{(1)}\)</span> is reversely matched with <span class="math inline">\(t^{(1)}\)</span>.</p>
+<p>So let's reverse the string <span class="math inline">\(s\)</span>.
+Then use the famous Manacher algorithm on <span class="math inline">\(s\)</span> (when there is a longest palindrome
+<span class="math inline">\(s_x\cdots s_y\)</span>, let <span class="math inline">\(p_{x+y}=\lfloor(y-x+1)/2\rfloor\)</span>) and
+count every occurrence centered at <span class="math inline">\(i=\lceil(x+y)/2\rceil\)</span>.</p>
+<p>Let <span class="math inline">\(s^j\)</span> be the suffix of <span class="math inline">\(s\)</span> starting from <span class="math inline">\(j\)</span>. We should firstly find the longest
+common prefix of suffix <span class="math inline">\(s^j\)</span> and
+<span class="math inline">\(t\)</span>, and sum up the length of these
+prefixes around <span class="math inline">\(i\)</span>. Precisely, all
+of the prefixes starting from <span class="math inline">\(i+1\)</span>
+to <span class="math inline">\(i+p_{x+y}\)</span> should be counted.
+Using prefix sum, we could get that value in <span class="math inline">\(O(1)\)</span> at every symmetrical center.</p>
 <p>It must be noted that <span class="math inline">\(j-i+1&gt;k\)</span>, then <span class="math inline">\(s_2\)</span> must not be empty.</p>
-<p>Dealing with bounds and indexes of strings is tricky, so be careful.</p>
+<p>Dealing with bounds and indexes of strings is tricky, so be
+careful.</p>
 <h2 id="code">Code</h2>
           <!--noindex-->
             <div class="post-button">

@@ -225,81 +225,169 @@ P(n,r)=P_{n}^{r}=\frac{n!}{(n-r)!}
 \binom{n}{r} =C_n^r=C(n,r)=\frac{n!}{r!(n-r)!}
 \]</span></p>
 <h3 id="可重排列">可重排列</h3>
-<p><span class="math inline">\(n\)</span> 种不同元素取 <span class="math inline">\(r\)</span> 个可重元素排列</p>
+<p><span class="math inline">\(n\)</span> 种不同元素取 <span
+class="math inline">\(r\)</span> 个可重元素排列</p>
 <p><span class="math display">\[
 \overline{P}(n,r) = n^r
 \]</span></p>
 <h3 id="多重排列">多重排列</h3>
-<p>每种元素 <span class="math inline">\(x_i\)</span> 选择 <span class="math inline">\(r_i\)</span> 个按次序排列，<span class="math inline">\(n=\sum_i r_i\)</span> <span class="math display">\[
-P(n;r_1,\cdots,r_k)=\binom{n}{r_1,r_2,\cdots,r_k}=\frac{n!}{r_1!r_2!\cdots r_k!}
+<p>每种元素 <span class="math inline">\(x_i\)</span> 选择 <span
+class="math inline">\(r_i\)</span> 个按次序排列，<span
+class="math inline">\(n=\sum_i r_i\)</span> <span
+class="math display">\[
+P(n;r_1,\cdots,r_k)=\binom{n}{r_1,r_2,\cdots,r_k}=\frac{n!}{r_1!r_2!\cdots
+r_k!}
 \]</span></p>
 <h3 id="多项式幂次展开系数">多项式幂次展开系数</h3>
 <p>有多项式 <span class="math display">\[
 (x_1+x_2+x_3+\cdots+x_m)^n
-\]</span> 其项 <span class="math inline">\(x_1^{n_1}x_2^{n_2}x_3^{n_3}\cdots x_m^{n_m}\)</span> 的系数为</p>
+\]</span> 其项 <span
+class="math inline">\(x_1^{n_1}x_2^{n_2}x_3^{n_3}\cdots
+x_m^{n_m}\)</span> 的系数为</p>
 <p><span class="math display">\[
 \binom{n}{n_1,n_2,\cdots,n_m}=\frac{n!}{n_1!n_2!\cdots n_m!}
-\]</span> 项数 <span class="math inline">\(C(n+m-1,n)\)</span>，系数和 <span class="math inline">\(m^n\)</span></p>
+\]</span> 项数 <span class="math inline">\(C(n+m-1,n)\)</span>，系数和
+<span class="math inline">\(m^n\)</span></p>
 <h3 id="圆周排列">圆周排列</h3>
 <p>经旋转重复认为是相同的排列 <span class="math display">\[
 Q(n,r)=P(n,r)/r
-\]</span> 项链排列：经旋转对称重复认为是相同的排列，排列数 <span class="math inline">\(Q(n,r)/2\)</span></p>
+\]</span> 项链排列：经旋转对称重复认为是相同的排列，排列数 <span
+class="math inline">\(Q(n,r)/2\)</span></p>
 <h3 id="可重组合">可重组合</h3>
-<p><span class="math inline">\(n\)</span> 种不同元素取 <span class="math inline">\(r\)</span> 个可重元素组合</p>
+<p><span class="math inline">\(n\)</span> 种不同元素取 <span
+class="math inline">\(r\)</span> 个可重元素组合</p>
 <p><span class="math display">\[
 \overline{C}(n,r)=C(n+r-1,r)
 \]</span></p>
-<p>线性方程 <span class="math inline">\(x_1+x_2+\cdots+x_n=b\)</span> 的自然数解个数 <span class="math inline">\(C(n+b-1,b)\)</span></p>
+<p>线性方程 <span class="math inline">\(x_1+x_2+\cdots+x_n=b\)</span>
+的自然数解个数 <span class="math inline">\(C(n+b-1,b)\)</span></p>
 <h3 id="不相邻组合">不相邻组合</h3>
-<p><span class="math inline">\(n\)</span> 个不同元素 <span class="math inline">\(x_1,x_2,\cdots,x_n\)</span> 取 <span class="math inline">\(r\)</span> 个不相邻元素组合（即不存在 <span class="math inline">\(x_j,x_{j+1}\)</span> 同时选取） <span class="math display">\[
+<p><span class="math inline">\(n\)</span> 个不同元素 <span
+class="math inline">\(x_1,x_2,\cdots,x_n\)</span> 取 <span
+class="math inline">\(r\)</span> 个不相邻元素组合（即不存在 <span
+class="math inline">\(x_j,x_{j+1}\)</span> 同时选取） <span
+class="math display">\[
 C(n-r+1,r)
 \]</span></p>
 <h3 id="格路定理">格路定理</h3>
-<p>设 <span class="math inline">\(c&gt;a\)</span>，<span class="math inline">\(d&gt;b\)</span>，则由 <span class="math inline">\((a,b)\)</span> 到 <span class="math inline">\((c,d)\)</span> 的简单格路数 <span class="math display">\[
+<p>设 <span class="math inline">\(c&gt;a\)</span>，<span
+class="math inline">\(d&gt;b\)</span>，则由 <span
+class="math inline">\((a,b)\)</span> 到 <span
+class="math inline">\((c,d)\)</span> 的简单格路数 <span
+class="math display">\[
 |(a,b)-(c,d)|=\binom{(c-a)+(d-b)}{c-a}
-\]</span> 从 <span class="math inline">\((0,1)\)</span> 至 <span class="math inline">\((m,n)\)</span> 不接触对角线 <span class="math inline">\(y=x\)</span> 格路：采用一一对应原理</p>
+\]</span> 从 <span class="math inline">\((0,1)\)</span> 至 <span
+class="math inline">\((m,n)\)</span> 不接触对角线 <span
+class="math inline">\(y=x\)</span> 格路：采用一一对应原理</p>
 <p><span class="math display">\[
 \binom{m+n-1}{m}-\binom{m+n-1}{m-1}
 =
 \left(1-\frac{m}{n}\right)\binom{m+n-1}{m}
 \]</span></p>
 <h3 id="无根标号树与序列一一对应">无根标号树与序列一一对应</h3>
-<p>树到序列：逐个摘去编号最小的叶子，该叶子相邻节点形成的序列（长度 <span class="math inline">\(n-2\)</span>）</p>
-<p>序列到树：序列一 <span class="math inline">\(b_1,b_2,\cdots,b_{n-2}\)</span>，对应序列二 <span class="math inline">\(1,2,\cdots,n\)</span>，从序列二中找到第一个不出现在序列一中的数 <span class="math inline">\(a_1\)</span>，生成边 <span class="math inline">\((a_1,b_1)\)</span>。分别从序列一和序列二中去掉 <span class="math inline">\(a_1\)</span> 和 <span class="math inline">\(b_1\)</span>；在余下的序列中重复上述操作，直到序列一为空，序列 2 余下两点建边</p>
-<p>凯利定理：<span class="math inline">\(n\)</span> 个有标号的顶点的树的数目是 <span class="math inline">\(n^{n-2}\)</span></p>
+<p>树到序列：逐个摘去编号最小的叶子，该叶子相邻节点形成的序列（长度
+<span class="math inline">\(n-2\)</span>）</p>
+<p>序列到树：序列一 <span
+class="math inline">\(b_1,b_2,\cdots,b_{n-2}\)</span>，对应序列二 <span
+class="math inline">\(1,2,\cdots,n\)</span>，从序列二中找到第一个不出现在序列一中的数
+<span class="math inline">\(a_1\)</span>，生成边 <span
+class="math inline">\((a_1,b_1)\)</span>。分别从序列一和序列二中去掉
+<span class="math inline">\(a_1\)</span> 和 <span
+class="math inline">\(b_1\)</span>；在余下的序列中重复上述操作，直到序列一为空，序列
+2 余下两点建边</p>
+<p>凯利定理：<span class="math inline">\(n\)</span>
+个有标号的顶点的树的数目是 <span
+class="math inline">\(n^{n-2}\)</span></p>
 <h3 id="排列的生成算法">排列的生成算法</h3>
 <h4 id="序数法">序数法</h4>
-<p>排列的序数 <span class="math inline">\(m\)</span>：排列在枚举过程的出现排名 <span class="math display">\[
+<p>排列的序数 <span
+class="math inline">\(m\)</span>：排列在枚举过程的出现排名 <span
+class="math display">\[
 m=a_n(n-1)!+a_{n-1}(n-2)!+\cdots+a_3\cdot 2!+a_2\cdot 1!
-\]</span> 序列 <span class="math inline">\((a_na_{n-1}\cdots a_2)\uparrow\)</span> 为序数 <span class="math inline">\(m\)</span> 对应的（递增进制）中介数，注意没有第一位</p>
+\]</span> 序列 <span class="math inline">\((a_na_{n-1}\cdots
+a_2)\uparrow\)</span> 为序数 <span class="math inline">\(m\)</span>
+对应的（递增进制）中介数，注意没有第一位</p>
 <p>序数求中介数：使用短除法</p>
 <p><strong>递增进位制法</strong></p>
-<p>递增进位数：<span class="math inline">\(0\le a_k &lt; k\)</span>，表示第 <span class="math inline">\(k\)</span> 位为 <span class="math inline">\(k\)</span> 进制</p>
-<p>全排列的中介数：<span class="math inline">\(a_k\)</span> 表示数字 <span class="math inline">\(k\)</span> 的右边比 <span class="math inline">\(k\)</span> 小的数字个数</p>
+<p>递增进位数：<span class="math inline">\(0\le a_k &lt;
+k\)</span>，表示第 <span class="math inline">\(k\)</span> 位为 <span
+class="math inline">\(k\)</span> 进制</p>
+<p>全排列的中介数：<span class="math inline">\(a_k\)</span> 表示数字
+<span class="math inline">\(k\)</span> 的右边比 <span
+class="math inline">\(k\)</span> 小的数字个数</p>
 <p>中介数的全排列：填空法；由大到小从中介数意义确定右侧空格个数</p>
-<p>由排列求下一个排列：检查 <span class="math inline">\(k\)</span> 从 <span class="math inline">\(1\sim n\)</span> 使其最大，若排列中存在子序列 <span class="math inline">\(k,k-1,k-2,\cdots,2,1\)</span>，则将 <span class="math inline">\(k+1\)</span> 置于 <span class="math inline">\(k\)</span> 位置，并在剩下的 <span class="math inline">\(k\)</span> 个空中，依次从左至右填入 <span class="math inline">\(1,2,\cdots,k\)</span>。若 <span class="math inline">\(k=n\)</span>，无下一个排列</p>
+<p>由排列求下一个排列：检查 <span class="math inline">\(k\)</span> 从
+<span class="math inline">\(1\sim n\)</span>
+使其最大，若排列中存在子序列 <span
+class="math inline">\(k,k-1,k-2,\cdots,2,1\)</span>，则将 <span
+class="math inline">\(k+1\)</span> 置于 <span
+class="math inline">\(k\)</span> 位置，并在剩下的 <span
+class="math inline">\(k\)</span> 个空中，依次从左至右填入 <span
+class="math inline">\(1,2,\cdots,k\)</span>。若 <span
+class="math inline">\(k=n\)</span>，无下一个排列</p>
 <p><strong>递减进位制法</strong></p>
-<p>中介数各位是递增进位制轴对称 <span class="math inline">\((a_2a_3\cdots a_n)\downarrow \iff (a_na_{n-1}\cdots a_2)\uparrow\)</span>，意义由下标决定，权 <span class="math inline">\(m=\sum\limits_{k=2}^na_k\dfrac{n!}{k!}\)</span></p>
+<p>中介数各位是递增进位制轴对称 <span
+class="math inline">\((a_2a_3\cdots a_n)\downarrow \iff
+(a_na_{n-1}\cdots a_2)\uparrow\)</span>，意义由下标决定，权 <span
+class="math inline">\(m=\sum\limits_{k=2}^na_k\dfrac{n!}{k!}\)</span></p>
 <p>递减进位数：<span class="math inline">\(0\le a_k &lt; k\)</span></p>
-<p>全排列的中介数：<span class="math inline">\(a_k\)</span> 表示数字 <span class="math inline">\(k\)</span> 的右边比 <span class="math inline">\(k\)</span> 小的数字个数</p>
+<p>全排列的中介数：<span class="math inline">\(a_k\)</span> 表示数字
+<span class="math inline">\(k\)</span> 的右边比 <span
+class="math inline">\(k\)</span> 小的数字个数</p>
 <p>中介数的全排列：由大到小从中介数意义确定右侧空格个数</p>
-<p>由排列求下一个排列：若 <span class="math inline">\(n\)</span> 不在最左侧则显然，否则将最长的下降序列 <span class="math inline">\(n,n-1,n-2,\cdots,i\)</span> 删去，并将它们由小到大排在右端，将 <span class="math inline">\(i-1\)</span> 与 <span class="math inline">\(i-2\)</span> 对换，此时的排列就是下一个排列。若 <span class="math inline">\(i&lt;3\)</span> 则无下一个序列</p>
+<p>由排列求下一个排列：若 <span class="math inline">\(n\)</span>
+不在最左侧则显然，否则将最长的下降序列 <span
+class="math inline">\(n,n-1,n-2,\cdots,i\)</span>
+删去，并将它们由小到大排在右端，将 <span
+class="math inline">\(i-1\)</span> 与 <span
+class="math inline">\(i-2\)</span> 对换，此时的排列就是下一个排列。若
+<span class="math inline">\(i&lt;3\)</span> 则无下一个序列</p>
 <h4 id="字典序法">字典序法</h4>
 <p>下一个排列：</p>
 <ol type="1">
-<li>串 <span class="math inline">\(P\)</span> 从右到左找出比右边数字小的第一个数 <span class="math inline">\(P_t\)</span>（最后一个上升位），以及该位以后的后缀 <span class="math inline">\(s_{t+1}\)</span></li>
-<li><span class="math inline">\(s_{t+1}\)</span> 中找出比 <span class="math inline">\(P_t\)</span> 大的最后的数 <span class="math inline">\(P_p\)</span></li>
-<li>将 <span class="math inline">\(P_t\)</span>，<span class="math inline">\(P_p\)</span> 对换后反转后缀</li>
+<li>串 <span class="math inline">\(P\)</span>
+从右到左找出比右边数字小的第一个数 <span
+class="math inline">\(P_t\)</span>（最后一个上升位），以及该位以后的后缀
+<span class="math inline">\(s_{t+1}\)</span></li>
+<li><span class="math inline">\(s_{t+1}\)</span> 中找出比 <span
+class="math inline">\(P_t\)</span> 大的最后的数 <span
+class="math inline">\(P_p\)</span></li>
+<li>将 <span class="math inline">\(P_t\)</span>，<span
+class="math inline">\(P_p\)</span> 对换后反转后缀</li>
 </ol>
-<p>中介数：<span class="math inline">\((k_1k_2\cdots k_{n-1})\)</span>，<span class="math inline">\(k_i\)</span> 表示数字 <span class="math inline">\(P_i\)</span> 的右边比 <span class="math inline">\(P_i\)</span> 小的数字个数</p>
-<p>序数：<span class="math inline">\(m=k_1\cdot (n-1)!+k_2\cdot (n-2)!+\cdots+k_{n-1}\cdot1!\)</span></p>
+<p>中介数：<span class="math inline">\((k_1k_2\cdots
+k_{n-1})\)</span>，<span class="math inline">\(k_i\)</span> 表示数字
+<span class="math inline">\(P_i\)</span> 的右边比 <span
+class="math inline">\(P_i\)</span> 小的数字个数</p>
+<p>序数：<span class="math inline">\(m=k_1\cdot (n-1)!+k_2\cdot
+(n-2)!+\cdots+k_{n-1}\cdot1!\)</span></p>
 <h4 id="换位法">换位法</h4>
-<p>排列 <span class="math inline">\(P=P_1P_2\cdots P_n\)</span> 中数 <span class="math inline">\(k\)</span> 上的箭头方向（移动方向），由排列 <span class="math inline">\(P\)</span> 中 <span class="math inline">\(1\sim k-1\)</span> 所构成的子序列的奇偶性决定，当为偶时，箭头向左；当为奇时，箭头向右。数 <span class="math inline">\(1,2\)</span>上的箭头规定向左。如 <span class="math inline">\(\overset\leftarrow8\vec3\vec9\vec6\vec4\vec7\vec5\overset\leftarrow2\overset\leftarrow1\)</span></p>
-<p>加点法判断箭头方向：是否加点取决于该数右侧比它小的数数量是否为奇数，子序列 <span class="math inline">\(1\sim k-1\)</span> 点数为偶时箭头向左，否则向右</p>
-<p>中介数：<span class="math inline">\((b_2b_3\cdots b_n)\downarrow\)</span>，<span class="math inline">\(b_i\)</span> 表示 <span class="math inline">\(i\)</span> 箭尾方向上比 <span class="math inline">\(i\)</span> 小的数的个数</p>
-<p>中介数到序数：<span class="math inline">\(m=\sum\limits_{k=2}^na_k\dfrac{n!}{k!}\)</span></p>
-<p>中介数到排列：仅需要确定 <span class="math inline">\(P_k\)</span> 箭头方向，设排列 <span class="math inline">\(P\)</span> 中 <span class="math inline">\(1\sim k-1\)</span> 所构成的子排列序数为 <span class="math inline">\(a_{k-1}(P)\)</span>（与逆序数同奇偶性），短除时判断即可</p>
-<p>下一个排列：设 <span class="math inline">\(P_j=n\)</span>，当 <span class="math inline">\(P_j\)</span> 不在顶时 <span class="math inline">\(P_j\)</span> 与箭头方向元素交换，否则对长度 <span class="math inline">\(n-1\)</span> 的子排列使用上述做法，下一个排列中所有比 <span class="math inline">\(P_j\)</span> 大的数改变箭头方向</p>
+<p>排列 <span class="math inline">\(P=P_1P_2\cdots P_n\)</span> 中数
+<span class="math inline">\(k\)</span> 上的箭头方向（移动方向），由排列
+<span class="math inline">\(P\)</span> 中 <span
+class="math inline">\(1\sim k-1\)</span>
+所构成的子序列的奇偶性决定，当为偶时，箭头向左；当为奇时，箭头向右。数
+<span class="math inline">\(1,2\)</span>上的箭头规定向左。如 <span
+class="math inline">\(\overset\leftarrow8\vec3\vec9\vec6\vec4\vec7\vec5\overset\leftarrow2\overset\leftarrow1\)</span></p>
+<p>加点法判断箭头方向：是否加点取决于该数右侧比它小的数数量是否为奇数，子序列
+<span class="math inline">\(1\sim k-1\)</span>
+点数为偶时箭头向左，否则向右</p>
+<p>中介数：<span class="math inline">\((b_2b_3\cdots
+b_n)\downarrow\)</span>，<span class="math inline">\(b_i\)</span> 表示
+<span class="math inline">\(i\)</span> 箭尾方向上比 <span
+class="math inline">\(i\)</span> 小的数的个数</p>
+<p>中介数到序数：<span
+class="math inline">\(m=\sum\limits_{k=2}^na_k\dfrac{n!}{k!}\)</span></p>
+<p>中介数到排列：仅需要确定 <span class="math inline">\(P_k\)</span>
+箭头方向，设排列 <span class="math inline">\(P\)</span> 中 <span
+class="math inline">\(1\sim k-1\)</span> 所构成的子排列序数为 <span
+class="math inline">\(a_{k-1}(P)\)</span>（与逆序数同奇偶性），短除时判断即可</p>
+<p>下一个排列：设 <span class="math inline">\(P_j=n\)</span>，当 <span
+class="math inline">\(P_j\)</span> 不在顶时 <span
+class="math inline">\(P_j\)</span> 与箭头方向元素交换，否则对长度 <span
+class="math inline">\(n-1\)</span>
+的子排列使用上述做法，下一个排列中所有比 <span
+class="math inline">\(P_j\)</span> 大的数改变箭头方向</p>
 <h3 id="组合的生成算法">组合的生成算法</h3>
 <p>给组合元素排序并以字典序生成</p>
 <p>序号：按字典序思想</p>
@@ -309,7 +397,8 @@ m=a_n(n-1)!+a_{n-1}(n-2)!+\cdots+a_3\cdot 2!+a_2\cdot 1!
 \frac{1}{1-x}=1+x+x^2+x^3+\cdots+x^n+\cdots
 \]</span></p>
 <p><span class="math display">\[
-\mathrm e^{x}=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\cdots+\frac{x^n}{n!}+\cdots
+\mathrm
+e^{x}=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\cdots+\frac{x^n}{n!}+\cdots
 \]</span></p>
 <p><span class="math display">\[
 \sin x=x-\frac{x^3}{3!}+\frac{x^5}{5!}-\frac{x^7}{7!}+\cdots
@@ -325,7 +414,8 @@ m=a_n(n-1)!+a_{n-1}(n-2)!+\cdots+a_3\cdot 2!+a_2\cdot 1!
 D=\sum a_{ij}(-1)^{i+j}M_{ij}
 \]</span></p>
 <h3 id="线性常系数齐次递推关系">线性常系数齐次递推关系</h3>
-<p><span class="math inline">\(k\)</span> 阶线性常系数齐次递推关系 <span class="math display">\[
+<p><span class="math inline">\(k\)</span> 阶线性常系数齐次递推关系 <span
+class="math display">\[
 a_n+C_1a_{n-1}+C_2a_{n-2}+\cdots+C_ka_{n-k}=0
 \]</span> 特征多项式 <span class="math display">\[
 C(x)=x^k+C_1x^{k-1}+\cdots+C_{k-1}x+C_k
@@ -336,32 +426,78 @@ x^kC\left(\frac{1}{x}\right)G(x)=P(x)=\sum_{j=0}^{k-1}C_jx^j\sum_{i=0}^{k-1-j}a_
 \Rightarrow
 G(x)=\frac{P(x)}{1+C_1x+\cdots+C_{k-1}x^{k-1}+C_kx^k}\nonumber
 \end{align}
-\]</span> 由于 <span class="math inline">\(P(x)\)</span> 次数低于 <span class="math inline">\(k\)</span>，则 <span class="math inline">\(G(x)\)</span> 有分子为常数、分母为特征根表达式的分项表示</p>
-<p>设特征多项式有 <span class="math inline">\(k\)</span> 个根 <span class="math inline">\(q_1,q_2,\cdots,q_k\)</span>，则通解中有 <span class="math inline">\(k\)</span> 个分项（<span class="math inline">\(A_i\)</span> 为待定系数）：</p>
+\]</span> 由于 <span class="math inline">\(P(x)\)</span> 次数低于 <span
+class="math inline">\(k\)</span>，则 <span
+class="math inline">\(G(x)\)</span>
+有分子为常数、分母为特征根表达式的分项表示</p>
+<p>设特征多项式有 <span class="math inline">\(k\)</span> 个根 <span
+class="math inline">\(q_1,q_2,\cdots,q_k\)</span>，则通解中有 <span
+class="math inline">\(k\)</span> 个分项（<span
+class="math inline">\(A_i\)</span> 为待定系数）：</p>
 <ul>
-<li>若 <span class="math inline">\(q_i\)</span> 为单根，则项 <span class="math inline">\(A_iq_i^n\)</span> 在通解中</li>
-<li>若 <span class="math inline">\(q_i\)</span> 为 <span class="math inline">\(m\)</span> 重根，则项 <span class="math inline">\(\left(A_{i0}+A_{i1}n+A_{i2}n^2+\cdots+A_{i(m-1)}n^m\right)q^n\)</span> 在通解中</li>
-<li>若 <span class="math inline">\(q_{i1},q_{i2}\)</span> 是一对共轭复根 <span class="math inline">\(\rho \mathrm e^{\pm \theta\mathrm i}\)</span>，则项 <span class="math inline">\(A_{i1}\rho^n\cos(n\theta)+A_{i2}\rho^n\sin(n\theta)\)</span> 在通解中</li>
+<li>若 <span class="math inline">\(q_i\)</span> 为单根，则项 <span
+class="math inline">\(A_iq_i^n\)</span> 在通解中</li>
+<li>若 <span class="math inline">\(q_i\)</span> 为 <span
+class="math inline">\(m\)</span> 重根，则项 <span
+class="math inline">\(\left(A_{i0}+A_{i1}n+A_{i2}n^2+\cdots+A_{i(m-1)}n^m\right)q^n\)</span>
+在通解中</li>
+<li>若 <span class="math inline">\(q_{i1},q_{i2}\)</span> 是一对共轭复根
+<span class="math inline">\(\rho \mathrm e^{\pm \theta\mathrm
+i}\)</span>，则项 <span
+class="math inline">\(A_{i1}\rho^n\cos(n\theta)+A_{i2}\rho^n\sin(n\theta)\)</span>
+在通解中</li>
 </ul>
 <h3 id="线性常系数非齐次递推关系">线性常系数非齐次递推关系</h3>
-<p><span class="math inline">\(k\)</span> 阶线性常系数非齐次递推关系 <span class="math display">\[
+<p><span class="math inline">\(k\)</span> 阶线性常系数非齐次递推关系
+<span class="math display">\[
 a_n+C_1a_{n-1}+C_2a_{n-2}+\cdots+C_ka_{n-k}=f(n)
 \]</span> 先求齐次通解，非齐次特解求解如下：</p>
-<p>当 <span class="math inline">\(f(n)=r^ng(n)\)</span>，其中 <span class="math inline">\(g(n)\)</span> 是 <span class="math inline">\(n\)</span> 的 <span class="math inline">\(p\)</span> 次多项式，<span class="math inline">\(r\)</span> 是 <span class="math inline">\(C(x)=0\)</span> 的 <span class="math inline">\(m\ge 0\)</span> 重根，特解形式 <span class="math inline">\(r^n\left(k_0n^m+k_1n^{m+1}+\cdots+k_pn^{m+p}\right)\)</span></p>
+<p>当 <span class="math inline">\(f(n)=r^ng(n)\)</span>，其中 <span
+class="math inline">\(g(n)\)</span> 是 <span
+class="math inline">\(n\)</span> 的 <span
+class="math inline">\(p\)</span> 次多项式，<span
+class="math inline">\(r\)</span> 是 <span
+class="math inline">\(C(x)=0\)</span> 的 <span
+class="math inline">\(m\ge 0\)</span> 重根，特解形式 <span
+class="math inline">\(r^n\left(k_0n^m+k_1n^{m+1}+\cdots+k_pn^{m+p}\right)\)</span></p>
 <h3 id="ferrers-图像">Ferrers 图像</h3>
-<p>自上而下的 <span class="math inline">\(n\)</span> 层格子，第 <span class="math inline">\(i\)</span> 层格子数为 <span class="math inline">\(m_i\)</span>，则 <span class="math inline">\(m_i\ge m_{i+1}\)</span> 的图像称为 Ferrers 图像</p>
-<p>等价于一个拆分成 <span class="math inline">\(n\)</span> 个整数的整数拆分</p>
+<p>自上而下的 <span class="math inline">\(n\)</span> 层格子，第 <span
+class="math inline">\(i\)</span> 层格子数为 <span
+class="math inline">\(m_i\)</span>，则 <span
+class="math inline">\(m_i\ge m_{i+1}\)</span> 的图像称为 Ferrers
+图像</p>
+<p>等价于一个拆分成 <span class="math inline">\(n\)</span>
+个整数的整数拆分</p>
 <p>结论：</p>
 <ul>
-<li>整数 <span class="math inline">\(n\)</span> 拆分成 <span class="math inline">\(k\)</span> 个数的和的拆分数，和数 <span class="math inline">\(n\)</span> 拆分成最大数为 <span class="math inline">\(k\)</span> 的数的和的拆分数相等</li>
-<li>整数 <span class="math inline">\(n\)</span> 拆分成最多不超过 <span class="math inline">\(m\)</span> 个数的和的拆分数，和 <span class="math inline">\(n\)</span> 拆分成最大不超过 <span class="math inline">\(m\)</span> 的拆分数相等</li>
-<li>整数 <span class="math inline">\(n\)</span> 拆分成互不相同的若干奇数的和的的拆分数，和 <span class="math inline">\(n\)</span> 拆分成自共轭的 Ferrers 图像的拆分数相等</li>
+<li>整数 <span class="math inline">\(n\)</span> 拆分成 <span
+class="math inline">\(k\)</span> 个数的和的拆分数，和数 <span
+class="math inline">\(n\)</span> 拆分成最大数为 <span
+class="math inline">\(k\)</span> 的数的和的拆分数相等</li>
+<li>整数 <span class="math inline">\(n\)</span> 拆分成最多不超过 <span
+class="math inline">\(m\)</span> 个数的和的拆分数，和 <span
+class="math inline">\(n\)</span> 拆分成最大不超过 <span
+class="math inline">\(m\)</span> 的拆分数相等</li>
+<li>整数 <span class="math inline">\(n\)</span>
+拆分成互不相同的若干奇数的和的的拆分数，和 <span
+class="math inline">\(n\)</span> 拆分成自共轭的 Ferrers
+图像的拆分数相等</li>
 </ul>
 <h3 id="指数型母函数">指数型母函数</h3>
 <p><span class="math display">\[
 G_e(x)=a_0+\frac{a_1}{1!}x+\frac{a_2}{2!}x^2+\frac{a_3}{3!}x^3+\cdots+\frac{a_n}{n!}x^n+\cdots
 \]</span></p>
-<p>若元素 <span class="math inline">\(x_1\)</span>有 <span class="math inline">\(n_1\)</span> 个，元素 <span class="math inline">\(x_2\)</span> 有 <span class="math inline">\(n_2\)</span> 个，元素 <span class="math inline">\(x_k\)</span> 有 <span class="math inline">\(n_k\)</span> 个；组成的 <span class="math inline">\(n=\sum n_k\)</span> 个元素中取 <span class="math inline">\(r\)</span> 个排列，设其不同的排列数为 <span class="math inline">\(p_r\)</span>。则序列 <span class="math inline">\(p_0,p_1,p_2,\cdots,p_n\)</span> 的指数型母函数为 <span class="math display">\[
+<p>若元素 <span class="math inline">\(x_1\)</span>有 <span
+class="math inline">\(n_1\)</span> 个，元素 <span
+class="math inline">\(x_2\)</span> 有 <span
+class="math inline">\(n_2\)</span> 个，元素 <span
+class="math inline">\(x_k\)</span> 有 <span
+class="math inline">\(n_k\)</span> 个；组成的 <span
+class="math inline">\(n=\sum n_k\)</span> 个元素中取 <span
+class="math inline">\(r\)</span> 个排列，设其不同的排列数为 <span
+class="math inline">\(p_r\)</span>。则序列 <span
+class="math inline">\(p_0,p_1,p_2,\cdots,p_n\)</span> 的指数型母函数为
+<span class="math display">\[
 G_e(x)=
 (1+\frac{x}{1!}+\frac{x^2}{2!}+\cdots+\frac{x^n_1}{n_1!})
 (1+\frac{x}{1!}+\frac{x^2}{2!}+\cdots+\frac{x^n_2}{n_2!})
@@ -369,12 +505,17 @@ G_e(x)=
 (1+\frac{x}{1!}+\frac{x^2}{2!}+\cdots+\frac{x^n_k}{n_k!})
 \]</span></p>
 <h3 id="错排">错排</h3>
-<p>递推关系 <span class="math inline">\(D_n=(n-1)(D_{n-1}+D_{n-2})\)</span>，<span class="math inline">\(D_1=0\)</span>，<span class="math inline">\(D_2=1\)</span></p>
-<p>通项 <span class="math inline">\(D_n=\left[1-1+\frac{1}{2!}-\frac{1}{3!}+\cdots+(-1)^n\frac{1}{n!}\right]n!\)</span></p>
+<p>递推关系 <span
+class="math inline">\(D_n=(n-1)(D_{n-1}+D_{n-2})\)</span>，<span
+class="math inline">\(D_1=0\)</span>，<span
+class="math inline">\(D_2=1\)</span></p>
+<p>通项 <span
+class="math inline">\(D_n=\left[1-1+\frac{1}{2!}-\frac{1}{3!}+\cdots+(-1)^n\frac{1}{n!}\right]n!\)</span></p>
 <h3 id="stirling-数">Stirling 数</h3>
 <p>第一类 <span class="math display">\[
 x(x-1)(x-2)\cdots(x-n+1)=s(n,0)+s(n,1)x+s(n,2)x^2+\cdots+s(n,n)x^n
-\]</span> 递推 <span class="math inline">\(s(n+1,k)=s(n,k-1)-ns(n,k)\)</span></p>
+\]</span> 递推 <span
+class="math inline">\(s(n+1,k)=s(n,k-1)-ns(n,k)\)</span></p>
 <p>第二类 <span class="math display">\[
 S(n,m)=mS(n-1,m)+S(n-1,m-1)
 \]</span></p>
@@ -404,7 +545,8 @@ S(n,m)=mS(n-1,m)+S(n-1,m-1)
 <tr class="even">
 <td>有</td>
 <td>无</td>
-<td><span class="math inline">\(\sum_{i=1}^{\min(n,m)} S(n,i)\)</span></td>
+<td><span class="math inline">\(\sum_{i=1}^{\min(n,m)}
+S(n,i)\)</span></td>
 <td><span class="math inline">\(S(n,m)\)</span></td>
 </tr>
 <tr class="odd">
@@ -416,37 +558,61 @@ S(n,m)=mS(n-1,m)+S(n-1,m-1)
 <tr class="even">
 <td>无</td>
 <td>无</td>
-<td><span class="math inline">\(G(x)=\frac{1}{(1-x)(1-x^2)\cdots(1-x^m)}\)</span></td>
-<td><span class="math inline">\(G(x)=\frac{x^m}{(1-x)(1-x^2)\cdots(1-x^m)}\)</span></td>
+<td><span
+class="math inline">\(G(x)=\frac{1}{(1-x)(1-x^2)\cdots(1-x^m)}\)</span></td>
+<td><span
+class="math inline">\(G(x)=\frac{x^m}{(1-x)(1-x^2)\cdots(1-x^m)}\)</span></td>
 </tr>
 </tbody>
 </table>
 <h3 id="catalan-数">Catalan 数</h3>
-<p>凸 <span class="math inline">\(n\)</span> 边形由不相交对角线拆分三角形的方案数</p>
-<p><span class="math inline">\(n\)</span> 个元素确定进栈序列的出栈序列方案数</p>
-<p><span class="math inline">\(n\)</span> 个矩阵连乘的结合方案数 <span class="math display">\[
+<p>凸 <span class="math inline">\(n\)</span>
+边形由不相交对角线拆分三角形的方案数</p>
+<p><span class="math inline">\(n\)</span>
+个元素确定进栈序列的出栈序列方案数</p>
+<p><span class="math inline">\(n\)</span> 个矩阵连乘的结合方案数 <span
+class="math display">\[
 h_{n+1}=h_2h_n+h_3h_{n-1}+\cdots+h_nh_2 = \frac{1}{n}\binom{2n-2}{n-1}
 \]</span></p>
 <h2 id="第三章">第三章</h2>
 <h3 id="容斥原理">容斥原理</h3>
 <p><span class="math display">\[
 \left|\bigcup_{A\in C}A\right|
-=\sum_{s=1}^n (-1)^{s-1}\sum_{|S|=s\wedge S\subset C}\left|\bigcap_{A\in S} A\right|
+=\sum_{s=1}^n (-1)^{s-1}\sum_{|S|=s\wedge S\subset C}\left|\bigcap_{A\in
+S} A\right|
 \]</span></p>
 <h3 id="棋盘多项式">棋盘多项式</h3>
-<p><span class="math inline">\(r_k(C)\)</span> 表示 <span class="math inline">\(k\)</span> 个棋子布置到棋盘 <span class="math inline">\(C\)</span> 上的方案数，棋盘 <span class="math inline">\(C\)</span> 由形状表示，<span class="math inline">\(r_0(C)=1\)</span>，<span class="math inline">\(r_0(\emptyset)=1\)</span>；讨论一个格子有无放子，则 <span class="math inline">\(r_k(C)=r_{k-1}(C_i)+r_k(C_e)\)</span>，其中 <span class="math inline">\(C_i\)</span> 表示去掉该行该列，<span class="math inline">\(C_e\)</span> 表示去掉该格；不冲突的部分乘法原则</p>
+<p><span class="math inline">\(r_k(C)\)</span> 表示 <span
+class="math inline">\(k\)</span> 个棋子布置到棋盘 <span
+class="math inline">\(C\)</span> 上的方案数，棋盘 <span
+class="math inline">\(C\)</span> 由形状表示，<span
+class="math inline">\(r_0(C)=1\)</span>，<span
+class="math inline">\(r_0(\emptyset)=1\)</span>；讨论一个格子有无放子，则
+<span class="math inline">\(r_k(C)=r_{k-1}(C_i)+r_k(C_e)\)</span>，其中
+<span class="math inline">\(C_i\)</span> 表示去掉该行该列，<span
+class="math inline">\(C_e\)</span>
+表示去掉该格；不冲突的部分乘法原则</p>
 <p>棋盘多项式 <span class="math display">\[
 R(C)=\sum_k r_k(C)x^k
 \]</span> 有禁区的排列数 <span class="math display">\[
 r_0n!-r_1(n-1)!+r_2(n-2)!-\cdots+(-1)^nr_n
-\]</span> 其中 <span class="math inline">\(r_k\)</span> 表示 <span class="math inline">\(k\)</span> 个棋子布置在禁区的方案数</p>
+\]</span> 其中 <span class="math inline">\(r_k\)</span> 表示 <span
+class="math inline">\(k\)</span> 个棋子布置在禁区的方案数</p>
 <h3 id="广义容斥原理">广义容斥原理</h3>
 <p><span class="math display">\[
 \beta(m)=\sum_{k=m}^n(-1)^{k-m}\binom{k}{m}\alpha(k)
 \]</span></p>
-<p><span class="math inline">\(A_i\)</span> 为有第 <span class="math inline">\(i\)</span> 种性质的元素集合；<span class="math inline">\(\alpha(m)=\sum_{|S|=m}\left|\bigcap_{A\in S} A\right|\)</span> 为至少有 <span class="math inline">\(m\)</span> 种性质的元素集合；<span class="math inline">\(\beta(m)\)</span> 为恰有 <span class="math inline">\(m\)</span> 种性质的元素的集合</p>
+<p><span class="math inline">\(A_i\)</span> 为有第 <span
+class="math inline">\(i\)</span> 种性质的元素集合；<span
+class="math inline">\(\alpha(m)=\sum_{|S|=m}\left|\bigcap_{A\in S}
+A\right|\)</span> 为至少有 <span class="math inline">\(m\)</span>
+种性质的元素集合；<span class="math inline">\(\beta(m)\)</span> 为恰有
+<span class="math inline">\(m\)</span> 种性质的元素的集合</p>
 <h3 id="欧拉函数">欧拉函数</h3>
-<p><span class="math inline">\(\varphi(n)\)</span> 小于 <span class="math inline">\(n\)</span> 且与 <span class="math inline">\(n\)</span> 互素的数的个数，设 <span class="math inline">\(n=p_1^{a_1}p_2^{a_2}\cdots p_k^{a_k}\)</span></p>
+<p><span class="math inline">\(\varphi(n)\)</span> 小于 <span
+class="math inline">\(n\)</span> 且与 <span
+class="math inline">\(n\)</span> 互素的数的个数，设 <span
+class="math inline">\(n=p_1^{a_1}p_2^{a_2}\cdots p_k^{a_k}\)</span></p>
 <p><span class="math display">\[
 \varphi(n)=n\left(1-\frac{1}{p_1}\right)\left(1-\frac{1}{p_2}\right)\cdots\left(1-\frac{1}{p_k}\right)
 \]</span></p>
@@ -458,33 +624,63 @@ r_0n!-r_1(n-1)!+r_2(n-2)!-\cdots+(-1)^nr_n
 (-1)^k &amp;,\ d=\prod_{i=1}^k p_i\\
 0 &amp;,\ \exists p^2 | d
 \end{cases}
-\]</span> 莫比乌斯反演定理：<span class="math inline">\(F(n)\)</span> 和 <span class="math inline">\(f(n)\)</span> 是定义在非负整数集合上的两个函数，并且满足 <span class="math display">\[
+\]</span> 莫比乌斯反演定理：<span class="math inline">\(F(n)\)</span> 和
+<span class="math inline">\(f(n)\)</span>
+是定义在非负整数集合上的两个函数，并且满足 <span class="math display">\[
 F(n)=\sum_{d|n}f(d)
 \]</span> 那么存在一个结论 <span class="math display">\[
 f(n)=\sum_{d|n}\mu(d)F\left(\frac{n}{d}\right)
 \]</span> 性质</p>
 <p><span class="math display">\[
 \varphi(n)=\sum_{d|n}\mu(d)\frac{n}{d}
-\]</span> 应用于圆排列问题，设集合 <span class="math inline">\(|A|=m\)</span> 中取 <span class="math inline">\(d\)</span> 个元素，作周期是 <span class="math inline">\(d\)</span> 的圆排列个数为 <span class="math inline">\(M(d)\)</span>，则为线排列计数</p>
+\]</span> 应用于圆排列问题，设集合 <span
+class="math inline">\(|A|=m\)</span> 中取 <span
+class="math inline">\(d\)</span> 个元素，作周期是 <span
+class="math inline">\(d\)</span> 的圆排列个数为 <span
+class="math inline">\(M(d)\)</span>，则为线排列计数</p>
 <p><span class="math display">\[
 \sum_{d|n}dM(d)=m^n
 \]</span> 得 <span class="math display">\[
 nM(n)=\sum_{d|n}\mu(d)m^{\frac{n}{d}}
-\]</span> 则长度为 <span class="math inline">\(n\)</span> 的圆排列个数 <span class="math display">\[
+\]</span> 则长度为 <span class="math inline">\(n\)</span> 的圆排列个数
+<span class="math display">\[
 T(n)=\sum_{d|n}M(d)=\sum_{d|n}\frac{1}{d}\sum_{d_1|d}\mu(d)m^\frac{d}{d_1}
 \]</span></p>
 <h3 id="鸽巢原理">鸽巢原理</h3>
-<p>应用：<span class="math inline">\(m,n\)</span> 是正整数，则长度为 <span class="math inline">\(mn+1\)</span> 的无重序列 <span class="math inline">\(S\)</span> 有一长度为 <span class="math inline">\(m+1\)</span> 的严格增子序列或长度为 <span class="math inline">\(n+1\)</span> 的严格减子序列</p>
+<p>应用：<span class="math inline">\(m,n\)</span> 是正整数，则长度为
+<span class="math inline">\(mn+1\)</span> 的无重序列 <span
+class="math inline">\(S\)</span> 有一长度为 <span
+class="math inline">\(m+1\)</span> 的严格增子序列或长度为 <span
+class="math inline">\(n+1\)</span> 的严格减子序列</p>
 <p>推广鸽巢原理</p>
-<p><span class="math inline">\(m_1,m_2,\cdots,m_n\)</span> 都是正整数，并有 <span class="math inline">\(m_1 + m_2 +\cdots +m_n-n + 1\)</span> 个鸽子住进 <span class="math inline">\(n\)</span> 个鸽巢，则至少对某个 <span class="math inline">\(i\)</span> 有第 <span class="math inline">\(i\)</span> 个巢中至少有 <span class="math inline">\(m_i\)</span> 个鸽子，<span class="math inline">\(i = 1 , 2 ,\cdots, n\)</span></p>
-<p>推论：若 <span class="math inline">\(\overline m\ge r\)</span>，则至少一个 <span class="math inline">\(\ge r\)</span></p>
+<p><span class="math inline">\(m_1,m_2,\cdots,m_n\)</span>
+都是正整数，并有 <span class="math inline">\(m_1 + m_2 +\cdots +m_n-n +
+1\)</span> 个鸽子住进 <span class="math inline">\(n\)</span>
+个鸽巢，则至少对某个 <span class="math inline">\(i\)</span> 有第 <span
+class="math inline">\(i\)</span> 个巢中至少有 <span
+class="math inline">\(m_i\)</span> 个鸽子，<span class="math inline">\(i
+= 1 , 2 ,\cdots, n\)</span></p>
+<p>推论：若 <span class="math inline">\(\overline m\ge
+r\)</span>，则至少一个 <span class="math inline">\(\ge r\)</span></p>
 <h3 id="ramsey-问题">Ramsey 问题</h3>
-<p>给定一对正整数 <span class="math inline">\(a,b\)</span>，存在一个最小的正整数 <span class="math inline">\(r\)</span>，对 <span class="math inline">\(r\)</span> 个顶点的完全图的边任意红、蓝２着色，存在 <span class="math inline">\(a\)</span> 个顶点的红边完全图或 <span class="math inline">\(b\)</span> 个顶点的蓝边完全图，记为 r ( a , b )</p>
+<p>给定一对正整数 <span
+class="math inline">\(a,b\)</span>，存在一个最小的正整数 <span
+class="math inline">\(r\)</span>，对 <span
+class="math inline">\(r\)</span>
+个顶点的完全图的边任意红、蓝２着色，存在 <span
+class="math inline">\(a\)</span> 个顶点的红边完全图或 <span
+class="math inline">\(b\)</span> 个顶点的蓝边完全图，记为 r ( a , b
+)</p>
 <p>判定树</p>
 <h2 id="第四章">第四章</h2>
 <h3 id="群">群</h3>
 <p>定义：满足封闭性、结合律、有幺元、有逆元</p>
-<p>性质：设 <span class="math inline">\(a\in G\)</span>，则存在最小乘数 <span class="math inline">\(r(a)\)</span>，使 <span class="math inline">\(a^{r(a)}=e\)</span>，且 <span class="math inline">\(a^{-1}=a^{r(a)-1}\)</span>（可得费马小定理），<span class="math inline">\(r(a)\)</span> 称为元素 <span class="math inline">\(a\)</span> 的阶</p>
+<p>性质：设 <span class="math inline">\(a\in G\)</span>，则存在最小乘数
+<span class="math inline">\(r(a)\)</span>，使 <span
+class="math inline">\(a^{r(a)}=e\)</span>，且 <span
+class="math inline">\(a^{-1}=a^{r(a)-1}\)</span>（可得费马小定理），<span
+class="math inline">\(r(a)\)</span> 称为元素 <span
+class="math inline">\(a\)</span> 的阶</p>
 <h3 id="置换">置换</h3>
 <p><span class="math display">\[
 P=\begin{pmatrix}
@@ -492,7 +688,9 @@ P=\begin{pmatrix}
 a_1 &amp; a_2 &amp;\cdots &amp; a_n
 \end{pmatrix}
 \]</span></p>
-<p>任何一个 <span class="math inline">\(n\)</span> 阶有限群都同构一个 <span class="math inline">\(n\)</span> 个文字的置换群 <span class="math inline">\(S_n\)</span></p>
+<p>任何一个 <span class="math inline">\(n\)</span> 阶有限群都同构一个
+<span class="math inline">\(n\)</span> 个文字的置换群 <span
+class="math inline">\(S_n\)</span></p>
 <p>循环表示</p>
 <p><span class="math display">\[
 \begin{pmatrix}
@@ -505,54 +703,109 @@ a_2 &amp; a_3 &amp;\cdots &amp; a_1
 \end{pmatrix}
 \]</span> 对换：二阶循环</p>
 <p>奇置换，偶置换：逆序数、对换个数</p>
-<p>偶置换构成 <span class="math inline">\(\frac{n!}{2}\)</span> 的子群（交代群）</p>
+<p>偶置换构成 <span class="math inline">\(\frac{n!}{2}\)</span>
+的子群（交代群）</p>
 <p>共轭类：循环分解中同阶循环的数量一致的置换</p>
-<p>共轭类 <span class="math inline">\((1)^{n_1}(2)^{n_2}\cdots(m)^{n_m}\)</span> 的元的个数</p>
+<p>共轭类 <span
+class="math inline">\((1)^{n_1}(2)^{n_2}\cdots(m)^{n_m}\)</span>
+的元的个数</p>
 <p><span class="math display">\[
 \frac{n!}{\left(\prod n_i!\right)\left(\prod i^{n_i}\right)}
-\]</span> <span class="math inline">\(k\)</span> 不动置换类 <span class="math inline">\(Z_k\)</span>，其为一个子群</p>
-<p>等价类：元素的等价关系指 <span class="math inline">\(G\)</span> 中存在置换能使两元素互换；含 <span class="math inline">\(k\)</span> 的等价类称为 含 <span class="math inline">\(k\)</span> 的轨道 <span class="math inline">\(E_k\)</span></p>
+\]</span> <span class="math inline">\(k\)</span> 不动置换类 <span
+class="math inline">\(Z_k\)</span>，其为一个子群</p>
+<p>等价类：元素的等价关系指 <span class="math inline">\(G\)</span>
+中存在置换能使两元素互换；含 <span class="math inline">\(k\)</span>
+的等价类称为 含 <span class="math inline">\(k\)</span> 的轨道 <span
+class="math inline">\(E_k\)</span></p>
 <p>Lagrange 定理：<span class="math inline">\(|E_k||Z_k|=G\)</span></p>
 <h3 id="burnside-引理">Burnside 引理</h3>
-<p>置换群 <span class="math inline">\(G\)</span> 将 <span class="math inline">\([1,n]\)</span> 划分为不同等价类的个数为</p>
+<p>置换群 <span class="math inline">\(G\)</span> 将 <span
+class="math inline">\([1,n]\)</span> 划分为不同等价类的个数为</p>
 <p><span class="math display">\[
 \frac{1}{|G|}[c_1(P_1)+c_2(P_2)+\cdots+c_1(P_g)]
-\]</span> 其中 <span class="math inline">\(c_1(P_i)\)</span> 为 <span class="math inline">\(P_i\)</span> 作用下，不动点（长度为 1 的循环）的个数</p>
+\]</span> 其中 <span class="math inline">\(c_1(P_i)\)</span> 为 <span
+class="math inline">\(P_i\)</span> 作用下，不动点（长度为 1
+的循环）的个数</p>
 <h3 id="polya-定理">Polya 定理</h3>
-<p>将置换群 <span class="math inline">\(\overline G\)</span> 下的 <span class="math inline">\([1,n]\)</span> 用 <span class="math inline">\(m\)</span> 种颜色涂色，方案数为</p>
+<p>将置换群 <span class="math inline">\(\overline G\)</span> 下的 <span
+class="math inline">\([1,n]\)</span> 用 <span
+class="math inline">\(m\)</span> 种颜色涂色，方案数为</p>
 <p><span class="math display">\[
-\frac{1}{\left|\overline G\right|}\left[m^{c(\overline P_1)}+m^{c(\overline P_2)}+\cdots+m^{c(\overline P_\overline g)}\right]
-\]</span> 其中 <span class="math inline">\(c\left(\overline P_i\right)\)</span> 是置换的循环节数</p>
+\frac{1}{\left|\overline G\right|}\left[m^{c(\overline
+P_1)}+m^{c(\overline P_2)}+\cdots+m^{c(\overline P_\overline g)}\right]
+\]</span> 其中 <span class="math inline">\(c\left(\overline
+P_i\right)\)</span> 是置换的循环节数</p>
 <h3 id="母函数形式的-polya-定理">母函数形式的 Polya 定理</h3>
-<p>设同一种颜色使用 <span class="math inline">\(k\)</span> 次，有 <span class="math display">\[
+<p>设同一种颜色使用 <span class="math inline">\(k\)</span> 次，有 <span
+class="math display">\[
 P(G)=\frac{1}{|G|}\sum_{i=1}^g\prod_{k=1}^n\left(
 x_1^k+x_2^k+\cdots+x_m^k
 \right)^{c_k(\overline P_i)}
 \]</span></p>
 <h2 id="第五章">第五章</h2>
 <h3 id="拉丁方">拉丁方</h3>
-<p><span class="math inline">\(1\sim n\)</span> 构成的 <span class="math inline">\(n\)</span> 阶方阵中，每行（每列）中 <span class="math inline">\(n\)</span> 个元素都只能出现一次</p>
-<p>正交拉丁方：设 <span class="math inline">\(A_{n\times n}\)</span>，<span class="math inline">\(B_{n\times n}\)</span>，是两个 <span class="math inline">\(n\)</span> 阶拉丁方，<span class="math inline">\(C_{ij}=(A_{ij}, B_{ij})\)</span> 若 <span class="math inline">\(C\)</span> 中的所有数偶互不相同，则 <span class="math inline">\(A\)</span> 与 <span class="math inline">\(B\)</span> 正交</p>
-<p>若存在 <span class="math inline">\(r\)</span> 个 <span class="math inline">\(n\)</span> 阶正交拉丁方，则 <span class="math inline">\(r&lt; n\)</span></p>
+<p><span class="math inline">\(1\sim n\)</span> 构成的 <span
+class="math inline">\(n\)</span> 阶方阵中，每行（每列）中 <span
+class="math inline">\(n\)</span> 个元素都只能出现一次</p>
+<p>正交拉丁方：设 <span class="math inline">\(A_{n\times
+n}\)</span>，<span class="math inline">\(B_{n\times n}\)</span>，是两个
+<span class="math inline">\(n\)</span> 阶拉丁方，<span
+class="math inline">\(C_{ij}=(A_{ij}, B_{ij})\)</span> 若 <span
+class="math inline">\(C\)</span> 中的所有数偶互不相同，则 <span
+class="math inline">\(A\)</span> 与 <span
+class="math inline">\(B\)</span> 正交</p>
+<p>若存在 <span class="math inline">\(r\)</span> 个 <span
+class="math inline">\(n\)</span> 阶正交拉丁方，则 <span
+class="math inline">\(r&lt; n\)</span></p>
 <h3 id="galois-域">Galois 域</h3>
 <p>域：加法交换群，除去加法幺元成乘法交换群，有分配律</p>
-<p>若 <span class="math inline">\(p\)</span> 是素数，<span class="math inline">\(\{0,1,2,\cdots,p-1\}\)</span> 在 <span class="math inline">\(\mod p\)</span> 意义下 <span class="math inline">\(+\)</span>，<span class="math inline">\(\times\)</span> 成伽罗瓦域 <span class="math inline">\(GF(p)\)</span></p>
-<p><span class="math inline">\(GF(p)\)</span> 上的多项式 <span class="math inline">\(GF[p,x]\)</span></p>
-<p>若 <span class="math inline">\(p(x)\in GF[p,x]\)</span> 不可表示为两个多项式的积，则称其不可化约</p>
-<p>设 <span class="math inline">\(m(x)\)</span> 是 <span class="math inline">\(GF[p,x]\)</span> 上不可约 <span class="math inline">\(n\)</span> 次多项式，则可将 <span class="math inline">\(GF[p,x]\)</span> 划分为模 <span class="math inline">\(m(x)\)</span> 同余类 <span class="math inline">\(GF[p,m(x)]\)</span>，其元素构成域 <span class="math inline">\(GF(p^n)\)</span></p>
+<p>若 <span class="math inline">\(p\)</span> 是素数，<span
+class="math inline">\(\{0,1,2,\cdots,p-1\}\)</span> 在 <span
+class="math inline">\(\mod p\)</span> 意义下 <span
+class="math inline">\(+\)</span>，<span
+class="math inline">\(\times\)</span> 成伽罗瓦域 <span
+class="math inline">\(GF(p)\)</span></p>
+<p><span class="math inline">\(GF(p)\)</span> 上的多项式 <span
+class="math inline">\(GF[p,x]\)</span></p>
+<p>若 <span class="math inline">\(p(x)\in GF[p,x]\)</span>
+不可表示为两个多项式的积，则称其不可化约</p>
+<p>设 <span class="math inline">\(m(x)\)</span> 是 <span
+class="math inline">\(GF[p,x]\)</span> 上不可约 <span
+class="math inline">\(n\)</span> 次多项式，则可将 <span
+class="math inline">\(GF[p,x]\)</span> 划分为模 <span
+class="math inline">\(m(x)\)</span> 同余类 <span
+class="math inline">\(GF[p,m(x)]\)</span>，其元素构成域 <span
+class="math inline">\(GF(p^n)\)</span></p>
 <h3 id="正交拉丁方构造">正交拉丁方构造</h3>
-<p>若 <span class="math inline">\(n=p^m\)</span>，则存在 <span class="math inline">\(n-1\)</span> 个正交拉丁方：</p>
+<p>若 <span class="math inline">\(n=p^m\)</span>，则存在 <span
+class="math inline">\(n-1\)</span> 个正交拉丁方：</p>
 <blockquote>
-<p>设 <span class="math inline">\(\alpha_1,\alpha_2,\cdots,\alpha_n\)</span> 是 <span class="math inline">\(GF(p^m)\)</span> 的 <span class="math inline">\(n\)</span> 个不同元素，其中 <span class="math inline">\(\alpha_n=0\)</span></p>
-<p>构造方阵序列 <span class="math inline">\(A_{n\times n}^{(k)}\)</span>，其中 <span class="math inline">\(a_{ij}^{(k)}=\alpha_k\cdot \alpha_i+\alpha_j\)</span></p>
+<p>设 <span
+class="math inline">\(\alpha_1,\alpha_2,\cdots,\alpha_n\)</span> 是
+<span class="math inline">\(GF(p^m)\)</span> 的 <span
+class="math inline">\(n\)</span> 个不同元素，其中 <span
+class="math inline">\(\alpha_n=0\)</span></p>
+<p>构造方阵序列 <span class="math inline">\(A_{n\times
+n}^{(k)}\)</span>，其中 <span
+class="math inline">\(a_{ij}^{(k)}=\alpha_k\cdot
+\alpha_i+\alpha_j\)</span></p>
 </blockquote>
-<p>若 <span class="math inline">\(n=p_1^{m_1}p_2^{m_2}\cdots p_k^{m_k}\)</span>，则存在 <span class="math inline">\(\min\{p_1^{m_1},p_2^{m_2},\cdots ,p_k^{m_k}\}-1\)</span> 个正交拉丁方</p>
+<p>若 <span class="math inline">\(n=p_1^{m_1}p_2^{m_2}\cdots
+p_k^{m_k}\)</span>，则存在 <span
+class="math inline">\(\min\{p_1^{m_1},p_2^{m_2},\cdots
+,p_k^{m_k}\}-1\)</span> 个正交拉丁方</p>
 <h3 id="均衡不完全区组设计">均衡不完全区组设计</h3>
 <p><span class="math inline">\(BIBD(b,v,r,k,\lambda)\)</span></p>
-<p><span class="math inline">\(X=\{x_1,x_2,\cdots,x_v\}\)</span>，<span class="math inline">\(B=\{B_1,B_2,\cdots,B_b\}\)</span>，<span class="math inline">\(B_i\subset X\)</span>，<span class="math inline">\(|B_i|=k\)</span></p>
-<p><span class="math inline">\(X\)</span> 的任一元素正好在 <span class="math inline">\(r\)</span> 个子集中出现</p>
-<p><span class="math inline">\(X\)</span> 的任意一对元素正好在 <span class="math inline">\(\lambda\)</span> 个子集出现</p>
-<p>与某元同组的总元次 <span class="math inline">\(r(k-1)=\lambda(v-1)\)</span></p>
+<p><span class="math inline">\(X=\{x_1,x_2,\cdots,x_v\}\)</span>，<span
+class="math inline">\(B=\{B_1,B_2,\cdots,B_b\}\)</span>，<span
+class="math inline">\(B_i\subset X\)</span>，<span
+class="math inline">\(|B_i|=k\)</span></p>
+<p><span class="math inline">\(X\)</span> 的任一元素正好在 <span
+class="math inline">\(r\)</span> 个子集中出现</p>
+<p><span class="math inline">\(X\)</span> 的任意一对元素正好在 <span
+class="math inline">\(\lambda\)</span> 个子集出现</p>
+<p>与某元同组的总元次 <span
+class="math inline">\(r(k-1)=\lambda(v-1)\)</span></p>
 <p>所有元素总元次 <span class="math inline">\(vr=bk\)</span></p>
 <p>有 <span class="math inline">\(b\ge v\)</span></p>
 <p>区组矩阵： <span class="math display">\[
@@ -560,14 +813,19 @@ a_{ij}=\begin{cases}
 1 &amp;,\ x_i\in B_j\\
 0 &amp;,\ x_i \notin B_j
 \end{cases}
-\]</span> 对于 BIBD 设计，<span class="math inline">\(AA^{\mathrm T}=(r-\lambda)I+\lambda J\)</span>，其中 <span class="math inline">\(J\)</span> 是全 1 矩阵</p>
+\]</span> 对于 BIBD 设计，<span class="math inline">\(AA^{\mathrm
+T}=(r-\lambda)I+\lambda J\)</span>，其中 <span
+class="math inline">\(J\)</span> 是全 1 矩阵</p>
 <h3 id="对称均衡不完全区组设计">对称均衡不完全区组设计</h3>
 <p><span class="math inline">\(b=v\)</span></p>
 <p><span class="math inline">\(k=r\)</span></p>
-<p>任意两组均有 <span class="math inline">\(\lambda\)</span> 个共同元素</p>
+<p>任意两组均有 <span class="math inline">\(\lambda\)</span>
+个共同元素</p>
 <h3 id="三连系">三连系</h3>
 <p><span class="math inline">\(k=3\)</span> 的 BIBD 称为三连系</p>
-<p><span class="math inline">\(\lambda = 1\)</span> 的三连系称为 Steiner 三连系，存在的充要条件 <span class="math inline">\(v\equiv 1\mod 6 \vee v\equiv 3\mod 6\)</span></p>
+<p><span class="math inline">\(\lambda = 1\)</span> 的三连系称为 Steiner
+三连系，存在的充要条件 <span class="math inline">\(v\equiv 1\mod 6 \vee
+v\equiv 3\mod 6\)</span></p>
 
     </div>
 

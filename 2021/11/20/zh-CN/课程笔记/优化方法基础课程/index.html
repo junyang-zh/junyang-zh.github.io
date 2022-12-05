@@ -217,65 +217,147 @@
       
         <p>今天刚考了优化方法，感觉还可以，但是据说改卷很严，我好像也感受到要是一严我就裂开了。唉，听天由命吧。</p>
 <p>考前看到有之前上了的同学给这个课的评价，瘆得慌，博文链接在下面：</p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/betelgeu/p/14999087.html">https://www.cnblogs.com/betelgeu/p/14999087.html</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/betelgeu/p/14999087.html">https://www.cnblogs.com/betelgeu/p/14999087.html</a></p>
 <p>虽然他觉得罗老师不行，但是我们对罗老师印象其实挺好的，挠头。</p>
 <p>不过呢，这个博主发的考试回忆还是挺准的，打消了不知道题型带来的考试懵逼感。</p>
 <p>把考前复习整理的放在下面吧</p>
 <h2 id="数学基础">数学基础</h2>
 <h3 id="内积与范数">内积与范数</h3>
-<p><span class="math inline">\(n\)</span> 维实向量集合 <span class="math inline">\(\mathbb R^n\)</span> 上，<span class="math inline">\(\forall x=(x_1,x_2,\cdots,x_n)^\intercal\in\mathbb R^n\)</span>，<span class="math inline">\(y=(y_1,y_2,\cdots,y_n)^\intercal\in \mathbb R^n\)</span>的<strong>标准内积</strong>： <span class="math display">\[
+<p><span class="math inline">\(n\)</span> 维实向量集合 <span
+class="math inline">\(\mathbb R^n\)</span> 上，<span
+class="math inline">\(\forall x=(x_1,x_2,\cdots,x_n)^\intercal\in\mathbb
+R^n\)</span>，<span
+class="math inline">\(y=(y_1,y_2,\cdots,y_n)^\intercal\in \mathbb
+R^n\)</span>的<strong>标准内积</strong>： <span class="math display">\[
 \left&lt;x,y\right&gt;=x^\intercal y=\sum_{i=1}^n x_iy_i
 \]</span></p>
-<p><strong>范数</strong>的定义：满足以下条件的函数 <span class="math inline">\(f:\mathbb R^n\to\mathbb R\)</span> 称为范数</p>
+<p><strong>范数</strong>的定义：满足以下条件的函数 <span
+class="math inline">\(f:\mathbb R^n\to\mathbb R\)</span> 称为范数</p>
 <ul>
-<li>非负：<span class="math inline">\(\forall x\in \mathbb R^n\)</span>，有 <span class="math inline">\(f(x)\ge 0\)</span>；</li>
-<li>正定：若 <span class="math inline">\(f(x)=0\)</span>，则 <span class="math inline">\(x=0\)</span>；</li>
-<li>齐次：<span class="math inline">\(\forall x\in \mathbb R^n\)</span> 和 <span class="math inline">\(t\in\mathbb R\)</span>，有 <span class="math inline">\(f(tx)=|t|f(x)\)</span>；</li>
-<li>三角不等式：<span class="math inline">\(\forall x, y\in\mathbb R^n\)</span>，有 <span class="math inline">\(f(x+y)\le f(x)+f(y)\)</span></li>
+<li>非负：<span class="math inline">\(\forall x\in \mathbb
+R^n\)</span>，有 <span class="math inline">\(f(x)\ge 0\)</span>；</li>
+<li>正定：若 <span class="math inline">\(f(x)=0\)</span>，则 <span
+class="math inline">\(x=0\)</span>；</li>
+<li>齐次：<span class="math inline">\(\forall x\in \mathbb R^n\)</span>
+和 <span class="math inline">\(t\in\mathbb R\)</span>，有 <span
+class="math inline">\(f(tx)=|t|f(x)\)</span>；</li>
+<li>三角不等式：<span class="math inline">\(\forall x, y\in\mathbb
+R^n\)</span>，有 <span class="math inline">\(f(x+y)\le
+f(x)+f(y)\)</span></li>
 </ul>
-<p><strong><span class="math inline">\(l_p\)</span> 范数</strong>（<span class="math inline">\(p\ge 1\)</span>）： <span class="math display">\[
+<p><strong><span class="math inline">\(l_p\)</span> 范数</strong>（<span
+class="math inline">\(p\ge 1\)</span>）： <span class="math display">\[
 \|x\|_p=\left(\sum_{i=1}^n |x_i|^p\right)^\frac{1}{p}
-\]</span> <span class="math inline">\(p=2\)</span> 时称 Euclid 范数，<span class="math inline">\(p=\infty\)</span> 时称 Chebyshev 范数；“<span class="math inline">\(l_0\)</span> 范数”：向量中非零元的个数</p>
-<p><strong>Cauchy-Schwartz 不等式</strong>：<span class="math inline">\(\forall x,y\in \mathbb R^n\)</span>，有 <span class="math display">\[
+\]</span> <span class="math inline">\(p=2\)</span> 时称 Euclid
+范数，<span class="math inline">\(p=\infty\)</span> 时称 Chebyshev
+范数；“<span class="math inline">\(l_0\)</span>
+范数”：向量中非零元的个数</p>
+<p><strong>Cauchy-Schwartz 不等式</strong>：<span
+class="math inline">\(\forall x,y\in \mathbb R^n\)</span>，有 <span
+class="math display">\[
 |\left&lt;x,y\right&gt;|\le\|x\|_2\|y\|_2
 \]</span></p>
-<p><strong><span class="math inline">\(P\)</span>-二次范数</strong>：<span class="math inline">\(P\in S^n_{++}\)</span>（对称正定） <span class="math display">\[
+<p><strong><span
+class="math inline">\(P\)</span>-二次范数</strong>：<span
+class="math inline">\(P\in S^n_{++}\)</span>（对称正定） <span
+class="math display">\[
 \|x\|_P=\sqrt{x^\intercal P x}=\|P^{\frac{1}{2} }x\|_2
 \]</span> 其单位球为椭球</p>
-<p><strong>范数等价性</strong>：对于所有 <span class="math inline">\(\mathbb R^n\)</span> 上范数 <span class="math inline">\(\|\cdot\|_a\)</span>，<span class="math inline">\(\|\cdot\|_b\)</span>，存在正常数 <span class="math inline">\(\alpha\)</span>，<span class="math inline">\(\beta\)</span> 使对所有 <span class="math inline">\(x\in \mathbb R^n\)</span> 有 <span class="math inline">\(\alpha\|x\|_a\le\|x\|_n\le\beta\|x\|_a\)</span></p>
+<p><strong>范数等价性</strong>：对于所有 <span
+class="math inline">\(\mathbb R^n\)</span> 上范数 <span
+class="math inline">\(\|\cdot\|_a\)</span>，<span
+class="math inline">\(\|\cdot\|_b\)</span>，存在正常数 <span
+class="math inline">\(\alpha\)</span>，<span
+class="math inline">\(\beta\)</span> 使对所有 <span
+class="math inline">\(x\in \mathbb R^n\)</span> 有 <span
+class="math inline">\(\alpha\|x\|_a\le\|x\|_n\le\beta\|x\|_a\)</span></p>
 <p><strong>对偶范数</strong></p>
-<p>令 <span class="math inline">\(\|\cdot\|\)</span> 是 <span class="math inline">\(\mathbb R^n\)</span> 上范数，其对偶范数 <span class="math inline">\(\|\cdot\|_*\)</span> 定义为 <span class="math display">\[
-\|z\|_* =\sup\{z^\intercal x: \|x\|\le 1\} =\sup\{z^\intercal x: \|x\|=1\}
-\]</span> <span class="math inline">\(l_p\)</span> 范数的对偶为 <span class="math inline">\(l_q\)</span> 范数，<span class="math inline">\(\frac{1}{p}+\frac{1}{q}=1\)</span></p>
-<p>P 范数的对偶范数 <span class="math inline">\(\|z\|_*=\sup \{z^\intercal x\ |\ \|x\|_P=1\}=\|P^{-1/2}z\|_2\)</span></p>
+<p>令 <span class="math inline">\(\|\cdot\|\)</span> 是 <span
+class="math inline">\(\mathbb R^n\)</span> 上范数，其对偶范数 <span
+class="math inline">\(\|\cdot\|_*\)</span> 定义为 <span
+class="math display">\[
+\|z\|_* =\sup\{z^\intercal x: \|x\|\le 1\} =\sup\{z^\intercal x:
+\|x\|=1\}
+\]</span> <span class="math inline">\(l_p\)</span> 范数的对偶为 <span
+class="math inline">\(l_q\)</span> 范数，<span
+class="math inline">\(\frac{1}{p}+\frac{1}{q}=1\)</span></p>
+<p>P 范数的对偶范数 <span class="math inline">\(\|z\|_*=\sup
+\{z^\intercal x\ |\ \|x\|_P=1\}=\|P^{-1/2}z\|_2\)</span></p>
 <h3 id="求导与梯度">求导与梯度</h3>
-<p><strong>导数</strong>：<span class="math inline">\(f:\mathbb R^n\to\mathbb R^m\)</span> 的导数（Jacobian 矩阵）<span class="math inline">\(Df(x)\in \mathbb R^{m\times n}\)</span> 满足 <span class="math display">\[
+<p><strong>导数</strong>：<span class="math inline">\(f:\mathbb
+R^n\to\mathbb R^m\)</span> 的导数（Jacobian 矩阵）<span
+class="math inline">\(Df(x)\in \mathbb R^{m\times n}\)</span> 满足 <span
+class="math display">\[
 \lim_{z\to x\atop z\in\operatorname {dom} f, z\neq x}
 \frac{\|f(z)-f(x)-Df(x)(z-x)\|_2}{\|z-x\|_2}=0
-\]</span> 有 <span class="math inline">\(Df(x)_{ij}=\dfrac{\partial f_i(x)}{\partial x_j}\)</span>（偏导数）</p>
-<p>梯度 <span class="math inline">\(\nabla f(x)=Df(x)^\intercal\)</span></p>
-<p>e.g., <span class="math inline">\(\mathrm d\left(x^\intercal A x\right)=x^\intercal(A+A^\intercal)\mathrm dx\)</span>；</p>
-<p>若有非奇异矩阵 <span class="math inline">\(T\)</span>，令 <span class="math inline">\(\bar f(y)=f(Tx)\)</span>，则 <span class="math inline">\(\nabla\bar f(y)=T^\intercal\nabla f(y)\)</span>，<span class="math inline">\(\nabla^2\bar f(y)=T^\intercal\nabla^2f(y)T\)</span></p>
-<p>实函数<strong>二阶导数</strong>：<span class="math inline">\(f:\mathbb R^n\to\mathbb R\)</span>（Hessian 矩阵）为 <span class="math display">\[
+\]</span> 有 <span class="math inline">\(Df(x)_{ij}=\dfrac{\partial
+f_i(x)}{\partial x_j}\)</span>（偏导数）</p>
+<p>梯度 <span class="math inline">\(\nabla
+f(x)=Df(x)^\intercal\)</span></p>
+<p>e.g., <span class="math inline">\(\mathrm d\left(x^\intercal A
+x\right)=x^\intercal(A+A^\intercal)\mathrm dx\)</span>；</p>
+<p>若有非奇异矩阵 <span class="math inline">\(T\)</span>，令 <span
+class="math inline">\(\bar f(y)=f(Tx)\)</span>，则 <span
+class="math inline">\(\nabla\bar f(y)=T^\intercal\nabla
+f(y)\)</span>，<span class="math inline">\(\nabla^2\bar
+f(y)=T^\intercal\nabla^2f(y)T\)</span></p>
+<p>实函数<strong>二阶导数</strong>：<span
+class="math inline">\(f:\mathbb R^n\to\mathbb R\)</span>（Hessian
+矩阵）为 <span class="math display">\[
 \nabla^2f(x)_{ij}=\frac{\partial^2f(x)}{\partial x_i\partial x_j}
 \]</span></p>
-<p><strong>二次逼近</strong>（在 <span class="math inline">\(x_0\)</span> 处二阶泰勒展开） <span class="math display">\[
-\hat f(x)=f(x_0)+\nabla f(x)^\intercal(x-x_0) +\frac{1}{2}(x-x_0)^\intercal\nabla^2f(x)(x-x_0)
-\]</span> 有 <span class="math inline">\(\hat f(x)=f(x)+o(\|x-x_0\|_2^2)\)</span></p>
+<p><strong>二次逼近</strong>（在 <span
+class="math inline">\(x_0\)</span> 处二阶泰勒展开） <span
+class="math display">\[
+\hat f(x)=f(x_0)+\nabla f(x)^\intercal(x-x_0)
++\frac{1}{2}(x-x_0)^\intercal\nabla^2f(x)(x-x_0)
+\]</span> 有 <span class="math inline">\(\hat
+f(x)=f(x)+o(\|x-x_0\|_2^2)\)</span></p>
 <p><strong>梯度一阶近似</strong> <span class="math display">\[
 \nabla f(x+d)\approx \nabla f(x) + \nabla^2 f(x)d
 \]</span></p>
 <h3 id="凸集合与凸函数">凸集合与凸函数</h3>
 <p><strong>凸集</strong></p>
-<p>集合 <span class="math inline">\(C\subset \mathbb R^n\)</span> 称为凸集，如果 <span class="math inline">\(\forall x,y\in C\)</span> 及 <span class="math inline">\(\forall \lambda\in [0,1]\)</span>，有 <span class="math inline">\(z=\lambda x+(1-\lambda)y\in C\)</span></p>
-<p><strong>集合保凸运算</strong>：交、闵科夫斯基和、仿射函数、透视函数 <span class="math inline">\(P(z,t)=\dfrac{z}{t}\)</span>，<span class="math inline">\(P:\mathbb R^n\times \mathbb R_{++}\to\mathbb R^n\)</span></p>
-<p><strong>凸函数</strong>：令集合 <span class="math inline">\(C\)</span> 为凸集，如果 <span class="math inline">\(\forall x,y\in C\)</span> 及 <span class="math inline">\(\forall \lambda\in [0,1]\)</span>，函数 <span class="math inline">\(f:C\to \mathbb R\)</span> 满足 <span class="math inline">\(f(\lambda x + (1-\lambda)y) \le\lambda f(x) + (1-\lambda)f(y)\)</span>，则 <span class="math inline">\(f\)</span> 为凸函数</p>
-<p><strong>凸函数保凸运算</strong>：非负数乘、和、带权和、自变量仿射变换、对某几维求最小值、对（所有）非凸维求最大值、<span class="math inline">\(\max\)</span>、作其透视函数 <span class="math inline">\(g(x,t)=tf(x/t)\)</span></p>
-<p><strong>凸函数一阶判定</strong>：<span class="math inline">\(\forall x,y\in C\)</span>，<span class="math inline">\(f(y)\ge f(x)+\nabla f(x)^\intercal(y-x)\)</span></p>
-<p><strong>凸函数二阶判定</strong>：<span class="math inline">\(\forall x\in C\)</span>，<span class="math inline">\(\nabla^2 f(x)\)</span> 为对称半正定矩阵</p>
-<p><strong>共轭函数</strong>：函数 <span class="math inline">\(f:\mathbb R^n\to\mathbb R\)</span> 的共轭函数 <span class="math inline">\(f^*:\mathbb R^n\to\mathbb R\)</span> 为仿射函数 <span class="math inline">\(y^\intercal x\)</span> 与 <span class="math inline">\(f(x)\)</span> 的最大差值，<span class="math inline">\(f^*(y)=\sup (y^\intercal x-f(x))\)</span>；任意函数的共轭为凸函数</p>
-<p><strong>Jensen's Inequality</strong>：<span class="math inline">\(f(E[x])\le E[f(x)]\)</span></p>
-<p><strong>Min-Max 不等式</strong>：<span class="math inline">\(\inf\limits_{z\in Z}\sup\limits_{w\in W} f(w,z) \ge \sup\limits_{w\in W}\inf\limits_{z\in Z} f(w,z)\)</span>；若满足等号则称 <span class="math inline">\(f,W,Z\)</span> 满足鞍点性质</p>
+<p>集合 <span class="math inline">\(C\subset \mathbb R^n\)</span>
+称为凸集，如果 <span class="math inline">\(\forall x,y\in C\)</span> 及
+<span class="math inline">\(\forall \lambda\in [0,1]\)</span>，有 <span
+class="math inline">\(z=\lambda x+(1-\lambda)y\in C\)</span></p>
+<p><strong>集合保凸运算</strong>：交、闵科夫斯基和、仿射函数、透视函数
+<span class="math inline">\(P(z,t)=\dfrac{z}{t}\)</span>，<span
+class="math inline">\(P:\mathbb R^n\times \mathbb R_{++}\to\mathbb
+R^n\)</span></p>
+<p><strong>凸函数</strong>：令集合 <span
+class="math inline">\(C\)</span> 为凸集，如果 <span
+class="math inline">\(\forall x,y\in C\)</span> 及 <span
+class="math inline">\(\forall \lambda\in [0,1]\)</span>，函数 <span
+class="math inline">\(f:C\to \mathbb R\)</span> 满足 <span
+class="math inline">\(f(\lambda x + (1-\lambda)y) \le\lambda f(x) +
+(1-\lambda)f(y)\)</span>，则 <span class="math inline">\(f\)</span>
+为凸函数</p>
+<p><strong>凸函数保凸运算</strong>：非负数乘、和、带权和、自变量仿射变换、对某几维求最小值、对（所有）非凸维求最大值、<span
+class="math inline">\(\max\)</span>、作其透视函数 <span
+class="math inline">\(g(x,t)=tf(x/t)\)</span></p>
+<p><strong>凸函数一阶判定</strong>：<span class="math inline">\(\forall
+x,y\in C\)</span>，<span class="math inline">\(f(y)\ge f(x)+\nabla
+f(x)^\intercal(y-x)\)</span></p>
+<p><strong>凸函数二阶判定</strong>：<span class="math inline">\(\forall
+x\in C\)</span>，<span class="math inline">\(\nabla^2 f(x)\)</span>
+为对称半正定矩阵</p>
+<p><strong>共轭函数</strong>：函数 <span class="math inline">\(f:\mathbb
+R^n\to\mathbb R\)</span> 的共轭函数 <span
+class="math inline">\(f^*:\mathbb R^n\to\mathbb R\)</span> 为仿射函数
+<span class="math inline">\(y^\intercal x\)</span> 与 <span
+class="math inline">\(f(x)\)</span> 的最大差值，<span
+class="math inline">\(f^*(y)=\sup (y^\intercal
+x-f(x))\)</span>；任意函数的共轭为凸函数</p>
+<p><strong>Jensen's Inequality</strong>：<span
+class="math inline">\(f(E[x])\le E[f(x)]\)</span></p>
+<p><strong>Min-Max 不等式</strong>：<span
+class="math inline">\(\inf\limits_{z\in Z}\sup\limits_{w\in W} f(w,z)
+\ge \sup\limits_{w\in W}\inf\limits_{z\in Z}
+f(w,z)\)</span>；若满足等号则称 <span
+class="math inline">\(f,W,Z\)</span> 满足鞍点性质</p>
 <h3 id="线性代数">线性代数</h3>
 <p><strong>奇异矩阵</strong>：非满秩的方阵</p>
 <h2 id="优化问题">优化问题</h2>
@@ -288,11 +370,17 @@
 \end{align}
 \]</span></p>
 <p>目标函数、等式限制、不等式限制、可行解集</p>
-<p>定义域 <span class="math inline">\(\mathcal D=\bigcap_{i=0}^m\operatorname{dom} f_i \cap \bigcap_{i=1}^p\operatorname{dom}h_i\)</span></p>
+<p>定义域 <span class="math inline">\(\mathcal
+D=\bigcap_{i=0}^m\operatorname{dom} f_i \cap
+\bigcap_{i=1}^p\operatorname{dom}h_i\)</span></p>
 <p>凸优化问题：目标函数为凸函数，不等式限制函数为凸函数，等式限制函数为仿射函数</p>
 <p>例子：线性规划、二次规划、二次函数限制的二次规划</p>
-<p>优化问题的等价，增加松弛变量 <span class="math inline">\(s_i\ge 0\)</span> 将仿射函数不等式限制转为等式限制</p>
-<p>局部最优解：若存在常数 <span class="math inline">\(R&gt;0\)</span> 使 <span class="math inline">\(x\)</span> 是以下问题的最优解，则 <span class="math inline">\(x\)</span> 是一个局部最优解 <span class="math display">\[
+<p>优化问题的等价，增加松弛变量 <span class="math inline">\(s_i\ge
+0\)</span> 将仿射函数不等式限制转为等式限制</p>
+<p>局部最优解：若存在常数 <span class="math inline">\(R&gt;0\)</span> 使
+<span class="math inline">\(x\)</span> 是以下问题的最优解，则 <span
+class="math inline">\(x\)</span> 是一个局部最优解 <span
+class="math display">\[
 \begin {align}
 \min_z\ &amp;f_0(z)  \\
 \text{s.t. } &amp;f_i(z)\le 0, &amp;i=1,2,\cdots,m \\
@@ -301,33 +389,69 @@
 \end{align}
 \]</span></p>
 <h3 id="对偶问题与最优性条件">对偶问题与最优性条件</h3>
-<p>对不等式约束引入拉格朗日乘子 <span class="math inline">\(\lambda_i\in \mathbb R\)</span>，对等式约束引入拉格朗日乘子 <span class="math inline">\(v_i\in \mathbb R\)</span>，记 <span class="math inline">\(\lambda=(\lambda_1,\lambda_2,\cdots,\lambda_m)^\intercal\)</span>，<span class="math inline">\(v=(v_1,v_2,\cdots,v_m)^\intercal\)</span></p>
+<p>对不等式约束引入拉格朗日乘子 <span class="math inline">\(\lambda_i\in
+\mathbb R\)</span>，对等式约束引入拉格朗日乘子 <span
+class="math inline">\(v_i\in \mathbb R\)</span>，记 <span
+class="math inline">\(\lambda=(\lambda_1,\lambda_2,\cdots,\lambda_m)^\intercal\)</span>，<span
+class="math inline">\(v=(v_1,v_2,\cdots,v_m)^\intercal\)</span></p>
 <p><strong>拉格朗日函数</strong> <span class="math display">\[
 L(x,\lambda, v)=f_0(x)+\sum_{i=1}^m\lambda_if_i(x)+\sum_{i=1}^pv_ih_i(x)
-\]</span> <strong>拉格朗日对偶函数</strong> <span class="math display">\[
+\]</span> <strong>拉格朗日对偶函数</strong> <span
+class="math display">\[
 g(\lambda,v)=\inf_{x\in \mathcal D} L(x,\lambda,v)
-\]</span> 线性函数是示性函数的下界，对偶函数是原问题最优解的下界，对偶函数是凹函数，<span class="math inline">\(p^*\ge\max_{\lambda&gt;0}\min_{x\in\mathcal D}L(x,\lambda,v)\)</span></p>
-<p>设 <span class="math inline">\(f_0\)</span> 的共轭函数为 <span class="math inline">\(f_0^*\)</span>，不等式限制 <span class="math inline">\(Ax\le b\)</span>，等式限制 <span class="math inline">\(Cx=d\)</span> 则对偶函数 <span class="math inline">\(g(\lambda,v)=-f^*_0(-A^\intercal\lambda-C^\intercal v)-b^\intercal\lambda-d^\intercal v\)</span></p>
+\]</span>
+线性函数是示性函数的下界，对偶函数是原问题最优解的下界，对偶函数是凹函数，<span
+class="math inline">\(p^*\ge\max_{\lambda&gt;0}\min_{x\in\mathcal
+D}L(x,\lambda,v)\)</span></p>
+<p>设 <span class="math inline">\(f_0\)</span> 的共轭函数为 <span
+class="math inline">\(f_0^*\)</span>，不等式限制 <span
+class="math inline">\(Ax\le b\)</span>，等式限制 <span
+class="math inline">\(Cx=d\)</span> 则对偶函数 <span
+class="math inline">\(g(\lambda,v)=-f^*_0(-A^\intercal\lambda-C^\intercal
+v)-b^\intercal\lambda-d^\intercal v\)</span></p>
 <p><strong>对偶问题</strong> <span class="math display">\[
 \begin {align}
 \max_x\ &amp;g(\lambda, v)  \\
 \text{s.t. } &amp;\lambda \ge0
 \end{align}
-\]</span> 设对偶问题最优解 <span class="math inline">\(d^*\)</span>，对偶间隙 <span class="math inline">\(p^*-d^*\)</span>，弱对偶 <span class="math inline">\(d^*\le p^*\)</span> 对所有函数成立（<span class="math inline">\(\inf\limits_{x\in\mathcal D}\sup\limits_{\lambda\ge 0} L\ge \sup\limits_{\lambda\ge 0}\inf\limits_{x\in\mathcal D} L\)</span>）；强对偶 <span class="math inline">\(d^*=p^*\)</span> 当凸优化问题满足 Slater 约束品性时成立</p>
-<p>非启发式停止准则：对偶间隙 <span class="math inline">\(f_0(x^{(k)})-g(\lambda^{(k)},v^{(k)})\le \varepsilon_{abs}\)</span></p>
-<p><strong>Slater 约束品性</strong>：若存在集合 <span class="math inline">\(\mathcal D\)</span> 的一个<strong>内点</strong> <span class="math inline">\(x_0\)</span>，使得 <span class="math inline">\(f_i(x_0)&lt;0,\ i=1,2,\cdots,m\)</span>，<span class="math inline">\(Ax_0=b\)</span></p>
+\]</span> 设对偶问题最优解 <span
+class="math inline">\(d^*\)</span>，对偶间隙 <span
+class="math inline">\(p^*-d^*\)</span>，弱对偶 <span
+class="math inline">\(d^*\le p^*\)</span> 对所有函数成立（<span
+class="math inline">\(\inf\limits_{x\in\mathcal
+D}\sup\limits_{\lambda\ge 0} L\ge \sup\limits_{\lambda\ge
+0}\inf\limits_{x\in\mathcal D} L\)</span>）；强对偶 <span
+class="math inline">\(d^*=p^*\)</span> 当凸优化问题满足 Slater
+约束品性时成立</p>
+<p>非启发式停止准则：对偶间隙 <span
+class="math inline">\(f_0(x^{(k)})-g(\lambda^{(k)},v^{(k)})\le
+\varepsilon_{abs}\)</span></p>
+<p><strong>Slater 约束品性</strong>：若存在集合 <span
+class="math inline">\(\mathcal D\)</span> 的一个<strong>内点</strong>
+<span class="math inline">\(x_0\)</span>，使得 <span
+class="math inline">\(f_i(x_0)&lt;0,\ i=1,2,\cdots,m\)</span>，<span
+class="math inline">\(Ax_0=b\)</span></p>
 <p><strong>通过解对偶问题求解原问题</strong></p>
-<p>若对偶问题存在解 <span class="math inline">\(d^*=g(\lambda^*,v^*)\)</span>，且 <span class="math inline">\(L(x,\lambda^*,v^*)\)</span> 是 <span class="math inline">\(x\)</span> 的严格凸函数，则解优化问题 <span class="math display">\[
+<p>若对偶问题存在解 <span
+class="math inline">\(d^*=g(\lambda^*,v^*)\)</span>，且 <span
+class="math inline">\(L(x,\lambda^*,v^*)\)</span> 是 <span
+class="math inline">\(x\)</span> 的严格凸函数，则解优化问题 <span
+class="math display">\[
 \min_{x\in\mathcal D}L(x,\lambda^*,v^*)
-\]</span> 若该问题解 <span class="math inline">\(x^*\)</span> 是原问题的可行解，则其为原问题的最优解；否则原问题不存在最优解</p>
+\]</span> 若该问题解 <span class="math inline">\(x^*\)</span>
+是原问题的可行解，则其为原问题的最优解；否则原问题不存在最优解</p>
 <h3 id="kkt-方程">KKT 方程</h3>
-<p>（充要条件）假设原问题与对偶问题最优解可取得，分别为 <span class="math inline">\(x^*\)</span> 和 <span class="math inline">\((\lambda^*,v^*)\)</span>，且强对偶性成立，则 <span class="math display">\[
+<p>（充要条件）假设原问题与对偶问题最优解可取得，分别为 <span
+class="math inline">\(x^*\)</span> 和 <span
+class="math inline">\((\lambda^*,v^*)\)</span>，且强对偶性成立，则 <span
+class="math display">\[
 \begin{cases}
 f_i(x^*)\le 0 ,&amp; i=1,2,\cdots,m;\\
 \lambda_i^*f_i(x^*)=0,&amp; i=1,2,\cdots,m;\\
 \lambda_i^*\ge 0,&amp; i=1,2,\cdots,m;\\
 h_i(x^*)=0,&amp; i=1,2,\cdots,p;\\
-\nabla f_0(x^*)+\sum_{i=1}^m\lambda_i^*\nabla f_i(x^*)+\sum_{i=1}^pv_i^*\nabla h_i(x^*)=0
+\nabla f_0(x^*)+\sum_{i=1}^m\lambda_i^*\nabla
+f_i(x^*)+\sum_{i=1}^pv_i^*\nabla h_i(x^*)=0
 \end{cases}
 \]</span> 从上到下分别为</p>
 <ul>
@@ -337,12 +461,15 @@ h_i(x^*)=0,&amp; i=1,2,\cdots,p;\\
 <li>满足等式限制</li>
 <li>对偶局部最小值</li>
 </ul>
-<p><strong>等式约束二次规划的 KKT 矩阵</strong> <span class="math display">\[
+<p><strong>等式约束二次规划的 KKT 矩阵</strong> <span
+class="math display">\[
 \begin{aligned}
 \min_x &amp;\ \ \frac{1}{2}x^\intercal P x+q^\intercal x+r\\
 \text{s.t.} &amp;\ \ Ax=b
 \end{aligned}
-\]</span> 其中 <span class="math inline">\(P\in S_{++}^n\)</span>（<span class="math inline">\(n\)</span> 阶对称正定阵）。此问题 KKT 条件为 <span class="math display">\[
+\]</span> 其中 <span class="math inline">\(P\in S_{++}^n\)</span>（<span
+class="math inline">\(n\)</span> 阶对称正定阵）。此问题 KKT 条件为 <span
+class="math display">\[
 \begin{cases}
 Ax=b\\
 Px+q+A^\intercal v^*=0
@@ -365,24 +492,49 @@ b
 <p><span class="math display">\[
 \min_x f(x)
 \]</span></p>
-<p>其中 <span class="math inline">\(f:\mathbb R^n \to \mathbb R\)</span>，假设 <span class="math inline">\(f\)</span> 是具有连续二阶导数的凸函数，最优解 <span class="math inline">\(x^*=\arg\min f(x)\)</span>，最优值 <span class="math inline">\(p^*=f(x)\)</span>，最优条件 <span class="math inline">\(\nabla f(x^*)=0\)</span></p>
-<p>无约束最小化方法要求下水平集 <span class="math inline">\(S=\{x|f(x)\le f(x^0)\}\)</span> 是闭集</p>
+<p>其中 <span class="math inline">\(f:\mathbb R^n \to \mathbb
+R\)</span>，假设 <span class="math inline">\(f\)</span>
+是具有连续二阶导数的凸函数，最优解 <span
+class="math inline">\(x^*=\arg\min f(x)\)</span>，最优值 <span
+class="math inline">\(p^*=f(x)\)</span>，最优条件 <span
+class="math inline">\(\nabla f(x^*)=0\)</span></p>
+<p>无约束最小化方法要求下水平集 <span
+class="math inline">\(S=\{x|f(x)\le f(x^0)\}\)</span> 是闭集</p>
 <p><strong>强凸性假设</strong></p>
-<p>Hessian 下界：存在 <span class="math inline">\(m&gt;0\)</span> 使得 <span class="math inline">\(\forall x\in S\)</span>，<span class="math inline">\(\nabla ^2 f(x)\ge mI\)</span></p>
-<p>则 <span class="math inline">\(f(x)-p^*\le\frac{1}{2m}\|\nabla f(x)\|_2^2\)</span></p>
-<p>（证明：任意 <span class="math inline">\(y\)</span>，在 <span class="math inline">\(x\)</span> 展开，有 <span class="math inline">\(f(y)\ge f(x)-\frac{1}{2m}\|\nabla f(x)\|_2^2\)</span>）</p>
-<p>且 <span class="math inline">\(\|x-x^*\|_2\le\frac{2}{m}\|\nabla f(x)\|_2\)</span></p>
-<p>（证明：<span class="math inline">\(f(x^*)\)</span> 在 <span class="math inline">\(x\)</span> 展开，柯西不等式）</p>
+<p>Hessian 下界：存在 <span class="math inline">\(m&gt;0\)</span> 使得
+<span class="math inline">\(\forall x\in S\)</span>，<span
+class="math inline">\(\nabla ^2 f(x)\ge mI\)</span></p>
+<p>则 <span class="math inline">\(f(x)-p^*\le\frac{1}{2m}\|\nabla
+f(x)\|_2^2\)</span></p>
+<p>（证明：任意 <span class="math inline">\(y\)</span>，在 <span
+class="math inline">\(x\)</span> 展开，有 <span
+class="math inline">\(f(y)\ge f(x)-\frac{1}{2m}\|\nabla
+f(x)\|_2^2\)</span>）</p>
+<p>且 <span class="math inline">\(\|x-x^*\|_2\le\frac{2}{m}\|\nabla
+f(x)\|_2\)</span></p>
+<p>（证明：<span class="math inline">\(f(x^*)\)</span> 在 <span
+class="math inline">\(x\)</span> 展开，柯西不等式）</p>
 <p><strong>上界</strong></p>
-<p>Hessian 上界：存在存在 <span class="math inline">\(M&gt;0\)</span> 使得 <span class="math inline">\(\forall x\in S\)</span>，有 <span class="math inline">\(\nabla^2 f(x)\le MI\)</span></p>
-<p>则 <span class="math inline">\(f(x)-p^*\ge\frac{1}{2M}\|\nabla f(x)\|_2^2\)</span></p>
-<p>（证明：<span class="math inline">\(f(y)\)</span> 在 <span class="math inline">\(x\)</span> 处展开，两边对 <span class="math inline">\(y\)</span> 求极小）</p>
+<p>Hessian 上界：存在存在 <span class="math inline">\(M&gt;0\)</span>
+使得 <span class="math inline">\(\forall x\in S\)</span>，有 <span
+class="math inline">\(\nabla^2 f(x)\le MI\)</span></p>
+<p>则 <span class="math inline">\(f(x)-p^*\ge\frac{1}{2M}\|\nabla
+f(x)\|_2^2\)</span></p>
+<p>（证明：<span class="math inline">\(f(y)\)</span> 在 <span
+class="math inline">\(x\)</span> 处展开，两边对 <span
+class="math inline">\(y\)</span> 求极小）</p>
 <p><strong>下降方法</strong></p>
-<p>产生优化点列 <span class="math inline">\(x^{(k)}\)</span>，<span class="math inline">\(k=1,2,3,\cdots\)</span>，其中 <span class="math inline">\(x^{(k+1)}=x^{(k)}+t^{(k)}d^{(k)}\)</span></p>
-<p>下降方向 <span class="math inline">\(d^{(k)}\)</span> 满足 <span class="math inline">\(\nabla f(x^{(k)})^\intercal d^{(k)}&lt;0\)</span></p>
-<p>（<span class="math inline">\(\exists t^{(k)}\)</span>，使得 <span class="math inline">\(f(x^{(k+1)})=f(x^{(k)}+t^{(k)}d^{(k)})&lt;f(x^{(k)})\)</span>）</p>
+<p>产生优化点列 <span class="math inline">\(x^{(k)}\)</span>，<span
+class="math inline">\(k=1,2,3,\cdots\)</span>，其中 <span
+class="math inline">\(x^{(k+1)}=x^{(k)}+t^{(k)}d^{(k)}\)</span></p>
+<p>下降方向 <span class="math inline">\(d^{(k)}\)</span> 满足 <span
+class="math inline">\(\nabla f(x^{(k)})^\intercal
+d^{(k)}&lt;0\)</span></p>
+<p>（<span class="math inline">\(\exists t^{(k)}\)</span>，使得 <span
+class="math inline">\(f(x^{(k+1)})=f(x^{(k)}+t^{(k)}d^{(k)})&lt;f(x^{(k)})\)</span>）</p>
 <p>收敛时，迭代次数上界 <span class="math display">\[
-f(x^{K})-p^*\le \varepsilon \Longrightarrow K\ge \frac{\log\left((f(x^{(0)})-p^*)/\varepsilon\right)}{\log(1/c)}
+f(x^{K})-p^*\le \varepsilon \Longrightarrow K\ge
+\frac{\log\left((f(x^{(0)})-p^*)/\varepsilon\right)}{\log(1/c)}
 \]</span> 其中</p>
 <table>
 <colgroup>
@@ -404,58 +556,103 @@ f(x^{K})-p^*\le \varepsilon \Longrightarrow K\ge \frac{\log\left((f(x^{(0)})-p^*
 <tbody>
 <tr class="odd">
 <td><span class="math inline">\(c\)</span></td>
-<td><span class="math inline">\(1-2m\alpha \tilde\gamma^2\min\left\{1,\frac{\beta\gamma^2}{M}\right\}\)</span></td>
-<td><span class="math inline">\(1-2m\alpha \min\left\{1,\frac{\beta}{M}\right\}\)</span></td>
-<td><span class="math inline">\(1-\frac{m\gamma^2\hat\gamma^2}{M}\)</span></td>
+<td><span class="math inline">\(1-2m\alpha
+\tilde\gamma^2\min\left\{1,\frac{\beta\gamma^2}{M}\right\}\)</span></td>
+<td><span class="math inline">\(1-2m\alpha
+\min\left\{1,\frac{\beta}{M}\right\}\)</span></td>
+<td><span
+class="math inline">\(1-\frac{m\gamma^2\hat\gamma^2}{M}\)</span></td>
 <td><span class="math inline">\(1-\frac{m}{M}\)</span></td>
 </tr>
 </tbody>
 </table>
-<p>对于非规范化方向，存在 <span class="math inline">\(\gamma,\tilde \gamma\in (0,1]\)</span>，使得 <span class="math inline">\(\|x\|\ge \gamma\|x\|_2\)</span>，<span class="math inline">\(\|x\|_*\ge\tilde\gamma\|x\|_2\)</span></p>
-<p>对于牛顿方法，阻尼牛顿阶段 <span class="math inline">\(K_1\ge \dfrac{M^2L^2/m^5}{\alpha\beta\min\{1,9(1-2\alpha)^2\} }(f(x^{(0)})-p^*)\)</span></p>
-<p>（<span class="math inline">\(0\le \eta\le \dfrac{m^2}{L}\)</span>，<span class="math inline">\(\|\nabla f(x^{(k)})\|_2\ge \eta\)</span>）；</p>
-<p>二次收敛阶段 <span class="math inline">\(\|\nabla f(x^{(k)})\|_2\le\dfrac{L}{2m^2}\|\nabla f(x)\|_2^2\)</span>，认为 <span class="math inline">\(K_2\ge 6\)</span></p>
-<p>（<span class="math inline">\(\|\nabla f(x^{(k)})\|_2\le \eta\le 3(1-2\alpha)^2\dfrac{m^2}{L}\)</span>）</p>
+<p>对于非规范化方向，存在 <span class="math inline">\(\gamma,\tilde
+\gamma\in (0,1]\)</span>，使得 <span class="math inline">\(\|x\|\ge
+\gamma\|x\|_2\)</span>，<span
+class="math inline">\(\|x\|_*\ge\tilde\gamma\|x\|_2\)</span></p>
+<p>对于牛顿方法，阻尼牛顿阶段 <span class="math inline">\(K_1\ge
+\dfrac{M^2L^2/m^5}{\alpha\beta\min\{1,9(1-2\alpha)^2\}
+}(f(x^{(0)})-p^*)\)</span></p>
+<p>（<span class="math inline">\(0\le \eta\le
+\dfrac{m^2}{L}\)</span>，<span class="math inline">\(\|\nabla
+f(x^{(k)})\|_2\ge \eta\)</span>）；</p>
+<p>二次收敛阶段 <span class="math inline">\(\|\nabla
+f(x^{(k)})\|_2\le\dfrac{L}{2m^2}\|\nabla f(x)\|_2^2\)</span>，认为 <span
+class="math inline">\(K_2\ge 6\)</span></p>
+<p>（<span class="math inline">\(\|\nabla f(x^{(k)})\|_2\le \eta\le
+3(1-2\alpha)^2\dfrac{m^2}{L}\)</span>）</p>
 <h3 id="精确直线搜索">精确直线搜索</h3>
-<p><span class="math inline">\(t^{(k)}=\arg\min_{s\ge 0} f(x^{(k)}+sd^{(k)})\)</span></p>
-<p>改进值下界 <span class="math inline">\(f(x^{(k)})-f(x^{(k+1)})\ge\dfrac{|\nabla f(x^{(k)})^\intercal d^{(k)}|}{2(d^{(k)})^\intercal\nabla^2f(x^{(k)})d^{(k)} }\ge\dfrac{\|\nabla f(x^{(k)})\|_2^2}{2M}\)</span></p>
-<p>又有 <span class="math inline">\(f(x^{(k)})-p^*\le\frac{1}{2m}\|\nabla f(x^{(k)})\|_2^2\)</span></p>
-<p>则 <span class="math inline">\(2m(f(x^{(k)})-p^*)\le \|\nabla f(x^{(k)})\|_2^2\le 2M(f(x^{(k)})-f(x^{(k+1)}))\)</span></p>
+<p><span class="math inline">\(t^{(k)}=\arg\min_{s\ge 0}
+f(x^{(k)}+sd^{(k)})\)</span></p>
+<p>改进值下界 <span
+class="math inline">\(f(x^{(k)})-f(x^{(k+1)})\ge\dfrac{|\nabla
+f(x^{(k)})^\intercal
+d^{(k)}|}{2(d^{(k)})^\intercal\nabla^2f(x^{(k)})d^{(k)}
+}\ge\dfrac{\|\nabla f(x^{(k)})\|_2^2}{2M}\)</span></p>
+<p>又有 <span
+class="math inline">\(f(x^{(k)})-p^*\le\frac{1}{2m}\|\nabla
+f(x^{(k)})\|_2^2\)</span></p>
+<p>则 <span class="math inline">\(2m(f(x^{(k)})-p^*)\le \|\nabla
+f(x^{(k)})\|_2^2\le 2M(f(x^{(k)})-f(x^{(k+1)}))\)</span></p>
 <h3 id="回溯直线搜索">回溯直线搜索</h3>
-<p><span class="math inline">\(0&lt;\alpha\le 0.5\)</span>，<span class="math inline">\(0&lt;\beta&lt;1\)</span></p>
-<p><code>While</code> <span class="math inline">\(f(x^{(k)}+t^{(k)}\nabla f^{(k)})&gt;f(x^{(k)})+\alpha t^{(k)}\nabla f(x^{(k)})^\intercal d^{(k)}\)</span></p>
+<p><span class="math inline">\(0&lt;\alpha\le 0.5\)</span>，<span
+class="math inline">\(0&lt;\beta&lt;1\)</span></p>
+<p><code>While</code> <span
+class="math inline">\(f(x^{(k)}+t^{(k)}\nabla
+f^{(k)})&gt;f(x^{(k)})+\alpha t^{(k)}\nabla f(x^{(k)})^\intercal
+d^{(k)}\)</span></p>
 <p>​ <span class="math inline">\(t^{(k)}:= \beta t^{(k)}\)</span></p>
 <p><code>End</code></p>
-<p>只要 <span class="math inline">\(0\le t\le \frac{1}{M}\)</span> 即可满足回溯停止条件，则回溯直线搜索将终止于 <span class="math inline">\(t=1\)</span> 或 <span class="math inline">\(t&gt;\frac{\beta}{M}\)</span></p>
-<p>则改进值下界 <span class="math inline">\(f(x^{(k)})-f(x^{(k+1)})\ge\min\{1,\frac{\beta}{M}\}\alpha\|\nabla f(x^{(k)})\|_2^2\)</span></p>
+<p>只要 <span class="math inline">\(0\le t\le \frac{1}{M}\)</span>
+即可满足回溯停止条件，则回溯直线搜索将终止于 <span
+class="math inline">\(t=1\)</span> 或 <span
+class="math inline">\(t&gt;\frac{\beta}{M}\)</span></p>
+<p>则改进值下界 <span
+class="math inline">\(f(x^{(k)})-f(x^{(k+1)})\ge\min\{1,\frac{\beta}{M}\}\alpha\|\nabla
+f(x^{(k)})\|_2^2\)</span></p>
 <h3 id="最速下降方法">最速下降方法</h3>
 <p>规范化最速下降方向（给定某范数） <span class="math display">\[
 d^{(k)}_{nsd}=\arg\min_d \{\nabla f(x^{(k)})^\intercal d\ |\ \|d\|=1\}
-\]</span> 有 <span class="math inline">\(\nabla f(x^{(k)})^\intercal d^{(k)}_{nsd}=-\|\nabla f(x^{(k)})\|_*\)</span></p>
+\]</span> 有 <span class="math inline">\(\nabla f(x^{(k)})^\intercal
+d^{(k)}_{nsd}=-\|\nabla f(x^{(k)})\|_*\)</span></p>
 <p>非规范化最速下降方向 <span class="math display">\[
 d_{sd}^{(k)}=\|\nabla f(x^{(k)})\|_* d_{nsd}^{(k)}
 \]</span></p>
-<p>采用 <span class="math inline">\(l_1\)</span> 范数的下降即坐标下降（收敛性证明见作业）</p>
+<p>采用 <span class="math inline">\(l_1\)</span>
+范数的下降即坐标下降（收敛性证明见作业）</p>
 <h3 id="牛顿下降方法">牛顿下降方法</h3>
 <p><span class="math display">\[
 d_{nt}^{(k)}=-\nabla^2f(x^{(k)})^{-1}\nabla f(x^{(k)})
 \]</span></p>
-<p>有 <span class="math inline">\(\arg\min_v \hat f(x^{(k)}+v)=-\nabla^2f(x^{(k)})^{-1}\nabla f(x^{(k)})\)</span></p>
-<p>是梯度线性近似的根：<span class="math inline">\(f(x^{(k)}+v)\approx\nabla f(x^{(k)})+\nabla^2 f(x^{(k)})v=0\)</span></p>
+<p>有 <span class="math inline">\(\arg\min_v \hat
+f(x^{(k)}+v)=-\nabla^2f(x^{(k)})^{-1}\nabla f(x^{(k)})\)</span></p>
+<p>是梯度线性近似的根：<span
+class="math inline">\(f(x^{(k)}+v)\approx\nabla f(x^{(k)})+\nabla^2
+f(x^{(k)})v=0\)</span></p>
 <p>是 Hessian 范数（P 范数）下的非规范化最速下降方向</p>
 <p><strong>牛顿减少量</strong> <span class="math display">\[
 \begin{aligned}
 \lambda(x^{(k)})&amp;=
-\sqrt{\nabla f(x^{(k)})^\intercal\nabla^2f(x^{(k)})^{-1}\nabla f(x^{(k)})}
+\sqrt{\nabla f(x^{(k)})^\intercal\nabla^2f(x^{(k)})^{-1}\nabla
+f(x^{(k)})}
 \\
 &amp;=\sqrt{-\nabla f(x^{(k)})^\intercal d_{nt}^{(k)} }
 \\
-&amp;=\sqrt{ {d_{nt}^{(k)} }^\intercal \nabla^2 f(x^{(k)}) d_{nt}^{(k)} }
+&amp;=\sqrt{ {d_{nt}^{(k)} }^\intercal \nabla^2 f(x^{(k)}) d_{nt}^{(k)}
+}
 \end{aligned}
-\]</span> <span class="math inline">\(\dfrac{1}{2}\lambda(x^{(k)})^2\)</span> 是在 <span class="math inline">\(x^{(k)}\)</span> 处二阶近似对 <span class="math inline">\(f(x)-p^*\)</span> 做出的估计</p>
-<p>停止准则：<span class="math inline">\(\frac{1}{2}\lambda(x^{(k)})^2\le \varepsilon\)</span></p>
-<p>牛顿回溯直线搜索（要求 <span class="math inline">\(\alpha&lt;\dfrac{1}{2}\)</span>）</p>
-<p><code>While</code> <span class="math inline">\(f(x^{(k)}+t^{(k)}d_{nt}^{(k)})&gt;f(x^{(k)})-\alpha t^{(k)}\lambda(x^{(k)})^2\)</span></p>
+\]</span> <span
+class="math inline">\(\dfrac{1}{2}\lambda(x^{(k)})^2\)</span> 是在 <span
+class="math inline">\(x^{(k)}\)</span> 处二阶近似对 <span
+class="math inline">\(f(x)-p^*\)</span> 做出的估计</p>
+<p>停止准则：<span
+class="math inline">\(\frac{1}{2}\lambda(x^{(k)})^2\le
+\varepsilon\)</span></p>
+<p>牛顿回溯直线搜索（要求 <span
+class="math inline">\(\alpha&lt;\dfrac{1}{2}\)</span>）</p>
+<p><code>While</code> <span
+class="math inline">\(f(x^{(k)}+t^{(k)}d_{nt}^{(k)})&gt;f(x^{(k)})-\alpha
+t^{(k)}\lambda(x^{(k)})^2\)</span></p>
 <p>​ <span class="math inline">\(t^{(k)}:= \beta t^{(k)}\)</span></p>
 <p><code>End</code></p>
 <p>牛顿步径对座标的仿射变换是独立的</p>
@@ -463,12 +660,22 @@ d_{nt}^{(k)}=-\nabla^2f(x^{(k)})^{-1}\nabla f(x^{(k)})
 <p>假设：</p>
 <ul>
 <li>强凸性</li>
-<li>Hessian 矩阵 Lipschitz 连续，<span class="math inline">\(\|\nabla^2f(y)-\nabla^2f(x)\|_F\le L\|y-x\|_2\)</span></li>
+<li>Hessian 矩阵 Lipschitz 连续，<span
+class="math inline">\(\|\nabla^2f(y)-\nabla^2f(x)\|_F\le
+L\|y-x\|_2\)</span></li>
 </ul>
-<p>存在 <span class="math inline">\(0&lt;\eta\le\dfrac{m^2}{L}\)</span> 和 <span class="math inline">\(\gamma&gt;0\)</span></p>
-<p>阻尼牛顿阶段：<span class="math inline">\(\|\nabla f(x^{(k)})\|_2\ge \eta\)</span>，则 <span class="math inline">\(f(x^{(k)})-f(x^{(k+1)})\ge \gamma\)</span></p>
-<p>二次收敛阶段：<span class="math inline">\(\|\nabla f(x^{(k)})\|_2&lt; \eta\)</span>，则 <span class="math inline">\(\dfrac{L}{2m^2}\|\nabla f(x^{(k+1)})\|_2\le\left( \dfrac{L}{2m^2}\|\nabla f(x^{(k+1)})\|_2\right)^2\)</span></p>
-<p>且 <span class="math inline">\(\|\nabla f(x^{(k)})\|_2&lt; \eta\le 3(1-2\alpha)\dfrac{m^2}{L}\)</span> 时有 <span class="math inline">\(t^{(k)}=1\)</span></p>
+<p>存在 <span class="math inline">\(0&lt;\eta\le\dfrac{m^2}{L}\)</span>
+和 <span class="math inline">\(\gamma&gt;0\)</span></p>
+<p>阻尼牛顿阶段：<span class="math inline">\(\|\nabla f(x^{(k)})\|_2\ge
+\eta\)</span>，则 <span class="math inline">\(f(x^{(k)})-f(x^{(k+1)})\ge
+\gamma\)</span></p>
+<p>二次收敛阶段：<span class="math inline">\(\|\nabla f(x^{(k)})\|_2&lt;
+\eta\)</span>，则 <span class="math inline">\(\dfrac{L}{2m^2}\|\nabla
+f(x^{(k+1)})\|_2\le\left( \dfrac{L}{2m^2}\|\nabla
+f(x^{(k+1)})\|_2\right)^2\)</span></p>
+<p>且 <span class="math inline">\(\|\nabla f(x^{(k)})\|_2&lt; \eta\le
+3(1-2\alpha)\dfrac{m^2}{L}\)</span> 时有 <span
+class="math inline">\(t^{(k)}=1\)</span></p>
 <h2 id="等式约束优化问题">等式约束优化问题</h2>
 <p><span class="math display">\[
 \begin{aligned}
@@ -476,17 +683,42 @@ d_{nt}^{(k)}=-\nabla^2f(x^{(k)})^{-1}\nabla f(x^{(k)})
 \text{s.t.} &amp;\ \ Ax=b
 \end{aligned}
 \]</span></p>
-<p>其中 <span class="math inline">\(A\in \mathbb R ^{p\times n}\)</span>，<span class="math inline">\(\operatorname{rank}(A)=p&lt;n\)</span></p>
+<p>其中 <span class="math inline">\(A\in \mathbb R ^{p\times
+n}\)</span>，<span
+class="math inline">\(\operatorname{rank}(A)=p&lt;n\)</span></p>
 <h3 id="消除方法">消除方法</h3>
-<p>参数化（仿射）可行集： <span class="math inline">\(\{x|Ax=b\}=\{Fz+\hat x|z\in \mathbb R^{n-p}\}\)</span></p>
-<p>$x f $ 是满足 <span class="math inline">\(A\hat x=b\)</span> 的任意特殊解</p>
-<p>消除矩阵 <span class="math inline">\(F\in\mathbb R^{n\times (n-p)}\)</span> 是值域为 <span class="math inline">\(A\)</span> 的零空间（<span class="math inline">\(Ax=0\)</span> 的 <span class="math inline">\(n-p\)</span> 个线性无关一维解）的任何矩阵，也就是说，<span class="math inline">\(\mathcal R(F)=\mathcal N(A)\)</span>，<span class="math inline">\(AF=0\)</span>。</p>
+<p>参数化（仿射）可行集： <span
+class="math inline">\(\{x|Ax=b\}=\{Fz+\hat x|z\in \mathbb
+R^{n-p}\}\)</span></p>
+<p>$x f $ 是满足 <span class="math inline">\(A\hat x=b\)</span>
+的任意特殊解</p>
+<p>消除矩阵 <span class="math inline">\(F\in\mathbb R^{n\times
+(n-p)}\)</span> 是值域为 <span class="math inline">\(A\)</span>
+的零空间（<span class="math inline">\(Ax=0\)</span> 的 <span
+class="math inline">\(n-p\)</span>
+个线性无关一维解）的任何矩阵，也就是说，<span
+class="math inline">\(\mathcal R(F)=\mathcal N(A)\)</span>，<span
+class="math inline">\(AF=0\)</span>。</p>
 <p>则转化为以下无约束问题 <span class="math display">\[
 \min_{z\in R^{n-p} } f(Fz+\hat x)
-\]</span> 简化问题的牛顿方向 <span class="math inline">\(d_z=-(F^\intercal\nabla^2 f(Fz+x)F)^{-1}F^\intercal\nabla f(Fz+x)\)</span></p>
-<p><span class="math inline">\(v^*=-(AA^\intercal)^{-1}A\nabla f(x^*)\)</span> 为一个最优对偶变量</p>
-<p>（证明对偶可行性条件 <span class="math inline">\(\nabla f(x^*)+A^\intercal v^*=0\)</span>，左乘非奇异矩阵 <span class="math inline">\(\begin{bmatrix}F^\intercal \\ A\end{bmatrix}\)</span>）</p>
-<p>求矩阵 <span class="math inline">\(F\)</span> 亦可选取初等列变换矩阵 <span class="math inline">\(P\)</span> 使得 <span class="math inline">\(\tilde A=AP=\begin{bmatrix}A_1&amp;A_2\end{bmatrix}\)</span> 前 <span class="math inline">\(p\)</span> 个列向量线性无关，令 <span class="math inline">\(\tilde A\tilde x=\begin{bmatrix}A_1&amp;A_2\end{bmatrix}\begin{bmatrix}\tilde x_1\\\tilde x_2\end{bmatrix}=b\)</span>，有 <span class="math display">\[
+\]</span> 简化问题的牛顿方向 <span
+class="math inline">\(d_z=-(F^\intercal\nabla^2
+f(Fz+x)F)^{-1}F^\intercal\nabla f(Fz+x)\)</span></p>
+<p><span class="math inline">\(v^*=-(AA^\intercal)^{-1}A\nabla
+f(x^*)\)</span> 为一个最优对偶变量</p>
+<p>（证明对偶可行性条件 <span class="math inline">\(\nabla
+f(x^*)+A^\intercal v^*=0\)</span>，左乘非奇异矩阵 <span
+class="math inline">\(\begin{bmatrix}F^\intercal \\
+A\end{bmatrix}\)</span>）</p>
+<p>求矩阵 <span class="math inline">\(F\)</span> 亦可选取初等列变换矩阵
+<span class="math inline">\(P\)</span> 使得 <span
+class="math inline">\(\tilde
+A=AP=\begin{bmatrix}A_1&amp;A_2\end{bmatrix}\)</span> 前 <span
+class="math inline">\(p\)</span> 个列向量线性无关，令 <span
+class="math inline">\(\tilde A\tilde
+x=\begin{bmatrix}A_1&amp;A_2\end{bmatrix}\begin{bmatrix}\tilde
+x_1\\\tilde x_2\end{bmatrix}=b\)</span>，有 <span
+class="math display">\[
 x=P\tilde x=P
 \left(
 \begin{bmatrix}-A_1^{-1}A_2\\I\end{bmatrix}\tilde x_2
@@ -495,17 +727,28 @@ x=P\tilde x=P
 \right)
 \]</span></p>
 <h3 id="对偶方法">对偶方法</h3>
-<p>目标函数的对偶函数是 <span class="math inline">\(g(\lambda,v)=-f^*_0(-A^\intercal\lambda-C^\intercal v)-b^\intercal\lambda-d^\intercal v\)</span>，其中 <span class="math inline">\(f^*\)</span> 是 <span class="math inline">\(f_0\)</span> 的对偶函数</p>
+<p>目标函数的对偶函数是 <span
+class="math inline">\(g(\lambda,v)=-f^*_0(-A^\intercal\lambda-C^\intercal
+v)-b^\intercal\lambda-d^\intercal v\)</span>，其中 <span
+class="math inline">\(f^*\)</span> 是 <span
+class="math inline">\(f_0\)</span> 的对偶函数</p>
 <p>则对偶问题是 <span class="math display">\[
 \max_v  -f^*(-A^\intercal v)-b^\intercal v
-\]</span> 则可求解关于 <span class="math inline">\(v\)</span> 的无约束最优化问题，Slater 条件成立，得 <span class="math inline">\(g(v^*)=p^*\)</span>，再求解以下无约束最优化问题得到原问题的最优条件 <span class="math inline">\(x^*\)</span> <span class="math display">\[
+\]</span> 则可求解关于 <span class="math inline">\(v\)</span>
+的无约束最优化问题，Slater 条件成立，得 <span
+class="math inline">\(g(v^*)=p^*\)</span>，再求解以下无约束最优化问题得到原问题的最优条件
+<span class="math inline">\(x^*\)</span> <span class="math display">\[
 \min_x f(x)+(v^*)^\intercal (Ax-b)
 \]</span></p>
 <h3 id="直接求解newton-方法">直接求解（Newton 方法）</h3>
 <h4 id="可行初始点">可行初始点</h4>
-<p>牛顿方向 <span class="math inline">\(d_x\)</span> 为等式约束的二次近似模型的极小解（<span class="math inline">\(f(x+d)\)</span> 在 <span class="math inline">\(x\)</span> 处展开） <span class="math display">\[
+<p>牛顿方向 <span class="math inline">\(d_x\)</span>
+为等式约束的二次近似模型的极小解（<span
+class="math inline">\(f(x+d)\)</span> 在 <span
+class="math inline">\(x\)</span> 处展开） <span class="math display">\[
 \begin{aligned}
-\min_d &amp;\ \ \frac{1}{2}d^\intercal \nabla^2 f(x) d+\nabla f(x)^\intercal d+f(x)\\
+\min_d &amp;\ \ \frac{1}{2}d^\intercal \nabla^2 f(x) d+\nabla
+f(x)^\intercal d+f(x)\\
 \text{s.t.} &amp;\ \ Ad=0
 \end{aligned}
 \]</span> 得 KKT 方程 <span class="math display">\[
@@ -521,13 +764,24 @@ w
 -\nabla f(x)\\
 0
 \end{bmatrix}
-\]</span> 其中 <span class="math inline">\(w\)</span> 是该问题的最优对偶变量</p>
+\]</span> 其中 <span class="math inline">\(w\)</span>
+是该问题的最优对偶变量</p>
 <p>等式约束问题的牛顿方法与简化后无约束问题牛顿方法的迭代过程完全一致：</p>
-<p>令 <span class="math inline">\(d_x=Fd_z\)</span>，其能满足 KKT 方程，其中 <span class="math inline">\(w=-(AA^\intercal)^{-1}A(\nabla f(x^*)+\nabla^2f(x)d_x)\)</span>；</p>
-<p>减少量相等：<span class="math inline">\(\tilde \lambda(z)^2=d_z^\intercal\nabla^2\tilde f(z)d_z=d_z^\intercal F^\intercal\nabla^2f(x)Fd_z=d_x^\intercal\nabla^2 f(x)d_x=\lambda(x)^2\)</span>.</p>
+<p>令 <span class="math inline">\(d_x=Fd_z\)</span>，其能满足 KKT
+方程，其中 <span class="math inline">\(w=-(AA^\intercal)^{-1}A(\nabla
+f(x^*)+\nabla^2f(x)d_x)\)</span>；</p>
+<p>减少量相等：<span class="math inline">\(\tilde
+\lambda(z)^2=d_z^\intercal\nabla^2\tilde f(z)d_z=d_z^\intercal
+F^\intercal\nabla^2f(x)Fd_z=d_x^\intercal\nabla^2
+f(x)d_x=\lambda(x)^2\)</span>.</p>
 <p>其中 <span class="math inline">\(x=Fz+\hat x\)</span></p>
 <h4 id="不可行初始点">不可行初始点</h4>
-<p>假设 <span class="math inline">\(x+d_x\)</span> 满足最优性条件 <span class="math inline">\(A(x+d_x)=b\)</span>，<span class="math inline">\(\nabla f(x+d_x)+A^\intercal w=0\)</span>；利用梯度一阶近似，有 <span class="math inline">\(\nabla f(x+d_x)=\nabla f(x)+\nabla^2f(x)d_x\)</span>，则得到方程组 <span class="math display">\[
+<p>假设 <span class="math inline">\(x+d_x\)</span> 满足最优性条件 <span
+class="math inline">\(A(x+d_x)=b\)</span>，<span
+class="math inline">\(\nabla f(x+d_x)+A^\intercal
+w=0\)</span>；利用梯度一阶近似，有 <span class="math inline">\(\nabla
+f(x+d_x)=\nabla f(x)+\nabla^2f(x)d_x\)</span>，则得到方程组 <span
+class="math display">\[
 \begin{bmatrix}
 \nabla^2 f(x) &amp; A^\intercal\\
 A &amp; 0
@@ -540,7 +794,8 @@ w
 -\nabla f(x)\\
 b-Ax
 \end{bmatrix}
-\]</span> 原对偶解释：令 <span class="math inline">\(y=[x\ v]^\intercal\)</span>，原对偶残差 <span class="math display">\[
+\]</span> 原对偶解释：令 <span class="math inline">\(y=[x\
+v]^\intercal\)</span>，原对偶残差 <span class="math display">\[
 r(y)=
 \begin{bmatrix}
 \nabla f(x)+A^\intercal v\\
@@ -551,8 +806,13 @@ Ax-b
 r_{dual}(y)\\
 r_{pri}(y)
 \end{bmatrix}
-\]</span> 原残差 <span class="math inline">\(r_{\text{pri} }(x,v)=Ax-b\)</span>，对偶残差 <span class="math inline">\(r_{\text{dual} }(x,v)=\nabla f(x)+A^\intercal v\)</span>；</p>
-<p>对原对偶残差使用一阶近似，<span class="math inline">\(r(y+\Delta y)\approx r(y)+Dr(y)\Delta y\)</span>，可以得到 <span class="math display">\[
+\]</span> 原残差 <span class="math inline">\(r_{\text{pri}
+}(x,v)=Ax-b\)</span>，对偶残差 <span
+class="math inline">\(r_{\text{dual} }(x,v)=\nabla f(x)+A^\intercal
+v\)</span>；</p>
+<p>对原对偶残差使用一阶近似，<span class="math inline">\(r(y+\Delta
+y)\approx r(y)+Dr(y)\Delta y\)</span>，可以得到 <span
+class="math display">\[
 \begin{bmatrix}
 \nabla^2 f(x) &amp; A^\intercal\\
 A &amp; 0
@@ -576,18 +836,29 @@ v+d_v
 b-Ax
 \end{bmatrix}
 \]</span> 有 <span class="math inline">\(w=v^+=v+d_v\)</span></p>
-<p>原问题等价于找到原对偶残差为零的点，停止准则 <span class="math inline">\(\|r(x^{(k)},v^{(k)})\|_2\le \varepsilon\)</span></p>
-<p><code>While</code> <span class="math inline">\(\|r(x^{(k)}+td_x^{(k)}, v^{(k)}+td_v^{(k)})\|_2&gt;(1-\alpha t)\|r(x^{(k)},v^{(k)})\|_2\)</span></p>
+<p>原问题等价于找到原对偶残差为零的点，停止准则 <span
+class="math inline">\(\|r(x^{(k)},v^{(k)})\|_2\le
+\varepsilon\)</span></p>
+<p><code>While</code> <span
+class="math inline">\(\|r(x^{(k)}+td_x^{(k)},
+v^{(k)}+td_v^{(k)})\|_2&gt;(1-\alpha
+t)\|r(x^{(k)},v^{(k)})\|_2\)</span></p>
 <p>​ <span class="math inline">\(t^{(k)}:= \beta t^{(k)}\)</span></p>
 <p><code>End</code></p>
 <p><strong>收敛性分析</strong></p>
 <p>假设</p>
 <ol type="1">
-<li><span class="math inline">\(S=\{(x,v)\ |\ x\in\operatorname {dom} f,\|r(x,v)\|_2&lt;\|r(x^{(0)},v^{(0)})\|_2\}\)</span> 是闭集</li>
+<li><span class="math inline">\(S=\{(x,v)\ |\ x\in\operatorname {dom}
+f,\|r(x,v)\|_2&lt;\|r(x^{(0)},v^{(0)})\|_2\}\)</span> 是闭集</li>
 <li>KKT 逆矩阵有界（<span class="math inline">\(\le K\)</span>）</li>
-<li>Lipschitz 条件：存在 <span class="math inline">\(L\)</span> 满足导数差的范数比 <span class="math inline">\(L\)</span> 倍线性函数小</li>
+<li>Lipschitz 条件：存在 <span class="math inline">\(L\)</span>
+满足导数差的范数比 <span class="math inline">\(L\)</span>
+倍线性函数小</li>
 </ol>
-<p>阻尼牛顿阶段 <span class="math inline">\(\|r(y^{(k)})\|_2&gt;\frac{1}{K^2L}\)</span>，二次收敛阶段 <span class="math inline">\(\|r(y^{(k)})\|_2\le \frac{1}{K^2L}\)</span></p>
+<p>阻尼牛顿阶段 <span
+class="math inline">\(\|r(y^{(k)})\|_2&gt;\frac{1}{K^2L}\)</span>，二次收敛阶段
+<span class="math inline">\(\|r(y^{(k)})\|_2\le
+\frac{1}{K^2L}\)</span></p>
 <h2 id="等式不等式约束优化问题">等式不等式约束优化问题</h2>
 <p><span class="math display">\[
 \begin {align}
@@ -597,9 +868,13 @@ b-Ax
 \end{align}
 \]</span></p>
 <ul>
-<li>函数 <span class="math inline">\(f_i:\mathbb R^n\to \mathbb R\)</span> 为二次连续可微凸函数；</li>
-<li>定义域 <span class="math inline">\(D=\bigcap_{i=0}^m \operatorname {dom} f_i\)</span>；</li>
-<li><span class="math inline">\(A\in \mathbb R^{p\times n}\)</span>，<span class="math inline">\(\operatorname{rank} (A)=p&lt;n\)</span>；</li>
+<li>函数 <span class="math inline">\(f_i:\mathbb R^n\to \mathbb
+R\)</span> 为二次连续可微凸函数；</li>
+<li>定义域 <span class="math inline">\(D=\bigcap_{i=0}^m \operatorname
+{dom} f_i\)</span>；</li>
+<li><span class="math inline">\(A\in \mathbb R^{p\times
+n}\)</span>，<span class="math inline">\(\operatorname{rank}
+(A)=p&lt;n\)</span>；</li>
 <li><span class="math inline">\(p^*=f(x^*)\)</span> 是原问题的解。</li>
 </ul>
 <p>示性函数 <span class="math display">\[
@@ -613,19 +888,34 @@ I_{-}(u)=
 \min_x&amp;\ \ f_0(x)+\sum_{i=1}^{m} I_{-}(f_i(x))  \\
 \text{s.t.}&amp;\ \ Ax=b
 \end{align}
-\]</span> 示性函数不可微，则使用近似示性函数代替（<span class="math inline">\(t\)</span> 越大，近似精度逐渐增加） <span class="math display">\[
+\]</span> 示性函数不可微，则使用近似示性函数代替（<span
+class="math inline">\(t\)</span> 越大，近似精度逐渐增加） <span
+class="math display">\[
 \hat I_{-}(u)=-\frac{1}{t}\log(-u)
-\]</span> 记对数障碍函数 <span class="math inline">\(\phi(x)=-\sum_{i=1}^m\log(-f_i(x))\)</span>，有</p>
+\]</span> 记对数障碍函数 <span
+class="math inline">\(\phi(x)=-\sum_{i=1}^m\log(-f_i(x))\)</span>，有</p>
 <ul>
-<li><span class="math inline">\(\nabla \phi(x)=\sum_{i=1}^m\dfrac{\nabla f_i(x)}{-f_i(x)}\)</span></li>
-<li><span class="math inline">\(\nabla^2\phi(x)=\sum_{i=1}^m\dfrac{\nabla f_i(x)\nabla f_i(x)^\intercal}{f_i(x)^2}+\sum_{i=1}^m\dfrac{\nabla^2 f_i(x)}{-f_i(x)}\)</span></li>
+<li><span class="math inline">\(\nabla \phi(x)=\sum_{i=1}^m\dfrac{\nabla
+f_i(x)}{-f_i(x)}\)</span></li>
+<li><span
+class="math inline">\(\nabla^2\phi(x)=\sum_{i=1}^m\dfrac{\nabla
+f_i(x)\nabla f_i(x)^\intercal}{f_i(x)^2}+\sum_{i=1}^m\dfrac{\nabla^2
+f_i(x)}{-f_i(x)}\)</span></li>
 </ul>
-<p>不等式线性规划 <span class="math inline">\(Ax\le b\)</span> 的障碍函数 <span class="math inline">\(\phi(x)=-\sum_{i=1}^m\log(b_i-a_i^\intercal x)\)</span></p>
+<p>不等式线性规划 <span class="math inline">\(Ax\le b\)</span>
+的障碍函数 <span
+class="math inline">\(\phi(x)=-\sum_{i=1}^m\log(b_i-a_i^\intercal
+x)\)</span></p>
 <ul>
-<li><span class="math inline">\(\nabla\phi(x)=\sum_{i=1}^{m}\dfrac{a_i}{b_i-a_i^\intercal x}=A^\intercal d\)</span></li>
-<li><span class="math inline">\(\nabla^2\phi(x)=\sum_{i=1}^{m}\dfrac{a_ia_i^\intercal}{(b_i-a_i^\intercal x)^2}=A^\intercal\operatorname{diag}(d)^2A\)</span></li>
+<li><span
+class="math inline">\(\nabla\phi(x)=\sum_{i=1}^{m}\dfrac{a_i}{b_i-a_i^\intercal
+x}=A^\intercal d\)</span></li>
+<li><span
+class="math inline">\(\nabla^2\phi(x)=\sum_{i=1}^{m}\dfrac{a_ia_i^\intercal}{(b_i-a_i^\intercal
+x)^2}=A^\intercal\operatorname{diag}(d)^2A\)</span></li>
 </ul>
-<p>其中 <span class="math inline">\(d_i=1/(b_i-a_i^\intercal x)\)</span></p>
+<p>其中 <span class="math inline">\(d_i=1/(b_i-a_i^\intercal
+x)\)</span></p>
 <h3 id="中心路径">中心路径</h3>
 <p><span class="math display">\[
 \begin {align}
@@ -633,19 +923,33 @@ I_{-}(u)=
 \text{s.t.}&amp;\ \ Ax=b
 \end{align}
 \]</span></p>
-<p>假定 <span class="math inline">\(\forall t&gt;0\)</span> 该问题能用牛顿方法求解，唯一解 <span class="math inline">\(x^*(t)\)</span></p>
-<p>中心路径：<span class="math inline">\(\{x^*(t)\ |\ t&gt;0\}\)</span>，满足（KKT条件）</p>
+<p>假定 <span class="math inline">\(\forall t&gt;0\)</span>
+该问题能用牛顿方法求解，唯一解 <span
+class="math inline">\(x^*(t)\)</span></p>
+<p>中心路径：<span class="math inline">\(\{x^*(t)\ |\
+t&gt;0\}\)</span>，满足（KKT条件）</p>
 <ul>
-<li>严格可行性 <span class="math inline">\(Ax^*(t)=b\)</span>，<span class="math inline">\(f_i(x^*(t))&lt;0\)</span></li>
-<li>存在 <span class="math inline">\(\hat v\in\mathbb R^p\)</span> 使得 <span class="math inline">\(t\nabla f_0(x^*(t))+\nabla\phi(x^*(t))+A^\intercal \hat v =0\)</span></li>
+<li>严格可行性 <span class="math inline">\(Ax^*(t)=b\)</span>，<span
+class="math inline">\(f_i(x^*(t))&lt;0\)</span></li>
+<li>存在 <span class="math inline">\(\hat v\in\mathbb R^p\)</span> 使得
+<span class="math inline">\(t\nabla
+f_0(x^*(t))+\nabla\phi(x^*(t))+A^\intercal \hat v =0\)</span></li>
 </ul>
-<p>现在来研究原对偶问题的原对偶可行性，有 <span class="math inline">\(\lambda^*_i(t)=-\dfrac{1}{t f_i(x^*(t))}\)</span>，<span class="math inline">\(v^*(t)=\hat v /t\)</span>，使得 <span class="math inline">\(\nabla f_0(x^*(t))+\sum_{i=1}^m\lambda_i^*(t)\nabla f_i(x^*(t))+ A^\intercal v^*(t)=0\)</span>；则 <span class="math inline">\(\lambda^*,v^*\)</span> 为对偶可行解</p>
+<p>现在来研究原对偶问题的原对偶可行性，有 <span
+class="math inline">\(\lambda^*_i(t)=-\dfrac{1}{t
+f_i(x^*(t))}\)</span>，<span class="math inline">\(v^*(t)=\hat v
+/t\)</span>，使得 <span class="math inline">\(\nabla
+f_0(x^*(t))+\sum_{i=1}^m\lambda_i^*(t)\nabla f_i(x^*(t))+ A^\intercal
+v^*(t)=0\)</span>；则 <span class="math inline">\(\lambda^*,v^*\)</span>
+为对偶可行解</p>
 <p>而对偶函数 <span class="math display">\[
 \begin{aligned}
-g(\lambda^*(t), v^*(t))&amp;=f_0(x^*(t))+\sum_{i=1}^m\lambda_i^*(t)f_i(x^*(t))+  v^*(t)^\intercal(Ax^*(t)-b)\\
+g(\lambda^*(t),
+v^*(t))&amp;=f_0(x^*(t))+\sum_{i=1}^m\lambda_i^*(t)f_i(x^*(t))+  v^*(t)^\intercal(Ax^*(t)-b)\\
 &amp;= f_0(x^*(t))-\frac{m}{t}
 \end{aligned}
-\]</span> 则对偶间隙 <span class="math inline">\(m/t\)</span>，随着 <span class="math inline">\(t\)</span> 增大而收敛</p>
+\]</span> 则对偶间隙 <span class="math inline">\(m/t\)</span>，随着
+<span class="math inline">\(t\)</span> 增大而收敛</p>
 <p>修改的 KKT 方程 <span class="math display">\[
 \begin{cases}
 f_i(x^*)\le 0 ,&amp; i=1,2,\cdots,m;\\
@@ -654,7 +958,8 @@ f_i(x^*)\le 0 ,&amp; i=1,2,\cdots,m;\\
 Ax=b\\
 \nabla f_0(x^*)+\sum_{i=1}^m\lambda_i^*\nabla f_i(x^*)+A^\intercal v=0
 \end{cases}
-\]</span> 牛顿步径（等价于求解修改的 KKT 方程一阶线性逼近） <span class="math display">\[
+\]</span> 牛顿步径（等价于求解修改的 KKT 方程一阶线性逼近） <span
+class="math display">\[
 \begin{bmatrix}
 t\nabla^2 f_0(x)+\nabla^2\phi(x) &amp; A^\intercal \\
 A &amp; 0
@@ -669,41 +974,66 @@ t\nabla f_0(x) + \nabla\phi(x)\\
 \end{bmatrix}
 \]</span></p>
 <h3 id="障碍方法">障碍方法</h3>
-<p>给定 <span class="math inline">\(t^{(0)}\)</span>，<span class="math inline">\(\mu&gt;1\)</span>，<span class="math inline">\(\varepsilon &gt; 0\)</span>，外循环迭代 <span class="math inline">\(t^{(k+1)}=\mu t^{(k)}\)</span> 直到 <span class="math inline">\(m/t\le\varepsilon\)</span></p>
-<p>外层迭代次数 <span class="math inline">\(N\ge \left\lceil\dfrac{\log\frac{m}{\varepsilon t^{(0)} }}{\log \mu}\right\rceil\)</span> 时满足精度要求</p>
+<p>给定 <span class="math inline">\(t^{(0)}\)</span>，<span
+class="math inline">\(\mu&gt;1\)</span>，<span
+class="math inline">\(\varepsilon &gt; 0\)</span>，外循环迭代 <span
+class="math inline">\(t^{(k+1)}=\mu t^{(k)}\)</span> 直到 <span
+class="math inline">\(m/t\le\varepsilon\)</span></p>
+<p>外层迭代次数 <span class="math inline">\(N\ge
+\left\lceil\dfrac{\log\frac{m}{\varepsilon t^{(0)} }}{\log
+\mu}\right\rceil\)</span> 时满足精度要求</p>
 <h4 id="阶段-1-方法">阶段 1 方法</h4>
-<p>确定 <span class="math inline">\(x\)</span> 满足 <span class="math inline">\(f_i(x)\le 0\)</span>，<span class="math inline">\(i=1,2,\cdots,m\)</span> 且 <span class="math inline">\(Ax =b\)</span></p>
+<p>确定 <span class="math inline">\(x\)</span> 满足 <span
+class="math inline">\(f_i(x)\le 0\)</span>，<span
+class="math inline">\(i=1,2,\cdots,m\)</span> 且 <span
+class="math inline">\(Ax =b\)</span></p>
 <p><strong>情况一</strong></p>
-<p>已知 <span class="math inline">\(x^{(0)}\in \bigcap \operatorname {dom} f_i\)</span>，且 <span class="math inline">\(Ax^{(0)}=b\)</span>，则用障碍方法求解阶段 1 优化问题（极小化不可行值的最大值） <span class="math display">\[
+<p>已知 <span class="math inline">\(x^{(0)}\in \bigcap \operatorname
+{dom} f_i\)</span>，且 <span
+class="math inline">\(Ax^{(0)}=b\)</span>，则用障碍方法求解阶段 1
+优化问题（极小化不可行值的最大值） <span class="math display">\[
 \begin {align}
 \min_{x,s}&amp;\ \ s  \\
 \text{s.t.}&amp;\ \ f_i(x)\le s,\ (i=1,2,\cdots, m) \\
 &amp; \ \ Ax=b
 \end{align}
-\]</span> 记目标最优值 <span class="math inline">\(\bar p^*\)</span>：</p>
+\]</span> 记目标最优值 <span class="math inline">\(\bar
+p^*\)</span>：</p>
 <ul>
-<li><span class="math inline">\(\bar p^*&lt;0\)</span> 则有严格可行解</li>
+<li><span class="math inline">\(\bar p^*&lt;0\)</span>
+则有严格可行解</li>
 <li><span class="math inline">\(\bar p^*&gt;0\)</span> 则不可行</li>
-<li><span class="math inline">\(\bar p^*=0\)</span> 则不等式组可行但不存在严格可行解，如果 <span class="math inline">\(\bar p^*\)</span> 不可取到，则不等式组不可行</li>
+<li><span class="math inline">\(\bar p^*=0\)</span>
+则不等式组可行但不存在严格可行解，如果 <span class="math inline">\(\bar
+p^*\)</span> 不可取到，则不等式组不可行</li>
 </ul>
-<p>可加入限制条件 <span class="math inline">\(f_0(x)\le M\)</span>（有限制的极小化不可行值的最大值），其中 <span class="math inline">\(M\ge\max\{f_0(x^{(0)}), p^*\}\)</span></p>
+<p>可加入限制条件 <span class="math inline">\(f_0(x)\le
+M\)</span>（有限制的极小化不可行值的最大值），其中 <span
+class="math inline">\(M\ge\max\{f_0(x^{(0)}), p^*\}\)</span></p>
 <p>也可以将问题构造为极小化不可行值之和</p>
 <p><strong>情况二</strong></p>
-<p>已知 <span class="math inline">\(x^{(0)}\in \bigcap \operatorname {dom} f_i\)</span>，但不满足 <span class="math inline">\(Ax^{(0)}=b\)</span>，则用不可行初始点牛顿方法求解 <span class="math display">\[
+<p>已知 <span class="math inline">\(x^{(0)}\in \bigcap \operatorname
+{dom} f_i\)</span>，但不满足 <span
+class="math inline">\(Ax^{(0)}=b\)</span>，则用不可行初始点牛顿方法求解
+<span class="math display">\[
 \begin {align}
 \min_{x,s}&amp;\ \ t^{(0)}f_0(x)-\sum_{i=1}^{m}\log(s-f_i(x))  \\
 \text{s.t.}&amp;\ \ Ax=b,\ s=0 \\
 \end{align}
 \]</span></p>
 <p><strong>情况三</strong></p>
-<p>不能在 <span class="math inline">\(\bigcap \operatorname {dom} f_i\)</span> 中确定一点，用不可行初始点牛顿方法求解 <span class="math display">\[
+<p>不能在 <span class="math inline">\(\bigcap \operatorname {dom}
+f_i\)</span> 中确定一点，用不可行初始点牛顿方法求解 <span
+class="math display">\[
 \begin {align}
-\min_{x,s}&amp;\ \ t^{(0)}f_0(x+z_0)-\sum_{i=1}^{m}\log(s-f_i(x+z_i))  \\
+\min_{x,s}&amp;\ \
+t^{(0)}f_0(x+z_0)-\sum_{i=1}^{m}\log(s-f_i(x+z_i))  \\
 \text{s.t.}&amp;\ \ Ax=b,\ s=0,\ z_i=0 \\
 \end{align}
 \]</span></p>
 <h3 id="原对偶内点法">原对偶内点法</h3>
-<p>仅有一层迭代，原对偶迭代值不需要可行；由修改的 KKT 条件定义对偶-中心-原残差 <span class="math display">\[
+<p>仅有一层迭代，原对偶迭代值不需要可行；由修改的 KKT
+条件定义对偶-中心-原残差 <span class="math display">\[
 r_{t}(x,\lambda,v)=
 \begin{bmatrix}
 r_{\text{dual} }\\
@@ -715,11 +1045,14 @@ r_{\text{pri} }
 -\operatorname{diag}(\lambda) f(x)-(1/t)1\\
 Ax-b
 \end{bmatrix}
-\]</span> 由下式计算原对偶搜索方向 <span class="math inline">\(\Delta y_{\text{pd} }\)</span>（牛顿步径）</p>
+\]</span> 由下式计算原对偶搜索方向 <span class="math inline">\(\Delta
+y_{\text{pd} }\)</span>（牛顿步径）</p>
 <p><span class="math display">\[
 \begin{bmatrix}
-\nabla^2 f_0(x)+\sum_{i=1}^m\lambda_i\nabla^2 f_i(x) &amp; \nabla f(x) &amp; A^\intercal\\
--\operatorname{diag}(\lambda) \nabla f(x)^\intercal &amp;-\operatorname{diag}(f(x)) &amp; 0\\
+\nabla^2 f_0(x)+\sum_{i=1}^m\lambda_i\nabla^2 f_i(x) &amp; \nabla f(x)
+&amp; A^\intercal\\
+-\operatorname{diag}(\lambda) \nabla f(x)^\intercal
+&amp;-\operatorname{diag}(f(x)) &amp; 0\\
 A &amp; 0 &amp; 0
 \end{bmatrix}
 \begin{bmatrix}
@@ -734,9 +1067,11 @@ r_{\text{cent} }\\
 r_{\text{pri} }
 \end{bmatrix}
 \]</span></p>
-<p>代理对偶间隙 <span class="math inline">\(\hat\eta (x,\lambda)=-f(x)^\intercal \lambda\)</span></p>
+<p>代理对偶间隙 <span class="math inline">\(\hat\eta
+(x,\lambda)=-f(x)^\intercal \lambda\)</span></p>
 <p>步骤：</p>
-<p><code>while</code> <span class="math inline">\(\|r_{\text{pri} }\|,\|r_{\text{dual} }\|,\hat\eta&gt;\varepsilon\)</span></p>
+<p><code>while</code> <span class="math inline">\(\|r_{\text{pri}
+}\|,\|r_{\text{dual} }\|,\hat\eta&gt;\varepsilon\)</span></p>
 <ol type="1">
 <li><span class="math inline">\(t:=\mu m/\hat\eta\)</span></li>
 <li>计算 <span class="math inline">\(\Delta y_{\text{pd} }\)</span></li>

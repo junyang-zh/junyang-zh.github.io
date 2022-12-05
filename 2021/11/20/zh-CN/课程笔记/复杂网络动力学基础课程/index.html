@@ -217,16 +217,25 @@
       
         <p>我在之前打数模的时候学了一点复杂网络，虽然学的很浅，感觉还是挺有意思的。</p>
 <p>但这个考试完全打消了我对这个学科的喜爱，或者说觉得它不应该作为有考试的课程。这场考试完全就是背诵结论，弄得我毫无兴趣。现在陷入了人生的大思考。</p>
-<p>考卷结构大概是 20 分名词解释（10 题），40 分填空（40 个空），余下的证明和计算。我有一个证明题没弄对，填空一堆不记得了，经验公式也不太好推出来，烦躁。</p>
+<p>考卷结构大概是 20 分名词解释（10 题），40 分填空（40
+个空），余下的证明和计算。我有一个证明题没弄对，填空一堆不记得了，经验公式也不太好推出来，烦躁。</p>
 <p>这个课本来是大四下的课，所以像这样背多分，不容易挂，也没人有意见，但是我基本上就惨了，祈求老师能给我分高一点吧。</p>
 <p>还是把考前搞的提纲粘出来，要好好背。也有好多考了提纲里没有，要好好看课件。</p>
 <h2 id="数理统计">数理统计</h2>
 <h3 id="符号">符号</h3>
-<p>随机变量 <span class="math inline">\(X\)</span>，观测值 <span class="math inline">\(x\)</span>，分布函数 CDF <span class="math inline">\(F(x)=P\{X\le x\}\)</span>，概率密度函数 PDF <span class="math inline">\(f(x)=F&#39;(x)\)</span></p>
-<p>若 <span class="math inline">\(Y=g(X)\)</span>，且 <span class="math inline">\(\int g(x)f(x)\ \mathrm d x\)</span> 绝对收敛，则 <span class="math inline">\(E[Y]=\int g(x)f(x)\ \mathrm d x\)</span></p>
+<p>随机变量 <span class="math inline">\(X\)</span>，观测值 <span
+class="math inline">\(x\)</span>，分布函数 CDF <span
+class="math inline">\(F(x)=P\{X\le x\}\)</span>，概率密度函数 PDF <span
+class="math inline">\(f(x)=F&#39;(x)\)</span></p>
+<p>若 <span class="math inline">\(Y=g(X)\)</span>，且 <span
+class="math inline">\(\int g(x)f(x)\ \mathrm d x\)</span> 绝对收敛，则
+<span class="math inline">\(E[Y]=\int g(x)f(x)\ \mathrm d x\)</span></p>
 <h3 id="公式与概念">公式与概念</h3>
 <h4 id="极大似然估计">极大似然估计</h4>
-<p>设其分布为 <span class="math inline">\(p(x;\theta)\)</span>，似然函数 <span class="math inline">\(L(\theta)=\prod_i p(x_i;\theta)\)</span>，极大似然估计值 <span class="math inline">\(\hat\theta=\arg\max_\theta L(\theta)\)</span></p>
+<p>设其分布为 <span class="math inline">\(p(x;\theta)\)</span>，似然函数
+<span class="math inline">\(L(\theta)=\prod_i
+p(x_i;\theta)\)</span>，极大似然估计值 <span
+class="math inline">\(\hat\theta=\arg\max_\theta L(\theta)\)</span></p>
 <h4 id="高斯积分">高斯积分</h4>
 <p><span class="math display">\[
 \int_{-\infty}^{+\infty}e^{-ax^2}=\sqrt{\dfrac{\pi}{a}}
@@ -235,29 +244,53 @@
 <p><span class="math display">\[
 \Gamma(x)=\int_0^\infty t^{x-1}e^{-t}\ \mathrm d t
 \]</span></p>
-<p>有 <span class="math inline">\(\Gamma(x+1)=x\Gamma(x)\)</span>，<span class="math inline">\(\Gamma(n+1)=n!\)</span>（<span class="math inline">\(n\)</span> 是整数）；<span class="math inline">\(\Gamma(1/2)=\sqrt{\pi}\)</span></p>
+<p>有 <span class="math inline">\(\Gamma(x+1)=x\Gamma(x)\)</span>，<span
+class="math inline">\(\Gamma(n+1)=n!\)</span>（<span
+class="math inline">\(n\)</span> 是整数）；<span
+class="math inline">\(\Gamma(1/2)=\sqrt{\pi}\)</span></p>
 <h4 id="贝塔函数">贝塔函数</h4>
 <p><span class="math display">\[
-B(\alpha,\beta)=\int_0^1x^{\alpha-1}(1-x)^{\beta-1}\ \mathrm dx=\dfrac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}
+B(\alpha,\beta)=\int_0^1x^{\alpha-1}(1-x)^{\beta-1}\ \mathrm
+dx=\dfrac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}
 \]</span></p>
 <p>其中 <span class="math inline">\(\alpha, \beta&gt;0\)</span></p>
 <h3 id="矩母函数">矩母函数</h3>
-<p>对一非负随机变量 <span class="math inline">\(X\)</span>，其矩母函数定义为 <span class="math display">\[
+<p>对一非负随机变量 <span
+class="math inline">\(X\)</span>，其矩母函数定义为 <span
+class="math display">\[
 m_X(t)=E[e^{tX}]=\int e^{tx}f(x)\ \mathrm d x
-\]</span> 其中 <span class="math inline">\(-\infty&lt;t&lt;h\)</span>，<span class="math inline">\(h\)</span> 是一个正数</p>
-<p>样本 <span class="math inline">\(k\)</span> 阶原点矩 <span class="math inline">\(A_k=\dfrac{1}{n}\sum_i X_i^k\)</span>，<span class="math inline">\(v_k(X)=\int x^kf(x)\ \mathrm d x\)</span>，中心矩 <span class="math inline">\(B_k=\dfrac{1}{n}\sum_i \left(X_i-\overline X\right)^k\)</span></p>
-<p>对矩母函数（关于 <span class="math inline">\(t\)</span>）在原点泰勒展开 <span class="math display">\[
+\]</span> 其中 <span
+class="math inline">\(-\infty&lt;t&lt;h\)</span>，<span
+class="math inline">\(h\)</span> 是一个正数</p>
+<p>样本 <span class="math inline">\(k\)</span> 阶原点矩 <span
+class="math inline">\(A_k=\dfrac{1}{n}\sum_i X_i^k\)</span>，<span
+class="math inline">\(v_k(X)=\int x^kf(x)\ \mathrm d x\)</span>，中心矩
+<span class="math inline">\(B_k=\dfrac{1}{n}\sum_i \left(X_i-\overline
+X\right)^k\)</span></p>
+<p>对矩母函数（关于 <span
+class="math inline">\(t\)</span>）在原点泰勒展开 <span
+class="math display">\[
 m_X(t)=\sum_{k=0}^\infty \dfrac{E[X^k]t^k}{k!}
-\]</span> 则 <span class="math inline">\(X\)</span> 的 <span class="math inline">\(k\)</span> 阶原点矩 <span class="math inline">\(E[X^k]\)</span> 就是 <span class="math inline">\(m_X(t)\)</span> 的 <span class="math inline">\(k\)</span> 阶导数</p>
+\]</span> 则 <span class="math inline">\(X\)</span> 的 <span
+class="math inline">\(k\)</span> 阶原点矩 <span
+class="math inline">\(E[X^k]\)</span> 就是 <span
+class="math inline">\(m_X(t)\)</span> 的 <span
+class="math inline">\(k\)</span> 阶导数</p>
 <h3 id="特征函数">特征函数</h3>
 <p><span class="math display">\[
 \phi_X(t)=E[e^{\mathrm i tX}]=\int e^{\mathrm i tx}f(x)
 \]</span></p>
-<p>类似傅里叶变换 <span class="math inline">\(F(\omega)=\displaystyle\int f(t)e^{-\mathrm j\omega t}\ \mathrm d t\)</span></p>
+<p>类似傅里叶变换 <span
+class="math inline">\(F(\omega)=\displaystyle\int f(t)e^{-\mathrm
+j\omega t}\ \mathrm d t\)</span></p>
 <h3 id="概率母函数">概率母函数</h3>
-<p>对于非负离散随机变量 <span class="math inline">\(X\)</span>，其概率母函数定义为 <span class="math display">\[
-g_X(t)=E[t^{X}]=\sum_{k=0} ^{\infty}t^kP\{X=k\}=\sum_{k=0} ^{\infty}t^kp(k)
-\]</span> 类似 Z 变换 <span class="math inline">\(X(Z)=\sum_{n=0}^{\infty}x(n)Z^{-n}\)</span></p>
+<p>对于非负离散随机变量 <span
+class="math inline">\(X\)</span>，其概率母函数定义为 <span
+class="math display">\[
+g_X(t)=E[t^{X}]=\sum_{k=0} ^{\infty}t^kP\{X=k\}=\sum_{k=0}
+^{\infty}t^kp(k)
+\]</span> 类似 Z 变换 <span
+class="math inline">\(X(Z)=\sum_{n=0}^{\infty}x(n)Z^{-n}\)</span></p>
 <p>有 <span class="math inline">\(g_X(t)=m_X(\ln t)\)</span></p>
 <h3 id="常用概率分布">常用概率分布</h3>
 <h4 id="柯西分布">柯西分布</h4>
@@ -268,46 +301,81 @@ f_{x_0,\gamma}(x)=\dfrac{1}{\pi\gamma\left[1+\left(\dfrac{1-x_0}{\gamma}\right)\
 <p><span class="math display">\[
 f_X(x)=\dfrac{e^{-\dfrac{(x-\mu)^2}{2\sigma^2}}}{\sqrt{2\pi}\sigma}
 \]</span></p>
-<p>其矩母函数 <span class="math inline">\(m_X(t)=e^{\mu t+\dfrac{\sigma^2}{2}t^2}\)</span></p>
+<p>其矩母函数 <span class="math inline">\(m_X(t)=e^{\mu
+t+\dfrac{\sigma^2}{2}t^2}\)</span></p>
 <h4 id="泊松分布">泊松分布</h4>
-<p>离散型概率分布（<span class="math inline">\(\lambda&gt;0\)</span>） <span class="math display">\[
+<p>离散型概率分布（<span class="math inline">\(\lambda&gt;0\)</span>）
+<span class="math display">\[
 P\{N=k\}=\dfrac{e^{-\lambda}\lambda^k}{k!}
-\]</span> 矩母函数 <span class="math inline">\(m_N(t)=e^{\lambda(e^t-1)}\)</span></p>
+\]</span> 矩母函数 <span
+class="math inline">\(m_N(t)=e^{\lambda(e^t-1)}\)</span></p>
 <h4 id="二项分布">二项分布</h4>
-<p><span class="math inline">\(X\sim B(n,p)\)</span> <span class="math display">\[
+<p><span class="math inline">\(X\sim B(n,p)\)</span> <span
+class="math display">\[
 P\{X=k\}=\binom{n}{k}p^k(1-p)^{n-k}
 \]</span></p>
 <h4 id="卡方分布">卡方分布</h4>
-<p>独立同分布的正态平方和 <span class="math inline">\(X_1^2+X_2^2+\cdots+X_n^2\sim\chi^2(n)\)</span></p>
-<p>期望 <span class="math inline">\(n\)</span>，方差 <span class="math inline">\(2n\)</span></p>
+<p>独立同分布的正态平方和 <span
+class="math inline">\(X_1^2+X_2^2+\cdots+X_n^2\sim\chi^2(n)\)</span></p>
+<p>期望 <span class="math inline">\(n\)</span>，方差 <span
+class="math inline">\(2n\)</span></p>
 <h4 id="t-分布">t 分布</h4>
-<p>设 <span class="math inline">\(X\sim N(0,1)\)</span>，<span class="math inline">\(Y\sim \chi^2(n)\)</span>，<span class="math inline">\(t=\dfrac{X}{\sqrt{Y/n}}\sim t(n)\)</span></p>
+<p>设 <span class="math inline">\(X\sim N(0,1)\)</span>，<span
+class="math inline">\(Y\sim \chi^2(n)\)</span>，<span
+class="math inline">\(t=\dfrac{X}{\sqrt{Y/n}}\sim t(n)\)</span></p>
 <p>估计小样本正态分布方差未知的均值</p>
 <h4 id="f-分布">F 分布</h4>
-<p>设 <span class="math inline">\(U\sim \chi^2(m)\)</span>，<span class="math inline">\(V\sim\chi^2(n)\)</span>，<span class="math inline">\(F=\dfrac{U/m}{V/n}\sim F(m, n)\)</span></p>
+<p>设 <span class="math inline">\(U\sim \chi^2(m)\)</span>，<span
+class="math inline">\(V\sim\chi^2(n)\)</span>，<span
+class="math inline">\(F=\dfrac{U/m}{V/n}\sim F(m, n)\)</span></p>
 <h4 id="gamma-分布">Gamma 分布</h4>
 <p><span class="math display">\[
 f_X(x)=\dfrac{x^{\alpha -1}e^{-x/\beta}}{\beta^\alpha\Gamma(\alpha)}
 \]</span></p>
-<p>其中 <span class="math inline">\(x&gt;0\)</span>，<span class="math inline">\(\alpha,\beta&gt;0\)</span></p>
-<p>若 <span class="math inline">\(\alpha=1\)</span>，其为指数分布；若 <span class="math inline">\(\beta=2\)</span>，<span class="math inline">\(\alpha=n/2\)</span>，则是自由度 <span class="math inline">\(n\)</span> 的 <span class="math inline">\(\chi^2\)</span> 分布</p>
-<p><span class="math inline">\(\alpha=k+1\)</span>，<span class="math inline">\(\beta=1\)</span> 时其为 Poisson 分布（<span class="math inline">\(k\)</span> 为整数）</p>
-<p>矩母函数 <span class="math inline">\(m_X(t)=\dfrac{1}{(1-\beta t)^\alpha}\)</span>，<span class="math inline">\(k\)</span> 阶原点矩 <span class="math inline">\(E[X^k]=\dfrac{\beta^k\Gamma(\alpha+k)}{\Gamma(\alpha)}\)</span></p>
-<p>可加性：若 <span class="math inline">\(X_i\sim\text{Gamma}(\alpha_i,\beta)\)</span>，则 <span class="math inline">\(\sum_i X_i\sim\text{Gamma}(\sum_i \alpha_i,\beta)\)</span></p>
+<p>其中 <span class="math inline">\(x&gt;0\)</span>，<span
+class="math inline">\(\alpha,\beta&gt;0\)</span></p>
+<p>若 <span class="math inline">\(\alpha=1\)</span>，其为指数分布；若
+<span class="math inline">\(\beta=2\)</span>，<span
+class="math inline">\(\alpha=n/2\)</span>，则是自由度 <span
+class="math inline">\(n\)</span> 的 <span
+class="math inline">\(\chi^2\)</span> 分布</p>
+<p><span class="math inline">\(\alpha=k+1\)</span>，<span
+class="math inline">\(\beta=1\)</span> 时其为 Poisson 分布（<span
+class="math inline">\(k\)</span> 为整数）</p>
+<p>矩母函数 <span class="math inline">\(m_X(t)=\dfrac{1}{(1-\beta
+t)^\alpha}\)</span>，<span class="math inline">\(k\)</span> 阶原点矩
+<span
+class="math inline">\(E[X^k]=\dfrac{\beta^k\Gamma(\alpha+k)}{\Gamma(\alpha)}\)</span></p>
+<p>可加性：若 <span
+class="math inline">\(X_i\sim\text{Gamma}(\alpha_i,\beta)\)</span>，则
+<span class="math inline">\(\sum_i X_i\sim\text{Gamma}(\sum_i
+\alpha_i,\beta)\)</span></p>
 <h3 id="假设检验">假设检验</h3>
 <h4 id="一般过程">一般过程</h4>
 <ol type="1">
-<li>原假设（零假设） <span class="math inline">\(H_0\)</span>，对立假设 <span class="math inline">\(H_1\)</span></li>
-<li>选定检验统计量 <span class="math inline">\(g(X_1,X_2,\cdots,X_n)\)</span>，确定 <span class="math inline">\(H_0\)</span> 成立时统计量 <span class="math inline">\(g\)</span> 的分布 <span class="math inline">\(D\)</span></li>
-<li>计算显著水平 <span class="math inline">\(0&lt;p&lt;1\)</span> 下 <span class="math inline">\(H_0\)</span> 的临界值 <span class="math inline">\(g&#39;\)</span>，使 <span class="math inline">\(F_D(g&#39;)= p\)</span>，则接受域 <span class="math inline">\(S_0=\{g\ |\ g&gt;g&#39;\}\)</span></li>
+<li>原假设（零假设） <span class="math inline">\(H_0\)</span>，对立假设
+<span class="math inline">\(H_1\)</span></li>
+<li>选定检验统计量 <span
+class="math inline">\(g(X_1,X_2,\cdots,X_n)\)</span>，确定 <span
+class="math inline">\(H_0\)</span> 成立时统计量 <span
+class="math inline">\(g\)</span> 的分布 <span
+class="math inline">\(D\)</span></li>
+<li>计算显著水平 <span class="math inline">\(0&lt;p&lt;1\)</span> 下
+<span class="math inline">\(H_0\)</span> 的临界值 <span
+class="math inline">\(g&#39;\)</span>，使 <span
+class="math inline">\(F_D(g&#39;)= p\)</span>，则接受域 <span
+class="math inline">\(S_0=\{g\ |\ g&gt;g&#39;\}\)</span></li>
 <li>判断 <span class="math inline">\(g\)</span> 是否在接受域</li>
 </ol>
-<p>显著性水平 <span class="math inline">\(p=P\{\text{refuse } H_0\ |\ H_0 \text{ holds}\}\)</span>（以真为假）（第一类错误）</p>
-<p>功效 <span class="math inline">\(\eta=P\{\text{accept } H_0\ |\ H_0 \text{ doesn&#39;t hold}\}\)</span>（以假为真）（第二类错误）</p>
+<p>显著性水平 <span class="math inline">\(p=P\{\text{refuse } H_0\ |\
+H_0 \text{ holds}\}\)</span>（以真为假）（第一类错误）</p>
+<p>功效 <span class="math inline">\(\eta=P\{\text{accept } H_0\ |\ H_0
+\text{ doesn&#39;t hold}\}\)</span>（以假为真）（第二类错误）</p>
 <h4 id="q-q-plot-检验">Q-Q Plot 检验</h4>
 <p>实际与理论的分位数点比较</p>
 <h4 id="kolmogorov-smirnov-检验">Kolmogorov-Smirnov 检验</h4>
-<p>经验分布函数 EDF <span class="math inline">\(F_n(x)\)</span> 与分布函数的距离，统计量 <span class="math display">\[
+<p>经验分布函数 EDF <span class="math inline">\(F_n(x)\)</span>
+与分布函数的距离，统计量 <span class="math display">\[
 T=\sup_x |F_n(x)-F(x)|
 \]</span> 临界值表</p>
 <table>
@@ -329,17 +397,33 @@ T=\sup_x |F_n(x)-F(x)|
 </tbody>
 </table>
 <h4 id="pearson-chi2-检验">Pearson-chi2 检验</h4>
-<p>取检验量 <span class="math inline">\(\chi^2=\sum_i\dfrac{(A_i-T_i)^2}{T_i}\)</span>，其中 <span class="math inline">\(A_i\)</span>，<span class="math inline">\(T_i\)</span> 分别为区间 <span class="math inline">\([c_{i-1},c_i)\)</span> 中的实际频数和理论频数</p>
+<p>取检验量 <span
+class="math inline">\(\chi^2=\sum_i\dfrac{(A_i-T_i)^2}{T_i}\)</span>，其中
+<span class="math inline">\(A_i\)</span>，<span
+class="math inline">\(T_i\)</span> 分别为区间 <span
+class="math inline">\([c_{i-1},c_i)\)</span> 中的实际频数和理论频数</p>
 <h3 id="矩阵">矩阵</h3>
-<p>共轭转置 <span class="math inline">\(A^\mathrm H=({A^*})^\mathrm T\)</span></p>
+<p>共轭转置 <span class="math inline">\(A^\mathrm H=({A^*})^\mathrm
+T\)</span></p>
 <p>Hermite 矩阵 <span class="math inline">\(A^{\mathrm H}=A\)</span></p>
-<p>正则矩阵 <span class="math inline">\(A^{\mathrm H}A=AA^{\mathrm H}\)</span></p>
+<p>正则矩阵 <span class="math inline">\(A^{\mathrm H}A=AA^{\mathrm
+H}\)</span></p>
 <p>正交矩阵 <span class="math inline">\(U^{\mathrm T}U=I\)</span></p>
 <p>置换矩阵 <span class="math inline">\(P\)</span>（初等矩阵）</p>
-<p>可约矩阵 <span class="math inline">\(L\)</span> 存在上三角分解（满秩）</p>
-<p>实对称不可约矩阵 <span class="math inline">\(L\)</span> 的每一行元素和为零，则（1）<span class="math inline">\(0\)</span> 是重特征值；（2）其他特征值小于零；（3）存在正交矩阵 <span class="math inline">\(\Phi\)</span>，<span class="math inline">\(L^\mathrm T\phi_i=\lambda_i\phi_i\)</span></p>
-<p>Schur 分解：<span class="math inline">\(Q^\mathrm TAQ\)</span> 有上三角分块，每块阶数不大于 2，<span class="math inline">\(Q\)</span> 为正交矩阵</p>
-<p>LDU 分解：<span class="math inline">\(A=LDU\)</span>，<span class="math inline">\(L\)</span> 单位下三角，<span class="math inline">\(D\)</span> 对角，<span class="math inline">\(U\)</span> 单位上三角</p>
+<p>可约矩阵 <span class="math inline">\(L\)</span>
+存在上三角分解（满秩）</p>
+<p>实对称不可约矩阵 <span class="math inline">\(L\)</span>
+的每一行元素和为零，则（1）<span class="math inline">\(0\)</span>
+是重特征值；（2）其他特征值小于零；（3）存在正交矩阵 <span
+class="math inline">\(\Phi\)</span>，<span
+class="math inline">\(L^\mathrm T\phi_i=\lambda_i\phi_i\)</span></p>
+<p>Schur 分解：<span class="math inline">\(Q^\mathrm TAQ\)</span>
+有上三角分块，每块阶数不大于 2，<span class="math inline">\(Q\)</span>
+为正交矩阵</p>
+<p>LDU 分解：<span class="math inline">\(A=LDU\)</span>，<span
+class="math inline">\(L\)</span> 单位下三角，<span
+class="math inline">\(D\)</span> 对角，<span
+class="math inline">\(U\)</span> 单位上三角</p>
 <p>Shur 补定理（线性矩阵不等式）： <span class="math display">\[
 X=\begin{bmatrix}
 X_{11}&amp;X_{12}\\
@@ -348,134 +432,226 @@ X_{12}^\mathrm T&amp;X_{22}
 \]</span> 下列三个条件等价</p>
 <ul>
 <li><span class="math inline">\(X&lt;0\)</span></li>
-<li><span class="math inline">\(X_{11}&lt;0\)</span>，<span class="math inline">\(X_{22}-X_{12}^\mathrm TX_{11}^{-1}X_{12}&lt;0\)</span></li>
-<li><span class="math inline">\(X_{22}&lt;0\)</span>，<span class="math inline">\(X_{11}-X_{12}^\mathrm TX_{22}^{-1}X_{12}&lt;0\)</span></li>
+<li><span class="math inline">\(X_{11}&lt;0\)</span>，<span
+class="math inline">\(X_{22}-X_{12}^\mathrm
+TX_{11}^{-1}X_{12}&lt;0\)</span></li>
+<li><span class="math inline">\(X_{22}&lt;0\)</span>，<span
+class="math inline">\(X_{11}-X_{12}^\mathrm
+TX_{22}^{-1}X_{12}&lt;0\)</span></li>
 </ul>
 <h2 id="网络特征的数学描述">网络特征的数学描述</h2>
 <h3 id="网络静态几何特征">网络静态几何特征</h3>
 <h4 id="平均度">平均度</h4>
 <p><span class="math display">\[
-\left&lt;k\right&gt;=\dfrac{1}{N}\sum_{i=1}^{N}k_i=\dfrac{\operatorname{tr} (A^2)}{N}
+\left&lt;k\right&gt;=\dfrac{1}{N}\sum_{i=1}^{N}k_i=\dfrac{\operatorname{tr}
+(A^2)}{N}
 \]</span></p>
-<p>其中 <span class="math inline">\(k_i\)</span> 为节点 <span class="math inline">\(i\)</span> 的度，<span class="math inline">\(A\)</span> 为网络的邻接矩阵</p>
+<p>其中 <span class="math inline">\(k_i\)</span> 为节点 <span
+class="math inline">\(i\)</span> 的度，<span
+class="math inline">\(A\)</span> 为网络的邻接矩阵</p>
 <h4 id="无标度条件">无标度条件</h4>
-<p>有概率分布函数 <span class="math inline">\(F(x)\)</span>，若 <span class="math inline">\(\forall a\)</span>，<span class="math inline">\(\exists b\)</span> 使得 <span class="math inline">\(F(ax)=bF(x)\)</span>，则称 <span class="math inline">\(F(x)\)</span> 满足无标度条件</p>
-<p>幂律分布函数 <span class="math inline">\(F(x)=f(1)x^{-\gamma}\)</span>，<span class="math inline">\(\gamma=-f(1)/F(1)\)</span> 是唯一的离散无标度分布</p>
+<p>有概率分布函数 <span class="math inline">\(F(x)\)</span>，若 <span
+class="math inline">\(\forall a\)</span>，<span
+class="math inline">\(\exists b\)</span> 使得 <span
+class="math inline">\(F(ax)=bF(x)\)</span>，则称 <span
+class="math inline">\(F(x)\)</span> 满足无标度条件</p>
+<p>幂律分布函数 <span
+class="math inline">\(F(x)=f(1)x^{-\gamma}\)</span>，<span
+class="math inline">\(\gamma=-f(1)/F(1)\)</span>
+是唯一的离散无标度分布</p>
 <h4 id="度分布">度分布</h4>
-<p><span class="math inline">\(P(k)\)</span> 表示度为 <span class="math inline">\(k\)</span> 的节点所占比例</p>
-<p>累积度分布 <span class="math inline">\(P_k=\sum_{i=k}^{\infty} P(i)\)</span>，若度分布为幂律分布，<span class="math inline">\(P_k\propto k^{-(\gamma-1)}\)</span></p>
+<p><span class="math inline">\(P(k)\)</span> 表示度为 <span
+class="math inline">\(k\)</span> 的节点所占比例</p>
+<p>累积度分布 <span class="math inline">\(P_k=\sum_{i=k}^{\infty}
+P(i)\)</span>，若度分布为幂律分布，<span
+class="math inline">\(P_k\propto k^{-(\gamma-1)}\)</span></p>
 <h4 id="距离参数">距离参数</h4>
 <p>直径 <span class="math inline">\(D\)</span></p>
-<p>平均路径长度 <span class="math inline">\(L=\dbinom{2}{N}^{-1}\sum\limits_{1\le i&lt;j\le N}d_{ij}\)</span></p>
+<p>平均路径长度 <span
+class="math inline">\(L=\dbinom{2}{N}^{-1}\sum\limits_{1\le i&lt;j\le
+N}d_{ij}\)</span></p>
 <h4 id="聚类系数">聚类系数</h4>
-<p>节点 <span class="math inline">\(v_i\)</span> 度为 <span class="math inline">\(k_i\)</span>，其聚类系数 <span class="math display">\[
+<p>节点 <span class="math inline">\(v_i\)</span> 度为 <span
+class="math inline">\(k_i\)</span>，其聚类系数 <span
+class="math display">\[
 C_i=\dfrac{E_i}{\dbinom{2}{k_i}}
-\]</span> 其中 <span class="math inline">\(E_i\)</span> 表示邻居之间存在的边数</p>
-<p>记 <span class="math inline">\(a_{ij}^{(p)}\)</span> 为邻接矩阵 <span class="math inline">\(A^p\)</span> 的元，则 <span class="math inline">\(C_i=\dfrac{a^{(3)}_{ii}}{k_i(k_i-1)}\)</span>，亦有 <span class="math inline">\(k_i=a_{ii}^{(2)}\)</span></p>
+\]</span> 其中 <span class="math inline">\(E_i\)</span>
+表示邻居之间存在的边数</p>
+<p>记 <span class="math inline">\(a_{ij}^{(p)}\)</span> 为邻接矩阵 <span
+class="math inline">\(A^p\)</span> 的元，则 <span
+class="math inline">\(C_i=\dfrac{a^{(3)}_{ii}}{k_i(k_i-1)}\)</span>，亦有
+<span class="math inline">\(k_i=a_{ii}^{(2)}\)</span></p>
 <p>网络的聚类系数 <span class="math inline">\(C=\overline C\)</span></p>
-<p>聚类系数分布 <span class="math inline">\(P(C)\)</span> 表示聚类系数出现的概率</p>
+<p>聚类系数分布 <span class="math inline">\(P(C)\)</span>
+表示聚类系数出现的概率</p>
 <h3 id="无向网络静态特性">无向网络静态特性</h3>
 <h4 id="联合度分布">联合度分布</h4>
 <p><span class="math display">\[
 P(k_1,k_2)=\dfrac{M(k_1,k_2)}{M}
 \]</span></p>
-<p>其中 <span class="math inline">\(M(k_1,k_2)\)</span> 为度值 <span class="math inline">\(k_1\)</span> 的节点与度值 <span class="math inline">\(k_2\)</span> 的节点连接总边数</p>
+<p>其中 <span class="math inline">\(M(k_1,k_2)\)</span> 为度值 <span
+class="math inline">\(k_1\)</span> 的节点与度值 <span
+class="math inline">\(k_2\)</span> 的节点连接总边数</p>
 <h4 id="最近邻平均度">最近邻平均度</h4>
-<p>节点 <span class="math inline">\(v_i\)</span> 的最近邻平均度（节点邻居的平均度） <span class="math display">\[
+<p>节点 <span class="math inline">\(v_i\)</span>
+的最近邻平均度（节点邻居的平均度） <span class="math display">\[
 k_{nn,i}=\dfrac{\sum_{j}a_{ij}k_j}{k_i}
-\]</span> 度值为 <span class="math inline">\(k\)</span> 节点的最近邻平均度平均值 <span class="math display">\[
+\]</span> 度值为 <span class="math inline">\(k\)</span>
+节点的最近邻平均度平均值 <span class="math display">\[
 k_{nn}(k)=\dfrac{\sum_{i | k_i=k}k_{nn,i}}{N\cdot P(k)}
 \]</span> 该函数增则为同配网络，否则为异配网络</p>
 <h4 id="同配系数">同配系数</h4>
 <p>度的 Pearson 相关系数 <span class="math display">\[
 r=\dfrac{\overline{k_ik_j}-\left(\dfrac{1}{2}\overline{k_i+k_j}\right)^2}
 {\dfrac{1}{2}\overline{k_i^2+k_j^2}-\left(\dfrac{1}{2}\overline{k_i+k_j}\right)^2}
-\]</span> 其中 <span class="math inline">\(\overline{f(k_i,kj)}\)</span> 表示 <span class="math inline">\(M^{-1}\sum_{e_{ij}\in E}f(k_i,k_j)\)</span></p>
-<p>注：<span class="math inline">\(\rho_{XY}=\dfrac{\text{Cov}(X,Y)}{\sqrt{\text{Var}X\cdot\text{Var}Y}}\)</span></p>
+\]</span> 其中 <span class="math inline">\(\overline{f(k_i,kj)}\)</span>
+表示 <span class="math inline">\(M^{-1}\sum_{e_{ij}\in
+E}f(k_i,k_j)\)</span></p>
+<p>注：<span
+class="math inline">\(\rho_{XY}=\dfrac{\text{Cov}(X,Y)}{\sqrt{\text{Var}X\cdot\text{Var}Y}}\)</span></p>
 <h4 id="聚-度相关性">聚-度相关性</h4>
 <p>局部聚类系数 <span class="math display">\[
 C(k)=\dfrac{2\overline {M_{nn}(k)}}{k(k-1)}
-\]</span> 度为 <span class="math inline">\(k\)</span> 的节点的邻居之间存在的平均边数与这些邻居之间存在的最大可能的边数的比值</p>
+\]</span> 度为 <span class="math inline">\(k\)</span>
+的节点的邻居之间存在的平均边数与这些邻居之间存在的最大可能的边数的比值</p>
 <p>全局聚类系数 <span class="math display">\[
 C=\dfrac{\sum_{k=0}^{\infty}k(k-1)P(k)C(k)}{\overline{k^2}-\overline k}
 \]</span></p>
 <h4 id="介数">介数</h4>
-<p>节点介数 <span class="math inline">\(B_i\)</span> 表示最短路径途径（比例）和 <span class="math display">\[
-B_{i}=\sum_{1\le l&lt;m\le N\wedge l\neq m\neq i}\dfrac{n_{lm}(i)}{n_{lm}}
-\]</span> 边介数 <span class="math inline">\(\widetilde {B_{ij}}\)</span> 表示所有最短路径经过该边的条数（比例）和 <span class="math display">\[
-\widetilde {B_{ij}}=\sum_{1\le l&lt;m\le N\wedge (l,m)\neq (i,j)}\dfrac{N_{lm}(e_{ij})}{N_{lm}}
+<p>节点介数 <span class="math inline">\(B_i\)</span>
+表示最短路径途径（比例）和 <span class="math display">\[
+B_{i}=\sum_{1\le l&lt;m\le N\wedge l\neq m\neq
+i}\dfrac{n_{lm}(i)}{n_{lm}}
+\]</span> 边介数 <span class="math inline">\(\widetilde
+{B_{ij}}\)</span> 表示所有最短路径经过该边的条数（比例）和 <span
+class="math display">\[
+\widetilde {B_{ij}}=\sum_{1\le l&lt;m\le N\wedge (l,m)\neq
+(i,j)}\dfrac{N_{lm}(e_{ij})}{N_{lm}}
 \]</span></p>
 <h4 id="核数">核数</h4>
-<p><span class="math inline">\(k\)</span>-核是指反复去掉度值小于 <span class="math inline">\(k\)</span> 的节点及其连线后所剩余的子图，该子图的节点数就是该核的大小</p>
-<p>若一个节点存在于 <span class="math inline">\(k\)</span>-核，而在 <span class="math inline">\((k+1)\)</span>-核中被移去，那么此节点的核数为 <span class="math inline">\(k\)</span></p>
+<p><span class="math inline">\(k\)</span>-核是指反复去掉度值小于 <span
+class="math inline">\(k\)</span>
+的节点及其连线后所剩余的子图，该子图的节点数就是该核的大小</p>
+<p>若一个节点存在于 <span class="math inline">\(k\)</span>-核，而在
+<span
+class="math inline">\((k+1)\)</span>-核中被移去，那么此节点的核数为
+<span class="math inline">\(k\)</span></p>
 <h4 id="中心性">中心性</h4>
-<p>度中心性 <span class="math inline">\(C_D(v_i)=\dfrac{k_i}{N-1}\)</span></p>
-<p>构造同节点数量星形网络，得最大网络度中心性为 <span class="math display">\[
-H=\sum_{i=1}^{N}\left[\max_{u_{\text{star}}}\{C_D(u_{\text{star}})\}-C_D(u_{\text{star}, i})\right]=N-2
-\]</span> 网络度中心性 <span class="math inline">\(C_D=H^{-1}\sum_{i=1}^{N}\left[\max_{u}\{C_D(u)\}-C_D(u_i)\right]\)</span></p>
-<p>介数中心性 <span class="math inline">\(C_B(v_i)=\dfrac{2B_i}{(N-1)(N-2)}\)</span></p>
-<p>网络介数中心性 <span class="math inline">\(C_B=(N-1)^{-1}\sum_{i=1}^{N}\left[\max_{u}\{C_B(u)\}-C_B(u_i)\right]\)</span></p>
+<p>度中心性 <span
+class="math inline">\(C_D(v_i)=\dfrac{k_i}{N-1}\)</span></p>
+<p>构造同节点数量星形网络，得最大网络度中心性为 <span
+class="math display">\[
+H=\sum_{i=1}^{N}\left[\max_{u_{\text{star}}}\{C_D(u_{\text{star}})\}-C_D(u_{\text{star},
+i})\right]=N-2
+\]</span> 网络度中心性 <span
+class="math inline">\(C_D=H^{-1}\sum_{i=1}^{N}\left[\max_{u}\{C_D(u)\}-C_D(u_i)\right]\)</span></p>
+<p>介数中心性 <span
+class="math inline">\(C_B(v_i)=\dfrac{2B_i}{(N-1)(N-2)}\)</span></p>
+<p>网络介数中心性 <span
+class="math inline">\(C_B=(N-1)^{-1}\sum_{i=1}^{N}\left[\max_{u}\{C_B(u)\}-C_B(u_i)\right]\)</span></p>
 <h4 id="pagerank">PageRank</h4>
-<p><span class="math inline">\(Ax=\lambda x\)</span>，其中 <span class="math inline">\(x\)</span> 是网络的特征向量，则节点的特征向量中心性分值 <span class="math display">\[
+<p><span class="math inline">\(Ax=\lambda x\)</span>，其中 <span
+class="math inline">\(x\)</span>
+是网络的特征向量，则节点的特征向量中心性分值 <span
+class="math display">\[
 C_E(v_i)=x_i=\dfrac{1}{\lambda_{\max}}\sum_{j=1}^{N}a_{ij}x_j
-\]</span> Markov 链的状态转移概率矩阵 <span class="math inline">\(P\)</span>（<span class="math inline">\(p_{ij}\)</span> 表示由状态 <span class="math inline">\(i\)</span> 至 <span class="math inline">\(j\)</span> 的概率） <span class="math display">\[
+\]</span> Markov 链的状态转移概率矩阵 <span
+class="math inline">\(P\)</span>（<span
+class="math inline">\(p_{ij}\)</span> 表示由状态 <span
+class="math inline">\(i\)</span> 至 <span
+class="math inline">\(j\)</span> 的概率） <span class="math display">\[
 p_{ij}=\dfrac{1-d}{N}+d\dfrac{b_{ij}}{r_i}
-\]</span> 其中 <span class="math inline">\(d\)</span> 为模型参数（常取 <span class="math inline">\(d=0.85\)</span>），<span class="math inline">\(r_i\)</span> 为行和（链出数目）</p>
-<p>正则 Markov 链（<span class="math inline">\(\exists k\)</span>，使 <span class="math inline">\(a_{ij}^{(k)}&gt;0\)</span>）存在平稳分布（不动点） <span class="math inline">\(P^{T}x=x\)</span>，即存在特征值为 <span class="math inline">\(1\)</span> 的特征向量</p>
+\]</span> 其中 <span class="math inline">\(d\)</span> 为模型参数（常取
+<span class="math inline">\(d=0.85\)</span>），<span
+class="math inline">\(r_i\)</span> 为行和（链出数目）</p>
+<p>正则 Markov 链（<span class="math inline">\(\exists k\)</span>，使
+<span
+class="math inline">\(a_{ij}^{(k)}&gt;0\)</span>）存在平稳分布（不动点）
+<span class="math inline">\(P^{T}x=x\)</span>，即存在特征值为 <span
+class="math inline">\(1\)</span> 的特征向量</p>
 <h3 id="赋权网络静态特性">赋权网络静态特性</h3>
 <h4 id="权重">权重</h4>
 <p>边权 <span class="math inline">\(w_{ij}\)</span></p>
-<p>点权 <span class="math inline">\(S_i\)</span>：与它相连的边权之和 <span class="math inline">\(\sum_{j\in N_i} w_{ij}\)</span></p>
-<p>单位权 <span class="math inline">\(U_i\)</span>：节点连接的平均权重 <span class="math inline">\(U_i=S_i/k_i\)</span></p>
-<p>权重分布的差异性 <span class="math inline">\(Y_i\)</span>：节点连接的边权分布的离散程度 <span class="math inline">\(\sum_{j\in N_i} (w_{ij}/S_i)^2\)</span></p>
+<p>点权 <span class="math inline">\(S_i\)</span>：与它相连的边权之和
+<span class="math inline">\(\sum_{j\in N_i} w_{ij}\)</span></p>
+<p>单位权 <span class="math inline">\(U_i\)</span>：节点连接的平均权重
+<span class="math inline">\(U_i=S_i/k_i\)</span></p>
+<p>权重分布的差异性 <span
+class="math inline">\(Y_i\)</span>：节点连接的边权分布的离散程度 <span
+class="math inline">\(\sum_{j\in N_i} (w_{ij}/S_i)^2\)</span></p>
 <h4 id="权-度相关性">权-度相关性</h4>
 <h5 id="基于节点的权-度相关性">基于节点的权-度相关性</h5>
 <p><span class="math display">\[
 S_{vv}(k)=\dfrac{\sum_{i|k_i=k}S_i}{N\cdot P(k)}
 \]</span></p>
-<p>分母：度为 <span class="math inline">\(k\)</span> 的节点个数；分子：度为 <span class="math inline">\(k\)</span> 的所有节点的点权之和</p>
+<p>分母：度为 <span class="math inline">\(k\)</span>
+的节点个数；分子：度为 <span class="math inline">\(k\)</span>
+的所有节点的点权之和</p>
 <h5 id="基于边的权-度相关性">基于边的权-度相关性</h5>
 <p>赋权最近邻平均度 <span class="math display">\[
 k_{w_{nn},i}=\dfrac{\sum_j w_{ij}k_i}{S_i}
 \]</span></p>
 <ul>
-<li>若 <span class="math inline">\(k_{w_{nn},i}&gt;k_{nn,i}\)</span>，则边权与度正相关</li>
-<li>若 <span class="math inline">\(k_{w_{nn},i}&lt;k_{nn,i}\)</span>，则边权与度负相关</li>
+<li>若 <span
+class="math inline">\(k_{w_{nn},i}&gt;k_{nn,i}\)</span>，则边权与度正相关</li>
+<li>若 <span
+class="math inline">\(k_{w_{nn},i}&lt;k_{nn,i}\)</span>，则边权与度负相关</li>
 </ul>
 <p>其中 <span class="math inline">\(k_{nn,i}\)</span> 为最近邻平均度</p>
 <h4 id="赋权聚类系数">赋权聚类系数</h4>
-<p>顶点 <span class="math inline">\(i\)</span> 的 Onnela 赋权聚类系数 <span class="math display">\[
-C_{\mathrm O,i}^w=\dfrac{1}{k_i(k_i-1)}\sum_{j,k}(w_{ij}w_{jk}w_{ki})^{\dfrac{1}{3}}
+<p>顶点 <span class="math inline">\(i\)</span> 的 Onnela 赋权聚类系数
+<span class="math display">\[
+C_{\mathrm
+O,i}^w=\dfrac{1}{k_i(k_i-1)}\sum_{j,k}(w_{ij}w_{jk}w_{ki})^{\dfrac{1}{3}}
 \]</span> 为三角形边权几何平均值与三元组数量的比值</p>
-<p>顶点 <span class="math inline">\(i\)</span> 的 Holme 赋权聚类系数 <span class="math display">\[
-C_{\mathrm H,i}^w=\dfrac{\sum_{j,k}w_{ij}w_{jk}w_{ki}}{\max_{j}(w_{ij})\sum_{j,k}w_{ij}w_{ki}}
+<p>顶点 <span class="math inline">\(i\)</span> 的 Holme 赋权聚类系数
+<span class="math display">\[
+C_{\mathrm
+H,i}^w=\dfrac{\sum_{j,k}w_{ij}w_{jk}w_{ki}}{\max_{j}(w_{ij})\sum_{j,k}w_{ij}w_{ki}}
 \]</span></p>
 <h3 id="网络的其他静态特性">网络的其他静态特性</h3>
 <h4 id="结构熵">结构熵</h4>
-<p>节点的重要度 <span class="math inline">\(I_i=k_i/\sum_j k_j\)</span></p>
-<p>结构熵 <span class="math inline">\(E=-\sum_{i|I_i\neq0} I_i\ln I_i\)</span></p>
+<p>节点的重要度 <span class="math inline">\(I_i=k_i/\sum_j
+k_j\)</span></p>
+<p>结构熵 <span class="math inline">\(E=-\sum_{i|I_i\neq0} I_i\ln
+I_i\)</span></p>
 <p>结构熵越大，越均匀</p>
-<p>归一化结构熵 <span class="math inline">\(\hat E=\dfrac{E-E_{min}}{E_{max}-E_{min}}\)</span></p>
-<p>其中星形网络 <span class="math inline">\(E_{min}=\dfrac{\ln (4(N-1))}{2}\)</span></p>
+<p>归一化结构熵 <span class="math inline">\(\hat
+E=\dfrac{E-E_{min}}{E_{max}-E_{min}}\)</span></p>
+<p>其中星形网络 <span class="math inline">\(E_{min}=\dfrac{\ln
+(4(N-1))}{2}\)</span></p>
 <p>均匀网络 <span class="math inline">\(E_{max}=\ln N\)</span></p>
 <h4 id="特征谱">特征谱</h4>
-<p>Wigner 半圆定理：<span class="math inline">\(A_{n_1}\in\mathbb R^{N\times N}\)</span> 每一个非对角线元素独立同分布且服从高斯分布 <span class="math inline">\(N(0,1)\)</span>，对角线独立同分布于 <span class="math inline">\(N(0,2)\)</span>，Wigner 矩阵 <span class="math inline">\(W_{n_1}=\dfrac{1}{\sqrt{N}}A_{n_1}\)</span> 的谱分布服从半圆律 <span class="math display">\[
+<p>Wigner 半圆定理：<span class="math inline">\(A_{n_1}\in\mathbb
+R^{N\times N}\)</span> 每一个非对角线元素独立同分布且服从高斯分布 <span
+class="math inline">\(N(0,1)\)</span>，对角线独立同分布于 <span
+class="math inline">\(N(0,2)\)</span>，Wigner 矩阵 <span
+class="math inline">\(W_{n_1}=\dfrac{1}{\sqrt{N}}A_{n_1}\)</span>
+的谱分布服从半圆律 <span class="math display">\[
 f_{SC}(x)=\begin{cases}
 \dfrac{1}{2\pi}\sqrt{4-x^2},&amp;|x|\le 2\\
 0, &amp; |x|&gt;2
 \end{cases}
-\]</span> 网络的 Laplacian 矩阵 <span class="math inline">\(L=D-A\)</span>，其中 <span class="math inline">\(D\)</span> 为各节点的度的对角矩阵</p>
-<p>由于 <span class="math inline">\(L\)</span>（或 <span class="math inline">\(A\)</span>）是实对称矩阵，有 N 个实特征值 <span class="math inline">\(\lambda_j\)</span>（有重）</p>
+\]</span> 网络的 Laplacian 矩阵 <span
+class="math inline">\(L=D-A\)</span>，其中 <span
+class="math inline">\(D\)</span> 为各节点的度的对角矩阵</p>
+<p>由于 <span class="math inline">\(L\)</span>（或 <span
+class="math inline">\(A\)</span>）是实对称矩阵，有 N 个实特征值 <span
+class="math inline">\(\lambda_j\)</span>（有重）</p>
 <p>谱密度 <span class="math display">\[
 \rho(\lambda)=\dfrac{1}{N}\sum_{j=1}^N\delta(\lambda-\lambda_j)
-\]</span> 谱密度的 <span class="math inline">\(p\)</span>-阶矩 <span class="math display">\[
+\]</span> 谱密度的 <span class="math inline">\(p\)</span>-阶矩 <span
+class="math display">\[
 \begin{aligned}
-M_p&amp;=\dfrac{1}{N}\int_{-\infty}^{+\infty}\lambda^p\rho(\lambda)\ \mathrm d\lambda\\
+M_p&amp;=\dfrac{1}{N}\int_{-\infty}^{+\infty}\lambda^p\rho(\lambda)\
+\mathrm d\lambda\\
 &amp;=\dfrac{1}{N}\sum_{j=1}^N\lambda_j^p\\
 &amp;=\dfrac{1}{N}\operatorname{tr}(A^p)\\
-&amp;=\dfrac{1}{N}\sum_{i_1,i_2,\cdots,i_p}a_{i_1i_2}a_{i_2i_3}\cdots a_{i_pi_1}
+&amp;=\dfrac{1}{N}\sum_{i_1,i_2,\cdots,i_p}a_{i_1i_2}a_{i_2i_3}\cdots
+a_{i_pi_1}
 \end{aligned}
-\]</span> 右侧即长为 <span class="math inline">\(p\)</span> 的闭合回路总数</p>
+\]</span> 右侧即长为 <span class="math inline">\(p\)</span>
+的闭合回路总数</p>
 <h2 id="经典复杂网络模型分析">经典复杂网络模型分析</h2>
 <h3 id="规则网络">规则网络</h3>
 <ul>
@@ -484,13 +660,21 @@ M_p&amp;=\dfrac{1}{N}\int_{-\infty}^{+\infty}\lambda^p\rho(\lambda)\ \mathrm d\l
 <li>星形耦合网络（SCN）</li>
 </ul>
 <table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 15%" />
+<col style="width: 10%" />
+<col style="width: 20%" />
+<col style="width: 36%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>网络类型</th>
 <th>度</th>
 <th>直径 <span class="math inline">\(D\)</span></th>
 <th>平均路径长度 <span class="math inline">\(L\)</span></th>
-<th>聚类系数 <span class="math inline">\(C_i\)</span>，<span class="math inline">\(C\)</span></th>
+<th>聚类系数 <span class="math inline">\(C_i\)</span>，<span
+class="math inline">\(C\)</span></th>
 </tr>
 </thead>
 <tbody>
@@ -506,11 +690,13 @@ M_p&amp;=\dfrac{1}{N}\int_{-\infty}^{+\infty}\lambda^p\rho(\lambda)\ \mathrm d\l
 <td><span class="math inline">\(K\)</span></td>
 <td><span class="math inline">\(N/K\)</span></td>
 <td><span class="math inline">\(\approx N/(2K)\)</span></td>
-<td><span class="math inline">\(C_i=C=\dfrac{3(K-2)}{4(K-1)}\)</span></td>
+<td><span
+class="math inline">\(C_i=C=\dfrac{3(K-2)}{4(K-1)}\)</span></td>
 </tr>
 <tr class="odd">
 <td>星形耦合网络</td>
-<td><span class="math inline">\(1\)</span> 或 <span class="math inline">\(N-1\)</span></td>
+<td><span class="math inline">\(1\)</span> 或 <span
+class="math inline">\(N-1\)</span></td>
 <td><span class="math inline">\(2\)</span></td>
 <td><span class="math inline">\(2-2/N\)</span></td>
 <td><span class="math inline">\(0\)</span></td>
@@ -519,23 +705,46 @@ M_p&amp;=\dfrac{1}{N}\int_{-\infty}^{+\infty}\lambda^p\rho(\lambda)\ \mathrm d\l
 </table>
 <h3 id="随机网络">随机网络</h3>
 <p>ER：所有可能边中选取 <span class="math inline">\(m\)</span> 条</p>
-<p>二项式模型：以概率 <span class="math inline">\(p\)</span> 连接，边数期望 <span class="math inline">\(pN(N-1)/2\)</span></p>
-<p>如果 <span class="math inline">\(N\to\infty\)</span> 时产生一个具有性质 <span class="math inline">\(Q\)</span> 的 ER 随机网络的概率为 <span class="math inline">\(1\)</span>，那么就称几乎每一个 ER 随机网络都具有性质 <span class="math inline">\(Q\)</span> ；如若 <span class="math inline">\(p&gt;p_c\propto (\ln N)/N\)</span>，几乎每一个 ER 网络都是联通的。</p>
+<p>二项式模型：以概率 <span class="math inline">\(p\)</span>
+连接，边数期望 <span class="math inline">\(pN(N-1)/2\)</span></p>
+<p>如果 <span class="math inline">\(N\to\infty\)</span>
+时产生一个具有性质 <span class="math inline">\(Q\)</span> 的 ER
+随机网络的概率为 <span
+class="math inline">\(1\)</span>，那么就称几乎每一个 ER
+随机网络都具有性质 <span class="math inline">\(Q\)</span> ；如若 <span
+class="math inline">\(p&gt;p_c\propto (\ln N)/N\)</span>，几乎每一个 ER
+网络都是联通的。</p>
 <p>性质：</p>
 <ul>
-<li>度分布为 Poisson 分布（平均度 <span class="math inline">\(p(N-1)\)</span>）</li>
-<li>平均距离 <span class="math inline">\(L_{ER}\propto\dfrac{\ln N}{\ln \left&lt;k\right&gt;}\)</span> 短（小世界特性）</li>
-<li>聚类系数 <span class="math inline">\(C_{ER}=\dfrac{\left&lt;k\right&gt;}{N-1}=p\)</span> 小</li>
-<li>特征谱半圆分布（<span class="math inline">\(p=cN^{-z}\)</span>，<span class="math inline">\(0&lt;z&lt;1\)</span>）(<span class="math inline">\(z&gt;1\)</span> 时不然)</li>
+<li>度分布为 Poisson 分布（平均度 <span
+class="math inline">\(p(N-1)\)</span>）</li>
+<li>平均距离 <span class="math inline">\(L_{ER}\propto\dfrac{\ln N}{\ln
+\left&lt;k\right&gt;}\)</span> 短（小世界特性）</li>
+<li>聚类系数 <span
+class="math inline">\(C_{ER}=\dfrac{\left&lt;k\right&gt;}{N-1}=p\)</span>
+小</li>
+<li>特征谱半圆分布（<span
+class="math inline">\(p=cN^{-z}\)</span>，<span
+class="math inline">\(0&lt;z&lt;1\)</span>）(<span
+class="math inline">\(z&gt;1\)</span> 时不然)</li>
 </ul>
 <h3 id="小世界网络">小世界网络</h3>
 <p>性质</p>
 <ul>
-<li><span class="math inline">\(L\)</span> 短；<span class="math inline">\(C\)</span> 高，Poisson 分布</li>
+<li><span class="math inline">\(L\)</span> 短；<span
+class="math inline">\(C\)</span> 高，Poisson 分布</li>
 </ul>
-<p>WS：NCN 网络按概率 <span class="math inline">\(p\)</span> 重新随机连接</p>
-<p>NW：NCN 网络按概率 <span class="math inline">\(p\)</span> 随机加边</p>
+<p>WS：NCN 网络按概率 <span class="math inline">\(p\)</span>
+重新随机连接</p>
+<p>NW：NCN 网络按概率 <span class="math inline">\(p\)</span>
+随机加边</p>
 <table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 24%" />
+<col style="width: 27%" />
+<col style="width: 38%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>网络类型</th>
@@ -549,54 +758,88 @@ M_p&amp;=\dfrac{1}{N}\int_{-\infty}^{+\infty}\lambda^p\rho(\lambda)\ \mathrm d\l
 <td>WS</td>
 <td>近似泊松，至少 <span class="math inline">\(K/2\)</span></td>
 <td><span class="math inline">\(\dfrac{2N}{K}f(NKp/2)\)</span></td>
-<td><span class="math inline">\(\dfrac{3(K-2)}{4(K-1)}(1-p)^3\)</span></td>
+<td><span
+class="math inline">\(\dfrac{3(K-2)}{4(K-1)}(1-p)^3\)</span></td>
 </tr>
 <tr class="even">
 <td>NW</td>
 <td></td>
 <td></td>
-<td><span class="math inline">\(\dfrac{3(K-2)}{4(K-1)+4K(p+2)}\)</span></td>
+<td><span
+class="math inline">\(\dfrac{3(K-2)}{4(K-1)+4K(p+2)}\)</span></td>
 </tr>
 </tbody>
 </table>
-<p>其中 <span class="math inline">\(f(u)\approx(2\sqrt{u^2+2u})\operatorname {arctanh}\sqrt{\dfrac{u}{u+2}}\)</span></p>
+<p>其中 <span
+class="math inline">\(f(u)\approx(2\sqrt{u^2+2u})\operatorname
+{arctanh}\sqrt{\dfrac{u}{u+2}}\)</span></p>
 <p>小世界网络特征谱类似尖峰</p>
 <h3 id="无标度网络">无标度网络</h3>
 <p>Scale-Free Network</p>
-<p>BA 网络，<span class="math inline">\(P\{k=x\}\propto x^{-\gamma}\)</span>，<span class="math inline">\(2&lt;\gamma &lt;3\)</span></p>
+<p>BA 网络，<span class="math inline">\(P\{k=x\}\propto
+x^{-\gamma}\)</span>，<span class="math inline">\(2&lt;\gamma
+&lt;3\)</span></p>
 <ul>
-<li><p>增长，初始节点数 <span class="math inline">\(m_0\)</span> 每次增加节点连接 <span class="math inline">\(m\)</span> 条边</p></li>
-<li><p>优先连接：新节点 <span class="math inline">\(v\)</span> 与已经存在的节点 <span class="math inline">\(v_i\)</span> 连接的概率 <span class="math inline">\(\Pi_i\)</span> 与度 <span class="math inline">\(k_i\)</span> 正相关</p></li>
+<li><p>增长，初始节点数 <span class="math inline">\(m_0\)</span>
+每次增加节点连接 <span class="math inline">\(m\)</span> 条边</p></li>
+<li><p>优先连接：新节点 <span class="math inline">\(v\)</span>
+与已经存在的节点 <span class="math inline">\(v_i\)</span> 连接的概率
+<span class="math inline">\(\Pi_i\)</span> 与度 <span
+class="math inline">\(k_i\)</span> 正相关</p></li>
 </ul>
 <h4 id="连续场模型">连续场模型</h4>
-<p><span class="math inline">\(\Pi_i=\dfrac{k_i+1}{\sum_j(k_j+1)}\)</span>；<span class="math inline">\(t_i\)</span> 为 <span class="math inline">\(v_i\)</span> 加入网络的时间节点，有 <span class="math inline">\(k_i(t_i)=m\)</span>，<span class="math inline">\(\dfrac{\mathrm dk_i}{\mathrm dt}=m\Pi_i(t)\)</span>：</p>
+<p><span
+class="math inline">\(\Pi_i=\dfrac{k_i+1}{\sum_j(k_j+1)}\)</span>；<span
+class="math inline">\(t_i\)</span> 为 <span
+class="math inline">\(v_i\)</span> 加入网络的时间节点，有 <span
+class="math inline">\(k_i(t_i)=m\)</span>，<span
+class="math inline">\(\dfrac{\mathrm dk_i}{\mathrm
+dt}=m\Pi_i(t)\)</span>：</p>
 <ul>
 <li>解得 <span class="math inline">\(k_i(t)=m\sqrt{t/t_i}\)</span></li>
-<li>假设等时间间隔加入，该时间段 <span class="math inline">\(t\)</span> 内某节点 <span class="math inline">\(v_i\)</span> 度分布为常数 <span class="math inline">\(P\{k_i(t)&lt;k\}=P\{t_i&gt;\dfrac{m^2}{k^2}t\}\)</span></li>
+<li>假设等时间间隔加入，该时间段 <span class="math inline">\(t\)</span>
+内某节点 <span class="math inline">\(v_i\)</span> 度分布为常数 <span
+class="math inline">\(P\{k_i(t)&lt;k\}=P\{t_i&gt;\dfrac{m^2}{k^2}t\}\)</span></li>
 </ul>
 <p>解得 BA 模型的度分布 <span class="math display">\[
-P\{k_i=k\}=\dfrac{\mathrm d P\{t_i&gt;\dfrac{m^2}{k^2}t\}}{\mathrm d k}=\dfrac{2m^2t}{m_0+t}\cdot\dfrac{1}{k^3}
+P\{k_i=k\}=\dfrac{\mathrm d P\{t_i&gt;\dfrac{m^2}{k^2}t\}}{\mathrm d
+k}=\dfrac{2m^2t}{m_0+t}\cdot\dfrac{1}{k^3}
 \]</span></p>
 <h4 id="速率方程法">速率方程法</h4>
 <h5 id="求解度分布">求解度分布</h5>
-<p>设 <span class="math inline">\(t\)</span> 时刻拥有 <span class="math inline">\(k\)</span> 条边的节点数（期望）为 <span class="math inline">\(N_k(t)\)</span>，有 <span class="math inline">\(\sum_k kN_k(t)=2mt\)</span> <span class="math display">\[
-\dfrac{\mathrm dN_k(t)}{\mathrm d t}=m\dfrac{(k-1)N_{k-1}(t)-kN_k(t)}{\sum_k kN_k(t)}+\delta_{km}
+<p>设 <span class="math inline">\(t\)</span> 时刻拥有 <span
+class="math inline">\(k\)</span> 条边的节点数（期望）为 <span
+class="math inline">\(N_k(t)\)</span>，有 <span
+class="math inline">\(\sum_k kN_k(t)=2mt\)</span> <span
+class="math display">\[
+\dfrac{\mathrm dN_k(t)}{\mathrm d
+t}=m\dfrac{(k-1)N_{k-1}(t)-kN_k(t)}{\sum_k kN_k(t)}+\delta_{km}
 \]</span> 边界条件 <span class="math display">\[
 \delta_{km}=\begin{cases}
 1,&amp; k=m;\\
 0,&amp; k\neq m.
 \end{cases}
-\]</span> 求解，有 <span class="math inline">\(N_k(t)\approx tP\{k_i=k\}\)</span>（大数定律 <span class="math inline">\(t\gg 1\)</span>）</p>
-<p>简化为 <span class="math inline">\((k+2)P\{k_i=k\}=(k-1)P\{k_i=k-1\}+2\delta_{km}\)</span></p>
-<p>递推得 <span class="math inline">\(P\{k_i=k\}=\dfrac{2m(m+1)}{k(k+1)(k+2)}\propto 2m^2k^{-3}\)</span></p>
+\]</span> 求解，有 <span class="math inline">\(N_k(t)\approx
+tP\{k_i=k\}\)</span>（大数定律 <span class="math inline">\(t\gg
+1\)</span>）</p>
+<p>简化为 <span
+class="math inline">\((k+2)P\{k_i=k\}=(k-1)P\{k_i=k-1\}+2\delta_{km}\)</span></p>
+<p>递推得 <span
+class="math inline">\(P\{k_i=k\}=\dfrac{2m(m+1)}{k(k+1)(k+2)}\propto
+2m^2k^{-3}\)</span></p>
 <h5 id="求解度相关性">求解度相关性</h5>
-<p>令 <span class="math inline">\(m=1\)</span>，设 <span class="math inline">\(t\)</span> 时刻连接的度分别为 <span class="math inline">\(k\)</span> 和 <span class="math inline">\(l\)</span> 的节点对数量为 <span class="math inline">\(N_{k,l}(t)\)</span> <span class="math display">\[
+<p>令 <span class="math inline">\(m=1\)</span>，设 <span
+class="math inline">\(t\)</span> 时刻连接的度分别为 <span
+class="math inline">\(k\)</span> 和 <span
+class="math inline">\(l\)</span> 的节点对数量为 <span
+class="math inline">\(N_{k,l}(t)\)</span> <span class="math display">\[
 \dfrac{\mathrm dN_{kl}(t)}{\mathrm d t}=
 \dfrac{(k-1)N_{k-1,l}(t)-kN_{k,l}(t)}{2t}
 +
 \dfrac{(l-1)N_{k,l-1}(t)-lN_{k,l}(t)}{2t}
 +(l-1)N_{l-1}\delta_{kl}
-\]</span> 化简为递归关系略；该递归关系证明了 <span class="math inline">\(n_{kl}\neq n_kn_l\)</span>，即存在度相关性</p>
+\]</span> 化简为递归关系略；该递归关系证明了 <span
+class="math inline">\(n_{kl}\neq n_kn_l\)</span>，即存在度相关性</p>
 <h4 id="其他参数">其他参数</h4>
 <p>平均路径长度 <span class="math display">\[
 L\propto
@@ -610,15 +853,19 @@ L\propto
 <p>特征谱</p>
 <p>三角形，幂律衰减</p>
 <p>随机攻击鲁棒性（无阈值现象），故意攻击脆弱性（阈值很小）</p>
-<p>对于随机网络，无论是故意攻击还是随机故障，只要所移除的节点比例超过一个阈值， 网络的极大连通分支中的节点比例将近似为零</p>
+<p>对于随机网络，无论是故意攻击还是随机故障，只要所移除的节点比例超过一个阈值，
+网络的极大连通分支中的节点比例将近似为零</p>
 <h3 id="层次网络">层次网络</h3>
 <h4 id="聚-度相关性-1">聚-度相关性</h4>
-<p><span class="math inline">\(C_H(k)\)</span> 表示度值为 <span class="math inline">\(k\)</span> 的平均聚类系数</p>
-<p>层次性：<span class="math inline">\(C_H(k)\propto k^{-a}\)</span>，<span class="math inline">\(a\)</span> 为层次指数</p>
+<p><span class="math inline">\(C_H(k)\)</span> 表示度值为 <span
+class="math inline">\(k\)</span> 的平均聚类系数</p>
+<p>层次性：<span class="math inline">\(C_H(k)\propto
+k^{-a}\)</span>，<span class="math inline">\(a\)</span> 为层次指数</p>
 <h3 id="确定性网络">确定性网络</h3>
 <h4 id="确定性小世界网络">确定性小世界网络</h4>
 <p>从三角形开始，对每一条新加入的边构建一个新的三角形</p>
-<p>点数 <span class="math inline">\(N_t=3\cdot 2^t\)</span>，边数 <span class="math inline">\(M_t=3(2^{t+1}-1)\)</span></p>
+<p>点数 <span class="math inline">\(N_t=3\cdot 2^t\)</span>，边数 <span
+class="math inline">\(M_t=3(2^{t+1}-1)\)</span></p>
 <p>平均聚类系数 0.6931，度分布是指数分布</p>
 <h4 id="确定性无标度网络">确定性无标度网络</h4>
 <p>阿波罗网络</p>
@@ -632,21 +879,32 @@ L\propto
 <li>R（Removed / Recovered）</li>
 </ul>
 <h3 id="si-模型">SI 模型</h3>
-<p><span class="math inline">\(i(t)=I(t)/N\)</span>；<span class="math inline">\(s(t)=S(t)/N\)</span>；<span class="math inline">\(i+s=1\)</span></p>
-<p>所有个体脆弱，感染永远染病，感染率（每个 <span class="math inline">\(I\)</span> 个体单位时间感染数量与 <span class="math inline">\(s\)</span> 的比值）不变，个体总数不变 <span class="math display">\[
+<p><span class="math inline">\(i(t)=I(t)/N\)</span>；<span
+class="math inline">\(s(t)=S(t)/N\)</span>；<span
+class="math inline">\(i+s=1\)</span></p>
+<p>所有个体脆弱，感染永远染病，感染率（每个 <span
+class="math inline">\(I\)</span> 个体单位时间感染数量与 <span
+class="math inline">\(s\)</span> 的比值）不变，个体总数不变 <span
+class="math display">\[
 \begin{cases}
 \dfrac{\mathrm d s}{\mathrm d t}=-\alpha i s\\
 \dfrac{\mathrm d i}{\mathrm d t}=\alpha i s\\
 \end{cases}
-\]</span> 分离变量解得 <span class="math inline">\(i(t)=\dfrac{1}{1+(1/i_0-1)e^{-\alpha t}}\)</span></p>
+\]</span> 分离变量解得 <span
+class="math inline">\(i(t)=\dfrac{1}{1+(1/i_0-1)e^{-\alpha
+t}}\)</span></p>
 <h3 id="sis-模型">SIS 模型</h3>
-<p>加入单位时间治愈率 <span class="math inline">\(\beta\)</span>，会反复发作 <span class="math display">\[
+<p>加入单位时间治愈率 <span
+class="math inline">\(\beta\)</span>，会反复发作 <span
+class="math display">\[
 \begin{cases}
 \dfrac{\mathrm d s}{\mathrm d t}=-\alpha i s+\beta i\\
 \dfrac{\mathrm d i}{\mathrm d t}=\alpha i s-\beta i\\
 \end{cases}
 \]</span> 解伯努利方程</p>
-<p>有效传播率 <span class="math inline">\(\lambda=\alpha/\beta\)</span>，阈值为 <span class="math inline">\(\lambda_c=1\)</span></p>
+<p>有效传播率 <span
+class="math inline">\(\lambda=\alpha/\beta\)</span>，阈值为 <span
+class="math inline">\(\lambda_c=1\)</span></p>
 <h3 id="sir-模型">SIR 模型</h3>
 <p>被治愈免疫 <span class="math display">\[
 \begin{cases}
@@ -654,9 +912,12 @@ L\propto
 \dfrac{\mathrm d i}{\mathrm d t}=\alpha i s-\beta i\\
 \dfrac{\mathrm d r}{\mathrm d t}=\beta i\\
 \end{cases}
-\]</span> 无解析解，<span class="math inline">\(\lambda&gt;1\)</span> 则所有人最终 R，<span class="math inline">\(\lambda\le 1\)</span> 则会剩余 S</p>
+\]</span> 无解析解，<span class="math inline">\(\lambda&gt;1\)</span>
+则所有人最终 R，<span class="math inline">\(\lambda\le 1\)</span>
+则会剩余 S</p>
 <h3 id="sirs">SIRS</h3>
-<p>R 以概率 <span class="math inline">\(\gamma\)</span> 成为 S <span class="math display">\[
+<p>R 以概率 <span class="math inline">\(\gamma\)</span> 成为 S <span
+class="math display">\[
 \begin{cases}
 \dfrac{\mathrm d s}{\mathrm d t}=\gamma r-\alpha i s\\
 \dfrac{\mathrm d i}{\mathrm d t}=\alpha i s-\beta i\\
@@ -666,10 +927,19 @@ L\propto
 <h3 id="均匀网络传播动力学">均匀网络传播动力学</h3>
 <p>平均场理论 MFT</p>
 <h4 id="基于-sis">基于 SIS</h4>
-<p>染病密度 <span class="math inline">\(\rho(t)\)</span>，易感密度 <span class="math inline">\(1-\rho(t)\)</span></p>
-<p>假设 <span class="math inline">\(k_i\approx \left &lt;k\right&gt;\)</span>（均匀性），<span class="math inline">\(\lambda\propto \rho(t)\)</span>（均匀混合），总数不变；不妨令 <span class="math inline">\(\beta=1\)</span>（单位速率） <span class="math display">\[
-\dfrac{\mathrm d \rho}{\mathrm dt}=-\rho+\lambda \left&lt;k\right&gt;\rho(1-\rho)
-\]</span> 稳态解 <span class="math inline">\(\rho=\dfrac{\lambda-\lambda_c}{\lambda}\)</span>，<span class="math inline">\(\lambda_c=\dfrac{1}{\left&lt;k\right&gt;}\)</span></p>
+<p>染病密度 <span class="math inline">\(\rho(t)\)</span>，易感密度 <span
+class="math inline">\(1-\rho(t)\)</span></p>
+<p>假设 <span class="math inline">\(k_i\approx \left
+&lt;k\right&gt;\)</span>（均匀性），<span
+class="math inline">\(\lambda\propto
+\rho(t)\)</span>（均匀混合），总数不变；不妨令 <span
+class="math inline">\(\beta=1\)</span>（单位速率） <span
+class="math display">\[
+\dfrac{\mathrm d \rho}{\mathrm dt}=-\rho+\lambda
+\left&lt;k\right&gt;\rho(1-\rho)
+\]</span> 稳态解 <span
+class="math inline">\(\rho=\dfrac{\lambda-\lambda_c}{\lambda}\)</span>，<span
+class="math inline">\(\lambda_c=\dfrac{1}{\left&lt;k\right&gt;}\)</span></p>
 <h4 id="基于-sir">基于 SIR</h4>
 <p><span class="math display">\[
 \begin{cases}
@@ -678,22 +948,40 @@ L\propto
 \dfrac{\mathrm d r}{\mathrm d t}=i\\
 \end{cases}
 \]</span></p>
-<p>有 <span class="math inline">\(\dfrac{\mathrm d s}{s}=-\lambda\left&lt;k\right&gt; \mathrm d r\)</span>，则 <span class="math inline">\(s=e^{-\lambda\left&lt;k\right&gt; r}\)</span>，得 <span class="math inline">\(r(\infty)=1-e^{-\lambda\left&lt;k\right&gt; r(\infty)}\)</span></p>
-<p>存在非平凡解则满足 <span class="math inline">\(\left.\lambda\left&lt;k\right&gt;e^{-\lambda\left&lt;k\right&gt; r(\infty)}\right|_{r(\infty)\to0}\ge 1\)</span>，则有 <span class="math inline">\(\lambda\ge\dfrac{1}{\left&lt;k\right&gt;}\)</span></p>
-<p>泰勒展开得 <span class="math inline">\(r(\infty)\propto (\lambda-\lambda_c)\)</span></p>
+<p>有 <span class="math inline">\(\dfrac{\mathrm d
+s}{s}=-\lambda\left&lt;k\right&gt; \mathrm d r\)</span>，则 <span
+class="math inline">\(s=e^{-\lambda\left&lt;k\right&gt; r}\)</span>，得
+<span class="math inline">\(r(\infty)=1-e^{-\lambda\left&lt;k\right&gt;
+r(\infty)}\)</span></p>
+<p>存在非平凡解则满足 <span
+class="math inline">\(\left.\lambda\left&lt;k\right&gt;e^{-\lambda\left&lt;k\right&gt;
+r(\infty)}\right|_{r(\infty)\to0}\ge 1\)</span>，则有 <span
+class="math inline">\(\lambda\ge\dfrac{1}{\left&lt;k\right&gt;}\)</span></p>
+<p>泰勒展开得 <span class="math inline">\(r(\infty)\propto
+(\lambda-\lambda_c)\)</span></p>
 <h3 id="非均匀网络传播动力学">非均匀网络传播动力学</h3>
 <h4 id="基于-sis-1">基于 SIS</h4>
-<p>度为 <span class="math inline">\(k\)</span> 的节点染病密度 <span class="math inline">\(\rho_k(t)\)</span> <span class="math display">\[
+<p>度为 <span class="math inline">\(k\)</span> 的节点染病密度 <span
+class="math inline">\(\rho_k(t)\)</span> <span class="math display">\[
 \dfrac{\mathrm d \rho_k}{\mathrm dt}
 =-\rho_k+\lambda k(1-\rho_k)\sum_{k&#39;}P(k&#39; | k)\rho_{k&#39;}
 \operatorname{tr}iangleq -\rho_k+\lambda k(1-\rho_k)\Theta(\rho_k)
-\]</span> 求解稳态解，<span class="math inline">\(\rho_k=\dfrac{k\lambda\Theta}{1+k\lambda\Theta}\)</span></p>
-<p>对于没有度度相关性的无标度网络，<span class="math inline">\(P(k&#39; | k)=\dfrac{k&#39;P(k&#39;)}{\left&lt;k\right&gt;}\)</span></p>
-<p>稳态密度估算值 <span class="math inline">\(\rho=\sum_kP(k)\rho_k\)</span></p>
-<p>可得 <span class="math inline">\(\Theta\)</span> 的自治方程 <span class="math inline">\(\Theta =\dfrac{1}{\left&lt;k\right&gt;}\sum_{k&#39;}\dfrac{k&#39;^2P(k&#39;)\lambda\Theta}{1+k&#39;\lambda\Theta}\)</span></p>
-<p>若要存在非平凡解，要求 <span class="math inline">\(\dfrac{\lambda\left&lt;k^2\right&gt;}{\left&lt;k\right&gt;}\ge 1\)</span>，即 <span class="math inline">\(\lambda_c=\dfrac{\left&lt;k\right&gt;}{\left&lt;k^2\right&gt;}\)</span></p>
+\]</span> 求解稳态解，<span
+class="math inline">\(\rho_k=\dfrac{k\lambda\Theta}{1+k\lambda\Theta}\)</span></p>
+<p>对于没有度度相关性的无标度网络，<span class="math inline">\(P(k&#39;
+| k)=\dfrac{k&#39;P(k&#39;)}{\left&lt;k\right&gt;}\)</span></p>
+<p>稳态密度估算值 <span
+class="math inline">\(\rho=\sum_kP(k)\rho_k\)</span></p>
+<p>可得 <span class="math inline">\(\Theta\)</span> 的自治方程 <span
+class="math inline">\(\Theta
+=\dfrac{1}{\left&lt;k\right&gt;}\sum_{k&#39;}\dfrac{k&#39;^2P(k&#39;)\lambda\Theta}{1+k&#39;\lambda\Theta}\)</span></p>
+<p>若要存在非平凡解，要求 <span
+class="math inline">\(\dfrac{\lambda\left&lt;k^2\right&gt;}{\left&lt;k\right&gt;}\ge
+1\)</span>，即 <span
+class="math inline">\(\lambda_c=\dfrac{\left&lt;k\right&gt;}{\left&lt;k^2\right&gt;}\)</span></p>
 <h4 id="基于-sir-1">基于 SIR</h4>
-<p>类似地，<span class="math inline">\(\Theta(t)=\sum_{k&#39;}P(k&#39; | k)i_{k&#39;}\)</span> <span class="math display">\[
+<p>类似地，<span class="math inline">\(\Theta(t)=\sum_{k&#39;}P(k&#39; |
+k)i_{k&#39;}\)</span> <span class="math display">\[
 \begin{cases}
 \dfrac{\mathrm d s}{\mathrm d t}=-\lambda ks_k\Theta\\
 \dfrac{\mathrm d i}{\mathrm d t}=\lambda ks_k\Theta- i\\
@@ -703,10 +991,19 @@ L\propto
 <h3 id="免疫策略">免疫策略</h3>
 <h4 id="随机免疫">随机免疫</h4>
 <h5 id="均匀网络-sis-模型">均匀网络 SIS 模型</h5>
-<p>免疫节点密度 <span class="math inline">\(\delta\)</span>，随机网络下，传染率 <span class="math inline">\((1-\delta)\lambda\)</span>，代入得免疫临界值 <span class="math inline">\(\delta_c=1-\dfrac{\lambda_c}{\lambda}\)</span></p>
-<p>稳态感染密度 <span class="math inline">\(\rho_{\delta}=\dfrac{\delta_c-\delta}{1-\delta}\)</span>，传播阈值 <span class="math inline">\(\tilde \lambda_c=\dfrac{\lambda_c}{1-\delta}\)</span></p>
+<p>免疫节点密度 <span
+class="math inline">\(\delta\)</span>，随机网络下，传染率 <span
+class="math inline">\((1-\delta)\lambda\)</span>，代入得免疫临界值 <span
+class="math inline">\(\delta_c=1-\dfrac{\lambda_c}{\lambda}\)</span></p>
+<p>稳态感染密度 <span
+class="math inline">\(\rho_{\delta}=\dfrac{\delta_c-\delta}{1-\delta}\)</span>，传播阈值
+<span class="math inline">\(\tilde
+\lambda_c=\dfrac{\lambda_c}{1-\delta}\)</span></p>
 <h5 id="无标度网络-sir-模型">无标度网络 SIR 模型</h5>
-<p><span class="math inline">\(\delta_c=1-\dfrac{\lambda_c}{\lambda}\)</span>，<span class="math inline">\(\tilde \lambda_c=\dfrac{\lambda_c}{1-\delta}\)</span></p>
+<p><span
+class="math inline">\(\delta_c=1-\dfrac{\lambda_c}{\lambda}\)</span>，<span
+class="math inline">\(\tilde
+\lambda_c=\dfrac{\lambda_c}{1-\delta}\)</span></p>
 <h4 id="目标免疫">目标免疫</h4>
 <h5 id="非均匀网络-sir-模型">非均匀网络 SIR 模型</h5>
 <p><span class="math display">\[
@@ -717,24 +1014,48 @@ c ,&amp; k=\mathcal K,\\
 0 ,&amp; k&lt;\mathcal K.\\
 \end{cases}
 \]</span></p>
-<p>免疫平均概率 <span class="math inline">\(\overline \delta=\sum_k\delta_kP(k)\)</span></p>
-<p>目标免疫后传播阈值 <span class="math inline">\(\hat \lambda_c&gt;\dfrac{\lambda_c}{1-\overline \delta}\)</span></p>
-<p>就无标度网络而言，免疫临界值 <span class="math inline">\(\delta_c\propto e^{-\dfrac{2}{m\lambda}}\)</span>，其中 <span class="math inline">\(\delta=\sum_{k&gt;kt}P(k)\)</span></p>
+<p>免疫平均概率 <span class="math inline">\(\overline
+\delta=\sum_k\delta_kP(k)\)</span></p>
+<p>目标免疫后传播阈值 <span class="math inline">\(\hat
+\lambda_c&gt;\dfrac{\lambda_c}{1-\overline \delta}\)</span></p>
+<p>就无标度网络而言，免疫临界值 <span
+class="math inline">\(\delta_c\propto
+e^{-\dfrac{2}{m\lambda}}\)</span>，其中 <span
+class="math inline">\(\delta=\sum_{k&gt;kt}P(k)\)</span></p>
 <h2 id="复杂网络的同步动力学">复杂网络的同步动力学</h2>
 <h3 id="li-yorke-混沌系统">Li-Yorke 混沌系统</h3>
-<p>迭代：<span class="math inline">\(f^{(n)}(x)=f(f^{(n-1)}(x))\)</span></p>
-<p>周期点：对于某个 <span class="math inline">\(x_0\)</span>，有 <span class="math inline">\(f^{(n)}(x_0)=x_0\)</span>，但对 <span class="math inline">\(k&lt;n\)</span>，<span class="math inline">\(f^{(k)}(x_0)\neq x_0\)</span>，则称 <span class="math inline">\(x_0\)</span> 是一个 <span class="math inline">\(n\)</span>-周期点</p>
-<p>混沌：<span class="math inline">\(f(x)\)</span> 在闭区间 <span class="math inline">\(X\)</span> 上连续自映射，若</p>
+<p>迭代：<span
+class="math inline">\(f^{(n)}(x)=f(f^{(n-1)}(x))\)</span></p>
+<p>周期点：对于某个 <span class="math inline">\(x_0\)</span>，有 <span
+class="math inline">\(f^{(n)}(x_0)=x_0\)</span>，但对 <span
+class="math inline">\(k&lt;n\)</span>，<span
+class="math inline">\(f^{(k)}(x_0)\neq x_0\)</span>，则称 <span
+class="math inline">\(x_0\)</span> 是一个 <span
+class="math inline">\(n\)</span>-周期点</p>
+<p>混沌：<span class="math inline">\(f(x)\)</span> 在闭区间 <span
+class="math inline">\(X\)</span> 上连续自映射，若</p>
 <ol type="1">
 <li>存在任意周期的周期点，且周期无上界；</li>
-<li>（不收敛不发散）<span class="math inline">\(X\)</span> 上存在不可数子集 <span class="math inline">\(S\subset X\)</span>，<span class="math inline">\(x_0\notin S\)</span>，使
+<li>（不收敛不发散）<span class="math inline">\(X\)</span>
+上存在不可数子集 <span class="math inline">\(S\subset X\)</span>，<span
+class="math inline">\(x_0\notin S\)</span>，使
 <ul>
-<li><span class="math inline">\(\forall x,y\in S\)</span>，<span class="math inline">\(x\neq y\)</span>，<span class="math inline">\(\lim_{n\to\infty} \inf|f^{(n)}(x)-f^{(n)}(y)|=0\)</span></li>
-<li><span class="math inline">\(\forall x,y\in S\)</span>，<span class="math inline">\(x\neq y\)</span>，<span class="math inline">\(\lim_{n\to\infty} \sup|f^{(n)}(x)-f^{(n)}(y)|&gt;0\)</span></li>
-<li><span class="math inline">\(\forall x\in S\)</span>，<span class="math inline">\(p\)</span> 为任意周期点，<span class="math inline">\(\lim_{n\to\infty} \inf|f^{(n)}(x)-f^{(n)}(p)|=0\)</span></li>
+<li><span class="math inline">\(\forall x,y\in S\)</span>，<span
+class="math inline">\(x\neq y\)</span>，<span
+class="math inline">\(\lim_{n\to\infty}
+\inf|f^{(n)}(x)-f^{(n)}(y)|=0\)</span></li>
+<li><span class="math inline">\(\forall x,y\in S\)</span>，<span
+class="math inline">\(x\neq y\)</span>，<span
+class="math inline">\(\lim_{n\to\infty}
+\sup|f^{(n)}(x)-f^{(n)}(y)|&gt;0\)</span></li>
+<li><span class="math inline">\(\forall x\in S\)</span>，<span
+class="math inline">\(p\)</span> 为任意周期点，<span
+class="math inline">\(\lim_{n\to\infty}
+\inf|f^{(n)}(x)-f^{(n)}(p)|=0\)</span></li>
 </ul></li>
 </ol>
-<p>则 <span class="math inline">\(f(x)\)</span> 在区间 <span class="math inline">\(S\)</span> 上是混沌的</p>
+<p>则 <span class="math inline">\(f(x)\)</span> 在区间 <span
+class="math inline">\(S\)</span> 上是混沌的</p>
 <p>Li-York 论断：有 3-周期点则蕴涵混沌</p>
 <h3 id="混沌">混沌</h3>
 <p>混沌模型的特征</p>
@@ -744,28 +1065,59 @@ c ,&amp; k=\mathcal K,\\
 <li>随机性：任意区域概率密度不为零</li>
 <li>遍历性：可达到吸引子内任何不稳定周期轨道的任何邻域，且不会重复</li>
 <li>普适性：不依赖具体的系统方程</li>
-<li>正 Lyapunov 指数：相空间相邻两条轨道按指数速度分离或聚合的平均变化率</li>
+<li>正 Lyapunov
+指数：相空间相邻两条轨道按指数速度分离或聚合的平均变化率</li>
 </ul>
-<p>n-周期轨道：当 <span class="math inline">\(x_0\)</span> 为一个 <span class="math inline">\(n\)</span> 周期点，称 <span class="math inline">\(\{x_0,f^{(1)}(x_0),\cdots,f^{(n-1)}(x_0)\}\)</span> 为 <span class="math inline">\(f(x)\)</span> 的一个 n-周期轨道</p>
-<p>例：Logistic 映射 <span class="math inline">\(f(x)=\alpha x(1-x)\)</span>，<span class="math inline">\(0&lt;\alpha \le 1\)</span> 时稳定不动点 <span class="math inline">\(0\)</span>；<span class="math inline">\(1&lt;\alpha&lt;3\)</span> 稳定不动点 <span class="math inline">\(1-1/\alpha\)</span>；<span class="math inline">\(\alpha=3\)</span> 产生 <span class="math inline">\(2\)</span>-周期点；<span class="math inline">\(\alpha&gt;3.57\)</span> 迅速产生倍周期分岔</p>
+<p>n-周期轨道：当 <span class="math inline">\(x_0\)</span> 为一个 <span
+class="math inline">\(n\)</span> 周期点，称 <span
+class="math inline">\(\{x_0,f^{(1)}(x_0),\cdots,f^{(n-1)}(x_0)\}\)</span>
+为 <span class="math inline">\(f(x)\)</span> 的一个 n-周期轨道</p>
+<p>例：Logistic 映射 <span class="math inline">\(f(x)=\alpha
+x(1-x)\)</span>，<span class="math inline">\(0&lt;\alpha \le 1\)</span>
+时稳定不动点 <span class="math inline">\(0\)</span>；<span
+class="math inline">\(1&lt;\alpha&lt;3\)</span> 稳定不动点 <span
+class="math inline">\(1-1/\alpha\)</span>；<span
+class="math inline">\(\alpha=3\)</span> 产生 <span
+class="math inline">\(2\)</span>-周期点；<span
+class="math inline">\(\alpha&gt;3.57\)</span> 迅速产生倍周期分岔</p>
 <h3 id="lyapunov-指数">Lyapunov 指数</h3>
 <h4 id="一维">一维</h4>
-<p>一维动力学系统 <span class="math inline">\(x_{n+1}=F(x_n)\)</span></p>
-<p>假设每次映射迭代对 <span class="math inline">\(x_{0}\)</span>，<span class="math inline">\(x_{0}+\varepsilon\)</span> 引起指数分离 <span class="math display">\[
-\varepsilon e^{n\sigma(x_0)}=\left|F^{(n)}(x_0+\varepsilon)-F^{(n)}(x_0)\right|
+<p>一维动力学系统 <span
+class="math inline">\(x_{n+1}=F(x_n)\)</span></p>
+<p>假设每次映射迭代对 <span class="math inline">\(x_{0}\)</span>，<span
+class="math inline">\(x_{0}+\varepsilon\)</span> 引起指数分离 <span
+class="math display">\[
+\varepsilon
+e^{n\sigma(x_0)}=\left|F^{(n)}(x_0+\varepsilon)-F^{(n)}(x_0)\right|
 \]</span> 取极限 <span class="math display">\[
 \sigma(x_0)
-=\lim_{n\to\infty}\lim_{\varepsilon\to 0}\dfrac{1}{n}\ln\left|\dfrac{F^{(n)}(x_0+\varepsilon)-F^{(n)}(x_0)}{\varepsilon}\right|
+=\lim_{n\to\infty}\lim_{\varepsilon\to
+0}\dfrac{1}{n}\ln\left|\dfrac{F^{(n)}(x_0+\varepsilon)-F^{(n)}(x_0)}{\varepsilon}\right|
 =\lim_{n\to\infty}
 \dfrac{1}{n}\ln\left|\dfrac{\mathrm dF^{(n)}(x)}{\mathrm d x}\right|
-\]</span> 将 <span class="math inline">\(F^{(n)}(x)\)</span> 链式法则展开裂项相消得 Lyapunov 指数 <span class="math display">\[
-\sigma = \lim_{n\to\infty}\dfrac{1}{n}\sum_{i=1}^n\ln\left|\dfrac{\mathrm dF(x)}{\mathrm d x}\right|_{x=x_i}
+\]</span> 将 <span class="math inline">\(F^{(n)}(x)\)</span>
+链式法则展开裂项相消得 Lyapunov 指数 <span class="math display">\[
+\sigma =
+\lim_{n\to\infty}\dfrac{1}{n}\sum_{i=1}^n\ln\left|\dfrac{\mathrm
+dF(x)}{\mathrm d x}\right|_{x=x_i}
 \]</span></p>
 <h4 id="高维">高维</h4>
-<p><span class="math inline">\(m\)</span> 维离散动力学系统，设 <span class="math inline">\(F:\mathbb R^{m}\to\mathbb R^m\)</span></p>
-<p>初始值选取无穷小的 <span class="math inline">\(m\)</span> 维球面，将迭代后椭球的所有主轴按长度 <span class="math inline">\(p_i^{(n)}\)</span> 排列，第 <span class="math inline">\(i\)</span> 个 Lyapunov 指数 <span class="math display">\[
+<p><span class="math inline">\(m\)</span> 维离散动力学系统，设 <span
+class="math inline">\(F:\mathbb R^{m}\to\mathbb R^m\)</span></p>
+<p>初始值选取无穷小的 <span class="math inline">\(m\)</span>
+维球面，将迭代后椭球的所有主轴按长度 <span
+class="math inline">\(p_i^{(n)}\)</span> 排列，第 <span
+class="math inline">\(i\)</span> 个 Lyapunov 指数 <span
+class="math display">\[
 \sigma_i = \lim_{n\to\infty}\dfrac{1}{n}\ln\dfrac{p_i^{(n)}}{p_i^{(0)}}
-\]</span> 设 <span class="math inline">\(F_J(X)\)</span> 表示 <span class="math inline">\(F\)</span> 在 <span class="math inline">\(X\)</span> 的 Jacobian 矩阵，<span class="math inline">\(J_k=F_J(X_0)F_{j}(X_1)\cdots F_J(X_{k-1})\)</span>，将 <span class="math inline">\(J_k\)</span> 的 <span class="math inline">\(m\)</span> 个复特征值取模后排列得 <span class="math inline">\(\lambda_i^{(k)}\)</span> <span class="math display">\[
+\]</span> 设 <span class="math inline">\(F_J(X)\)</span> 表示 <span
+class="math inline">\(F\)</span> 在 <span
+class="math inline">\(X\)</span> 的 Jacobian 矩阵，<span
+class="math inline">\(J_k=F_J(X_0)F_{j}(X_1)\cdots
+F_J(X_{k-1})\)</span>，将 <span class="math inline">\(J_k\)</span> 的
+<span class="math inline">\(m\)</span> 个复特征值取模后排列得 <span
+class="math inline">\(\lambda_i^{(k)}\)</span> <span
+class="math display">\[
 \sigma_i = \lim_{n\to\infty}\dfrac{1}{n}\ln\left|\lambda_i^{(k)}\right|
 \]</span></p>
 <h3 id="混沌同步">混沌同步</h3>
@@ -774,66 +1126,136 @@ c ,&amp; k=\mathcal K,\\
 \dot X=F(X,Y,t)\\
 \dot Y=G(X,Y,t)
 \end{cases}
-\]</span> 若存在时间无关映射 <span class="math inline">\(H:\mathbb R^n\times\mathbb R^m\to\mathbb R^k\)</span> 使 <span class="math display">\[
+\]</span> 若存在时间无关映射 <span class="math inline">\(H:\mathbb
+R^n\times\mathbb R^m\to\mathbb R^k\)</span> 使 <span
+class="math display">\[
 \lim_{t\to\infty}\|H(\phi_X,\phi_Y)\|=0
-\]</span> 其中 <span class="math inline">\(\phi_X\)</span>，<span class="math inline">\(\phi_Y\)</span> 分别为其轨道的抽象性质，引出四种同步定义：完全同步、相位同步、滞后同步、广义同步</p>
+\]</span> 其中 <span class="math inline">\(\phi_X\)</span>，<span
+class="math inline">\(\phi_Y\)</span>
+分别为其轨道的抽象性质，引出四种同步定义：完全同步、相位同步、滞后同步、广义同步</p>
 <p>仅讨论完全同步 <span class="math display">\[
 \lim_{t\to\infty}\|X(t)-Y(t)\|=0
 \]</span> 沿同步流形上所有条件 Lyapunov 指数小于零</p>
-<h4 id="基于条件-lyapunov-指数的稳定性判据">基于条件 Lyapunov 指数的稳定性判据</h4>
-<p>误差系统 <span class="math inline">\(Z=X-Y\)</span>，动力学微分方程组 <span class="math inline">\(\dot Z=F(Z)\)</span>，假设 <span class="math inline">\(0\)</span> 是平衡点，<span class="math inline">\(F(Z)\)</span> 在区域 <span class="math inline">\(G=\{Z\ | \ \|Z\|\le a, a&gt;0\}\)</span> 有连续偏导数</p>
+<h4 id="基于条件-lyapunov-指数的稳定性判据">基于条件 Lyapunov
+指数的稳定性判据</h4>
+<p>误差系统 <span class="math inline">\(Z=X-Y\)</span>，动力学微分方程组
+<span class="math inline">\(\dot Z=F(Z)\)</span>，假设 <span
+class="math inline">\(0\)</span> 是平衡点，<span
+class="math inline">\(F(Z)\)</span> 在区域 <span
+class="math inline">\(G=\{Z\ | \ \|Z\|\le a, a&gt;0\}\)</span>
+有连续偏导数</p>
 <h5 id="第一方法间接法">第一方法（间接法）</h5>
 <p>线性化扰动方程 <span class="math display">\[
 \dfrac{\mathrm d}{\mathrm d t}\delta Z(t)=L\delta Z(t)
-\]</span> 其中 <span class="math inline">\(L\)</span> 是 <span class="math inline">\(F(Z)\)</span> 在 <span class="math inline">\(Z=0\)</span> 处的 Jacobi 矩阵</p>
+\]</span> 其中 <span class="math inline">\(L\)</span> 是 <span
+class="math inline">\(F(Z)\)</span> 在 <span
+class="math inline">\(Z=0\)</span> 处的 Jacobi 矩阵</p>
 <p>条件 Lyapunov 指数 <span class="math display">\[
-\sigma_i = \lim_{n\to\infty}\dfrac{1}{n}\ln\left|\dfrac{\partial z_i{(t)}}{\partial z_i{(0)}}\right|
+\sigma_i = \lim_{n\to\infty}\dfrac{1}{n}\ln\left|\dfrac{\partial
+z_i{(t)}}{\partial z_i{(0)}}\right|
 \]</span> 若所有指数小于零，则趋于稳定</p>
 <h5 id="第二方法直接法">第二方法（直接法）</h5>
-<p>构造正定标量函数 <span class="math inline">\(V(Z)\)</span> 作为虚拟广义能量函数</p>
-<p>Lyapunov 函数 <span class="math inline">\(V(Z)\)</span> 为 <span class="math inline">\(\|Z\|\le a\)</span> 内定义的一个实连续标量函数，<span class="math inline">\(V(0)=0\)</span>，正定。假设对所有变量偏导数存在且连续，动力学方程组解条件下对时间求导得 <span class="math inline">\(V(Z)\)</span> 关于动力学方程组的全导数 <span class="math display">\[
+<p>构造正定标量函数 <span class="math inline">\(V(Z)\)</span>
+作为虚拟广义能量函数</p>
+<p>Lyapunov 函数 <span class="math inline">\(V(Z)\)</span> 为 <span
+class="math inline">\(\|Z\|\le a\)</span>
+内定义的一个实连续标量函数，<span
+class="math inline">\(V(0)=0\)</span>，正定。假设对所有变量偏导数存在且连续，动力学方程组解条件下对时间求导得
+<span class="math inline">\(V(Z)\)</span> 关于动力学方程组的全导数 <span
+class="math display">\[
 \left.\dfrac{\mathrm dV(Z)}{\mathrm d t}\right|_{\dot Z=F(Z)}
 =
-\sum_{i=1}^{m}\left(\dfrac{\partial V(Z)}{\partial z_i}\cdot\dfrac{\mathrm d z_i}{\mathrm d t}\right)
+\sum_{i=1}^{m}\left(\dfrac{\partial V(Z)}{\partial
+z_i}\cdot\dfrac{\mathrm d z_i}{\mathrm d t}\right)
 =
-\sum_{i=1}^{m}\left(\dfrac{\partial V(Z)}{\partial z_i}\cdot f_i(Z)\right)
+\sum_{i=1}^{m}\left(\dfrac{\partial V(Z)}{\partial z_i}\cdot
+f_i(Z)\right)
 \]</span> 判定定理</p>
 <ul>
-<li>若存在 <span class="math inline">\(V(Z)\)</span>，其关于动力学方程组的全导数半负定或为零，则系统零解稳定</li>
-<li>若存在 <span class="math inline">\(V(Z)\)</span>，其关于动力学方程组的全导数负定，则系统零解渐进稳定</li>
-<li>若存在 <span class="math inline">\(V(Z)\)</span>，其关于动力学方程组的全导数半负定，但使全导数为零的点 <span class="math inline">\(Z\)</span> 只有 <span class="math inline">\(Z=0\)</span>（其他解负），则系统零解渐进稳定</li>
+<li>若存在 <span
+class="math inline">\(V(Z)\)</span>，其关于动力学方程组的全导数半负定或为零，则系统零解稳定</li>
+<li>若存在 <span
+class="math inline">\(V(Z)\)</span>，其关于动力学方程组的全导数负定，则系统零解渐进稳定</li>
+<li>若存在 <span
+class="math inline">\(V(Z)\)</span>，其关于动力学方程组的全导数半负定，但使全导数为零的点
+<span class="math inline">\(Z\)</span> 只有 <span
+class="math inline">\(Z=0\)</span>（其他解负），则系统零解渐进稳定</li>
 </ul>
 <h4 id="同步方法">同步方法</h4>
 <p>驱动-响应法（P-C 同步法）</p>
-<p>考虑 <span class="math inline">\(n\)</span> 维自治动力学系统 <span class="math inline">\(\dot U=F(U)\)</span> 的两个子系统 <span class="math display">\[
+<p>考虑 <span class="math inline">\(n\)</span> 维自治动力学系统 <span
+class="math inline">\(\dot U=F(U)\)</span> 的两个子系统 <span
+class="math display">\[
 \begin{cases}
 \dot V=G(V,W)\\
 \dot W=H(V,W)
 \end{cases}
-\]</span> 第一个是稳定系统，第二个是混沌系统；上述系统构成驱动系统，构造响应系统 <span class="math inline">\(\dot W&#39;=H(V,W&#39;)\)</span>，则 <span class="math inline">\(W\)</span> 与 <span class="math inline">\(W&#39;\)</span> 受相同驱动变量 <span class="math inline">\(V\)</span> 驱动，其误差系统 <span class="math inline">\(\dot Z=\dot W-\dot W&#39;=H(V,W)-H(V,Z-W)\)</span></p>
+\]</span>
+第一个是稳定系统，第二个是混沌系统；上述系统构成驱动系统，构造响应系统
+<span class="math inline">\(\dot W&#39;=H(V,W&#39;)\)</span>，则 <span
+class="math inline">\(W\)</span> 与 <span
+class="math inline">\(W&#39;\)</span> 受相同驱动变量 <span
+class="math inline">\(V\)</span> 驱动，其误差系统 <span
+class="math inline">\(\dot Z=\dot W-\dot
+W&#39;=H(V,W)-H(V,Z-W)\)</span></p>
 <h3 id="复杂动态网络的完全同步">复杂动态网络的完全同步</h3>
-<p>考虑一个以 <span class="math inline">\(N\)</span> 个相同的动力学系统 <span class="math inline">\(\dot X_i=F(X_i)\)</span> 作为节点所构成的连续时间耗散耦合动态网络，该网络状态方程 <span class="math display">\[
+<p>考虑一个以 <span class="math inline">\(N\)</span> 个相同的动力学系统
+<span class="math inline">\(\dot X_i=F(X_i)\)</span>
+作为节点所构成的连续时间耗散耦合动态网络，该网络状态方程 <span
+class="math display">\[
 \dot X_i=F(X_i)+c\sum_{j=1}^N l_{ij}HX_j
-\]</span> 其中 <span class="math inline">\(c&gt;0\)</span> 为耦合强度，<span class="math inline">\(H\)</span> 为内部耦合函数（输出函数），其为对角阵，描述进行耦合的状态变量，完全同步时 <span class="math inline">\(H=0\)</span></p>
-<p><span class="math inline">\(l_{ij}\)</span> 构成外耦合矩阵 <span class="math inline">\(L\)</span>，表示网络的拓扑结构，行和为零（可用拉普拉斯矩阵）；<span class="math inline">\(L\)</span> 仅有一个重数为 <span class="math inline">\(1\)</span> 的零特征值，对应特征向量为 <span class="math inline">\(1\)</span> 向量，其他特征值均为负实数</p>
-<p>网络完全同步：<span class="math inline">\(\lim_{t\to\infty} X_i(t)=S(t)\)</span>（可达到同步状态 <span class="math inline">\(S(t)\)</span>）</p>
-<p>若耦合强度与外耦合矩阵每个负特征值的积都在同步化范围内 <span class="math inline">\(c\lambda_k\in U\)</span>，则渐近稳定；根据同步化区域 <span class="math inline">\(U\)</span> 不同类型分为</p>
+\]</span> 其中 <span class="math inline">\(c&gt;0\)</span>
+为耦合强度，<span class="math inline">\(H\)</span>
+为内部耦合函数（输出函数），其为对角阵，描述进行耦合的状态变量，完全同步时
+<span class="math inline">\(H=0\)</span></p>
+<p><span class="math inline">\(l_{ij}\)</span> 构成外耦合矩阵 <span
+class="math inline">\(L\)</span>，表示网络的拓扑结构，行和为零（可用拉普拉斯矩阵）；<span
+class="math inline">\(L\)</span> 仅有一个重数为 <span
+class="math inline">\(1\)</span> 的零特征值，对应特征向量为 <span
+class="math inline">\(1\)</span> 向量，其他特征值均为负实数</p>
+<p>网络完全同步：<span class="math inline">\(\lim_{t\to\infty}
+X_i(t)=S(t)\)</span>（可达到同步状态 <span
+class="math inline">\(S(t)\)</span>）</p>
+<p>若耦合强度与外耦合矩阵每个负特征值的积都在同步化范围内 <span
+class="math inline">\(c\lambda_k\in
+U\)</span>，则渐近稳定；根据同步化区域 <span
+class="math inline">\(U\)</span> 不同类型分为</p>
 <ul>
-<li>类型 I 网络 <span class="math inline">\(U=(-\infty,\alpha_1)\)</span>，则 <span class="math inline">\(c\lambda_2&lt;\alpha_1\)</span> 时稳定</li>
-<li>类型 II 网络 <span class="math inline">\(U=(\alpha_1,\alpha_2)\)</span>，则 <span class="math inline">\(c\lambda_2&lt;\alpha_1\)</span>，<span class="math inline">\(c\lambda_N&gt;\alpha_2\)</span> 时稳定</li>
+<li>类型 I 网络 <span
+class="math inline">\(U=(-\infty,\alpha_1)\)</span>，则 <span
+class="math inline">\(c\lambda_2&lt;\alpha_1\)</span> 时稳定</li>
+<li>类型 II 网络 <span
+class="math inline">\(U=(\alpha_1,\alpha_2)\)</span>，则 <span
+class="math inline">\(c\lambda_2&lt;\alpha_1\)</span>，<span
+class="math inline">\(c\lambda_N&gt;\alpha_2\)</span> 时稳定</li>
 <li>类型 III 网络 <span class="math inline">\(U=\emptyset\)</span></li>
 </ul>
 <h4 id="均匀网络">均匀网络</h4>
-<p>最近邻网络 <span class="math inline">\(\lim_{N\to\infty}\lambda_2=0\)</span>，当 <span class="math inline">\(N\)</span> 很大时 <span class="math inline">\(\lambda_N/\lambda_2\)</span> 很大</p>
-<p>全局耦合网络 <span class="math inline">\(\lambda_2=\lambda_3=\cdots=-N\)</span></p>
-<p>星形网络 <span class="math inline">\(\lambda_2=-1\)</span>，<span class="math inline">\(\lambda_N=-N\)</span></p>
+<p>最近邻网络 <span
+class="math inline">\(\lim_{N\to\infty}\lambda_2=0\)</span>，当 <span
+class="math inline">\(N\)</span> 很大时 <span
+class="math inline">\(\lambda_N/\lambda_2\)</span> 很大</p>
+<p>全局耦合网络 <span
+class="math inline">\(\lambda_2=\lambda_3=\cdots=-N\)</span></p>
+<p>星形网络 <span class="math inline">\(\lambda_2=-1\)</span>，<span
+class="math inline">\(\lambda_N=-N\)</span></p>
 <h4 id="nw-小世界网络">NW 小世界网络</h4>
-<p>随着 <span class="math inline">\(p\)</span> 不断增加，第二特征值线性变小直至趋近 <span class="math inline">\(-N\)</span></p>
+<p>随着 <span class="math inline">\(p\)</span>
+不断增加，第二特征值线性变小直至趋近 <span
+class="math inline">\(-N\)</span></p>
 <h4 id="ws-小世界网络">WS 小世界网络</h4>
-<p>随着 <span class="math inline">\(p\)</span> 不断增加，第二特征值一次变小直至趋近 <span class="math inline">\(-N\)</span></p>
+<p>随着 <span class="math inline">\(p\)</span>
+不断增加，第二特征值一次变小直至趋近 <span
+class="math inline">\(-N\)</span></p>
 <h4 id="无标度网络-1">无标度网络</h4>
-<p><span class="math inline">\(\lambda_2\)</span> 随着 <span class="math inline">\(m\)</span> 增加而下降，随 <span class="math inline">\(N\)</span> 增加而上升，<span class="math inline">\(\lim_{N\to\infty}\lambda_2=\tilde \lambda_2&lt;0\)</span>（<span class="math inline">\(10^{-1}\)</span> 数量级）</p>
-<p>若随机删除节点，特征值很快逼近 <span class="math inline">\(0\)</span></p>
+<p><span class="math inline">\(\lambda_2\)</span> 随着 <span
+class="math inline">\(m\)</span> 增加而下降，随 <span
+class="math inline">\(N\)</span> 增加而上升，<span
+class="math inline">\(\lim_{N\to\infty}\lambda_2=\tilde
+\lambda_2&lt;0\)</span>（<span class="math inline">\(10^{-1}\)</span>
+数量级）</p>
+<p>若随机删除节点，特征值很快逼近 <span
+class="math inline">\(0\)</span></p>
 
     </div>
 
@@ -918,7 +1340,8 @@ c ,&amp; k=\mathcal K,\\
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">数理统计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7"><span class="nav-number">1.1.</span> <span class="nav-text">符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AC%E5%BC%8F%E4%B8%8E%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text">公式与概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1"><span class="nav-number">1.2.1.</span> <span class="nav-text">极大似然估计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AB%98%E6%96%AF%E7%A7%AF%E5%88%86"><span class="nav-number">1.2.2.</span> <span class="nav-text">高斯积分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%BD%E9%A9%AC%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.3.</span> <span class="nav-text">伽马函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%9D%E5%A1%94%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.4.</span> <span class="nav-text">贝塔函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A9%E6%AF%8D%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">矩母函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.</span> <span class="nav-text">特征函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E7%8E%87%E6%AF%8D%E5%87%BD%E6%95%B0"><span class="nav-number">1.5.</span> <span class="nav-text">概率母函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%A6%82%E7%8E%87%E5%88%86%E5%B8%83"><span class="nav-number">1.6.</span> <span class="nav-text">常用概率分布</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%AF%E8%A5%BF%E5%88%86%E5%B8%83"><span class="nav-number">1.6.1.</span> <span class="nav-text">柯西分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83"><span class="nav-number">1.6.2.</span> <span class="nav-text">高斯分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%8A%E6%9D%BE%E5%88%86%E5%B8%83"><span class="nav-number">1.6.3.</span> <span class="nav-text">泊松分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E9%A1%B9%E5%88%86%E5%B8%83"><span class="nav-number">1.6.4.</span> <span class="nav-text">二项分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%A1%E6%96%B9%E5%88%86%E5%B8%83"><span class="nav-number">1.6.5.</span> <span class="nav-text">卡方分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#t-%E5%88%86%E5%B8%83"><span class="nav-number">1.6.6.</span> <span class="nav-text">t 分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#f-%E5%88%86%E5%B8%83"><span class="nav-number">1.6.7.</span> <span class="nav-text">F 分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gamma-%E5%88%86%E5%B8%83"><span class="nav-number">1.6.8.</span> <span class="nav-text">Gamma 分布</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C"><span class="nav-number">1.7.</span> <span class="nav-text">假设检验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E8%BF%87%E7%A8%8B"><span class="nav-number">1.7.1.</span> <span class="nav-text">一般过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#q-q-plot-%E6%A3%80%E9%AA%8C"><span class="nav-number">1.7.2.</span> <span class="nav-text">Q-Q Plot 检验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kolmogorov-smirnov-%E6%A3%80%E9%AA%8C"><span class="nav-number">1.7.3.</span> <span class="nav-text">Kolmogorov-Smirnov 检验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pearson-chi2-%E6%A3%80%E9%AA%8C"><span class="nav-number">1.7.4.</span> <span class="nav-text">Pearson-chi2 检验</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5"><span class="nav-number">1.8.</span> <span class="nav-text">矩阵</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%89%B9%E5%BE%81%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8F%8F%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">网络特征的数学描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E9%9D%99%E6%80%81%E5%87%A0%E4%BD%95%E7%89%B9%E5%BE%81"><span class="nav-number">2.1.</span> <span class="nav-text">网络静态几何特征</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B3%E5%9D%87%E5%BA%A6"><span class="nav-number">2.1.1.</span> <span class="nav-text">平均度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E6%A0%87%E5%BA%A6%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.1.2.</span> <span class="nav-text">无标度条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BA%A6%E5%88%86%E5%B8%83"><span class="nav-number">2.1.3.</span> <span class="nav-text">度分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%9D%E7%A6%BB%E5%8F%82%E6%95%B0"><span class="nav-number">2.1.4.</span> <span class="nav-text">距离参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%9A%E7%B1%BB%E7%B3%BB%E6%95%B0"><span class="nav-number">2.1.5.</span> <span class="nav-text">聚类系数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E5%90%91%E7%BD%91%E7%BB%9C%E9%9D%99%E6%80%81%E7%89%B9%E6%80%A7"><span class="nav-number">2.2.</span> <span class="nav-text">无向网络静态特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%94%E5%90%88%E5%BA%A6%E5%88%86%E5%B8%83"><span class="nav-number">2.2.1.</span> <span class="nav-text">联合度分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E8%BF%91%E9%82%BB%E5%B9%B3%E5%9D%87%E5%BA%A6"><span class="nav-number">2.2.2.</span> <span class="nav-text">最近邻平均度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E9%85%8D%E7%B3%BB%E6%95%B0"><span class="nav-number">2.2.3.</span> <span class="nav-text">同配系数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%9A-%E5%BA%A6%E7%9B%B8%E5%85%B3%E6%80%A7"><span class="nav-number">2.2.4.</span> <span class="nav-text">聚-度相关性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8B%E6%95%B0"><span class="nav-number">2.2.5.</span> <span class="nav-text">介数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E6%95%B0"><span class="nav-number">2.2.6.</span> <span class="nav-text">核数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E5%BF%83%E6%80%A7"><span class="nav-number">2.2.7.</span> <span class="nav-text">中心性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pagerank"><span class="nav-number">2.2.8.</span> <span class="nav-text">PageRank</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%8B%E6%9D%83%E7%BD%91%E7%BB%9C%E9%9D%99%E6%80%81%E7%89%B9%E6%80%A7"><span class="nav-number">2.3.</span> <span class="nav-text">赋权网络静态特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%87%8D"><span class="nav-number">2.3.1.</span> <span class="nav-text">权重</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83-%E5%BA%A6%E7%9B%B8%E5%85%B3%E6%80%A7"><span class="nav-number">2.3.2.</span> <span class="nav-text">权-度相关性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E8%8A%82%E7%82%B9%E7%9A%84%E6%9D%83-%E5%BA%A6%E7%9B%B8%E5%85%B3%E6%80%A7"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">基于节点的权-度相关性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E8%BE%B9%E7%9A%84%E6%9D%83-%E5%BA%A6%E7%9B%B8%E5%85%B3%E6%80%A7"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">基于边的权-度相关性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B5%8B%E6%9D%83%E8%81%9A%E7%B1%BB%E7%B3%BB%E6%95%B0"><span class="nav-number">2.3.3.</span> <span class="nav-text">赋权聚类系数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%9A%84%E5%85%B6%E4%BB%96%E9%9D%99%E6%80%81%E7%89%B9%E6%80%A7"><span class="nav-number">2.4.</span> <span class="nav-text">网络的其他静态特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E7%86%B5"><span class="nav-number">2.4.1.</span> <span class="nav-text">结构熵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E5%BE%81%E8%B0%B1"><span class="nav-number">2.4.2.</span> <span class="nav-text">特征谱</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%8F%E5%85%B8%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%86%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">经典复杂网络模型分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%84%E5%88%99%E7%BD%91%E7%BB%9C"><span class="nav-number">3.1.</span> <span class="nav-text">规则网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E7%BD%91%E7%BB%9C"><span class="nav-number">3.2.</span> <span class="nav-text">随机网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E4%B8%96%E7%95%8C%E7%BD%91%E7%BB%9C"><span class="nav-number">3.3.</span> <span class="nav-text">小世界网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E6%A0%87%E5%BA%A6%E7%BD%91%E7%BB%9C"><span class="nav-number">3.4.</span> <span class="nav-text">无标度网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%9C%BA%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.4.1.</span> <span class="nav-text">连续场模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9F%E7%8E%87%E6%96%B9%E7%A8%8B%E6%B3%95"><span class="nav-number">3.4.2.</span> <span class="nav-text">速率方程法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3%E5%BA%A6%E5%88%86%E5%B8%83"><span class="nav-number">3.4.2.1.</span> <span class="nav-text">求解度分布</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3%E5%BA%A6%E7%9B%B8%E5%85%B3%E6%80%A7"><span class="nav-number">3.4.2.2.</span> <span class="nav-text">求解度相关性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%8F%82%E6%95%B0"><span class="nav-number">3.4.3.</span> <span class="nav-text">其他参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%82%E6%AC%A1%E7%BD%91%E7%BB%9C"><span class="nav-number">3.5.</span> <span class="nav-text">层次网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%9A-%E5%BA%A6%E7%9B%B8%E5%85%B3%E6%80%A7-1"><span class="nav-number">3.5.1.</span> <span class="nav-text">聚-度相关性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E6%80%A7%E7%BD%91%E7%BB%9C"><span class="nav-number">3.6.</span> <span class="nav-text">确定性网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E6%80%A7%E5%B0%8F%E4%B8%96%E7%95%8C%E7%BD%91%E7%BB%9C"><span class="nav-number">3.6.1.</span> <span class="nav-text">确定性小世界网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%97%A0%E6%A0%87%E5%BA%A6%E7%BD%91%E7%BB%9C"><span class="nav-number">3.6.2.</span> <span class="nav-text">确定性无标度网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#waxman-%E9%9A%8F%E6%9C%BA%E5%9B%BE%E4%BA%A7%E7%94%9F%E5%99%A8"><span class="nav-number">3.6.3.</span> <span class="nav-text">Waxman 随机图产生器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E6%92%AD%E5%8A%A8%E5%8A%9B%E5%AD%A6"><span class="nav-number">4.</span> <span class="nav-text">传播动力学</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#si-%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.2.</span> <span class="nav-text">SI 模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sis-%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.3.</span> <span class="nav-text">SIS 模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sir-%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.4.</span> <span class="nav-text">SIR 模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sirs"><span class="nav-number">4.5.</span> <span class="nav-text">SIRS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9D%87%E5%8C%80%E7%BD%91%E7%BB%9C%E4%BC%A0%E6%92%AD%E5%8A%A8%E5%8A%9B%E5%AD%A6"><span class="nav-number">4.6.</span> <span class="nav-text">均匀网络传播动力学</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E-sis"><span class="nav-number">4.6.1.</span> <span class="nav-text">基于 SIS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E-sir"><span class="nav-number">4.6.2.</span> <span class="nav-text">基于 SIR</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E5%9D%87%E5%8C%80%E7%BD%91%E7%BB%9C%E4%BC%A0%E6%92%AD%E5%8A%A8%E5%8A%9B%E5%AD%A6"><span class="nav-number">4.7.</span> <span class="nav-text">非均匀网络传播动力学</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E-sis-1"><span class="nav-number">4.7.1.</span> <span class="nav-text">基于 SIS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E-sir-1"><span class="nav-number">4.7.2.</span> <span class="nav-text">基于 SIR</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%8D%E7%96%AB%E7%AD%96%E7%95%A5"><span class="nav-number">4.8.</span> <span class="nav-text">免疫策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E5%85%8D%E7%96%AB"><span class="nav-number">4.8.1.</span> <span class="nav-text">随机免疫</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9D%87%E5%8C%80%E7%BD%91%E7%BB%9C-sis-%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.8.1.1.</span> <span class="nav-text">均匀网络 SIS 模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A0%E6%A0%87%E5%BA%A6%E7%BD%91%E7%BB%9C-sir-%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.8.1.2.</span> <span class="nav-text">无标度网络 SIR 模型</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E5%85%8D%E7%96%AB"><span class="nav-number">4.8.2.</span> <span class="nav-text">目标免疫</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%9E%E5%9D%87%E5%8C%80%E7%BD%91%E7%BB%9C-sir-%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.8.2.1.</span> <span class="nav-text">非均匀网络 SIR 模型</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E7%9A%84%E5%90%8C%E6%AD%A5%E5%8A%A8%E5%8A%9B%E5%AD%A6"><span class="nav-number">5.</span> <span class="nav-text">复杂网络的同步动力学</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#li-yorke-%E6%B7%B7%E6%B2%8C%E7%B3%BB%E7%BB%9F"><span class="nav-number">5.1.</span> <span class="nav-text">Li-Yorke 混沌系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B7%E6%B2%8C"><span class="nav-number">5.2.</span> <span class="nav-text">混沌</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lyapunov-%E6%8C%87%E6%95%B0"><span class="nav-number">5.3.</span> <span class="nav-text">Lyapunov 指数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E7%BB%B4"><span class="nav-number">5.3.1.</span> <span class="nav-text">一维</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AB%98%E7%BB%B4"><span class="nav-number">5.3.2.</span> <span class="nav-text">高维</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B7%E6%B2%8C%E5%90%8C%E6%AD%A5"><span class="nav-number">5.4.</span> <span class="nav-text">混沌同步</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%9D%A1%E4%BB%B6-lyapunov-%E6%8C%87%E6%95%B0%E7%9A%84%E7%A8%B3%E5%AE%9A%E6%80%A7%E5%88%A4%E6%8D%AE"><span class="nav-number">5.4.1.</span> <span class="nav-text">基于条件 Lyapunov 指数的稳定性判据</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%96%B9%E6%B3%95%E9%97%B4%E6%8E%A5%E6%B3%95"><span class="nav-number">5.4.1.1.</span> <span class="nav-text">第一方法（间接法）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%96%B9%E6%B3%95%E7%9B%B4%E6%8E%A5%E6%B3%95"><span class="nav-number">5.4.1.2.</span> <span class="nav-text">第二方法（直接法）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E6%96%B9%E6%B3%95"><span class="nav-number">5.4.2.</span> <span class="nav-text">同步方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E5%8A%A8%E6%80%81%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AE%8C%E5%85%A8%E5%90%8C%E6%AD%A5"><span class="nav-number">5.5.</span> <span class="nav-text">复杂动态网络的完全同步</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9D%87%E5%8C%80%E7%BD%91%E7%BB%9C"><span class="nav-number">5.5.1.</span> <span class="nav-text">均匀网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nw-%E5%B0%8F%E4%B8%96%E7%95%8C%E7%BD%91%E7%BB%9C"><span class="nav-number">5.5.2.</span> <span class="nav-text">NW 小世界网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ws-%E5%B0%8F%E4%B8%96%E7%95%8C%E7%BD%91%E7%BB%9C"><span class="nav-number">5.5.3.</span> <span class="nav-text">WS 小世界网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E6%A0%87%E5%BA%A6%E7%BD%91%E7%BB%9C-1"><span class="nav-number">5.5.4.</span> <span class="nav-text">无标度网络</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">数理统计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7"><span class="nav-number">1.1.</span> <span class="nav-text">符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AC%E5%BC%8F%E4%B8%8E%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text">公式与概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1"><span class="nav-number">1.2.1.</span> <span class="nav-text">极大似然估计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AB%98%E6%96%AF%E7%A7%AF%E5%88%86"><span class="nav-number">1.2.2.</span> <span class="nav-text">高斯积分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%BD%E9%A9%AC%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.3.</span> <span class="nav-text">伽马函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%9D%E5%A1%94%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.4.</span> <span class="nav-text">贝塔函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A9%E6%AF%8D%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">矩母函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.</span> <span class="nav-text">特征函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E7%8E%87%E6%AF%8D%E5%87%BD%E6%95%B0"><span class="nav-number">1.5.</span> <span class="nav-text">概率母函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%A6%82%E7%8E%87%E5%88%86%E5%B8%83"><span class="nav-number">1.6.</span> <span class="nav-text">常用概率分布</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%AF%E8%A5%BF%E5%88%86%E5%B8%83"><span class="nav-number">1.6.1.</span> <span class="nav-text">柯西分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83"><span class="nav-number">1.6.2.</span> <span class="nav-text">高斯分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%8A%E6%9D%BE%E5%88%86%E5%B8%83"><span class="nav-number">1.6.3.</span> <span class="nav-text">泊松分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E9%A1%B9%E5%88%86%E5%B8%83"><span class="nav-number">1.6.4.</span> <span class="nav-text">二项分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%A1%E6%96%B9%E5%88%86%E5%B8%83"><span class="nav-number">1.6.5.</span> <span class="nav-text">卡方分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#t-%E5%88%86%E5%B8%83"><span class="nav-number">1.6.6.</span> <span class="nav-text">t 分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#f-%E5%88%86%E5%B8%83"><span class="nav-number">1.6.7.</span> <span class="nav-text">F 分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gamma-%E5%88%86%E5%B8%83"><span class="nav-number">1.6.8.</span> <span class="nav-text">Gamma 分布</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C"><span class="nav-number">1.7.</span> <span class="nav-text">假设检验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E8%BF%87%E7%A8%8B"><span class="nav-number">1.7.1.</span> <span class="nav-text">一般过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#q-q-plot-%E6%A3%80%E9%AA%8C"><span class="nav-number">1.7.2.</span> <span class="nav-text">Q-Q Plot 检验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kolmogorov-smirnov-%E6%A3%80%E9%AA%8C"><span class="nav-number">1.7.3.</span> <span class="nav-text">Kolmogorov-Smirnov 检验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pearson-chi2-%E6%A3%80%E9%AA%8C"><span class="nav-number">1.7.4.</span> <span class="nav-text">Pearson-chi2 检验</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5"><span class="nav-number">1.8.</span> <span class="nav-text">矩阵</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%89%B9%E5%BE%81%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8F%8F%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">网络特征的数学描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E9%9D%99%E6%80%81%E5%87%A0%E4%BD%95%E7%89%B9%E5%BE%81"><span class="nav-number">2.1.</span> <span class="nav-text">网络静态几何特征</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B3%E5%9D%87%E5%BA%A6"><span class="nav-number">2.1.1.</span> <span class="nav-text">平均度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E6%A0%87%E5%BA%A6%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.1.2.</span> <span class="nav-text">无标度条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BA%A6%E5%88%86%E5%B8%83"><span class="nav-number">2.1.3.</span> <span class="nav-text">度分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%9D%E7%A6%BB%E5%8F%82%E6%95%B0"><span class="nav-number">2.1.4.</span> <span class="nav-text">距离参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%9A%E7%B1%BB%E7%B3%BB%E6%95%B0"><span class="nav-number">2.1.5.</span> <span class="nav-text">聚类系数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E5%90%91%E7%BD%91%E7%BB%9C%E9%9D%99%E6%80%81%E7%89%B9%E6%80%A7"><span class="nav-number">2.2.</span> <span class="nav-text">无向网络静态特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%94%E5%90%88%E5%BA%A6%E5%88%86%E5%B8%83"><span class="nav-number">2.2.1.</span> <span class="nav-text">联合度分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E8%BF%91%E9%82%BB%E5%B9%B3%E5%9D%87%E5%BA%A6"><span class="nav-number">2.2.2.</span> <span class="nav-text">最近邻平均度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E9%85%8D%E7%B3%BB%E6%95%B0"><span class="nav-number">2.2.3.</span> <span class="nav-text">同配系数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%9A-%E5%BA%A6%E7%9B%B8%E5%85%B3%E6%80%A7"><span class="nav-number">2.2.4.</span> <span class="nav-text">聚-度相关性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8B%E6%95%B0"><span class="nav-number">2.2.5.</span> <span class="nav-text">介数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E6%95%B0"><span class="nav-number">2.2.6.</span> <span class="nav-text">核数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E5%BF%83%E6%80%A7"><span class="nav-number">2.2.7.</span> <span class="nav-text">中心性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pagerank"><span class="nav-number">2.2.8.</span> <span class="nav-text">PageRank</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%8B%E6%9D%83%E7%BD%91%E7%BB%9C%E9%9D%99%E6%80%81%E7%89%B9%E6%80%A7"><span class="nav-number">2.3.</span> <span class="nav-text">赋权网络静态特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%87%8D"><span class="nav-number">2.3.1.</span> <span class="nav-text">权重</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83-%E5%BA%A6%E7%9B%B8%E5%85%B3%E6%80%A7"><span class="nav-number">2.3.2.</span> <span class="nav-text">权-度相关性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E8%8A%82%E7%82%B9%E7%9A%84%E6%9D%83-%E5%BA%A6%E7%9B%B8%E5%85%B3%E6%80%A7"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">基于节点的权-度相关性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E8%BE%B9%E7%9A%84%E6%9D%83-%E5%BA%A6%E7%9B%B8%E5%85%B3%E6%80%A7"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">基于边的权-度相关性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B5%8B%E6%9D%83%E8%81%9A%E7%B1%BB%E7%B3%BB%E6%95%B0"><span class="nav-number">2.3.3.</span> <span class="nav-text">赋权聚类系数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%9A%84%E5%85%B6%E4%BB%96%E9%9D%99%E6%80%81%E7%89%B9%E6%80%A7"><span class="nav-number">2.4.</span> <span class="nav-text">网络的其他静态特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E7%86%B5"><span class="nav-number">2.4.1.</span> <span class="nav-text">结构熵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E5%BE%81%E8%B0%B1"><span class="nav-number">2.4.2.</span> <span class="nav-text">特征谱</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%8F%E5%85%B8%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%86%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">经典复杂网络模型分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%84%E5%88%99%E7%BD%91%E7%BB%9C"><span class="nav-number">3.1.</span> <span class="nav-text">规则网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E7%BD%91%E7%BB%9C"><span class="nav-number">3.2.</span> <span class="nav-text">随机网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E4%B8%96%E7%95%8C%E7%BD%91%E7%BB%9C"><span class="nav-number">3.3.</span> <span class="nav-text">小世界网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E6%A0%87%E5%BA%A6%E7%BD%91%E7%BB%9C"><span class="nav-number">3.4.</span> <span class="nav-text">无标度网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%9C%BA%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.4.1.</span> <span class="nav-text">连续场模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9F%E7%8E%87%E6%96%B9%E7%A8%8B%E6%B3%95"><span class="nav-number">3.4.2.</span> <span class="nav-text">速率方程法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3%E5%BA%A6%E5%88%86%E5%B8%83"><span class="nav-number">3.4.2.1.</span> <span class="nav-text">求解度分布</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3%E5%BA%A6%E7%9B%B8%E5%85%B3%E6%80%A7"><span class="nav-number">3.4.2.2.</span> <span class="nav-text">求解度相关性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%8F%82%E6%95%B0"><span class="nav-number">3.4.3.</span> <span class="nav-text">其他参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%82%E6%AC%A1%E7%BD%91%E7%BB%9C"><span class="nav-number">3.5.</span> <span class="nav-text">层次网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%9A-%E5%BA%A6%E7%9B%B8%E5%85%B3%E6%80%A7-1"><span class="nav-number">3.5.1.</span> <span class="nav-text">聚-度相关性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E6%80%A7%E7%BD%91%E7%BB%9C"><span class="nav-number">3.6.</span> <span class="nav-text">确定性网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E6%80%A7%E5%B0%8F%E4%B8%96%E7%95%8C%E7%BD%91%E7%BB%9C"><span class="nav-number">3.6.1.</span> <span class="nav-text">确定性小世界网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%97%A0%E6%A0%87%E5%BA%A6%E7%BD%91%E7%BB%9C"><span class="nav-number">3.6.2.</span> <span class="nav-text">确定性无标度网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#waxman-%E9%9A%8F%E6%9C%BA%E5%9B%BE%E4%BA%A7%E7%94%9F%E5%99%A8"><span class="nav-number">3.6.3.</span> <span class="nav-text">Waxman 随机图产生器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E6%92%AD%E5%8A%A8%E5%8A%9B%E5%AD%A6"><span class="nav-number">4.</span> <span class="nav-text">传播动力学</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#si-%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.2.</span> <span class="nav-text">SI 模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sis-%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.3.</span> <span class="nav-text">SIS 模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sir-%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.4.</span> <span class="nav-text">SIR 模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sirs"><span class="nav-number">4.5.</span> <span class="nav-text">SIRS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9D%87%E5%8C%80%E7%BD%91%E7%BB%9C%E4%BC%A0%E6%92%AD%E5%8A%A8%E5%8A%9B%E5%AD%A6"><span class="nav-number">4.6.</span> <span class="nav-text">均匀网络传播动力学</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E-sis"><span class="nav-number">4.6.1.</span> <span class="nav-text">基于 SIS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E-sir"><span class="nav-number">4.6.2.</span> <span class="nav-text">基于 SIR</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E5%9D%87%E5%8C%80%E7%BD%91%E7%BB%9C%E4%BC%A0%E6%92%AD%E5%8A%A8%E5%8A%9B%E5%AD%A6"><span class="nav-number">4.7.</span> <span class="nav-text">非均匀网络传播动力学</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E-sis-1"><span class="nav-number">4.7.1.</span> <span class="nav-text">基于 SIS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E-sir-1"><span class="nav-number">4.7.2.</span> <span class="nav-text">基于 SIR</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%8D%E7%96%AB%E7%AD%96%E7%95%A5"><span class="nav-number">4.8.</span> <span class="nav-text">免疫策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E5%85%8D%E7%96%AB"><span class="nav-number">4.8.1.</span> <span class="nav-text">随机免疫</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9D%87%E5%8C%80%E7%BD%91%E7%BB%9C-sis-%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.8.1.1.</span> <span class="nav-text">均匀网络 SIS 模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A0%E6%A0%87%E5%BA%A6%E7%BD%91%E7%BB%9C-sir-%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.8.1.2.</span> <span class="nav-text">无标度网络 SIR 模型</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E5%85%8D%E7%96%AB"><span class="nav-number">4.8.2.</span> <span class="nav-text">目标免疫</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%9E%E5%9D%87%E5%8C%80%E7%BD%91%E7%BB%9C-sir-%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.8.2.1.</span> <span class="nav-text">非均匀网络 SIR 模型</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E7%9A%84%E5%90%8C%E6%AD%A5%E5%8A%A8%E5%8A%9B%E5%AD%A6"><span class="nav-number">5.</span> <span class="nav-text">复杂网络的同步动力学</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#li-yorke-%E6%B7%B7%E6%B2%8C%E7%B3%BB%E7%BB%9F"><span class="nav-number">5.1.</span> <span class="nav-text">Li-Yorke 混沌系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B7%E6%B2%8C"><span class="nav-number">5.2.</span> <span class="nav-text">混沌</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lyapunov-%E6%8C%87%E6%95%B0"><span class="nav-number">5.3.</span> <span class="nav-text">Lyapunov 指数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E7%BB%B4"><span class="nav-number">5.3.1.</span> <span class="nav-text">一维</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AB%98%E7%BB%B4"><span class="nav-number">5.3.2.</span> <span class="nav-text">高维</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B7%E6%B2%8C%E5%90%8C%E6%AD%A5"><span class="nav-number">5.4.</span> <span class="nav-text">混沌同步</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%9D%A1%E4%BB%B6-lyapunov-%E6%8C%87%E6%95%B0%E7%9A%84%E7%A8%B3%E5%AE%9A%E6%80%A7%E5%88%A4%E6%8D%AE"><span class="nav-number">5.4.1.</span> <span class="nav-text">基于条件 Lyapunov
+指数的稳定性判据</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%96%B9%E6%B3%95%E9%97%B4%E6%8E%A5%E6%B3%95"><span class="nav-number">5.4.1.1.</span> <span class="nav-text">第一方法（间接法）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%96%B9%E6%B3%95%E7%9B%B4%E6%8E%A5%E6%B3%95"><span class="nav-number">5.4.1.2.</span> <span class="nav-text">第二方法（直接法）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E6%96%B9%E6%B3%95"><span class="nav-number">5.4.2.</span> <span class="nav-text">同步方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E5%8A%A8%E6%80%81%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AE%8C%E5%85%A8%E5%90%8C%E6%AD%A5"><span class="nav-number">5.5.</span> <span class="nav-text">复杂动态网络的完全同步</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9D%87%E5%8C%80%E7%BD%91%E7%BB%9C"><span class="nav-number">5.5.1.</span> <span class="nav-text">均匀网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nw-%E5%B0%8F%E4%B8%96%E7%95%8C%E7%BD%91%E7%BB%9C"><span class="nav-number">5.5.2.</span> <span class="nav-text">NW 小世界网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ws-%E5%B0%8F%E4%B8%96%E7%95%8C%E7%BD%91%E7%BB%9C"><span class="nav-number">5.5.3.</span> <span class="nav-text">WS 小世界网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E6%A0%87%E5%BA%A6%E7%BD%91%E7%BB%9C-1"><span class="nav-number">5.5.4.</span> <span class="nav-text">无标度网络</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
