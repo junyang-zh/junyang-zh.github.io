@@ -150,6 +150,115 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/" class="post-title-link" itemprop="url">偏微分方程复习整理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-10-13 09:49:30 / 修改时间：22:18:00" itemprop="dateCreated datePublished" datetime="2021-10-13T09:49:30+08:00">2021-10-13</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="数学基础">数学基础</h2>
+<h3 id="傅里叶级数">傅里叶级数</h3>
+<p><span class="math display">\[
+f(t)=\frac{a_0}{2}+\sum_{n=1}^{\infty}\left[a_n\cos(n\omega
+t)+b_n\sin(n\omega t)\right]
+\]</span></p>
+<p>其中</p>
+<p><span class="math display">\[
+\begin{align}
+a_n&amp;=\frac{2}{T}\int_{t_0}^{t_0+T}f(t)\cos(n\omega t)\mathrm d t
+&amp;,n\in \mathbb{Z}_+ \nonumber
+\\
+b_n&amp;=\frac{2}{T}\int_{t_0}^{t_0+T}f(t)\sin(n\omega t)\mathrm d t
+&amp;,n\in \mathbb{Z}_+ \nonumber
+\end{align}
+\]</span></p>
+<h3 id="二次型正交变化">二次型正交变化</h3>
+<p>设有二次型矩阵 <span class="math inline">\(A\)</span>，<span class="math inline">\(f(x)=\boldsymbol x^{\mathrm T}A\boldsymbol
+x\)</span></p>
+<p>存在正交矩阵 <span class="math inline">\(P\)</span> 使 <span class="math inline">\(\boldsymbol x=P\boldsymbol y\)</span>，<span class="math inline">\(f(x)=\boldsymbol y^{\mathrm T}P^{\mathrm
+T}AP\boldsymbol x=d_1y_1^2+d_2y_2^2+\cdots+d_ny_n^2\)</span></p>
+<p>步骤</p>
+<ol type="1">
+<li>求出 <span class="math inline">\(A\)</span> 的特征值 <span class="math inline">\(\lambda_1,\lambda_2,\cdots,\lambda_n\)</span>，（即求解
+<span class="math inline">\(|A-\lambda I|=0\)</span>）​</li>
+<li>得出对应的特征向量 <span class="math inline">\(\xi_1,\xi_2,\cdots,\xi_n\)</span>，（即求解 <span class="math inline">\((A-\lambda_iI)x=0\)</span>）</li>
+<li>特征向量标准正交化得 <span class="math inline">\(\eta_1,\eta_2,\cdots,\eta_n\)</span></li>
+<li>得 <span class="math inline">\(P=[\eta_1\ \eta_2\ \cdots\
+\eta_n]\)</span></li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
     <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E4%B8%8E%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -258,7 +367,7 @@ P\{|X-E(X)|&lt; \varepsilon\}&amp;\geq
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
-    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
@@ -272,7 +381,7 @@ P\{|X-E(X)|&lt; \varepsilon\}&amp;\geq
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">数值分析笔记</a>
+            <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/" class="post-title-link" itemprop="url">组合数学提纲</a>
         </h2>
 
         <div class="post-meta">
@@ -295,8 +404,8 @@ P\{|X-E(X)|&lt; \varepsilon\}&amp;\geq
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -311,19 +420,28 @@ P\{|X-E(X)|&lt; \varepsilon\}&amp;\geq
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>本文向量、矩阵符号均不以粗体标识，从上下文推断</p>
-<h2 id="线性代数">线性代数</h2>
-<h3 id="特征值">特征值</h3>
-<p>求矩阵 <span class="math inline">\(A\)</span> 的特征值 <span class="math inline">\(\lambda_i\)</span> 以及特征向量 <span class="math inline">\(x\)</span>：求解方程 <span class="math inline">\(|A-\lambda I|=0\)</span></p>
-<h3 id="二次型">二次型</h3>
-<p>设 <span class="math inline">\(A\)</span> 是对称正定阵，<span class="math inline">\(\forall x\neq 0 \in R^n\)</span> 二次型 <span class="math inline">\(x^{\mathrm T}Ax &gt; 0\)</span></p>
-<p>存在可逆矩阵 <span class="math inline">\(L\)</span> 使 <span class="math inline">\(A = LL^T\)</span></p>
-<p><span class="math inline">\(A\)</span> 特征值、顺序主子式均大于零</p>
-<h2 id="范数">范数</h2>
-<h3 id="向量范数">向量范数</h3>
+          <h2 id="第一章">第一章</h2>
+<h3 id="排列">排列</h3>
+<p><span class="math display">\[
+P(n,r)=P_{n}^{r}=\frac{n!}{(n-r)!}
+\]</span></p>
+<h3 id="组合">组合</h3>
+<p><span class="math display">\[
+\binom{n}{r} =C_n^r=C(n,r)=\frac{n!}{r!(n-r)!}
+\]</span></p>
+<h3 id="可重排列">可重排列</h3>
+<p><span class="math inline">\(n\)</span> 种不同元素取 <span class="math inline">\(r\)</span> 个可重元素排列</p>
+<p><span class="math display">\[
+\overline{P}(n,r) = n^r
+\]</span></p>
+<h3 id="多重排列">多重排列</h3>
+<p>每种元素 <span class="math inline">\(x_i\)</span> 选择 <span class="math inline">\(r_i\)</span> 个按次序排列，<span class="math inline">\(n=\sum_i r_i\)</span> <span class="math display">\[
+P(n;r_1,\cdots,r_k)=\binom{n}{r_1,r_2,\cdots,r_k}=\frac{n!}{r_1!r_2!\cdots
+r_k!}
+\]</span></p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/#more" rel="contents">
+              <a class="btn" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -441,104 +559,6 @@ f(t) = A_m\cos\left(\frac{2\pi}{T}t+\phi\right)
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%94%B5%E8%B7%AF%E9%9C%80%E8%AE%B0%E5%85%AC%E5%BC%8F%E9%9B%86%E9%94%A6/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
-    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
-      <meta itemprop="name" content="Junyang Zhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Junyang Zhang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/" class="post-title-link" itemprop="url">组合数学提纲</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-10-13 09:49:30 / 修改时间：22:18:00" itemprop="dateCreated datePublished" datetime="2021-10-13T09:49:30+08:00">2021-10-13</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="第一章">第一章</h2>
-<h3 id="排列">排列</h3>
-<p><span class="math display">\[
-P(n,r)=P_{n}^{r}=\frac{n!}{(n-r)!}
-\]</span></p>
-<h3 id="组合">组合</h3>
-<p><span class="math display">\[
-\binom{n}{r} =C_n^r=C(n,r)=\frac{n!}{r!(n-r)!}
-\]</span></p>
-<h3 id="可重排列">可重排列</h3>
-<p><span class="math inline">\(n\)</span> 种不同元素取 <span class="math inline">\(r\)</span> 个可重元素排列</p>
-<p><span class="math display">\[
-\overline{P}(n,r) = n^r
-\]</span></p>
-<h3 id="多重排列">多重排列</h3>
-<p>每种元素 <span class="math inline">\(x_i\)</span> 选择 <span class="math inline">\(r_i\)</span> 个按次序排列，<span class="math inline">\(n=\sum_i r_i\)</span> <span class="math display">\[
-P(n;r_1,\cdots,r_k)=\binom{n}{r_1,r_2,\cdots,r_k}=\frac{n!}{r_1!r_2!\cdots
-r_k!}
-\]</span></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -908,7 +928,7 @@ posted.</p>
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -1066,7 +1086,7 @@ if (document.querySelectorAll('pre.mermaid').length) {
     };
     (function () {
       var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.src = 'https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/mathjax/3.2.0/es5/tex-mml-chtml.js';
       script.defer = true;
       document.head.appendChild(script);
     })();
