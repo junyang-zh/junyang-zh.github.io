@@ -150,6 +150,120 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/12/21/zh-CN/%E5%86%99%E4%B8%80%E4%B8%AA-CPU/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/21/zh-CN/%E5%86%99%E4%B8%80%E4%B8%AA-CPU/" class="post-title-link" itemprop="url">写一个 CPU</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-21 15:16:54" itemprop="dateCreated datePublished" datetime="2021-12-21T15:16:54+08:00">2021-12-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-22 15:32:42" itemprop="dateModified" datetime="2021-12-22T15:32:42+08:00">2021-12-22</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2021/12/21/zh-CN/%E5%86%99%E4%B8%80%E4%B8%AA-CPU/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/21/zh-CN/%E5%86%99%E4%B8%80%E4%B8%AA-CPU/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>这是计算机组成课的实验项目，当然，也是学 CS
+底层绕不过去的项目。我曾经试过一个 RISC-V 流水线 CPU 的实践，就跟着
+Patterson 教授经典的教材 <a target="_blank" rel="noopener" href="https://www.elsevier.com/books/computer-organization-and-design-risc-v-edition/patterson/978-0-12-820331-6">Computer
+Organization and Design RISC-V
+Edition</a>，可惜当时动力不是十分充足，做的东西有点烂尾。我觉得到了需要做作业的时候，我大概就有动力了。</p>
+<p>可惜 XJTU 的计组不出意料地食古不化，使用
+MIPS。无所谓了，反正得写吧。做好的项目已经开源了，如果有小伙伴需要一点参考，那可以看看我是怎么组织这些
+Verilog 代码的：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/James-Hen/HeliumCPUv2-MIPS32">Github
+Repository: HeliumCPUv2-MIPS32</a></p>
+<h2 id="文件目录描述">文件目录描述</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.                         # 根目录，包含 Makefile 等文件</span><br><span class="line">|-- common                # 三种 CPU 实现的通用元件</span><br><span class="line">|   |-- dbg_mems          # 仿真用存储器实例</span><br><span class="line">|   |-- ex                # 执行阶段元件，包括 ALU</span><br><span class="line">|   |-- id                # 解码阶段元件，包括解码器、控制器</span><br><span class="line">|   |-- if                # 取值阶段元件</span><br><span class="line">|   |-- mem               # 访存阶段元件</span><br><span class="line">|   `-- wb                # 写回阶段元件</span><br><span class="line">|-- includes              # 宏定义，用于指令集架构描述</span><br><span class="line">|-- multicycle            # 多周期特殊实现</span><br><span class="line">|-- pipeline              # 流水线特殊实现，包括级间寄存与冒险控制</span><br><span class="line">|-- pipeline_bp           # 带分支预测的流水线实现</span><br><span class="line">|-- sim                   # 模拟目录，包括 Testbench 和测试用汇编代码</span><br><span class="line">|   `-- MIPS_sample_src   # 测试用汇编代码目录</span><br><span class="line">`-- single_cycle          # 单周期特殊实现</span><br></pre></td></tr></table></figure>
+<h2 id="准备环境">准备环境</h2>
+<p>老师提供的是一个古早版本的 Modelsim，在 Win7 安装才不会出 bug
+的那种。说实话，我不想用。有更多的好用或免费的解决方案放在这里呢：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.veripool.org/verilator/">Verilator</a></li>
+<li><a target="_blank" rel="noopener" href="http://iverilog.icarus.com/">Icarus Verilog</a></li>
+<li><a target="_blank" rel="noopener" href="https://eda.sw.siemens.com/en-US/ic/modelsim/">Modelsim</a></li>
+<li><a target="_blank" rel="noopener" href="https://china.xilinx.com/products/design-tools/vivado.html">Vivado</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/software/programmable/quartus-prime/download.html">Quartus</a></li>
+</ul>
+<p>笔者使用的是 Icarus Verilog，它比较简单；Verilator
+也非常不错，可以使用 C++ 写 Testbench。如果想要
+IDE，或者买了赛灵思的板子，那推荐使用 Verilator，也是免费的。</p>
+<p>Icarus Verilog 是命令行工具，配合 VSCode 使用很香。VSCode
+还有查看波形的插件 <a target="_blank" rel="noopener" href="https://www.wavetrace.io/">WaveTrace</a>，但超过 8
+个波形要收费，如果有需求可以使用 <a target="_blank" rel="noopener" href="http://gtkwave.sourceforge.net/">GTKWave</a>。至于怎么安装这些环境，以及怎么跑通我的代码，在
+Github 的仓库中有说明。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/21/zh-CN/%E5%86%99%E4%B8%80%E4%B8%AA-CPU/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
     <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/12/12/en/Building-SocketSnake-A-Multiplayer-TUI-Game-Written-in-Rust/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1148,95 +1262,6 @@ DFA：<span class="math inline">\(\mathrm{ECLOSE}(r)\)</span>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
-    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
-      <meta itemprop="name" content="Junyang Zhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Junyang Zhang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">数值分析笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-10-13 09:49:30 / Modified: 22:18:00" itemprop="dateCreated datePublished" datetime="2021-10-13T09:49:30+08:00">2021-10-13</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文向量、矩阵符号均不以粗体标识，从上下文推断</p>
-<h2 id="线性代数">线性代数</h2>
-<h3 id="特征值">特征值</h3>
-<p>求矩阵 <span class="math inline">\(A\)</span> 的特征值 <span class="math inline">\(\lambda_i\)</span> 以及特征向量 <span class="math inline">\(x\)</span>：求解方程 <span class="math inline">\(|A-\lambda I|=0\)</span></p>
-<h3 id="二次型">二次型</h3>
-<p>设 <span class="math inline">\(A\)</span> 是对称正定阵，<span class="math inline">\(\forall x\neq 0 \in R^n\)</span> 二次型 <span class="math inline">\(x^{\mathrm T}Ax &gt; 0\)</span></p>
-<p>存在可逆矩阵 <span class="math inline">\(L\)</span> 使 <span class="math inline">\(A = LL^T\)</span></p>
-<p><span class="math inline">\(A\)</span> 特征值、顺序主子式均大于零</p>
-<h2 id="范数">范数</h2>
-<h3 id="向量范数">向量范数</h3>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1308,7 +1333,7 @@ DFA：<span class="math inline">\(\mathrm{ECLOSE}(r)\)</span>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
