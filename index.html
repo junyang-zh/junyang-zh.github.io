@@ -150,6 +150,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2023/03/07/zh-CN/rCoreOS-Tutorial-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/03/07/zh-CN/rCoreOS-Tutorial-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">rCoreOS Tutorial 学习笔记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-03-07 16:16:13 / 修改时间：16:19:30" itemprop="dateCreated datePublished" datetime="2023-03-07T16:16:13+08:00">2023-03-07</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/03/07/zh-CN/rCoreOS-Tutorial-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/03/07/zh-CN/rCoreOS-Tutorial-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>由于需要做操作系统的工作，但是只上了比较没用的西交理论课，于是我不会
+OS 开发（暂时）。组里推荐了清华课用的
+rCoreOS，于是自学并尝试做一些作业。</p>
+<p>主要跟着 rCoreOS Tutorial 的在线书学习，如果有一定 CS 理论知识基础和
+Rust 基础，学起来应该很轻松。如果会用 C 做内核开发但是不会
+Rust，这本书也是不错的 Rust 内核（从零）开发的教程。还有就是，本书跟
+Linux 没什么关系，不需要很会。</p>
+<p>Repo: <a target="_blank" rel="noopener" href="https://github.com/rcore-os/rCore-Tutorial-v3">rCore-Tutorial-v3</a></p>
+<p>Book: <a target="_blank" rel="noopener" href="http://rcore-os.cn/rCore-Tutorial-Book-v3/index.html">rCore-Tutorial-Book-v3</a></p>
+<p>在线书已经写的比较新手友好了，参考答案也存在，但是不全，并且实验也有一些不大的坑，或者书和代码有出入。我觉得写这篇文章可以帮助你更快搞定一些没详细写到的内容，于是分享此笔记。先看书，要做实验的时候可以看看这个。</p>
+<p>我在 2023
+年二月份进行的学习，目前这个课程的材料仍在不断更新，所以以下内容也仅供参考。</p>
+<h2 id="第零章">第零章</h2>
+<p>第零章如果理论学过了大可不细看，仅搭环境即可。</p>
+<p>我用的老师的 x86 Ubuntu 服务器。VSCode SSH 连接 Remote
+开发。编译运行的时候直接用 Docker
+环境，省去很多麻烦。本地也可以复用这套环境。Clone 仓库后进入目录即可
+Make Docker 镜像。</p>
+<p>这个 Docker 镜像<strong>只</strong>包括了运行需要的 QEMU
+7.x.x，编译需要的 Rust 和 C
+工具链。课程的框架代码不在镜像里。镜像里面也没有 RISCV
+GDB，所以需要自行下载，并修改一下 Dockerfile 加入 GDB，再构建。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/07/zh-CN/rCoreOS-Tutorial-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
     <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2023/02/15/zh-CN/%E4%BF%AE%E5%A5%BD%E4%BA%86%E5%85%AC%E5%BC%8F%E4%B9%B1%E7%A0%81%E7%9A%84%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1055,107 +1156,6 @@ Tanenbaum, Andrew S. 的著名课本。</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en">
-    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/12/22/zh-CN/Git-%E7%BB%9F%E8%AE%A1%E4%BB%A3%E7%A0%81%E8%A1%8C%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
-      <meta itemprop="name" content="Junyang Zhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Junyang Zhang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/22/zh-CN/Git-%E7%BB%9F%E8%AE%A1%E4%BB%A3%E7%A0%81%E8%A1%8C%E6%95%B0/" class="post-title-link" itemprop="url">Git 统计代码行数</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-12-22 11:24:12 / 修改时间：11:24:54" itemprop="dateCreated datePublished" datetime="2021-12-22T11:24:12+08:00">2021-12-22</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/12/22/zh-CN/Git-%E7%BB%9F%E8%AE%A1%E4%BB%A3%E7%A0%81%E8%A1%8C%E6%95%B0/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/22/zh-CN/Git-%E7%BB%9F%E8%AE%A1%E4%BB%A3%E7%A0%81%E8%A1%8C%E6%95%B0/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>花了一周多，用 Verilog 写完一个 CPU（<a target="_blank" rel="noopener" href="https://github.com/James-Hen/HeliumCPUv2-MIPS32">Github
-Repository:
-HeliumCPUv2-MIPS32</a>），想看看自己究竟写了多少行，但是居然没有什么简单的做法。Github
-也没有相关统计，怎么办呢？</p>
-<p>查了查 Stackoverflow：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/4822471/count-number-of-lines-in-a-git-repository">Count
-number of lines in a git repository</a>，确实给了一些做法。然后我学了学
-Bash 的一些用法，采用了下面的方法。</p>
-<p>首先，<code>git ls-files</code> 会给出仓库里没有 Ignore
-的文件，我们把它用管道和 <code>xargs</code> 传给
-<code>wc</code>。<code>wc</code> 即 "Word Count"，<code>-l</code>
-选项可以打印出行数；<code>xargs</code>
-相当于将管道进来的输入作为命令行参数传给调用的命令。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git ls-files | xargs wc -l</span><br></pre></td></tr></table></figure>
-<p>那么就可以得到一些结果</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">   6 .gitignore</span><br><span class="line">  21 LICENSE</span><br><span class="line">  43 Makefile</span><br><span class="line"> 111 README.md</span><br><span class="line">1058 assets/MulticycleCounter.png</span><br><span class="line">   0 assets/PipelineCtrlHazard.drawio</span><br><span class="line"> 381 assets/PipelineCtrlHazard.drawio.png</span><br><span class="line">   0 assets/PipelineDataHazard.drawio</span><br><span class="line"> 376 assets/PipelineDataHazard.drawio.png</span><br><span class="line">   0 assets/PipelineDataPath.drawio</span><br><span class="line"> 272 assets/PipelineDataPath.drawio.png</span><br><span class="line">1512 assets/PipelineHazards.png</span><br><span class="line">1143 assets/SingleCycleCounter.png</span><br><span class="line">   0 assets/SingleCycleDataPath.drawio</span><br><span class="line"> 212 assets/SingleCycleDataPath.drawio.png</span><br><span class="line">  52 common/dbg_mems/dbg_dmem.v</span><br><span class="line">  26 common/dbg_mems/dbg_imem.v</span><br><span class="line">  53 common/dbg_mems/dbg_mem.v</span><br><span class="line"> 112 common/ex/alu.v</span><br><span class="line"> 348 common/id/control.v</span><br><span class="line"> </span><br><span class="line"> ... # Many lines omitted</span><br><span class="line"></span><br><span class="line">1024 sim/dmem.data</span><br><span class="line">  16 sim/imem.text</span><br><span class="line">  34 sim/testbench.v</span><br><span class="line">  31 single_cycle/counter.v</span><br><span class="line"> 155 single_cycle/cpu.v</span><br><span class="line">  41 single_cycle/top.v</span><br><span class="line">9179 total</span><br></pre></td></tr></table></figure>
-<p>它几乎把所有的行数都统计进来了，其中也包括一些没忽略的生成的文件（如数据段
-<code>dmem.data</code>），并不能算写的代码，那么，可以把
-<code>git ls-files</code> 出来的结果再正则一下，比如只统计
-<code>.v</code> 文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git ls-files | grep <span class="string">&quot;.*\.v&quot;</span> | xargs wc -l</span><br></pre></td></tr></table></figure>
-<p>输出就干净多了，数的行数也正确</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">  52 common/dbg_mems/dbg_dmem.v</span><br><span class="line">  26 common/dbg_mems/dbg_imem.v</span><br><span class="line">  53 common/dbg_mems/dbg_mem.v</span><br><span class="line"> 112 common/ex/alu.v</span><br><span class="line"> 348 common/id/control.v</span><br><span class="line"> 142 common/id/decoder.v</span><br><span class="line">  54 common/id/regfile.v</span><br><span class="line">  38 common/if/pc.v</span><br><span class="line">  86 common/mem/mem.v</span><br><span class="line">  33 common/wb/writeback.v</span><br><span class="line"> 168 includes/defines.v</span><br><span class="line"> 132 multicycle/counter.v</span><br><span class="line"> 162 multicycle/cpu.v</span><br><span class="line">  41 multicycle/top.v</span><br><span class="line">  26 pipeline/control_regs.v</span><br><span class="line"> 295 pipeline/cpu.v</span><br><span class="line">  97 pipeline/forward.v</span><br><span class="line">  76 pipeline/hazard.v</span><br><span class="line">  41 pipeline/if.v</span><br><span class="line">  40 pipeline/top.v</span><br><span class="line">  26 pipeline_bp/control_regs.v</span><br><span class="line"> 318 pipeline_bp/cpu.v</span><br><span class="line">  97 pipeline_bp/forward.v</span><br><span class="line"> 118 pipeline_bp/hazard.v</span><br><span class="line">  97 pipeline_bp/if.v</span><br><span class="line">  40 pipeline_bp/top.v</span><br><span class="line">  34 sim/testbench.v</span><br><span class="line">  31 single_cycle/counter.v</span><br><span class="line"> 155 single_cycle/cpu.v</span><br><span class="line">  41 single_cycle/top.v</span><br><span class="line">2979 total</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/12/22/zh-CN/Git-%E7%BB%9F%E8%AE%A1%E4%BB%A3%E7%A0%81%E8%A1%8C%E6%95%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1227,7 +1227,7 @@ Bash 的一些用法，采用了下面的方法。</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

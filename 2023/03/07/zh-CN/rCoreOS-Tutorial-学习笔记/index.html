@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/Avatar.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.gif">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.gif">
+  <link rel="mask-icon" href="/images/favicon-32x32.gif" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jyzhang.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="由于需要做操作系统的工作，但是只上了比较没用的西交理论课，于是我不会 OS 开发（暂时）。组里推荐了清华课用的 rCoreOS，于是自学并尝试做一些作业。 主要跟着 rCoreOS Tutorial 的在线书学习，如果有一定 CS 理论知识基础和 Rust 基础，学起来应该很轻松。如果会用 C 做内核开发但是不会 Rust，这本书也是不错的 Rust 内核（从零）开发的教程。还有就是，本书跟 Li">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rCoreOS Tutorial 学习笔记">
+<meta property="og:url" content="http://jyzhang.xyz/2023/03/07/zh-CN/rCoreOS-Tutorial-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Junyang Zhang&#39;s Blog">
+<meta property="og:description" content="由于需要做操作系统的工作，但是只上了比较没用的西交理论课，于是我不会 OS 开发（暂时）。组里推荐了清华课用的 rCoreOS，于是自学并尝试做一些作业。 主要跟着 rCoreOS Tutorial 的在线书学习，如果有一定 CS 理论知识基础和 Rust 基础，学起来应该很轻松。如果会用 C 做内核开发但是不会 Rust，这本书也是不错的 Rust 内核（从零）开发的教程。还有就是，本书跟 Li">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-07T08:16:13.000Z">
+<meta property="article:modified_time" content="2023-03-07T08:19:30.236Z">
+<meta property="article:author" content="Junyang Zhang">
+<meta property="article:tag" content="CS">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://jyzhang.xyz/2023/03/07/zh-CN/rCoreOS-Tutorial-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>rCoreOS Tutorial 学习笔记 | Junyang Zhang's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Junyang Zhang's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2023/03/07/zh-CN/rCoreOS-Tutorial-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          rCoreOS Tutorial 学习笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-03-07 16:16:13 / 修改时间：16:19:30" itemprop="dateCreated datePublished" datetime="2023-03-07T16:16:13+08:00">2023-03-07</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/03/07/zh-CN/rCoreOS-Tutorial-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/03/07/zh-CN/rCoreOS-Tutorial-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>由于需要做操作系统的工作，但是只上了比较没用的西交理论课，于是我不会
+OS 开发（暂时）。组里推荐了清华课用的
+rCoreOS，于是自学并尝试做一些作业。</p>
+<p>主要跟着 rCoreOS Tutorial 的在线书学习，如果有一定 CS 理论知识基础和
+Rust 基础，学起来应该很轻松。如果会用 C 做内核开发但是不会
+Rust，这本书也是不错的 Rust 内核（从零）开发的教程。还有就是，本书跟
+Linux 没什么关系，不需要很会。</p>
+<p>Repo: <a
+target="_blank" rel="noopener" href="https://github.com/rcore-os/rCore-Tutorial-v3">rCore-Tutorial-v3</a></p>
+<p>Book: <a
+target="_blank" rel="noopener" href="http://rcore-os.cn/rCore-Tutorial-Book-v3/index.html">rCore-Tutorial-Book-v3</a></p>
+<p>在线书已经写的比较新手友好了，参考答案也存在，但是不全，并且实验也有一些不大的坑，或者书和代码有出入。我觉得写这篇文章可以帮助你更快搞定一些没详细写到的内容，于是分享此笔记。先看书，要做实验的时候可以看看这个。</p>
+<p>我在 2023
+年二月份进行的学习，目前这个课程的材料仍在不断更新，所以以下内容也仅供参考。</p>
+<h2 id="第零章">第零章</h2>
+<p>第零章如果理论学过了大可不细看，仅搭环境即可。</p>
+<p>我用的老师的 x86 Ubuntu 服务器。VSCode SSH 连接 Remote
+开发。编译运行的时候直接用 Docker
+环境，省去很多麻烦。本地也可以复用这套环境。Clone 仓库后进入目录即可
+Make Docker 镜像。</p>
+<p>这个 Docker 镜像<strong>只</strong>包括了运行需要的 QEMU
+7.x.x，编译需要的 Rust 和 C
+工具链。课程的框架代码不在镜像里。镜像里面也没有 RISCV
+GDB，所以需要自行下载，并修改一下 Dockerfile 加入 GDB，再构建。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Download the rCoreOS repository</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/rcore-os/rCore-Tutorial-v3</span><br><span class="line"><span class="built_in">cd</span> rCore-Tutorial-v3</span><br><span class="line"><span class="comment"># Download RISCV toolchain</span></span><br><span class="line">wget https://static.dev.sifive.com/dev-tools/freedom-tools/v2020.12/riscv64-unknown-elf-toolchain-10.2.0-2020.12.8-x86_64-linux-ubuntu14.tar.gz</span><br></pre></td></tr></table></figure>
+<p>接下来修改 Dockerfile。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 3.</span></span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"><span class="comment"># 4. Download and add RISCV Toolchain</span></span><br><span class="line"><span class="keyword">ARG</span> RV_TOOLCHAIN=riscv64-unknown-elf-toolchain-<span class="number">10.2</span>.<span class="number">0</span>-<span class="number">2020.12</span>.<span class="number">8</span>-x86_64-linux-ubuntu14</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /usr/<span class="built_in">local</span>/</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> <span class="variable">$&#123;RV_TOOLCHAIN&#125;</span>.tar.gz .</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> cp -r <span class="variable">$&#123;RV_TOOLCHAIN&#125;</span>/* . &amp;&amp; rm -r <span class="variable">$&#123;RV_TOOLCHAIN&#125;</span></span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> <span class="variable">$&#123;HOME&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>或者可以直接在 Dockerfile 里下载解压。</p>
+<p>如果是 M1 的 Mac，需要自己编译 aarch64 的 Toolchain。（我失败了，QEMU
+还是不能正确运行）</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 4. Download and install rv toolchain</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> <span class="variable">$&#123;HOME&#125;</span></span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> git <span class="built_in">clone</span> https://github.com/riscv/riscv-gnu-toolchain</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> <span class="variable">$&#123;HOME&#125;</span>/riscv-gnu-toolchain</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> ./configure --prefix=/usr/<span class="built_in">local</span> &amp;&amp; \</span></span><br><span class="line"><span class="bash">    make linux</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> <span class="variable">$&#123;HOME&#125;</span></span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> rm -rf riscv-gnu-toolchain</span></span><br></pre></td></tr></table></figure>
+<p>可以 Dockerfile 配置一下 crates.io 的换源。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2.3. Rust src mirror</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> CARGO_CONF=<span class="variable">$CARGO_HOME</span><span class="string">&#x27;/config&#x27;</span>; \</span></span><br><span class="line"><span class="bash">    BASHRC=<span class="string">&#x27;/root/.bashrc&#x27;</span> \</span></span><br><span class="line"><span class="bash">    &amp;&amp; <span class="built_in">echo</span> <span class="string">&#x27;export RUSTUP_DIST_SERVER=https://rsproxy.cn&#x27;</span> &gt;&gt; <span class="variable">$BASHRC</span> \</span></span><br><span class="line"><span class="bash">    &amp;&amp; <span class="built_in">echo</span> <span class="string">&#x27;export RUSTUP_UPDATE_ROOT=https://rsproxy.cn/rustup&#x27;</span> &gt;&gt; <span class="variable">$BASHRC</span> \</span></span><br><span class="line"><span class="bash">    &amp;&amp; touch <span class="variable">$CARGO_CONF</span> \</span></span><br><span class="line"><span class="bash">    &amp;&amp; <span class="built_in">echo</span> <span class="string">&#x27;[source.crates-io]&#x27;</span> &gt; <span class="variable">$CARGO_CONF</span> \</span></span><br><span class="line"><span class="bash">    &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;replace-with = &#x27;rsproxy-sparse&#x27;&quot;</span> &gt;&gt; <span class="variable">$CARGO_CONF</span> \</span></span><br><span class="line"><span class="bash">    &amp;&amp; <span class="built_in">echo</span> <span class="string">&#x27;[source.rsproxy]&#x27;</span> &gt;&gt; <span class="variable">$CARGO_CONF</span> \</span></span><br><span class="line"><span class="bash">    &amp;&amp; <span class="built_in">echo</span> <span class="string">&#x27;registry = &quot;https://rsproxy.cn/crates.io-index&quot;&#x27;</span> &gt;&gt; <span class="variable">$CARGO_CONF</span> \</span></span><br><span class="line"><span class="bash">    &amp;&amp; <span class="built_in">echo</span> <span class="string">&#x27;[source.rsproxy-sparse]&#x27;</span> &gt;&gt; <span class="variable">$CARGO_CONF</span> \</span></span><br><span class="line"><span class="bash">    &amp;&amp; <span class="built_in">echo</span> <span class="string">&#x27;registry = &quot;sparse+https://rsproxy.cn/index/&quot;&#x27;</span> &gt;&gt; <span class="variable">$CARGO_CONF</span> \</span></span><br><span class="line"><span class="bash">    &amp;&amp; <span class="built_in">echo</span> <span class="string">&#x27;[registries.rsproxy]&#x27;</span> &gt;&gt; <span class="variable">$CARGO_CONF</span> \</span></span><br><span class="line"><span class="bash">    &amp;&amp; <span class="built_in">echo</span> <span class="string">&#x27;index = &quot;https://rsproxy.cn/crates.io-index&quot;&#x27;</span> &gt;&gt; <span class="variable">$CARGO_CONF</span> \</span></span><br><span class="line"><span class="bash">    &amp;&amp; <span class="built_in">echo</span> <span class="string">&#x27;[net]&#x27;</span> &gt;&gt; <span class="variable">$CARGO_CONF</span> \</span></span><br><span class="line"><span class="bash">    &amp;&amp; <span class="built_in">echo</span> <span class="string">&#x27;git-fetch-with-cli = true&#x27;</span> &gt;&gt; <span class="variable">$CARGO_CONF</span></span></span><br></pre></td></tr></table></figure>
+<p>我构建镜像的时候 QEMU 官方下载炸了，我用的 <a
+target="_blank" rel="noopener" href="https://fossies.org/linux/misc/qemu-7.2.0.tar.xz">https://fossies.org/linux/misc/qemu-7.2.0.tar.xz</a>。</p>
+<p>Dockerfile 里还有一句
+<code>cargo install cargo-binutils -vers ~0.2 &amp;&amp; \</code>，会强制版本，可以删掉。如果不删掉，Rust
+版本会变成老版本。</p>
+<p>改完然后构建镜像。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make build_docker</span><br></pre></td></tr></table></figure>
+<p>仓库根目录自带的 Makefile 写了使用 Docker
+镜像的命令，即在根目录用命令 <code>sudo make docker</code>
+运行镜像。但是我这里在 Make 时没有 <code>$PWD</code> 环境变量，所以把
+Makefile 改成下面这样就能跑了。这个问题在 ch2
+及以后的有些分支修掉了，但是有可能 <code>DOCKER_NAME</code>
+不对，需要注意。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">docker:</span></span><br><span class="line">	docker run --rm -it -v `pwd`:/mnt -w /mnt $&#123;DOCKER_NAME&#125; bash</span><br></pre></td></tr></table></figure>
+<p>这条命令会将 Docker 环境里 <code>mnt</code>
+目录和仓库根目录做映射，这样能持久化你的改动，不用让容器一直跑或者担心保存的问题。</p>
+<p>调试的时候需要在容器内使用多个命令行，我不喜欢用 tmux（<del>VSCode
+用户是这样的</del>），所以可以打开另一个命令行再开启 Docker 的另一个
+bash 进程。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker <span class="built_in">exec</span> -it <span class="variable">$&#123;CONTAINER_NAME&#125;</span> bash</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>CONTAINER_NAME</code> 可以用 <code>sudo docker ps</code>
+发现，然后换上去。验证这个搞法，可以试试在同一个容器的两个 Bash
+里，<code>cd os</code>，一个跑 <code>make gdbserver</code>，一个跑
+<code>make gdbclient</code>。</p>
+<h2 id="第一章">第一章</h2>
+<h3 id="内核第一条指令实践篇">内核第一条指令（实践篇）</h3>
+<p>如果搭环境的时候能调试了，那么确实可以看见 QEMU 启动固件的代码，位于
+<code>0x1000</code>。我的结果和书上不太一致，但差不多，应该是 QEMU
+更新了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(gdb) x/10i $pc</span><br><span class="line">=&gt; 0x1000:      auipc   t0,0x0</span><br><span class="line">   0x1004:      addi    a2,t0,40</span><br><span class="line">   0x1008:      csrr    a0,mhartid</span><br><span class="line">   0x100c:      ld      a1,32(t0)</span><br><span class="line">   0x1010:      ld      t0,24(t0)</span><br><span class="line">   0x1014:      jr      t0</span><br><span class="line">   0x1018:      unimp</span><br><span class="line">   0x101a:      0x8000</span><br><span class="line">   0x101c:      unimp</span><br><span class="line">   0x101e:      unimp</span><br></pre></td></tr></table></figure>
+<p>作为有兴趣的同学，会知道 <code>auipc t0,0x0</code> 将 PC
+的值（加零后）放入通用寄存器 t0。<code>mhartid</code>
+寄存器表示运行当前代码的硬件线程（hart）的 ID。<code>csrr</code>
+是伪指令，专门用来读 m 开头的特权寄存器。<code>0x100c</code> 处的
+<code>ld</code> 指令做 <code>a1 &lt;- $(t0 + 32)</code>，并且
+<code>t0 + 32 = 0x1000 + 0x20 = 0x1020</code>。</p>
+<p>看看 <code>0x1020</code> 是啥。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(gdb) x/1xw 0x1020</span><br><span class="line">0x1020: 0x87000000</span><br></pre></td></tr></table></figure>
+<p>那同理，对于 <code>0x1010</code> 处的 <code>ld</code>
+指令，<code>t0 + 24 = 0x1018</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(gdb) x/1xw 0x1018</span><br><span class="line">0x1018: 0x80000000</span><br></pre></td></tr></table></figure>
+<p>嗯，虽然新加进来的东西不懂，但是 <code>0x80000000</code> 是
+bootloader 初始地址，理解了。</p>
+<h3 id="编程练习">编程练习</h3>
+<blockquote>
+<ol start="3" type="1">
+<li>** 实现一个基于rcore/ucore
+tutorial的应用程序C，用sleep系统调用睡眠5秒（in rcore/ucore tutorial v3:
+Branch ch1）</li>
+</ol>
+</blockquote>
+<p><strong>这题别看我的答案，审题错误，一坨答辩。</strong></p>
+<p>这个练习没有答案，但是若要实现得好感觉比第二题还难，因为必须考虑 Trap
+了。当然，死循环然后检查时间也不是不行吧，毕竟独占 CPU。</p>
+<p>若是读一下后面的实现，会发现 <code>sys_sleep</code>
+系统调用没有直接用硬件
+timer，而是用的内核的计时器堆。那么我就尝试实现一下用硬件 timer 的
+<code>ksleep</code> 好了。原理是先
+<code>sbi::set_timer()</code>，再死循环等 Trap。</p>
+<p>先实现 <code>set_timer()</code>。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// sbi.rs</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">const</span> SBI_SET_TIMER: <span class="built_in">usize</span> = <span class="number">0</span>;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/// use sbi call to set a timer</span></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">set_timer</span></span>(timer: <span class="built_in">usize</span>) &#123;</span><br><span class="line">    sbi_call(SBI_SET_TIMER, timer, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来要让内核能处理 Trap，在 ch2 分支才会实现 Trap 处理，需要把
+<code>mod trap</code> 拷过来，并增加 SupervisorTimer
+的处理。为了理解这部分的内容，需要先学习第二章。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// trap/mod.rs</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">use</span> riscv::register::&#123;</span><br><span class="line">    mtvec::TrapMode,</span><br><span class="line">    scause::&#123;<span class="keyword">self</span>, Exception, Trap, Interrupt&#125;,</span><br><span class="line">    stval, stvec, sstatus, sie</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">init</span></span>() &#123;</span><br><span class="line">    <span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line">        <span class="function"><span class="keyword">fn</span> <span class="title">__alltraps</span></span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">unsafe</span> &#123;</span><br><span class="line">        stvec::write(__alltraps <span class="keyword">as</span> <span class="built_in">usize</span>, TrapMode::Direct);</span><br><span class="line">        sstatus::set_sie();</span><br><span class="line">        sie::set_stimer();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">trap_handler</span></span>(cx: &amp;<span class="keyword">mut</span> TrapContext) -&gt; &amp;<span class="keyword">mut</span> TrapContext &#123;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">        Trap::Interrupt(Interrupt::SupervisorTimer) =&gt; &#123;</span><br><span class="line">            <span class="built_in">println!</span>(<span class="string">&quot;[kernel] Got timer interruption.&quot;</span>);</span><br><span class="line">            <span class="keyword">unsafe</span> &#123; TIMER_TRAPPED = <span class="literal">true</span>; &#125;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后实现 <code>ksleep()</code>。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.rs</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> riscv::register::&#123; time &#125;;</span><br><span class="line"><span class="keyword">const</span> CLOCK_FREQ: <span class="built_in">usize</span> = <span class="number">12500000</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">mut</span> TIMER_TRAPPED: <span class="built_in">bool</span> = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">use</span> crate::sbi::set_timer;</span><br><span class="line"><span class="comment">/// the kernel sleep function, t in milliseconds</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">ksleep</span></span>(t: <span class="built_in">usize</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> cur = time::read();</span><br><span class="line">    <span class="keyword">let</span> fut = cur + CLOCK_FREQ * t / <span class="number">1000</span>;</span><br><span class="line">    set_timer(fut);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;[kernel] current time &#123;&#125;, timer at &#123;&#125;.&quot;</span>, cur, fut);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;[kernel] timer set in sleep(), busy looping.&quot;</span>);</span><br><span class="line">    <span class="keyword">unsafe</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> !TIMER_TRAPPED &#123;&#125;</span><br><span class="line">        TIMER_TRAPPED = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>完事了在 <code>rust_main()</code> 调用下试试就好了。记得先调用
+<code>trap::init()</code>。最后还没调出来，可以 Trap
+但无法正确返回，先进行到下一章好了。</p>
+<h2 id="第二章">第二章</h2>
+<h3 id="实验练习">实验练习</h3>
+<blockquote>
+<p>ch2 中，我们实现了第一个系统调用
+<code>sys_write</code>，这使得我们可以在用户态输出信息。但是 os
+在提供服务的同时，还有保护 os
+本身以及其他用户程序不受错误或者恶意程序破坏的功能。</p>
+<p>由于还没有实现虚拟内存，我们可以在用户程序中指定一个属于其他程序字符串，并将它输出，这显然是不合理的，因此我们要对
+sys_write 做检查：</p>
+<ul>
+<li>sys_write 仅能输出位于程序本身内存空间内的数据，否则报错。</li>
+</ul>
+</blockquote>
+<p>测试样例在 <code>user/src/bin</code> 下，有两个 test。这两个 test
+会被编译成二进制然后载入进批处理系统里。需要注意的是，输入不支持的 fd
+需要返回 -1 而不是 panic，不然过不了。</p>
+<p>不太难（<del>虽然我有一段时间搞不清楚 APP
+加载到哪个地址去了</del>），主要代码如下。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/syscall/fs.rs</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> crate::batch::&#123; USER_STACK, USER_STACK_SIZE, APP_BASE_ADDRESS, APP_SIZE_LIMIT &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">sys_write</span></span>(fd: <span class="built_in">usize</span>, buf: *<span class="keyword">const</span> <span class="built_in">u8</span>, len: <span class="built_in">usize</span>) -&gt; <span class="built_in">isize</span> &#123;</span><br><span class="line">    <span class="comment">// checking the sanity of the buffer</span></span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> good: <span class="built_in">bool</span> = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">unsafe</span> &#123;</span><br><span class="line">        <span class="comment">// if in stack</span></span><br><span class="line">        <span class="keyword">if</span> USER_STACK.data.as_ptr() &lt;= buf &amp;&amp; buf.add(len) &lt;=</span><br><span class="line">      			USER_STACK.data.as_ptr().add(USER_STACK_SIZE) &#123;</span><br><span class="line">            good = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// if in allocated static app memory (.data etc)</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> APP_BASE_ADDRESS <span class="keyword">as</span> *<span class="keyword">const</span> <span class="built_in">u8</span> &lt;= buf</span><br><span class="line">            &amp;&amp; buf.add(len) &lt;=</span><br><span class="line">      			(APP_BASE_ADDRESS + APP_SIZE_LIMIT) <span class="keyword">as</span> *<span class="keyword">const</span> <span class="built_in">u8</span> &#123;</span><br><span class="line">            good = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> !good &#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">match</span> fd &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+<p>还需要把 <code>src/batch.rs</code> 里该 pub 的变量 pub
+了，然后再改下用户栈大小到 <code>0x1000</code>。</p>
+<p>运行 <code>make run TEST=1</code> 正确的输出应该是这样。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[kernel] Hello, world!</span><br><span class="line">[kernel] num_app = 2</span><br><span class="line">[kernel] app_0 [0x8020a020, 0x8020f558)</span><br><span class="line">[kernel] app_1 [0x8020f558, 0x80214b60)</span><br><span class="line">[kernel] Loading app_0</span><br><span class="line">Test write0 OK!</span><br><span class="line">[kernel] Application exited with code 0</span><br><span class="line">[kernel] Loading app_1</span><br><span class="line">string from data section</span><br><span class="line">strinstring from stack section</span><br><span class="line">strin</span><br><span class="line">Test write1 OK!</span><br><span class="line">[kernel] Application exited with code 0</span><br></pre></td></tr></table></figure>
+<h2 id="第三章">第三章</h2>
+<h3 id="课后练习">课后练习</h3>
+<p>一、二、四题都跟实验差不多，于是不想做了。我倒是对浮点实现、内核态中断和内核任务有点兴趣，先挖坑。</p>
+<h4 id="浮点扩展">3. 浮点扩展</h4>
+<p>先扩展 <code>TaskContext</code>，参考 <a
+target="_blank" rel="noopener" href="https://riscv.org/wp-content/uploads/2015/01/riscv-calling.pdf">RISCV
+Calling Convention</a>，需要保存的浮点寄存器是
+<code>fs0-fs11</code>，和整数类似，那么先在 <code>TaskContext</code>
+留出对应空间。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// task/context.rs</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/// Task Context</span></span><br><span class="line"><span class="meta">#[derive(Copy, Clone)]</span></span><br><span class="line"><span class="meta">#[repr(C)]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="class"><span class="keyword">struct</span> <span class="title">TaskContext</span></span> &#123;</span><br><span class="line">    <span class="comment">/// return address ( e.g. __restore ) of __switch ASM function</span></span><br><span class="line">    ra: <span class="built_in">usize</span>,</span><br><span class="line">    <span class="comment">/// kernel stack pointer of app</span></span><br><span class="line">    sp: <span class="built_in">usize</span>,</span><br><span class="line">    <span class="comment">/// callee saved registers:  s 0..11</span></span><br><span class="line">    s: [<span class="built_in">usize</span>; <span class="number">12</span>],</span><br><span class="line">    <span class="comment">/// callee saved fp registers: fs 0-11</span></span><br><span class="line">    fs: [fsize; <span class="number">12</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那个 <code>fsize</code> 不是 Rust 标准里的东西，是我在
+<code>config.rs</code> 里写的，因为 RISCV
+里所有浮点寄存器的长度取决于扩展，RV64F 的话对应 <code>f32</code>，RV64D
+对应 <code>f64</code>。</p>
+<p>再尝试修改 <code>switch.S</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">.attribute arch, &quot;rv64gc&quot;</span><br><span class="line"># ...</span><br><span class="line">.macro SAVE_FSN n</span><br><span class="line">    fsd fs\n, (\n+14)*8(a0)</span><br><span class="line">.endm</span><br><span class="line">.macro LOAD_FSN n</span><br><span class="line">    fld fs\n, (\n+14)*8(a1)</span><br><span class="line">.endm</span><br><span class="line"># ...</span><br><span class="line"># save ra &amp; s0~s11 of current execution</span><br><span class="line">    sd ra, 0(a0)</span><br><span class="line">    .set n, 0</span><br><span class="line">    .rept 12</span><br><span class="line">        SAVE_SN %n</span><br><span class="line">        SAVE_FSN %n</span><br><span class="line">        .set n, n + 1</span><br><span class="line">    .endr</span><br><span class="line">    # restore ra &amp; s0~s11 of next execution</span><br><span class="line">    ld ra, 0(a1)</span><br><span class="line">    .set n, 0</span><br><span class="line">    .rept 12</span><br><span class="line">        LOAD_SN %n</span><br><span class="line">        LOAD_FSN %n</span><br><span class="line">        .set n, n + 1</span><br><span class="line">    .endr</span><br><span class="line"># ...</span><br></pre></td></tr></table></figure>
+<p>第一行不加的话汇编器会报错，不知为什么不是
+<code>"rv64d"</code>，但是这样就好了。</p>
+<p><code>TrapContext</code> 也差不多，只不过需要保存
+<code>f0-f31</code>，不再赘述了。</p>
+<p>到这里还是会出问题，直接抛了 Bad Instruction。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[kernel] Hello, world!</span><br><span class="line">[kernel] PageFault in application, bad addr = 0xfffffffffffffef8, bad instruction = 0x80200536, kernel killed it.</span><br></pre></td></tr></table></figure>
+<p>到 GDB 里调出来抛异常的点。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(gdb) x/5i $pc</span><br><span class="line">=&gt; 0x802003ec &lt;__switch+8&gt;:     sd      s0,16(a0)</span><br><span class="line">   0x802003ee &lt;__switch+10&gt;:    fsd     fs0,112(a0)</span><br><span class="line">   0x802003f0 &lt;__switch+12&gt;:    sd      s1,24(a0)</span><br><span class="line">   0x802003f2 &lt;__switch+14&gt;:    fsd     fs1,120(a0)</span><br><span class="line">   0x802003f4 &lt;__switch+16&gt;:    sd      s2,32(a0)</span><br></pre></td></tr></table></figure>
+<p>确切位置是在 <code>0x802003ee</code> 的 <code>fsd</code>
+指令。确认这些指令完全正确没问题，那问题在哪。</p>
+<p>不得不借鉴下 Linux 源码怎么处理的了，看到 <a
+target="_blank" rel="noopener" href="https://github.com/torvalds/linux/blob/89f5349e0673322857bd432fa23113af56673739/arch/riscv/kernel/process.c#L114">arch/riscv/kernel/process.c</a>
+我悟了，需要设置 <code>sstatus</code> 寄存器 <code>SR_FS_INITIAL</code>
+位才能正常使用浮点指令，于是乎在合适的位置加入</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsafe</span> &#123; sstatus::set_fs(sstatus::FS::Initial); &#125;</span><br></pre></td></tr></table></figure>
+<p>即可，由于干作业越糙越好，就直接在 <code>main</code>
+搞初始化的时候开启了。</p>
+<p>测试的话，直接让第一个程序算 <span
+class="math inline">\(1.0001^{(10^6)}\)</span>，它会最后一个完成，然后算出来一个精度烂掉的正确结果。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">power_3 [980000/1000000]</span><br><span class="line">power_3 [990000/1000000]</span><br><span class="line">power_3 [1000000/1000000]</span><br><span class="line">1.0001^1000000 = 26747109931126675000000000000000000000000000</span><br><span class="line">Test power_3 OK!</span><br><span class="line">[kernel] Application exited with code 0</span><br><span class="line">Test sleep OK!</span><br><span class="line">[kernel] Application exited with code 0</span><br><span class="line">All applications completed!</span><br></pre></td></tr></table></figure>
+<h3 id="实验练习-1">实验练习</h3>
+<p>实验需要实现系统调用
+<code>sys_task_info</code>。实现没什么弯弯绕的，就是记录数据然后给出数据即可，难度不高。</p>
+<h4 id="记录数据">记录数据</h4>
+<p>记录数据可以在 <code>TaskControllBlock</code>
+中进行，我增加的字段如下。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">--- a/os/src/task/task.rs</span><br><span class="line">+++ b/os/src/task/task.rs</span><br><span class="line"></span><br><span class="line"> <span class="meta">#[derive(Copy, Clone)]</span></span><br><span class="line"> <span class="keyword">pub</span> <span class="class"><span class="keyword">struct</span> <span class="title">TaskControlBlock</span></span> &#123;</span><br><span class="line">     <span class="keyword">pub</span> task_status: TaskStatus,</span><br><span class="line">     <span class="keyword">pub</span> task_cx: TaskContext,</span><br><span class="line">+    <span class="keyword">pub</span> call_cnt: <span class="built_in">usize</span>,</span><br><span class="line">+    <span class="keyword">pub</span> call: [SyscallInfo; MAX_SYSCALL_NUM],</span><br><span class="line">+    <span class="comment">// the timestamp in ms of the start time if running</span></span><br><span class="line">+    <span class="keyword">pub</span> last_start: <span class="built_in">usize</span>,</span><br><span class="line">+    <span class="comment">// total run time in ms</span></span><br><span class="line">+    <span class="keyword">pub</span> run_time: <span class="built_in">usize</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>两个 call
+相关的字段记录系统调用和总数量，由于没有内核堆，所以就是个数组。最大系统调用数量写到
+<code>config.rs</code> 里了。<code>last_start</code>
+字段记录进入运行状态的时刻，用于在进入挂起或退出状态时统计时间。为了上面的代码，需要增加一些初始化，编译器会教你怎么改。</p>
+<p>记录系统调用的接口放在 <code>TaskManager</code> 里。当
+<code>syscall</code> 函数被调用的时候就调用这个方法即可。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/task/mod.rs</span></span><br><span class="line"><span class="keyword">impl</span> TaskManager &#123;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">    <span class="comment">/// Recording sys_task_info, called when syscall called</span></span><br><span class="line">    <span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">record_current_syscall</span></span>(&amp;<span class="keyword">self</span>, syscall_id: <span class="built_in">usize</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> inner = <span class="keyword">self</span>.inner.exclusive_access();</span><br><span class="line">        <span class="keyword">let</span> current = inner.current_task;</span><br><span class="line">        <span class="keyword">let</span> cur_task = &amp;<span class="keyword">mut</span> inner.tasks[current];</span><br><span class="line">        <span class="keyword">for</span> ci <span class="keyword">in</span> &amp;<span class="keyword">mut</span> cur_task.call &#123;</span><br><span class="line">            <span class="keyword">if</span> ci.id == <span class="number">0</span> &#123;</span><br><span class="line">                ci.id = syscall_id;</span><br><span class="line">                ci.times = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                ci.times += <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>记录时间，则在
+<code>run_first_task</code>，<code>run_next_task</code> 加入这句话。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">next_task.last_start = get_time_ms();</span><br></pre></td></tr></table></figure>
+<p>并在
+<code>mark_current_suspended</code>，<code>mark_current_exited</code>
+加入这句话。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cur_task.run_time += get_time_ms() - cur_task.last_start;</span><br></pre></td></tr></table></figure>
+<p>注意在 <code>run_next_task</code> 里不要增加
+<code>run_time</code>，不然就重复了。</p>
+<h4 id="给出数据">给出数据</h4>
+<p>给出数据即实现系统调用。首先还是先把接口放 <code>TaskManager</code>
+里，然后实现 <code>syscall</code> 的时候调用 <code>TaskManager</code>
+的方法。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// os/src/task/mod.rs</span></span><br><span class="line"><span class="keyword">impl</span> TaskManager &#123;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">		<span class="comment">/// Implementation of sys_task_info</span></span><br><span class="line">    <span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">get_task_info</span></span>(&amp;<span class="keyword">self</span>, id: <span class="built_in">usize</span>) -&gt; <span class="built_in">Option</span>&lt;TaskInfo&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> id &gt;= <span class="keyword">self</span>.num_app &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">let</span> tm = <span class="keyword">self</span>.inner.exclusive_access();</span><br><span class="line">        <span class="keyword">let</span> ts = TaskInfo &#123;</span><br><span class="line">            id: id,</span><br><span class="line">            status: tm.tasks[id].task_status,</span><br><span class="line">            call: tm.tasks[id].call,</span><br><span class="line">            time: tm.tasks[id].run_time</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="literal">Some</span>(ts)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里用了 <code>core::option::Option</code>
+来避免在代码里传入指针获得结果，只有在接口这么干。更 “Rusty”。</p>
+<p>在内核中的接口如下。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// os/src/syscall/process.rs</span></span><br><span class="line"><span class="comment">/// get info of a task</span></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">sys_task_info</span></span>(id: <span class="built_in">usize</span>, ts: *<span class="keyword">mut</span> TaskInfo) -&gt; <span class="built_in">isize</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="literal">Some</span>(res) = TASK_MANAGER.get_task_info(id) <span class="keyword">else</span> &#123; <span class="keyword">return</span> -<span class="number">1</span> &#125;;</span><br><span class="line">    <span class="keyword">unsafe</span> &#123; *ts = res; &#125;</span><br><span class="line">    <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// os/src/syscall/mod.rs</span></span><br><span class="line"><span class="comment">/// handle syscall exception with `syscall_id` and other arguments</span></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">syscall</span></span>(syscall_id: <span class="built_in">usize</span>, args: [<span class="built_in">usize</span>; <span class="number">3</span>]) -&gt; <span class="built_in">isize</span> &#123;</span><br><span class="line">    TASK_MANAGER.record_current_syscall(syscall_id);</span><br><span class="line">    <span class="keyword">match</span> syscall_id &#123;</span><br><span class="line">        SYSCALL_WRITE =&gt; sys_write(args[<span class="number">0</span>], args[<span class="number">1</span>] <span class="keyword">as</span> *<span class="keyword">const</span> <span class="built_in">u8</span>, args[<span class="number">2</span>]),</span><br><span class="line">        SYSCALL_EXIT =&gt; sys_exit(args[<span class="number">0</span>] <span class="keyword">as</span> <span class="built_in">i32</span>),</span><br><span class="line">        SYSCALL_YIELD =&gt; sys_yield(),</span><br><span class="line">        SYSCALL_GET_TIME =&gt; sys_get_time(),</span><br><span class="line">        SYSCALL_TASK_INFO =&gt; sys_task_info(args[<span class="number">0</span>], args[<span class="number">1</span>] <span class="keyword">as</span> *<span class="keyword">mut</span> TaskInfo),</span><br><span class="line">        _ =&gt; <span class="built_in">panic!</span>(<span class="string">&quot;Unsupported syscall_id: &#123;&#125;&quot;</span>, syscall_id),</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>sys_task_info</code> 实现用了一个 Rust <code>let_else</code>
+的不稳定特性，但是好用，以后会稳定的。现在用需要打开
+<code>#[feature(let_else)]</code>。</p>
+<p>在用户程序库中的接口如下。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// user/src/syscall.rs</span></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">sys_task_info</span></span>(id: <span class="built_in">usize</span>, ts: *<span class="keyword">mut</span> TaskInfo) -&gt; <span class="built_in">isize</span> &#123;</span><br><span class="line">    syscall(SYSCALL_TASK_INFO, [id, ts <span class="keyword">as</span> <span class="built_in">usize</span>, <span class="number">0</span>])</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// user/src/lib.rs</span></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">task_info</span></span>(id: <span class="built_in">usize</span>, ts: *<span class="keyword">mut</span> TaskInfo) -&gt; <span class="built_in">isize</span> &#123;</span><br><span class="line">    sys_task_info(id, ts)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我还省略了不少“过编译”的代码，包括各种
+<code>use</code>，各种没声明过的 struct
+和初始化，以及各种语言修饰，编译器都会教你怎么弄，Rust 就好在这里。</p>
+<h4 id="测试与结果">测试与结果</h4>
+<p>我在第三个测测试快要完成时查询所有 task
+的信息并全部输出，代码如下。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// user/src/bin/03sleep.rs</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> id <span class="keyword">in</span> <span class="number">0</span>..<span class="number">5</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> ti = TaskInfo &#123; id: <span class="number">0</span>, status: TaskStatus::UnInit, call: [SyscallInfo &#123;id: <span class="number">0</span>, times: <span class="number">0</span>&#125;; <span class="number">10</span>], time: <span class="number">0</span> &#125;;</span><br><span class="line">        <span class="keyword">if</span> task_info(id, &amp;<span class="keyword">mut</span> ti) &gt;= <span class="number">0</span> &#123;</span><br><span class="line">            <span class="built_in">println!</span>(<span class="string">&quot;Info of task &#123;&#125; is:\n    &#123;:?&#125;&quot;</span>, id, ti);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">println!</span>(<span class="string">&quot;Task info query for task &#123;&#125; failed!&quot;</span>, id);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这里输出需要各种 struct 实现 Debug
+Trait，加个修饰就好了。另外没有去实现 <code>TaskInfo</code>
+默认初始化，所以比较丑，摸了。输出如下，省略了一些为空的
+<code>call</code> 项。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Info of task 0 is:</span><br><span class="line">    TaskInfo &#123; id: 0, status: Exited, call: [SyscallInfo &#123; id: 64, times: 110 &#125;, SyscallInfo &#123; id: 0, times: 0 &#125;, SyscallInfo &#123; id: 0, times: 0 &#125;, SyscallInfo &#123; id: 0, times: 0 &#125;, ...], time: 6 &#125;</span><br><span class="line">Info of task 1 is:</span><br><span class="line">    TaskInfo &#123; id: 1, status: Exited, call: [SyscallInfo &#123; id: 64, times: 80 &#125;, ...], time: 5 &#125;</span><br><span class="line">Info of task 2 is:</span><br><span class="line">    TaskInfo &#123; id: 2, status: Exited, call: [SyscallInfo &#123; id: 64, times: 90 &#125;, ...], time: 4 &#125;</span><br><span class="line">Info of task 3 is:</span><br><span class="line">    TaskInfo &#123; id: 3, status: Running, call: [SyscallInfo &#123; id: 169, times: 1635571 &#125;, ...], time: 2726 &#125;</span><br><span class="line">Task info query for task 4 failed!</span><br></pre></td></tr></table></figure>
+<p>都挺合理，但是记录毫秒显然有累计误差，建议记录时钟，能准确不少。</p>
+<h2 id="第四章">第四章</h2>
+<h3 id="课后练习-1">课后练习</h3>
+<p>咕咕咕</p>
+<h3 id="实践作业">实践作业</h3>
+<h4 id="重写-sys_get_time">重写 sys_get_time</h4>
+<p>原来的还是能用的，但是改了个签名就不能用了。实际上，所有把结果写回用户地址空间内存以及读用户地址空间内存的方法都要重写。还很麻烦。并且教程里对
+<code>sys_write</code> 的实现也是有 bug 的，UTF-8 是变长编码，buffer
+跨页并且非英文字符跨页了就可能会炸。不过好在问题也不太大。</p>
+<p>还有就是，ch4-lab 分支编译不了，因为引用的 rCore 版本的 riscv crate
+炸了。那就写点代码装装样子。（这个问题我在做下一章作业的时候自己修了，看下一章实践作业）</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">sys_get_time</span></span>(_ts: *<span class="keyword">mut</span> TimeVal, _tz: <span class="built_in">usize</span>) -&gt; <span class="built_in">isize</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> us = get_time_us();</span><br><span class="line">  	<span class="keyword">let</span> result = TimeVal &#123;</span><br><span class="line">        sec: us / <span class="number">1_000_000</span>,</span><br><span class="line">        usec: us % <span class="number">1_000_000</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  	<span class="keyword">let</span> sz = size_of::&lt;TimeVal&gt;();</span><br><span class="line">    <span class="keyword">let</span> buffers = translated_byte_buffer(current_user_token(), _ts, sz);</span><br><span class="line">  	<span class="keyword">match</span> buffers.len() &#123;</span><br><span class="line">        <span class="number">1</span> =&gt; &#123;</span><br><span class="line">            <span class="keyword">unsafe</span> &#123;</span><br><span class="line">                *(buffers[<span class="number">0</span>].as_ptr() <span class="keyword">as</span> *<span class="keyword">mut</span> TimeVal) = result;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">      	<span class="number">2</span> =&gt; &#123;</span><br><span class="line">			      <span class="comment">// crazy enough</span></span><br><span class="line">          	<span class="keyword">unsafe</span> &#123;</span><br><span class="line">			          <span class="keyword">let</span> rs = std::slice::from_raw_parts(</span><br><span class="line">			              &amp;result <span class="keyword">as</span> *<span class="keyword">const</span> TimeVal <span class="keyword">as</span> *<span class="keyword">const</span> <span class="built_in">u8</span>, sz);</span><br><span class="line">              	<span class="keyword">let</span> l0 = buffers[<span class="number">0</span>].len();</span><br><span class="line">              	buffers[<span class="number">0</span>].copy_from_slice(&amp;rs[<span class="number">0</span>..l0]);</span><br><span class="line">              	buffers[<span class="number">1</span>].copy_from_slice(&amp;rs[l0..sz]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">      	_ =&gt; &#123; <span class="built_in">panic!</span>(<span class="string">&quot;size_of(TimeVal) larger than a page!&quot;</span>); &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 <a
+target="_blank" rel="noopener" href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2021&amp;gist=918534834ee594b6619c3ebb0e590a3c">Rust
+Playground</a> 测试了一下，没问题。其实也可以改成循环然后支持返回 buffer
+跨很多页的情况，但是这种情况也太恐怖了。</p>
+<h4 id="mmap-和-munmap">mmap 和 munmap</h4>
+<p>实现这一对调用最难顶的问题是：</p>
+<ol type="1">
+<li>如果 <code>mmap</code>
+了两个相邻的段，应该把这两个段合并为一个段；</li>
+<li>如果地址得当，一次 <code>munmap</code> 可以取消多次
+<code>mmap</code> 形成的映射；</li>
+<li><code>munmap</code> 可以只取消一部分映射，剩下头尾仍需要映射。</li>
+</ol>
+<p>因为我懒死了，所以假设上面的问题都不存在好了，能过测试用例谢天谢地。可以假设如果操作得当，<code>mmap</code>
+和 <code>munmap</code> 是一一对应的。如果没有这样的假设，那就不能用
+<code>Vec</code> 装 <code>MapArea</code> 了，得用
+<code>BTreeMap</code>。</p>
+<p>继续写点代码装装样子。<code>MemorySet</code>
+里需要实现一个检查是否已映射的函数，和根据范围取消包含它的映射的函数。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// mm/memory_set.rs</span></span><br><span class="line"><span class="keyword">impl</span> MemorySet &#123;</span><br><span class="line">    <span class="meta">#[allow(unused)]</span></span><br><span class="line">    <span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">range_has_mapped</span></span>(&amp;<span class="keyword">self</span>, start: VirtPageNum, end: VirtPageNum) -&gt; <span class="built_in">bool</span> &#123;</span><br><span class="line">        <span class="comment">// check overlap</span></span><br><span class="line">        <span class="keyword">self</span>.areas.iter_mut()</span><br><span class="line">            .find(|area| area.vpn_range.get_start() &lt; end &amp;&amp;</span><br><span class="line">                        start &lt; area.vpn_range.get_end())</span><br><span class="line">        != <span class="literal">None</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">#[allow(unused)]</span></span><br><span class="line">    <span class="comment">/// Assume that there are no adjacent areas</span></span><br><span class="line">    <span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">unmap_area_by_range</span></span>(&amp;<span class="keyword">mut</span> <span class="keyword">self</span>, start: VirtPageNum, end: VirtPageNum)</span><br><span class="line">  			-&gt; <span class="built_in">bool</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// check containing</span></span><br><span class="line">        <span class="keyword">let</span> <span class="literal">Some</span>(pos) = <span class="keyword">self</span>.areas.iter_mut()</span><br><span class="line">            .position(|area| area.vpn_range.get_start() &lt;= start &amp;&amp;</span><br><span class="line">                        end &lt;= area.vpn_range.get_end())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">self</span>.areas[pos].unmap(<span class="keyword">self</span>.page_table);</span><br><span class="line">            <span class="keyword">self</span>.areas.remove(pos);</span><br><span class="line">            <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>让 <code>TaskManager</code> 修改当前任务的
+<code>MemorySet</code>，调用当前任务 <code>TaskControllBlock</code>
+中如下的函数即可。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">impl</span> TaskControlBlock &#123;</span><br><span class="line">    <span class="comment">/// map a new area</span></span><br><span class="line">    <span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">map_program_area</span></span>(&amp;<span class="keyword">mut</span> <span class="keyword">self</span>, </span><br><span class="line">        start: VirtPageNum, end: VirtPageNum, prot: <span class="built_in">usize</span>) -&gt; <span class="built_in">bool</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">self</span>.memory_set.range_has_mapped(start, end) ||</span><br><span class="line">            prot &amp; !<span class="number">0x7</span> != <span class="number">0</span> || prot &amp; <span class="number">0x7</span> = <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> permission = MapPermission::U;</span><br><span class="line">        <span class="keyword">if</span> (prot &amp; <span class="number">0x1</span>) &#123; permission |= MapPermission::R; &#125;</span><br><span class="line">        <span class="keyword">if</span> (prot &amp; <span class="number">0x2</span>) &#123; permission |= MapPermission::W; &#125;</span><br><span class="line">        <span class="keyword">if</span> (prot &amp; <span class="number">0x4</span>) &#123; permission |= MapPermission::X; &#125;</span><br><span class="line">        <span class="keyword">self</span>.memory_set.push(</span><br><span class="line">          MapArea::new(start_va.into(), end_va.into(),</span><br><span class="line">            MapType::Framed, permission),</span><br><span class="line">          <span class="literal">None</span>);</span><br><span class="line">        <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/// unmap a area</span></span><br><span class="line">    <span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">unmap_program_area</span></span>(&amp;<span class="keyword">mut</span> <span class="keyword">self</span>, start: VirtPageNum, end: VirtPageNum)</span><br><span class="line">        -&gt; <span class="built_in">bool</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">self</span>.memory_set.unmap_area_by_range(start, end)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>剩下的都是实现接口的代码，没必要列出来了。（<del>实际上是没写</del>）</p>
+<h2 id="第五章">第五章</h2>
+<h3 id="实验练习-1-1">实验练习 1</h3>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">spawn</span></span>(path: *<span class="keyword">const</span> <span class="built_in">u8</span>) -&gt; <span class="built_in">isize</span> &#123;</span><br><span class="line">    <span class="keyword">match</span> fork() &#123;</span><br><span class="line">        -<span class="number">1</span> =&gt; &#123; -<span class="number">1</span> &#125;,</span><br><span class="line">        <span class="number">0</span> =&gt; &#123; exec(path) &#125;,</span><br><span class="line">        pid =&gt; &#123; pid &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>开个玩笑，开个玩笑。（<del>但是以前的 <code>posix_spawn</code>
+就是这么搞的</del>）</p>
+<p>和上一章一样，这一章 <code>lab</code> 分支的 riscv crate
+也出问题了，不得不尝试修一下了。首先升级 Rust 版本，修改目录下
+<code>rust-toolchain</code> 文件。然后在 <code>cargo.toml</code> 里修改
+riscv crate 为官方版本 <code>0.10.1</code>。根据编译错误修代码。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// trap/context.rs</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// sstatus.set_spp(SPP::User); not working, make it dirty</span></span><br><span class="line"><span class="keyword">unsafe</span> &#123;</span><br><span class="line">    *(&amp;<span class="keyword">mut</span> sstatus <span class="keyword">as</span> *<span class="keyword">mut</span> Sstatus <span class="keyword">as</span> *<span class="keyword">mut</span> <span class="built_in">usize</span>) &amp;= !(<span class="number">1</span> &lt;&lt; <span class="number">8</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后实现 <code>spawn</code>。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// task/task.rs</span></span><br><span class="line"><span class="comment">// impl TaskControlBlock</span></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">spawn</span></span>(<span class="keyword">self</span>: &amp;Arc&lt;TaskControlBlock&gt;, elf_data: &amp;[<span class="built_in">u8</span>]) -&gt; Arc&lt;TaskControlBlock&gt; &#123;</span><br><span class="line">    <span class="comment">// alloc a pid and a kernel stack in kernel space</span></span><br><span class="line">    <span class="keyword">let</span> pid_handle = pid_alloc();</span><br><span class="line">    <span class="keyword">let</span> kernel_stack = KernelStack::new(&amp;pid_handle);</span><br><span class="line">    <span class="keyword">let</span> kernel_stack_top = kernel_stack.get_top();</span><br><span class="line">    <span class="comment">// memory_set with elf program headers/trampoline/trap context/user stack</span></span><br><span class="line">    <span class="keyword">let</span> (memory_set, user_sp, entry_point) = MemorySet::from_elf(elf_data);</span><br><span class="line">    <span class="keyword">let</span> trap_cx_ppn = memory_set</span><br><span class="line">    .translate(VirtAddr::from(TRAP_CONTEXT).into())</span><br><span class="line">    .unwrap()</span><br><span class="line">    .ppn();</span><br><span class="line">    <span class="comment">// modify trap context</span></span><br><span class="line">    *trap_cx_ppn.get_mut() = TrapContext::app_init_context(</span><br><span class="line">        entry_point,</span><br><span class="line">        user_sp,</span><br><span class="line">        KERNEL_SPACE.exclusive_access().token(),</span><br><span class="line">        kernel_stack_top,</span><br><span class="line">        trap_handler <span class="keyword">as</span> <span class="built_in">usize</span>,</span><br><span class="line">    );</span><br><span class="line">    <span class="comment">// ---- access parent PCB exclusively</span></span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> parent_inner = <span class="keyword">self</span>.inner_exclusive_access();</span><br><span class="line">    <span class="keyword">let</span> task_control_block = Arc::new(TaskControlBlock &#123;</span><br><span class="line">        pid: pid_handle,</span><br><span class="line">        kernel_stack,</span><br><span class="line">        inner: <span class="keyword">unsafe</span> &#123; UPSafeCell::new(TaskControlBlockInner &#123;</span><br><span class="line">            trap_cx_ppn,</span><br><span class="line">            base_size: parent_inner.base_size,</span><br><span class="line">            task_cx: TaskContext::goto_trap_return(kernel_stack_top),</span><br><span class="line">            task_status: TaskStatus::Ready,</span><br><span class="line">            memory_set,</span><br><span class="line">            parent: <span class="literal">Some</span>(Arc::downgrade(<span class="keyword">self</span>)),</span><br><span class="line">            children: <span class="built_in">Vec</span>::new(),</span><br><span class="line">            exit_code: <span class="number">0</span>,</span><br><span class="line">        &#125;)&#125;,</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// add child</span></span><br><span class="line">    parent_inner.children.push(task_control_block.clone());</span><br><span class="line">    <span class="comment">// return</span></span><br><span class="line">    task_control_block</span><br><span class="line">    <span class="comment">// ---- release parent PCB automatically</span></span><br><span class="line">    <span class="comment">// **** release children PCB automatically</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现接口。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// syscall/process.rs</span></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">sys_spawn</span></span>(path: *<span class="keyword">const</span> <span class="built_in">u8</span>) -&gt; <span class="built_in">isize</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> token = current_user_token();</span><br><span class="line">    <span class="keyword">let</span> path = translated_str(token, path);</span><br><span class="line">    <span class="keyword">let</span> current_task = current_task().unwrap();</span><br><span class="line">    <span class="keyword">let</span> new_task;</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> <span class="literal">Some</span>(data) = get_app_data_by_name(path.as_str()) &#123;</span><br><span class="line">        new_task = current_task.spawn(data);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> new_pid = new_task.pid.<span class="number">0</span>;</span><br><span class="line">    <span class="comment">// we do not have to modify trap context of the new task</span></span><br><span class="line">    <span class="comment">// add new task to scheduler</span></span><br><span class="line">    add_task(new_task);</span><br><span class="line">    new_pid <span class="keyword">as</span> <span class="built_in">isize</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; test_spawn1</span><br><span class="line">new child 3</span><br><span class="line">Test wait OK!</span><br><span class="line">Test waitpid OK!</span><br><span class="line">Shell: Process 2 exited with code 0</span><br><span class="line">&gt;&gt; test_spawn0</span><br><span class="line">new child 3</span><br><span class="line">new child 4</span><br><span class="line">...</span><br><span class="line">new child 30</span><br><span class="line">Test getpid OK! pid = 3</span><br><span class="line">Test getpid OK! pid = 4</span><br><span class="line">...</span><br><span class="line">Test getpid OK! pid = 30</span><br><span class="line">Test getpid OK! pid = 31</span><br><span class="line">new child 31</span><br><span class="line">...</span><br><span class="line">new child 34</span><br><span class="line">Test getpid OK! pid = 10</span><br><span class="line">Test getpid OK! pid = 32</span><br><span class="line">Test getpid OK! pid = 33</span><br><span class="line">Test getpid OK! pid = 34</span><br><span class="line">new child 35</span><br><span class="line">...</span><br><span class="line">new child 42</span><br><span class="line">Test getpid OK! pid = 35</span><br><span class="line">...</span><br><span class="line">Test getpid OK! pid = 42</span><br><span class="line">Test spawn0 OK!</span><br><span class="line">Shell: Process 2 exited with code 0</span><br></pre></td></tr></table></figure>
+<h3 id="实验练习-2">实验练习 2</h3>
+<p>在 <code>TaskControlBlockInner</code>
+加两个字段，<code>prio: isize</code> 和
+<code>stride: usize</code>。实现接口。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// syscall/process.rs</span></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">sys_set_priority</span></span>(prio: <span class="built_in">isize</span>) -&gt; <span class="built_in">isize</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> prio &lt; <span class="number">2</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> current_task = current_task().unwrap();</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> current_task_inner = current_task.inner_exclusive_access();</span><br><span class="line">    current_task_inner.prio = prio;</span><br><span class="line">    prio</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为 TCB 实现比较，用于小根堆。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// task/task.rs</span></span><br><span class="line"><span class="keyword">impl</span> <span class="built_in">PartialOrd</span> <span class="keyword">for</span> TaskControlBlock &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">partial_cmp</span></span>(&amp;<span class="keyword">self</span>, other: &amp;<span class="keyword">Self</span>) -&gt; <span class="built_in">Option</span>&lt;Ordering&gt; &#123;</span><br><span class="line">        <span class="keyword">let</span> self_inner = <span class="keyword">self</span>.inner_exclusive_access();</span><br><span class="line">        <span class="keyword">let</span> other_inner = other.inner_exclusive_access();</span><br><span class="line">        <span class="keyword">if</span> self_inner.stride &gt; other_inner.stride &#123;</span><br><span class="line">            <span class="literal">Some</span>(Ordering::Less)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> self_inner.stride == other_inner.stride &#123;</span><br><span class="line">            <span class="literal">Some</span>(Ordering::Equal)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> self_inner.stride &lt; other_inner.stride &#123;</span><br><span class="line">            <span class="literal">Some</span>(Ordering::Greater)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="literal">None</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> <span class="built_in">PartialEq</span> <span class="keyword">for</span> TaskControlBlock &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">eq</span></span>(&amp;<span class="keyword">self</span>, other: &amp;<span class="keyword">Self</span>) -&gt; <span class="built_in">bool</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> self_inner = <span class="keyword">self</span>.inner_exclusive_access();</span><br><span class="line">        <span class="keyword">let</span> other_inner = other.inner_exclusive_access();</span><br><span class="line">        self_inner.stride == other_inner.stride</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> <span class="built_in">Eq</span> <span class="keyword">for</span> TaskControlBlock &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> <span class="built_in">Ord</span> <span class="keyword">for</span> TaskControlBlock &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">cmp</span></span>(&amp;<span class="keyword">self</span>, other: &amp;<span class="keyword">Self</span>) -&gt; core::cmp::Ordering &#123;</span><br><span class="line">        <span class="keyword">self</span>.partial_cmp(other).unwrap()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Manager 换用小根堆。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// task/manager.rs</span></span><br><span class="line"><span class="keyword">use</span> alloc::collections::binary_heap::BinaryHeap;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">pub</span> <span class="class"><span class="keyword">struct</span> <span class="title">TaskManager</span></span> &#123;</span><br><span class="line">    ready_queue: BinaryHeap&lt;Arc&lt;TaskControlBlock&gt;&gt;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>修改一下 <code>fetch</code>，搞定。剩下的问题让编译器弄。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// task/manager.rs</span></span><br><span class="line"><span class="comment">// impl TaskManager</span></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">fetch</span></span>(&amp;<span class="keyword">mut</span> <span class="keyword">self</span>) -&gt; <span class="built_in">Option</span>&lt;Arc&lt;TaskControlBlock&gt;&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> <span class="literal">Some</span>(tcb) = <span class="keyword">self</span>.ready_queue.pop() &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> inner = tcb.inner_exclusive_access();</span><br><span class="line">        inner.stride += BIG_STRIDE / (inner.prio <span class="keyword">as</span> <span class="built_in">usize</span>);</span><br><span class="line">        <span class="built_in">drop</span>(inner);</span><br><span class="line">        <span class="literal">Some</span>(tcb)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="literal">None</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于这个 lab 的测试用例还没有弄好，只能自己简单测测了。对于 stride
+算法深入部分的内容，我没有实现，但是可以想想：由于每次操作都是给最小的
+stride 值加上不大于 <code>BigStride / 2</code>
+的值，假设队列内任务数大于二，由数学归纳法（<span
+class="math inline">\(\text{SM}\)</span> 即
+<code>STRIDE_MAX</code>，<span class="math inline">\(\text{SN}\)</span>
+即 <code>STRIDE_MIN</code>，<span
+class="math inline">\(\text{B}\)</span> 即 <code>BigStride</code>，<span
+class="math inline">\(\text{SSM}\)</span> 为第二小值，有 <span
+class="math inline">\(\text{SSM} &gt; \text{SM}\)</span>）：</p>
+<ol type="1">
+<li>假设第 <span class="math inline">\(k\)</span> 次调度时，<span
+class="math inline">\(\text{SM}_k – \text{SN}_k \le \text{B} /
+2\)</span>；</li>
+<li>那么在 <span class="math inline">\(k+1\)</span>
+次调度时，假设增加步长为 <span class="math inline">\(b\)</span>，
+<ul>
+<li>若 <span class="math inline">\(b &lt; \text{SM}_k –
+\text{SN}_k\)</span>， <span class="math inline">\(\text{SM}_{k+1} –
+\text{SN}_{k+1} \le \text{SM}_k – \text{SN}_k \le B/2\)</span></li>
+<li>若 <span class="math inline">\(\text{SM}_k – \text{SN}_k \le b \le
+B/2\)</span>，<span class="math inline">\(\text{SM}_{k+1} –
+\text{SN}_{k+1} \le \text{SM}_k + B/2 – \text{SSM}_k \le
+B/2\)</span>。</li>
+</ul></li>
+</ol>
+<p>有第零次调度，所有 stride 相等，满足条件， 证毕。</p>
+<p>如果这样实现的话，新加入的 stride 必须等于
+<code>STRIDE_MIN</code>。<code>PartialOrd</code> 的也实现需要
+<code>STRIDE_MIN</code>。</p>
+<h2 id="第六章">第六章</h2>
+<p>这个教程的 easyfs 设计挺怪的，vfs
+和磁盘块管理层没有很好分离，inode，efs 和 BlockDevice
+的归属关系也挺乱的；代码设计也有些不符合常理的地方，比如该 static
+的地方没办法 static，有点混乱。但是还是能改。</p>
+<h3 id="实践作业-1">实践作业</h3>
+<p>依赖中的 k210-soc 又挂掉了，我只能按自己的理解试着实现了。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// easyfs/src/vfs.rs</span></span><br><span class="line"><span class="comment">// impl Inode</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">get_inodes_by_name</span></span>(&amp;<span class="keyword">self</span>, name: &amp;<span class="built_in">str</span>) -&gt; <span class="built_in">Option</span>&lt;(Arc&lt;Inode&gt;, DiskInode, <span class="built_in">u32</span>)&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="literal">Some</span>(inode) = <span class="keyword">self</span>.find(name) <span class="keyword">else</span> &#123; <span class="keyword">return</span> <span class="literal">None</span> &#125;;</span><br><span class="line">    <span class="keyword">let</span> disk_inode = inode.read_disk_inode(|i| &#123; i.clone() &#125;);</span><br><span class="line">    <span class="keyword">let</span> <span class="literal">Some</span>(disk_inode_id) = inode.find_inode_id(name, &amp;disk_inode) <span class="keyword">else</span> &#123; <span class="keyword">return</span> <span class="literal">None</span>; &#125;;</span><br><span class="line">    <span class="literal">Some</span>((inode, disk_inode, disk_inode_id))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">create_link_dirent</span></span>(&amp;<span class="keyword">self</span>, name: &amp;<span class="built_in">str</span>, targ_name: &amp;<span class="built_in">str</span>) -&gt; <span class="built_in">i32</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> name == targ_name &#123; <span class="keyword">return</span> -<span class="number">1</span> &#125;;</span><br><span class="line">    <span class="keyword">let</span> <span class="literal">Some</span>((targ_inode, <span class="keyword">mut</span> targ_disk_inode, targ_disk_inode_id))</span><br><span class="line">    = <span class="keyword">self</span>.get_inodes_by_name(targ_name) <span class="keyword">else</span> &#123; <span class="keyword">return</span> -<span class="number">1</span>; &#125;;</span><br><span class="line">    <span class="comment">// append file in the root inode dirent</span></span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> fs = <span class="keyword">self</span>.fs.lock();</span><br><span class="line">    <span class="keyword">self</span>.modify_disk_inode(|root_inode| &#123;</span><br><span class="line">        <span class="keyword">let</span> file_count = (root_inode.size <span class="keyword">as</span> <span class="built_in">usize</span>) / DIRENT_SZ;</span><br><span class="line">        <span class="keyword">let</span> new_size = (file_count + <span class="number">1</span>) * DIRENT_SZ;</span><br><span class="line">        <span class="comment">// increase size</span></span><br><span class="line">        <span class="keyword">self</span>.increase_size(new_size <span class="keyword">as</span> <span class="built_in">u32</span>, root_inode, &amp;<span class="keyword">mut</span> fs);</span><br><span class="line">        <span class="comment">// write dirent</span></span><br><span class="line">        <span class="keyword">let</span> dirent = DirEntry::new(name, targ_disk_inode_id.into());</span><br><span class="line">        root_inode.write_at(</span><br><span class="line">            file_count * DIRENT_SZ,</span><br><span class="line">            dirent.as_bytes(),</span><br><span class="line">            &amp;<span class="keyword">self</span>.block_device,</span><br><span class="line">        );</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// update nlink</span></span><br><span class="line">    targ_disk_inode.nlink += <span class="number">1</span>;</span><br><span class="line">    targ_inode.modify_disk_inode(|inode| &#123; *inode = targ_disk_inode; &#125;);</span><br><span class="line">    <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">remove_link_dirent</span></span>(&amp;<span class="keyword">self</span>, name: &amp;<span class="built_in">str</span>) -&gt; <span class="built_in">i32</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="literal">Some</span>((inode, <span class="keyword">mut</span> disk_inode, _disk_inode_id))</span><br><span class="line">    = <span class="keyword">self</span>.get_inodes_by_name(name) <span class="keyword">else</span> &#123; <span class="keyword">return</span> -<span class="number">1</span>; &#125;;</span><br><span class="line">    <span class="comment">// delete the dirent</span></span><br><span class="line">    <span class="comment">// let mut fs = self.fs.lock();</span></span><br><span class="line">    <span class="keyword">self</span>.modify_disk_inode(|root_inode| &#123;</span><br><span class="line">        <span class="keyword">let</span> file_count = (disk_inode.size <span class="keyword">as</span> <span class="built_in">usize</span>) / DIRENT_SZ;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> dirent = DirEntry::empty();</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..file_count &#123;</span><br><span class="line">            <span class="built_in">assert_eq!</span>(</span><br><span class="line">                disk_inode.read_at(</span><br><span class="line">                    DIRENT_SZ * i,</span><br><span class="line">                    dirent.as_bytes_mut(),</span><br><span class="line">                    &amp;<span class="keyword">self</span>.block_device,</span><br><span class="line">                ),</span><br><span class="line">                DIRENT_SZ,</span><br><span class="line">            );</span><br><span class="line">            <span class="keyword">if</span> dirent.name() == name &#123;</span><br><span class="line">                <span class="comment">// write a empty dirent</span></span><br><span class="line">                <span class="keyword">let</span> dirent = DirEntry::new(<span class="string">&quot;&quot;</span>, <span class="number">0</span>);</span><br><span class="line">                root_inode.write_at(</span><br><span class="line">                    i * DIRENT_SZ,</span><br><span class="line">                    dirent.as_bytes(),</span><br><span class="line">                    &amp;<span class="keyword">self</span>.block_device,</span><br><span class="line">                );</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// update nlink</span></span><br><span class="line">    disk_inode.nlink += <span class="number">1</span>;</span><br><span class="line">    inode.modify_disk_inode(|inode| &#123; *inode = disk_inode; &#125;);</span><br><span class="line">    <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">stat</span></span>(&amp;<span class="keyword">self</span>, name: &amp;<span class="built_in">str</span>) -&gt; <span class="built_in">Option</span>&lt;Stat&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="literal">Some</span>((_inode, disk_inode, disk_inode_id))</span><br><span class="line">    = <span class="keyword">self</span>.get_inodes_by_name(name) <span class="keyword">else</span> &#123; <span class="keyword">return</span> <span class="literal">None</span>; &#125;;</span><br><span class="line">    <span class="literal">Some</span>(Stat &#123;</span><br><span class="line">        dev: <span class="number">0</span>,</span><br><span class="line">        ino: disk_inode_id.into(),</span><br><span class="line">        mode: <span class="keyword">if</span> disk_inode.is_file() &#123; StatMode::FILE &#125; <span class="keyword">else</span> &#123; StatMode::FILE &#125;,</span><br><span class="line">        nlink: disk_inode.nlink,</span><br><span class="line">        pad: [<span class="number">0</span>; <span class="number">7</span>],</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于擦除文件没实现，擦除一个 <code>DirEnt</code>
+也很复杂，所以索性留白了，至少下次访问是不合法的。</p>
+<h2 id="第七章">第七章</h2>
+<p>本章是 IPC 和 Signal。Lab 是邮箱，懒得写了。</p>
+<h2 id="第八章">第八章</h2>
+<p>Lab 是 ELO 和 实现 eventfd，挖个坑，做完项目设计回来写。</p>
+<h2 id="第九章">第九章</h2>
+<p>Lab 是加入 virtio-gpu 驱动，挖个坑，做完项目设计回来写。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CS/" rel="tag"># CS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/02/15/zh-CN/%E4%BF%AE%E5%A5%BD%E4%BA%86%E5%85%AC%E5%BC%8F%E4%B9%B1%E7%A0%81%E7%9A%84%E9%97%AE%E9%A2%98/" rel="prev" title="修好了公式乱码的问题">
+      <i class="fa fa-chevron-left"></i> 修好了公式乱码的问题
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E9%9B%B6%E7%AB%A0"><span class="nav-number">1.</span> <span class="nav-text">第零章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0"><span class="nav-number">2.</span> <span class="nav-text">第一章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%AC%AC%E4%B8%80%E6%9D%A1%E6%8C%87%E4%BB%A4%E5%AE%9E%E8%B7%B5%E7%AF%87"><span class="nav-number">2.1.</span> <span class="nav-text">内核第一条指令（实践篇）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E7%A8%8B%E7%BB%83%E4%B9%A0"><span class="nav-number">2.2.</span> <span class="nav-text">编程练习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0"><span class="nav-number">3.</span> <span class="nav-text">第二章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%83%E4%B9%A0"><span class="nav-number">3.1.</span> <span class="nav-text">实验练习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0"><span class="nav-number">4.</span> <span class="nav-text">第三章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0"><span class="nav-number">4.1.</span> <span class="nav-text">课后练习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%89%A9%E5%B1%95"><span class="nav-number">4.1.1.</span> <span class="nav-text">3. 浮点扩展</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%83%E4%B9%A0-1"><span class="nav-number">4.2.</span> <span class="nav-text">实验练习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%B0%E5%BD%95%E6%95%B0%E6%8D%AE"><span class="nav-number">4.2.1.</span> <span class="nav-text">记录数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%99%E5%87%BA%E6%95%B0%E6%8D%AE"><span class="nav-number">4.2.2.</span> <span class="nav-text">给出数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E4%B8%8E%E7%BB%93%E6%9E%9C"><span class="nav-number">4.2.3.</span> <span class="nav-text">测试与结果</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0"><span class="nav-number">5.</span> <span class="nav-text">第四章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0-1"><span class="nav-number">5.1.</span> <span class="nav-text">课后练习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E8%B7%B5%E4%BD%9C%E4%B8%9A"><span class="nav-number">5.2.</span> <span class="nav-text">实践作业</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E5%86%99-sys_get_time"><span class="nav-number">5.2.1.</span> <span class="nav-text">重写 sys_get_time</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mmap-%E5%92%8C-munmap"><span class="nav-number">5.2.2.</span> <span class="nav-text">mmap 和 munmap</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0"><span class="nav-number">6.</span> <span class="nav-text">第五章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%83%E4%B9%A0-1-1"><span class="nav-number">6.1.</span> <span class="nav-text">实验练习 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%83%E4%B9%A0-2"><span class="nav-number">6.2.</span> <span class="nav-text">实验练习 2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0"><span class="nav-number">7.</span> <span class="nav-text">第六章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E8%B7%B5%E4%BD%9C%E4%B8%9A-1"><span class="nav-number">7.1.</span> <span class="nav-text">实践作业</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0"><span class="nav-number">8.</span> <span class="nav-text">第七章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0"><span class="nav-number">9.</span> <span class="nav-text">第八章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B9%9D%E7%AB%A0"><span class="nav-number">10.</span> <span class="nav-text">第九章</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Junyang Zhang"
+      src="/images/CasualPortraitOct2021.png">
+  <p class="site-author-name" itemprop="name">Junyang Zhang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/junyang-zh" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;junyang-zh" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mail@junyang.me" title="E-Mail → mailto:mail@junyang.me" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://bytew.net/" title="https:&#x2F;&#x2F;bytew.net&#x2F;" rel="noopener" target="_blank">Nocriz</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://yuri3.cn/" title="http:&#x2F;&#x2F;yuri3.cn&#x2F;" rel="noopener" target="_blank">Yuri3</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.kingsiong.top/" title="http:&#x2F;&#x2F;www.kingsiong.top&#x2F;" rel="noopener" target="_blank">iNxli</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.mky.moe/" title="https:&#x2F;&#x2F;blog.mky.moe&#x2F;" rel="noopener" target="_blank">MonKey</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.ccandle.top/" title="https:&#x2F;&#x2F;blog.ccandle.top&#x2F;" rel="noopener" target="_blank">CCandle</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://120.79.138.174:8080/" title="http:&#x2F;&#x2F;120.79.138.174:8080&#x2F;" rel="noopener" target="_blank">siyuanluo</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://yang-d19.github.io/" title="https:&#x2F;&#x2F;yang-d19.github.io&#x2F;" rel="noopener" target="_blank">Yangd19</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="languages">
+    <label class="lang-select-label">
+      <i class="fa fa-language"></i>
+      <span>简体中文</span>
+      <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </label>
+    <select class="lang-select" data-canonical="">
+      
+        <option value="zh-CN" data-href="/2023/03/07/zh-CN/rCoreOS-Tutorial-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" selected="">
+          简体中文
+        </option>
+      
+        <option value="en" data-href="/en/2023/03/07/zh-CN/rCoreOS-Tutorial-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" selected="">
+          English
+        </option>
+      
+    </select>
+  </div>
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Junyang Zhang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/mathjax/3.2.0/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hA0Uyzupz2vdCpNOIC0MCJjT-gzGzoHsz',
+      appKey     : 'dpOcFMwzmsVPyQPECkBb9TUP',
+      placeholder: "Just comment!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
