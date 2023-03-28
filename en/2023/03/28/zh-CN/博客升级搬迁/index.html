@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"jyzhang.xyz","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"artalk","storage":true,"lazyload":false,"nav":null,"activeClass":"artalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jyzhang.xyz","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="近日将博客使用的 Next 主题从好久不更新的 Github 仓库 部署方式切到了 npm，也获得了版本的升级。并且我现在把博客在 Railway 上以 Docker 加 Nginx 的方式托管，不再用 Github Pages 了。 原来的用的好好的，为什么要多此一举呢？本质原因可能是因为我要整理一下目前正在用的域名，打算以后都使用 junyang.me 这个域名。但是原先的 jyzhang.x">
 <meta property="og:type" content="article">
@@ -311,17 +311,6 @@ Railway 很好用，于是购买了 plan。心想买都买了就把博客搞过�
 
 
 
-    
-  <!-- CSS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/artalk/2.5.2/Artalk.css" rel="stylesheet">
-  <!-- JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/artalk/2.5.2/Artalk.js"></script>
-  <!-- Artalk -->
-  <div id="Comments" style="padding-top: 20px;"></div>
-  <script>
-  Artalk.init({ el: '#Comments', server: 'https://blogbackend.junyang.me:23366', })
-  </script>
-  
 </div>
   </main>
 
@@ -396,7 +385,6 @@ Railway 很好用，于是购买了 plan。心想买都买了就把博客搞过�
 <script src="/js/third-party/math/mathjax.js"></script>
 
 
-<script class="next-config" data-name="artalk" type="application/json">{"enable":true,"i18n":{"artalk":"artalk"}}</script>
 
 </body>
 </html>

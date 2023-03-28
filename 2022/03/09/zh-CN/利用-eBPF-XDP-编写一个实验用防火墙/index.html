@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"jyzhang.xyz","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"artalk","storage":true,"lazyload":false,"nav":null,"activeClass":"artalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jyzhang.xyz","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="SDN 老师出了一道不明所以的实机实验题，要求模拟一个特定的 TCP 传输过程，中途丢掉某个特定的包。 拔网线大概会直接丢所有的包，后来要求收到的包就模拟不出来了，而且十分考验手速。或者使用现有的防火墙程序，但按内容匹配也不容易。另一种方式是使用 mininet，笔者不太会 mininet。不过正好笔者了解过 eBPF，也正要学习，于是用 eBPF 写一个 XDP 防火墙，支持内容匹配。 我们的目">
 <meta property="og:type" content="article">
@@ -444,17 +444,6 @@ map</a></li>
 
 
 
-    
-  <!-- CSS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/artalk/2.5.2/Artalk.css" rel="stylesheet">
-  <!-- JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/artalk/2.5.2/Artalk.js"></script>
-  <!-- Artalk -->
-  <div id="Comments" style="padding-top: 20px;"></div>
-  <script>
-  Artalk.init({ el: '#Comments', server: 'https://blogbackend.junyang.me:23366', })
-  </script>
-  
 </div>
   </main>
 
@@ -529,7 +518,6 @@ map</a></li>
 <script src="/js/third-party/math/mathjax.js"></script>
 
 
-<script class="next-config" data-name="artalk" type="application/json">{"enable":true,"i18n":{"artalk":"artalk"}}</script>
 
 </body>
 </html>
