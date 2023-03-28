@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.0">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/site/FilterAvatar.jpg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/site/FilterAvatar.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/site/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/site/favicon-16x16.png">
   <link rel="mask-icon" href="/images/site/favicon-32x32.png" color="#222">
@@ -323,7 +323,7 @@ T}AP\boldsymbol x=d_1y_1^2+d_2y_2^2+\cdots+d_ny_n^2\)</span></p>
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%BC%96%E8%AF%91%E6%8F%90%E7%BA%B2/">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%A4%A7%E9%9B%BE%E4%B8%8B%E5%85%AC%E5%BC%8F%E5%90%88%E9%9B%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/site/CasualPortraitOct2021.png">
@@ -341,7 +341,7 @@ T}AP\boldsymbol x=d_1y_1^2+d_2y_2^2+\cdots+d_ny_n^2\)</span></p>
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%BC%96%E8%AF%91%E6%8F%90%E7%BA%B2/" class="post-title-link" itemprop="url">形式语言与编译提纲</a>
+          <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%A4%A7%E9%9B%BE%E4%B8%8B%E5%85%AC%E5%BC%8F%E5%90%88%E9%9B%86/" class="post-title-link" itemprop="url">大雾下公式合集</a>
         </h2>
 
         <div class="post-meta-container">
@@ -351,9 +351,15 @@ T}AP\boldsymbol x=d_1y_1^2+d_2y_2^2+\cdots+d_ny_n^2\)</span></p>
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2021-10-13 09:49:30 / Modified: 22:18:00" itemprop="dateCreated datePublished" datetime="2021-10-13T09:49:30+08:00">2021-10-13</time>
+      <time title="Created: 2021-10-13 09:49:30" itemprop="dateCreated datePublished" datetime="2021-10-13T09:49:30+08:00">2021-10-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-12-05 11:29:00" itemprop="dateModified" datetime="2022-12-05T11:29:00+08:00">2022-12-05</time>
     </span>
 
   
@@ -366,29 +372,22 @@ T}AP\boldsymbol x=d_1y_1^2+d_2y_2^2+\cdots+d_ny_n^2\)</span></p>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="自动机理论">自动机理论</h2>
-<h3 id="dfa-nfa-re">DFA-NFA-RE</h3>
-<p>DFA 是五元组 <span class="math inline">\((Q,\Sigma,\delta,q_0,F)\)</span>，分别表示状态，符号集，迁移函数，开始状态，接收状态集</p>
-<p>DFA 扩展转移函数 <span class="math inline">\(\hat\delta:Q\times\Sigma^*\to Q\)</span></p>
-<p>NFA 是五元组 <span class="math inline">\((Q,\Sigma,\delta,q_0,F)\)</span>，其中 <span class="math inline">\(\delta:Q\times\Sigma\to2^Q\)</span></p>
-<p>NFA 扩展转移函数 <span class="math inline">\(\hat\delta:Q\times\Sigma^*\to 2^Q\)</span></p>
-<p><span class="math inline">\(\mathrm \varepsilon\)</span>-NFA 是五元组
-<span class="math inline">\((Q,\Sigma,\delta,q_0,F)\)</span>，其中 <span class="math inline">\(\delta:Q\times(\Sigma\cup\{\varepsilon\})\to2^Q\)</span></p>
-<ul>
-<li><span class="math inline">\(\mathrm \varepsilon\)</span>-NFA 到
-DFA：<span class="math inline">\(\mathrm{ECLOSE}(r)\)</span>
-与子集构造</li>
-<li>NFA 到 DFA：（惰性）子集构造，<span class="math inline">\(O(n^32^n)\)</span></li>
-<li>DFA 到 RE：消除状态得 GNFA，<span class="math inline">\(O(n^34^n)\)</span>；证明：归纳法</li>
-<li>RE 到 <span class="math inline">\(\varepsilon\)</span>-NFA：<span class="math inline">\(O(n)\)</span></li>
-</ul>
-<p>泵引理证正则：</p>
-<blockquote>
-<p>存在 <span class="math inline">\(n\)</span> 使得对任意 <span class="math inline">\(w\in L\)</span>，若 <span class="math inline">\(|w|\ge n\)</span>，我们能写成 <span class="math inline">\(w=xyz\)</span>，其中 <span class="math inline">\(|xy|\le n\)</span>，<span class="math inline">\(|y|\ge 1\)</span>，且 <span class="math inline">\(\forall k\geq 0, xy^kz\in L\)</span></p>
-</blockquote>
+          <p><em>rev0.3.1</em></p>
+<h2 id="disclaimer">Disclaimer</h2>
+<p>本文档照例应用于考前记诵</p>
+<p>但现在内容多得已经可以用来饱和式学习了</p>
+<p>本文强调值的运算矢量性时利用箭头符号 <span class="math inline">\(\vec
+a\)</span>，描绘一般原则时则使用加粗体 <span class="math inline">\(\mathbf a\)</span></p>
+<p>所有常量均使用正体（如玻尔兹曼常量 <span class="math inline">\(\mathrm k\)</span>）</p>
+<p>电子电量 <span class="math inline">\(\mathrm e\)</span> 与自然底数
+<span class="math inline">\(\mathrm e\)</span>
+写法一致，但易于从上下文判断</p>
+<p>rev 0.1，波动光学还没完善好！</p>
+<p>rev 0.2，差不多该可以用了，但也快要考试了，加了一些没什么用的东西</p>
+<p>rev 0.3，修正了一些已知错误</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%BC%96%E8%AF%91%E6%8F%90%E7%BA%B2/#more" rel="contents">
+              <a class="btn" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%A4%A7%E9%9B%BE%E4%B8%8B%E5%85%AC%E5%BC%8F%E5%90%88%E9%9B%86/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -505,7 +504,7 @@ DFA：<span class="math inline">\(\mathrm{ECLOSE}(r)\)</span>
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%A4%A7%E9%9B%BE%E4%B8%8B%E5%85%AC%E5%BC%8F%E5%90%88%E9%9B%86/">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%BC%96%E8%AF%91%E6%8F%90%E7%BA%B2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/site/CasualPortraitOct2021.png">
@@ -523,7 +522,103 @@ DFA：<span class="math inline">\(\mathrm{ECLOSE}(r)\)</span>
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%A4%A7%E9%9B%BE%E4%B8%8B%E5%85%AC%E5%BC%8F%E5%90%88%E9%9B%86/" class="post-title-link" itemprop="url">大雾下公式合集</a>
+          <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%BC%96%E8%AF%91%E6%8F%90%E7%BA%B2/" class="post-title-link" itemprop="url">形式语言与编译提纲</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-10-13 09:49:30 / Modified: 22:18:00" itemprop="dateCreated datePublished" datetime="2021-10-13T09:49:30+08:00">2021-10-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="自动机理论">自动机理论</h2>
+<h3 id="dfa-nfa-re">DFA-NFA-RE</h3>
+<p>DFA 是五元组 <span class="math inline">\((Q,\Sigma,\delta,q_0,F)\)</span>，分别表示状态，符号集，迁移函数，开始状态，接收状态集</p>
+<p>DFA 扩展转移函数 <span class="math inline">\(\hat\delta:Q\times\Sigma^*\to Q\)</span></p>
+<p>NFA 是五元组 <span class="math inline">\((Q,\Sigma,\delta,q_0,F)\)</span>，其中 <span class="math inline">\(\delta:Q\times\Sigma\to2^Q\)</span></p>
+<p>NFA 扩展转移函数 <span class="math inline">\(\hat\delta:Q\times\Sigma^*\to 2^Q\)</span></p>
+<p><span class="math inline">\(\mathrm \varepsilon\)</span>-NFA 是五元组
+<span class="math inline">\((Q,\Sigma,\delta,q_0,F)\)</span>，其中 <span class="math inline">\(\delta:Q\times(\Sigma\cup\{\varepsilon\})\to2^Q\)</span></p>
+<ul>
+<li><span class="math inline">\(\mathrm \varepsilon\)</span>-NFA 到
+DFA：<span class="math inline">\(\mathrm{ECLOSE}(r)\)</span>
+与子集构造</li>
+<li>NFA 到 DFA：（惰性）子集构造，<span class="math inline">\(O(n^32^n)\)</span></li>
+<li>DFA 到 RE：消除状态得 GNFA，<span class="math inline">\(O(n^34^n)\)</span>；证明：归纳法</li>
+<li>RE 到 <span class="math inline">\(\varepsilon\)</span>-NFA：<span class="math inline">\(O(n)\)</span></li>
+</ul>
+<p>泵引理证正则：</p>
+<blockquote>
+<p>存在 <span class="math inline">\(n\)</span> 使得对任意 <span class="math inline">\(w\in L\)</span>，若 <span class="math inline">\(|w|\ge n\)</span>，我们能写成 <span class="math inline">\(w=xyz\)</span>，其中 <span class="math inline">\(|xy|\le n\)</span>，<span class="math inline">\(|y|\ge 1\)</span>，且 <span class="math inline">\(\forall k\geq 0, xy^kz\in L\)</span></p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%BC%96%E8%AF%91%E6%8F%90%E7%BA%B2/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E4%B8%8E%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/site/CasualPortraitOct2021.png">
+      <meta itemprop="name" content="Junyang Zhang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyang Zhang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Junyang Zhang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E4%B8%8E%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/" class="post-title-link" itemprop="url">概率统计与随机过程复习整理</a>
         </h2>
 
         <div class="post-meta-container">
@@ -541,7 +636,7 @@ DFA：<span class="math inline">\(\mathrm{ECLOSE}(r)\)</span>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-12-05 11:29:00" itemprop="dateModified" datetime="2022-12-05T11:29:00+08:00">2022-12-05</time>
+      <time title="Modified: 2022-12-05 11:31:00" itemprop="dateModified" datetime="2022-12-05T11:31:00+08:00">2022-12-05</time>
     </span>
 
   
@@ -554,22 +649,32 @@ DFA：<span class="math inline">\(\mathrm{ECLOSE}(r)\)</span>
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><em>rev0.3.1</em></p>
-<h2 id="disclaimer">Disclaimer</h2>
-<p>本文档照例应用于考前记诵</p>
-<p>但现在内容多得已经可以用来饱和式学习了</p>
-<p>本文强调值的运算矢量性时利用箭头符号 <span class="math inline">\(\vec
-a\)</span>，描绘一般原则时则使用加粗体 <span class="math inline">\(\mathbf a\)</span></p>
-<p>所有常量均使用正体（如玻尔兹曼常量 <span class="math inline">\(\mathrm k\)</span>）</p>
-<p>电子电量 <span class="math inline">\(\mathrm e\)</span> 与自然底数
-<span class="math inline">\(\mathrm e\)</span>
-写法一致，但易于从上下文判断</p>
-<p>rev 0.1，波动光学还没完善好！</p>
-<p>rev 0.2，差不多该可以用了，但也快要考试了，加了一些没什么用的东西</p>
-<p>rev 0.3，修正了一些已知错误</p>
+          <h2 id="概率论">概率论</h2>
+<h3 id="不等式合集">不等式合集</h3>
+<h4 id="柯西-施瓦茨不等式">柯西-施瓦茨不等式</h4>
+<p>由协方差性质推导 <span class="math display">\[
+E\left((XY)^2\right)\leq E(X^2)E(Y^2)
+\]</span></p>
+<h4 id="马尔可夫不等式">马尔可夫不等式</h4>
+<p><span class="math inline">\(r\)</span> 阶矩存在，则 <span class="math inline">\(\forall \varepsilon &gt;0\)</span> <span class="math display">\[
+P\{|X|\geq \varepsilon\}\leq \frac{(|X|^r)}{\varepsilon^r}
+\]</span></p>
+<h4 id="切比雪夫不等式">切比雪夫不等式</h4>
+<p><span class="math display">\[
+\begin{align}
+P\{|X-E(X)|\geq \varepsilon\}&amp;\leq\frac{D(X)}{\varepsilon^2}
+\nonumber\newline
+P\{|X-E(X)|&lt; \varepsilon\}&amp;\geq
+1-\frac{D(X)}{\varepsilon^2}\nonumber
+\end{align}
+\]</span></p>
+<h3 id="事件">事件</h3>
+<p>随机现象的观察（<strong>随机试验</strong>） <span class="math inline">\(E\)</span> 的<strong>样本空间</strong>为 <span class="math inline">\(\Omega=\{\omega\}\)</span>，<strong>随机事件</strong>
+<span class="math inline">\(A\subset
+\Omega\)</span>。<strong>必然事件</strong> <span class="math inline">\(\Omega\)</span>，<strong>不可能事件</strong> <span class="math inline">\(\varnothing\)</span></p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%A4%A7%E9%9B%BE%E4%B8%8B%E5%85%AC%E5%BC%8F%E5%90%88%E9%9B%86/#more" rel="contents">
+              <a class="btn" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E4%B8%8E%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -684,111 +789,6 @@ f(t) = A_m\cos\left(\frac{2\pi}{T}t+\phi\right)
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%94%B5%E8%B7%AF%E9%9C%80%E8%AE%B0%E5%85%AC%E5%BC%8F%E9%9B%86%E9%94%A6/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://jyzhang.xyz/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E4%B8%8E%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/site/CasualPortraitOct2021.png">
-      <meta itemprop="name" content="Junyang Zhang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Junyang Zhang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Junyang Zhang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E4%B8%8E%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/" class="post-title-link" itemprop="url">概率统计与随机过程复习整理</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-10-13 09:49:30" itemprop="dateCreated datePublished" datetime="2021-10-13T09:49:30+08:00">2021-10-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-12-05 11:31:00" itemprop="dateModified" datetime="2022-12-05T11:31:00+08:00">2022-12-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="概率论">概率论</h2>
-<h3 id="不等式合集">不等式合集</h3>
-<h4 id="柯西-施瓦茨不等式">柯西-施瓦茨不等式</h4>
-<p>由协方差性质推导 <span class="math display">\[
-E\left((XY)^2\right)\leq E(X^2)E(Y^2)
-\]</span></p>
-<h4 id="马尔可夫不等式">马尔可夫不等式</h4>
-<p><span class="math inline">\(r\)</span> 阶矩存在，则 <span class="math inline">\(\forall \varepsilon &gt;0\)</span> <span class="math display">\[
-P\{|X|\geq \varepsilon\}\leq \frac{(|X|^r)}{\varepsilon^r}
-\]</span></p>
-<h4 id="切比雪夫不等式">切比雪夫不等式</h4>
-<p><span class="math display">\[
-\begin{align}
-P\{|X-E(X)|\geq \varepsilon\}&amp;\leq\frac{D(X)}{\varepsilon^2}
-\nonumber\newline
-P\{|X-E(X)|&lt; \varepsilon\}&amp;\geq
-1-\frac{D(X)}{\varepsilon^2}\nonumber
-\end{align}
-\]</span></p>
-<h3 id="事件">事件</h3>
-<p>随机现象的观察（<strong>随机试验</strong>） <span class="math inline">\(E\)</span> 的<strong>样本空间</strong>为 <span class="math inline">\(\Omega=\{\omega\}\)</span>，<strong>随机事件</strong>
-<span class="math inline">\(A\subset
-\Omega\)</span>。<strong>必然事件</strong> <span class="math inline">\(\Omega\)</span>，<strong>不可能事件</strong> <span class="math inline">\(\varnothing\)</span></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E4%B8%8E%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
