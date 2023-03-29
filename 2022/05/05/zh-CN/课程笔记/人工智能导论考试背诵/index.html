@@ -49,7 +49,7 @@
 
 
 
-
+<link rel="dns-prefetch" href="https://blogbackend.junyang.me">
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -257,6 +257,28 @@
       <time title="创建时间：2022-05-05 11:34:47 / 修改时间：11:49:32" itemprop="dateCreated datePublished" datetime="2022-05-05T11:34:47+08:00">2022-05-05</time>
     </span>
 
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2022/05/05/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA%E8%80%83%E8%AF%95%E8%83%8C%E8%AF%B5/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2022/05/05/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA%E8%80%83%E8%AF%95%E8%83%8C%E8%AF%B5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="waline-pageview-count" data-path="/2022/05/05/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA%E8%80%83%E8%AF%95%E8%83%8C%E8%AF%B5/"></span>
+    </span>
   
 </div>
 
@@ -772,6 +794,7 @@ A(s)}\sum_{s&#39;}P(s&#39;|s,a)V(s&#39;)\)</span>：使用该方程迭代是收�
 
 
 
+    <div class="comments" id="waline"></div>
 </div>
   </main>
 
@@ -846,6 +869,17 @@ A(s)}\sum_{s&#39;}P(s&#39;|s,a)V(s&#39;)\)</span>：使用该方程迭代是收�
 <script src="/js/third-party/math/mathjax.js"></script>
 
 
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-CN","enable":true,"serverURL":"https://blogbackend.junyang.me","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":true,"meta":["nick","mail","link"],"requiredMeta":["nick"],"wordLimit":0,"login":"enable","pageSize":10,"el":"#waline","comment":true,"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","path":"/2022/05/05/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA%E8%80%83%E8%AF%95%E8%83%8C%E8%AF%B5/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
 
 </body>
 </html>

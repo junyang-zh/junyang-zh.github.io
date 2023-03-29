@@ -49,7 +49,7 @@
 
 
 
-
+<link rel="dns-prefetch" href="https://blogbackend.junyang.me">
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -257,6 +257,28 @@
       <time title="Created: 2021-10-13 09:49:30 / Modified: 22:18:00" itemprop="dateCreated datePublished" datetime="2021-10-13T09:49:30+08:00">2021-10-13</time>
     </span>
 
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline: </span>
+  
+    <a title="waline" href="/en/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/en/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Views">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span class="waline-pageview-count" data-path="/en/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/"></span>
+    </span>
   
 </div>
 
@@ -894,13 +916,13 @@ v\equiv 3\mod 6\)</span></p>
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%94%B5%E8%B7%AF%E9%9C%80%E8%AE%B0%E5%85%AC%E5%BC%8F%E9%9B%86%E9%94%A6/" rel="prev" title="电路需记公式集锦">
-                  <i class="fa fa-chevron-left"></i> 电路需记公式集锦
+                <a href="/2021/10/12/en/Moving-My-Blog-To-a-Static-Website/" rel="prev" title="Moving My Blog To a Static Website">
+                  <i class="fa fa-chevron-left"></i> Moving My Blog To a Static Website
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/" rel="next" title="数值分析笔记">
-                  数值分析笔记 <i class="fa fa-chevron-right"></i>
+                <a href="/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%BC%96%E8%AF%91%E6%8F%90%E7%BA%B2/" rel="next" title="形式语言与编译提纲">
+                  形式语言与编译提纲 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -913,6 +935,7 @@ v\equiv 3\mod 6\)</span></p>
 
 
 
+    <div class="comments" id="waline"></div>
 </div>
   </main>
 
@@ -987,6 +1010,17 @@ v\equiv 3\mod 6\)</span></p>
 <script src="/js/third-party/math/mathjax.js"></script>
 
 
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-CN","enable":true,"serverURL":"https://blogbackend.junyang.me","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":true,"meta":["nick","mail","link"],"requiredMeta":["nick"],"wordLimit":0,"login":"enable","pageSize":10,"el":"#waline","comment":true,"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","path":"/en/2021/10/13/zh-CN/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%8F%90%E7%BA%B2/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
 
 </body>
 </html>

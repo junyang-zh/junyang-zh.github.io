@@ -44,7 +44,7 @@
 
 
 
-
+<link rel="dns-prefetch" href="https://blogbackend.junyang.me">
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -257,6 +257,28 @@
     </span>
 
   
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2021/10/13/zh-CN/GRE-%E5%A4%87%E8%80%83%E7%AF%87/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2021/10/13/zh-CN/GRE-%E5%A4%87%E8%80%83%E7%AF%87/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="waline-pageview-count" data-path="/2021/10/13/zh-CN/GRE-%E5%A4%87%E8%80%83%E7%AF%87/"></span>
+    </span>
+  
 </div>
 
         </div>
@@ -403,6 +425,17 @@ App，它们的开发者看起来有血有肉的，很有意思；</li>
 <script src="/js/third-party/math/mathjax.js"></script>
 
 
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-CN","enable":true,"serverURL":"https://blogbackend.junyang.me","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":true,"meta":["nick","mail","link"],"requiredMeta":["nick"],"wordLimit":0,"login":"enable","pageSize":10,"el":"#waline","comment":true,"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","path":"/zh-CN/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
 
 </body>
 </html>
