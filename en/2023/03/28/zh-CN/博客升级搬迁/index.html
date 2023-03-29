@@ -27,7 +27,7 @@
 <meta property="og:description" content="近日将博客使用的 Next 主题从好久不更新的 Github 仓库 部署方式切到了 npm，也获得了版本的升级。并且我现在把博客在 Railway 上以 Docker 加 Nginx 的方式托管，不再用 Github Pages 了。 原来的用的好好的，为什么要多此一举呢？本质原因可能是因为我要整理一下目前正在用的域名，打算以后都使用 junyang.me 这个域名。但是原先的 jyzhang.x">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-03-28T05:51:21.000Z">
-<meta property="article:modified_time" content="2023-03-29T03:33:49.327Z">
+<meta property="article:modified_time" content="2023-03-29T03:40:06.323Z">
 <meta property="article:author" content="Junyang Zhang">
 <meta property="article:tag" content="Tech">
 <meta name="twitter:card" content="summary">
@@ -260,7 +260,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-03-29 11:33:49" itemprop="dateModified" datetime="2023-03-29T11:33:49+08:00">2023-03-29</time>
+      <time title="Modified: 2023-03-29 11:40:06" itemprop="dateModified" datetime="2023-03-29T11:40:06+08:00">2023-03-29</time>
     </span>
 
   
@@ -395,6 +395,8 @@ PostgreSQL 上导入需要转成 Query，于是用了一个不知道靠不靠谱
 target="_blank" rel="noopener" href="https://www.convertcsv.com/csv-to-sql.htm">convertcsv.com</a>，转成了对
 <code>wl_comment</code> 表的 <code>INSERT</code> Query，然后捅进了
 PostgreSQL。现在评论都回来了！</p>
+<p>部署后端记得环境变量配置下
+<code>SECURE_DOMAINS</code>，省的被人乱用。</p>
 
     </div>
 
